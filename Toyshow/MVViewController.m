@@ -35,4 +35,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+//---------------6.0之后使用以下两个方法控制横屏、竖屏--------------------------
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskLandscapeRight | UIInterfaceOrientationMaskLandscapeLeft;
+}
+
 @end

@@ -7,6 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2713684018BF2C31006CF446 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2713683F18BF2C31006CF446 /* HomeViewController.m */; };
+		2713684518BF3505006CF446 /* SiderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2713684418BF3505006CF446 /* SiderCell.xib */; };
+		2713684718BF35FC006CF446 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 2713684618BF35FC006CF446 /* camera.png */; };
+		2713684A18BF3659006CF446 /* SiderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2713684918BF3659006CF446 /* SiderCell.m */; };
+		2713684D18BF4433006CF446 /* MyphotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2713684C18BF4433006CF446 /* MyphotoViewController.m */; };
+		274662B318C0307F004C8DD4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 274662B218C0307F004C8DD4 /* SystemConfiguration.framework */; };
+		274662B518C03087004C8DD4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 274662B418C03087004C8DD4 /* MessageUI.framework */; };
+		274662B718C03090004C8DD4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 274662B618C03090004C8DD4 /* QuartzCore.framework */; };
+		274662B918C030BB004C8DD4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 274662B818C030BB004C8DD4 /* CoreLocation.framework */; };
+		274662BB18C030CA004C8DD4 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 274662BA18C030CA004C8DD4 /* CoreTelephony.framework */; };
+		274662BD18C030DD004C8DD4 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 274662BC18C030DD004C8DD4 /* libsqlite3.dylib */; };
+		274662BF18C030EA004C8DD4 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 274662BE18C030EA004C8DD4 /* libstdc++.dylib */; };
+		274662C118C030F5004C8DD4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 274662C018C030F5004C8DD4 /* libz.dylib */; };
+		274662CC18C03EAE004C8DD4 /* Frontia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 274662CA18C03EAE004C8DD4 /* Frontia.framework */; };
+		274662CD18C03EAE004C8DD4 /* FrontiaSource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 274662CB18C03EAE004C8DD4 /* FrontiaSource.bundle */; };
+		274662D018C03F0A004C8DD4 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 274662CF18C03F0A004C8DD4 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		274662D218C06F19004C8DD4 /* cameraCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 274662D118C06F19004C8DD4 /* cameraCell.xib */; };
+		2751C12418C414F7006173B3 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2751C12318C414F7006173B3 /* iCarousel.m */; };
+		2751C12718C417A9006173B3 /* ShowImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2751C12618C417A9006173B3 /* ShowImageViewController.m */; };
+		2751C12B18C419C3006173B3 /* 310_268_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 2751C12818C419C3006173B3 /* 310_268_02.png */; };
+		2751C12C18C419C3006173B3 /* 310_268_03.png in Resources */ = {isa = PBXBuildFile; fileRef = 2751C12918C419C3006173B3 /* 310_268_03.png */; };
+		2751C12D18C419C3006173B3 /* 310_268_04.png in Resources */ = {isa = PBXBuildFile; fileRef = 2751C12A18C419C3006173B3 /* 310_268_04.png */; };
+		2751C13118C41FA7006173B3 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2751C13018C41FA7006173B3 /* VideoViewController.m */; };
+		2751C13718C42828006173B3 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2751C13618C42828006173B3 /* MediaPlayer.framework */; };
+		2751C13D18C457D4006173B3 /* wwmxd.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2751C13C18C457D4006173B3 /* wwmxd.mp4 */; };
+		2751C14318C45F8A006173B3 /* MVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2751C14218C45F8A006173B3 /* MVViewController.m */; };
 		27FFE28518BF287B00AE47FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FFE28418BF287B00AE47FF /* Foundation.framework */; };
 		27FFE28718BF287B00AE47FF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FFE28618BF287B00AE47FF /* CoreGraphics.framework */; };
 		27FFE28918BF287B00AE47FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FFE28818BF287B00AE47FF /* UIKit.framework */; };
@@ -32,6 +58,40 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2713683E18BF2C31006CF446 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		2713683F18BF2C31006CF446 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		2713684418BF3505006CF446 /* SiderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SiderCell.xib; sourceTree = "<group>"; };
+		2713684618BF35FC006CF446 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera.png; path = "../../../Library/Containers/com.tencent.qq/Data/Library/Application Support/QQ/Users/505128283/QQ/Temp.db/camera.png"; sourceTree = "<group>"; };
+		2713684818BF3659006CF446 /* SiderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiderCell.h; sourceTree = "<group>"; };
+		2713684918BF3659006CF446 /* SiderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiderCell.m; sourceTree = "<group>"; };
+		2713684B18BF4433006CF446 /* MyphotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyphotoViewController.h; sourceTree = "<group>"; };
+		2713684C18BF4433006CF446 /* MyphotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyphotoViewController.m; sourceTree = "<group>"; };
+		274662B218C0307F004C8DD4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		274662B418C03087004C8DD4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		274662B618C03090004C8DD4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		274662B818C030BB004C8DD4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		274662BA18C030CA004C8DD4 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		274662BC18C030DD004C8DD4 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		274662BE18C030EA004C8DD4 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		274662C018C030F5004C8DD4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		274662CA18C03EAE004C8DD4 /* Frontia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Frontia.framework; sourceTree = "<group>"; };
+		274662CB18C03EAE004C8DD4 /* FrontiaSource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FrontiaSource.bundle; sourceTree = "<group>"; };
+		274662CE18C03F0A004C8DD4 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		274662CF18C03F0A004C8DD4 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		274662D118C06F19004C8DD4 /* cameraCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cameraCell.xib; sourceTree = "<group>"; };
+		2751C12218C414F7006173B3 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		2751C12318C414F7006173B3 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
+		2751C12518C417A8006173B3 /* ShowImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowImageViewController.h; sourceTree = "<group>"; };
+		2751C12618C417A9006173B3 /* ShowImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowImageViewController.m; sourceTree = "<group>"; };
+		2751C12818C419C3006173B3 /* 310_268_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 310_268_02.png; sourceTree = "<group>"; };
+		2751C12918C419C3006173B3 /* 310_268_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 310_268_03.png; sourceTree = "<group>"; };
+		2751C12A18C419C3006173B3 /* 310_268_04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 310_268_04.png; sourceTree = "<group>"; };
+		2751C12F18C41FA7006173B3 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
+		2751C13018C41FA7006173B3 /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
+		2751C13618C42828006173B3 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		2751C13C18C457D4006173B3 /* wwmxd.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = wwmxd.mp4; sourceTree = "<group>"; };
+		2751C14118C45F8A006173B3 /* MVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVViewController.h; sourceTree = "<group>"; };
+		2751C14218C45F8A006173B3 /* MVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVViewController.m; sourceTree = "<group>"; };
 		27FFE28118BF287B00AE47FF /* Toyshow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Toyshow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27FFE28418BF287B00AE47FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		27FFE28618BF287B00AE47FF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -55,6 +115,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2751C13718C42828006173B3 /* MediaPlayer.framework in Frameworks */,
+				274662C118C030F5004C8DD4 /* libz.dylib in Frameworks */,
+				274662BF18C030EA004C8DD4 /* libstdc++.dylib in Frameworks */,
+				274662BD18C030DD004C8DD4 /* libsqlite3.dylib in Frameworks */,
+				274662BB18C030CA004C8DD4 /* CoreTelephony.framework in Frameworks */,
+				274662CC18C03EAE004C8DD4 /* Frontia.framework in Frameworks */,
+				274662B918C030BB004C8DD4 /* CoreLocation.framework in Frameworks */,
+				274662B718C03090004C8DD4 /* QuartzCore.framework in Frameworks */,
+				274662B518C03087004C8DD4 /* MessageUI.framework in Frameworks */,
+				274662B318C0307F004C8DD4 /* SystemConfiguration.framework in Frameworks */,
 				27FFE28718BF287B00AE47FF /* CoreGraphics.framework in Frameworks */,
 				27FFE28918BF287B00AE47FF /* UIKit.framework in Frameworks */,
 				27FFE28518BF287B00AE47FF /* Foundation.framework in Frameworks */,
@@ -74,9 +144,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		274662C218C03118004C8DD4 /* jsonlit */ = {
+			isa = PBXGroup;
+			children = (
+				274662CE18C03F0A004C8DD4 /* JSONKit.h */,
+				274662CF18C03F0A004C8DD4 /* JSONKit.m */,
+			);
+			name = jsonlit;
+			path = Toyshow;
+			sourceTree = "<group>";
+		};
+		2751C12118C414F7006173B3 /* iCarousel */ = {
+			isa = PBXGroup;
+			children = (
+				2751C12218C414F7006173B3 /* iCarousel.h */,
+				2751C12318C414F7006173B3 /* iCarousel.m */,
+			);
+			path = iCarousel;
+			sourceTree = "<group>";
+		};
+		2751C12E18C419D5006173B3 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				2751C12818C419C3006173B3 /* 310_268_02.png */,
+				2751C12918C419C3006173B3 /* 310_268_03.png */,
+				2751C12A18C419C3006173B3 /* 310_268_04.png */,
+			);
+			name = image;
+			sourceTree = "<group>";
+		};
 		27FFE27818BF287B00AE47FF = {
 			isa = PBXGroup;
 			children = (
+				2751C12118C414F7006173B3 /* iCarousel */,
+				274662C218C03118004C8DD4 /* jsonlit */,
 				27FFE28A18BF287B00AE47FF /* Toyshow */,
 				27FFE2A318BF287B00AE47FF /* ToyshowTests */,
 				27FFE28318BF287B00AE47FF /* Frameworks */,
@@ -96,6 +197,17 @@
 		27FFE28318BF287B00AE47FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2751C13618C42828006173B3 /* MediaPlayer.framework */,
+				274662CA18C03EAE004C8DD4 /* Frontia.framework */,
+				274662CB18C03EAE004C8DD4 /* FrontiaSource.bundle */,
+				274662C018C030F5004C8DD4 /* libz.dylib */,
+				274662BE18C030EA004C8DD4 /* libstdc++.dylib */,
+				274662BC18C030DD004C8DD4 /* libsqlite3.dylib */,
+				274662BA18C030CA004C8DD4 /* CoreTelephony.framework */,
+				274662B818C030BB004C8DD4 /* CoreLocation.framework */,
+				274662B618C03090004C8DD4 /* QuartzCore.framework */,
+				274662B418C03087004C8DD4 /* MessageUI.framework */,
+				274662B218C0307F004C8DD4 /* SystemConfiguration.framework */,
 				27FFE28418BF287B00AE47FF /* Foundation.framework */,
 				27FFE28618BF287B00AE47FF /* CoreGraphics.framework */,
 				27FFE28818BF287B00AE47FF /* UIKit.framework */,
@@ -109,6 +221,23 @@
 			children = (
 				27FFE29318BF287B00AE47FF /* HXHAppDelegate.h */,
 				27FFE29418BF287B00AE47FF /* HXHAppDelegate.m */,
+				2713683E18BF2C31006CF446 /* HomeViewController.h */,
+				2713683F18BF2C31006CF446 /* HomeViewController.m */,
+				2713684818BF3659006CF446 /* SiderCell.h */,
+				2713684918BF3659006CF446 /* SiderCell.m */,
+				2713684418BF3505006CF446 /* SiderCell.xib */,
+				274662D118C06F19004C8DD4 /* cameraCell.xib */,
+				2713684618BF35FC006CF446 /* camera.png */,
+				2713684B18BF4433006CF446 /* MyphotoViewController.h */,
+				2713684C18BF4433006CF446 /* MyphotoViewController.m */,
+				2751C12518C417A8006173B3 /* ShowImageViewController.h */,
+				2751C12618C417A9006173B3 /* ShowImageViewController.m */,
+				2751C12F18C41FA7006173B3 /* VideoViewController.h */,
+				2751C13018C41FA7006173B3 /* VideoViewController.m */,
+				2751C14118C45F8A006173B3 /* MVViewController.h */,
+				2751C14218C45F8A006173B3 /* MVViewController.m */,
+				2751C13C18C457D4006173B3 /* wwmxd.mp4 */,
+				2751C12E18C419D5006173B3 /* image */,
 				27FFE29618BF287B00AE47FF /* Images.xcassets */,
 				27FFE28B18BF287B00AE47FF /* Supporting Files */,
 			);
@@ -220,8 +349,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2751C12D18C419C3006173B3 /* 310_268_04.png in Resources */,
+				274662D218C06F19004C8DD4 /* cameraCell.xib in Resources */,
 				27FFE28F18BF287B00AE47FF /* InfoPlist.strings in Resources */,
+				2751C13D18C457D4006173B3 /* wwmxd.mp4 in Resources */,
+				274662CD18C03EAE004C8DD4 /* FrontiaSource.bundle in Resources */,
 				27FFE29718BF287B00AE47FF /* Images.xcassets in Resources */,
+				2751C12B18C419C3006173B3 /* 310_268_02.png in Resources */,
+				2713684718BF35FC006CF446 /* camera.png in Resources */,
+				2751C12C18C419C3006173B3 /* 310_268_03.png in Resources */,
+				2713684518BF3505006CF446 /* SiderCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,7 +378,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				27FFE29118BF287B00AE47FF /* main.m in Sources */,
+				2713684D18BF4433006CF446 /* MyphotoViewController.m in Sources */,
+				2751C13118C41FA7006173B3 /* VideoViewController.m in Sources */,
+				2713684A18BF3659006CF446 /* SiderCell.m in Sources */,
 				27FFE29518BF287B00AE47FF /* HXHAppDelegate.m in Sources */,
+				2751C14318C45F8A006173B3 /* MVViewController.m in Sources */,
+				274662D018C03F0A004C8DD4 /* JSONKit.m in Sources */,
+				2751C12418C414F7006173B3 /* iCarousel.m in Sources */,
+				2713684018BF2C31006CF446 /* HomeViewController.m in Sources */,
+				2751C12718C417A9006173B3 /* ShowImageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,10 +507,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/zhxf/project/Toyshow,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Toyshow/Toyshow-Prefix.pch";
 				INFOPLIST_FILE = "Toyshow/Toyshow-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -375,10 +527,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/zhxf/project/Toyshow,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Toyshow/Toyshow-Prefix.pch";
 				INFOPLIST_FILE = "Toyshow/Toyshow-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -444,6 +603,7 @@
 				27FFE2AF18BF287B00AE47FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		27FFE2B018BF287B00AE47FF /* Build configuration list for PBXNativeTarget "ToyshowTests" */ = {
 			isa = XCConfigurationList;
@@ -452,6 +612,7 @@
 				27FFE2B218BF287B00AE47FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

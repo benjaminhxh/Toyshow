@@ -10,4 +10,13 @@
 
 @interface HomeViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIImageView *imageIcon;
+@property (weak, nonatomic) IBOutlet UILabel *titleText;
+@property (weak, nonatomic) NSString *titleT;
+
+@property (weak, nonatomic) IBOutlet UILabel *cameraTitle;
+@property (weak, nonatomic) IBOutlet UILabel *cameraId;
+@property (weak, nonatomic) IBOutlet UILabel *cameraDirecation;
+- (IBAction)moreClick:(id)sender;
+
 @end
