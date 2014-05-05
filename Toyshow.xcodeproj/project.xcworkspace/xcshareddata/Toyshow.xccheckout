@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>6B347194-B8C5-434C-A1CD-A284AA25C85F</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Toyshow</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>6EC335D5-303D-440E-9A2E-5FAD32EDB47E</key>
+		<string>https://github.com/benjaminhxh/Toyshow.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Toyshow.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>6EC335D5-303D-440E-9A2E-5FAD32EDB47E</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/benjaminhxh/Toyshow.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>6EC335D5-303D-440E-9A2E-5FAD32EDB47E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6EC335D5-303D-440E-9A2E-5FAD32EDB47E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Toyshow</string>
+		</dict>
+	</array>
+</dict>
+</plist>

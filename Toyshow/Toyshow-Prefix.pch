@@ -5,6 +5,21 @@
 //
 
 #import <Availability.h>
+#define leftWidth 220
+#define msAK                    @"ZIAgdlC7Vw7syTjeKG9zS4QP"
+#define msSK                    @"pavlqfU4mzYQ1dH0NG3b7LyXNBy5SYk6"
+#define backGroundImage         @"beijing@2x"
+#define navigationBarImageiOS7  @"bantou_dida@2x"
+#define navigationBarImage      @"bantou_di@2x"
+#define backBtnImage            @"cehuajiantou18x34@2x"
+
+#define iOS7 [[UIDevice currentDevice].systemVersion integerValue]>=7
+#define iphone5     [UIScreen mainScreen].bounds.size.height > 480
+#define KdurationFail 3.0
+#define KdurationSuccess 0.0
+
+#define kHeight [UIScreen mainScreen].bounds.size.height
+#define kWidth [UIScreen mainScreen].bounds.size.width
 
 #ifndef __IPHONE_3_0
 #warning "This project uses features only available in iOS SDK 3.0 and later."

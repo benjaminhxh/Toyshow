@@ -1,0 +1,277 @@
+//
+//  ThumbnailViewController.m
+//  Toyshow
+//
+//  Created by zhxf on 14-3-28.
+//  Copyright (c) 2014年 zhxf. All rights reserved.
+//
+
+//点播缩略图
+#import "ThumbnailViewController.h"
+#import "ShareCamereViewController.h"
+#import "MJRefreshFooterView.h"
+#import "MJRefreshHeaderView.h"
+#import "SliderViewController.h"
+#import "AFNetworking.h"
+
+@interface ThumbnailViewController ()<UITableViewDataSource,UITableViewDelegate>
+{
+    UITableView *_tableView;
+    NSMutableArray *_fakeData;
+    NSArray *downloadArr;
+    MJRefreshFooterView *_footerView;
+    MJRefreshHeaderView *_headerView;
+    UILabel *noDataLoadL,*noInternetL;
+
+}
+@end
+
+@implementation ThumbnailViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	// Do any additional setup after loading the view.
+    UIImageView *background = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    background.image = [UIImage imageNamed:backGroundImage];
+//    [self.view addSubview:background];
+    background.userInteractionEnabled = YES;
+    UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44+[UIApplication sharedApplication].statusBarFrame.size.height)];
+    topView.image = [UIImage imageNamed:navigationBarImageiOS7];
+    topView.userInteractionEnabled = YES;
+    [self.view addSubview:topView];
+    
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    backBtn.frame = CGRectMake(5, [UIApplication sharedApplication].statusBarFrame.size.height+5, 100, 22);
+    [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
+    [backBtn setTitle:@"点播列表" forState:UIControlStateNormal];
+    [backBtn addTarget:self action:@selector(backBtn) forControlEvents:UIControlEventTouchUpInside];
+    [topView addSubview:backBtn];
+
+//    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(100, 25, 120, 24)];
+//    title.textColor = [UIColor whiteColor];
+//    title.text = @"点播列表";
+//    title.textAlignment = NSTextAlignmentCenter;
+//    [self.view addSubview:title];
+    
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, 320, [UIScreen mainScreen].bounds.size.height-65) style:UITableViewStylePlain];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:_tableView];
+    
+    //右滑回到上一个页面
+    UISwipeGestureRecognizer *recognizer;
+    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(backBtn)];
+    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    [_tableView addGestureRecognizer:recognizer];
+
+    noInternetL = [[UILabel alloc] initWithFrame:CGRectMake(0, 65, 320, 44)];
+    noInternetL.text = @"当前网络不可用，请检查你的网络设置";
+    noInternetL.backgroundColor = [UIColor grayColor];
+    noInternetL.font = [UIFont systemFontOfSize:14];
+    noInternetL.textAlignment = NSTextAlignmentCenter;
+    noInternetL.hidden = YES;
+    [self.view addSubview:noInternetL];
+    
+    noDataLoadL = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-44, 320, 44)];
+    noDataLoadL.text = @"无更多数据加载";
+    noDataLoadL.backgroundColor = [UIColor grayColor];
+    noDataLoadL.font = [UIFont systemFontOfSize:14];
+    noDataLoadL.textAlignment = NSTextAlignmentCenter;
+    noDataLoadL.hidden = YES;
+    [self.view addSubview:noDataLoadL];
+    //2、初始化数据
+    _fakeData = [NSMutableArray array];
+    [self addheader];
+    [self addFooter];
+}
+
+- (void)backBtn
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)addheader{
+    __unsafe_unretained ThumbnailViewController *vc = self;
+    
+    MJRefreshHeaderView *header = [MJRefreshHeaderView header];
+    header.scrollView = _tableView;
+    header.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView) {
+        // 进入刷新状态就会回调这个Block
+        //向服务器发起请求
+        [[AFHTTPSessionManager manager] GET:@"http://www.douban.com/j/app/radio/channels" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            //2、初始化数据
+            _fakeData = [NSMutableArray array];
+            downloadArr = [NSArray array];
+            downloadArr = [dict objectForKey:@"channels"];
+            NSLog(@"downloadArr:%@",downloadArr);
+            if (downloadArr.count>20) {
+                for (int i = 0; i < 20; i++) {
+                    [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
+                }
+            }else
+            {
+                vc->_fakeData = (NSMutableArray *)downloadArr;
+            }
+            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            
+        }];
+        // 模拟延迟加载数据，因此2秒后才调用）
+        // 这里的refreshView其实就是header
+        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationFail];
+        
+        NSLog(@"%@----开始进入刷新状态", refreshView.class);
+    };
+    header.endStateChangeBlock = ^(MJRefreshBaseView *refreshView) {
+        // 刷新完毕就会回调这个Block
+        NSLog(@"%@----刷新完毕", refreshView.class);
+    };
+    header.refreshStateChangeBlock = ^(MJRefreshBaseView *refreshView, MJRefreshState state) {
+        // 控件的刷新状态切换了就会调用这个block
+        switch (state) {
+            case MJRefreshStateNormal:
+                NSLog(@"%@----切换到：普通状态", refreshView.class);
+                break;
+                
+            case MJRefreshStatePulling:
+                NSLog(@"%@----切换到：松开即可刷新的状态", refreshView.class);
+                break;
+                
+            case MJRefreshStateRefreshing:
+                NSLog(@"%@----切换到：正在刷新状态", refreshView.class);
+                break;
+            default:
+                break;
+        }
+    };
+    [header beginRefreshing];
+    _headerView = header;
+}
+
+- (void)addFooter
+{
+    __unsafe_unretained ThumbnailViewController *vc = self;
+    MJRefreshFooterView *footer = [MJRefreshFooterView footer];
+    footer.scrollView = _tableView;
+    footer.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView) {
+        if(_fakeData.count < downloadArr.count)
+        {
+            if (_fakeData.count+20 > downloadArr.count) {
+                _fakeData = (NSMutableArray *)downloadArr;
+            }else{
+                for (int i = 0; i < 20; i++) {
+                    [_fakeData addObject:[downloadArr objectAtIndex:_fakeData.count]];
+                }
+            }
+            // 模拟延迟加载数据，因此2秒后才调用）
+            // 这里的refreshView其实就是footer
+            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+            NSLog(@"%@----开始进入刷新状态", refreshView.class);
+        }
+        else
+        {
+            noDataLoadL.hidden = NO;
+            [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(didDismissNoDataload) userInfo:nil repeats:NO];
+            [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
+        }
+    };
+    _footerView = footer;
+}
+
+- (void)didDismissNoDataload
+{
+    noDataLoadL.hidden = YES;
+}
+
+- (void)doneWithView:(MJRefreshBaseView*)sender
+{
+    //刷新表格
+    [_tableView reloadData];
+    [sender endRefreshing];
+}
+
+- (void)doneWithViewWithNoInterNet:(MJRefreshBaseView*)sender
+{
+    //刷新表格
+    [sender endRefreshing];
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    if (_fakeData.count) {
+        return _fakeData.count;
+    }
+    return 0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 95;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    // Configure the cell...
+    {
+        if (nil == cell) {
+            //            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"thumbCell" owner:self options:nil] lastObject];
+            self.thumbTitle.text = [[_fakeData objectAtIndex:indexPath.row] objectForKey:@"name"];
+//            self.cameraName.text = ;
+            self.thumbDeadlines.text = @"12:00-12:05";
+            self.thumbPic.image = [UIImage imageNamed:@"shipinkuang@2x"];
+            //            [self.thumbPic.image setImageWithURL:[(NSURL *)url];    //AFNetWorking
+        }
+    }
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ShareCamereViewController *vodVC = [[ShareCamereViewController alloc] init];
+    vodVC.islLve = NO;
+    vodVC.url = @"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4";
+    vodVC.playerTitle = @"清华大学(录像)";
+    [[SliderViewController sharedSliderController].navigationController pushViewController:vodVC animated:YES];
+}
+
+//强制不允许转屏
+- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    return (toInterfaceOrientation == UIInterfaceOrientationMaskPortrait);
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+@end

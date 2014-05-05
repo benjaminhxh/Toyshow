@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SliderViewController.h"
+#import "LeftViewController.h"
+#import "RightViewController.h"
 
 @interface HXHAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
++(HXHAppDelegate*)instance;
 @end

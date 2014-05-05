@@ -7,25 +7,44 @@
 //
 
 #import "HXHAppDelegate.h"
-#import "HomeViewController.h"
+//#import "HomeViewController.h"
 #import <Frontia/Frontia.h>
+//#import "ShowImageViewController.h"
 
 #define APP_KEY @"ZIAgdlC7Vw7syTjeKG9zS4QP"
 #define REPORT_ID @"2271149"
 
 @implementation HXHAppDelegate
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    [SliderViewController sharedSliderController].LeftVC=[[LeftViewController alloc] init];
+    [SliderViewController sharedSliderController].RightVC=[[RightViewController alloc] init];
+    [SliderViewController sharedSliderController].RightSContentOffset=260;
+    [SliderViewController sharedSliderController].RightSContentScale=0.6;
+    [SliderViewController sharedSliderController].RightSOpenDuration=0.8;
+    [SliderViewController sharedSliderController].RightSCloseDuration=0.8;
+    [SliderViewController sharedSliderController].RightSJudgeOffset=160;
+//    [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"firstLanuch"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isFirst"];
+    
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[SliderViewController sharedSliderController]];
     self.window.backgroundColor = [UIColor whiteColor];
-    HomeViewController *homeVC = [[HomeViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:homeVC];
-    self.window.rootViewController = nav;
+//    UINavigationController *nav;
+//    if (flag) {
+//        ShowImageViewController *showImage = [[ShowImageViewController alloc] init];
+//        nav = [[UINavigationController alloc] initWithRootViewController:showImage];
+//    }else
+//    {
+//        HomeViewController *homeVC = [[HomeViewController alloc] init];
+//        nav = [[UINavigationController alloc] initWithRootViewController:homeVC];
+//    }
+//    flag = YES;
+//    self.window.rootViewController = nav;
     
     [self.window makeKeyAndVisible];
-    //初始化Frontia
+//    //初始化Frontia
     [Frontia initWithApiKey:APP_KEY];
     
     [Frontia getPush];
@@ -35,7 +54,6 @@
      UIRemoteNotificationTypeAlert
      | UIRemoteNotificationTypeBadge
      | UIRemoteNotificationTypeSound];
-    
     
 //    FrontiaStatistics* statTracker = [Frontia getStatistics];//集成百度云集成服务
 //    statTracker.enableExceptionLog = YES; // 是否允许截获并发送崩溃信息，请设置YES或者NO
@@ -78,4 +96,8 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
++(HXHAppDelegate*)instance
+{
+	return (HXHAppDelegate *)[[UIApplication sharedApplication] delegate];
+}
 @end
