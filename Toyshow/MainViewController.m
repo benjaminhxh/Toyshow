@@ -336,10 +336,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ShareCamereViewController *shareVC = [[ShareCamereViewController alloc] init];
-//    shareVC.islLve = YES;
-//    shareVC.isShare = YES;
-    shareVC.playerTitle = @"北京大学(分享)";
-    shareVC.url = @"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4";
+    shareVC.islLve = YES;
+    shareVC.isShare = YES;
+    shareVC.playerTitle = @"浙江卫视(分享)";
+    shareVC.url = @"http://zb.v.qq.com:1863/?progid=1975434150";
     [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
 }
 

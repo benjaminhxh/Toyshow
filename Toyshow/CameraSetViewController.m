@@ -10,9 +10,10 @@
 #import "SliderViewController.h"
 #import "ModifyViewController.h"
 
-@interface CameraSetViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface CameraSetViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 {
     NSArray *_listArr,*_cellImageArr,*_cellHightLightArr;
+    BOOL nightFlag;
 }
 @end
 
@@ -58,9 +59,9 @@
     [seeVideoBtn addTarget:self action:@selector(didSeeVideoClick) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:seeVideoBtn];
     
-    _listArr = [NSArray arrayWithObjects:@"看录像",@"夜间模式",@"定时开关机",@"清晰度设置",@"音频设置",@"修改名称", nil];
-    _cellImageArr = [NSArray arrayWithObjects:@"qingxidu_h@2x",@"yejian_h@2x",@"dingshi_h@2x",@"qingxidu_h@2x",@"yinpin_h@2x",@"xiugai_h@2x", nil];
-    _cellHightLightArr = [NSArray arrayWithObjects:@"qingxidu_b@2x",@"yejian_b@2x",@"dingshi_b",@"qingxidu_b@2x",@"yinpin_b@2x",@"xiugai_b@2x", nil];
+    _listArr = [NSArray arrayWithObjects:@"看录像",@"夜间模式",@"定时开关机",@"清晰度设置",@"音频设置",@"修改名称",@"注销设备", nil];
+    _cellImageArr = [NSArray arrayWithObjects:@"qingxidu_h@2x",@"yejian_h@2x",@"dingshi_h@2x",@"qingxidu_h@2x",@"yinpin_h@2x",@"xiugai_h@2x",@"tuichudenglu@2x", nil];
+    _cellHightLightArr = [NSArray arrayWithObjects:@"qingxidu_b@2x",@"yejian_b@2x",@"dingshi_b",@"qingxidu_b@2x",@"yinpin_b@2x",@"xiugai_b@2x",@"tuichudenglu@2x", nil];
 
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, 320, [UIScreen mainScreen].bounds.size.height-64) style:UITableViewStylePlain];
     tableView.delegate = self;
@@ -123,7 +124,9 @@
     }
     if (1 == indexPath.row) {
         UISwitch *switchNo = [[UISwitch alloc] initWithFrame:CGRectMake(260,16,51,31)];
-        switchNo.on = YES;
+        switchNo.on = NO;
+//        [switchNo setOn:YES animated:YES];
+        [switchNo addTarget:self action:@selector(nightOrDay) forControlEvents:UIControlEventTouchUpInside];
         [cell addSubview:switchNo];
     }
 //    [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -158,7 +161,14 @@
             [[SliderViewController sharedSliderController].navigationController pushViewController:modifyVC animated:YES];
         }
             break;
-   
+        case 6:
+            //注销设备
+        {
+            UIAlertView *logOutView = [[UIAlertView alloc] initWithTitle:@"注销设备？" message:@"确定要注销设备吗？注销之后该设备的录像等信息将全部被清除" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+            logOutView.delegate = self;
+            [logOutView show];
+        }
+            break;
         default:
             break;
     }
@@ -180,6 +190,27 @@
 //- (NSUInteger)supportedInterfaceOrientations {
 //    return UIInterfaceOrientationMaskPortrait;
 //}
+
+- (void)nightOrDay
+{
+    if (nightFlag) {
+        NSLog(@"00000000000000");
+    }else{
+        NSLog(@"11111111111111");
+    }
+    nightFlag = !nightFlag;
+}
+
+#pragma mark - alertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex) {
+        NSLog(@"注销设备了");
+        NSString *urlStr = @"https://pcs.baidu.com/rest/2.0/pcs/device?method=drop&deviceid=123456&access_token= b778fb598c717c0ad7ea8c97c8f3a46f";
+        NSURL *url = [NSURL URLWithString:urlStr];
+        [[SliderViewController sharedSliderController] leftItemClick];
+    }
+}
 
 - (void)didReceiveMemoryWarning
 {

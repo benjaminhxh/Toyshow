@@ -351,8 +351,8 @@
     ShareCamereViewController *liveVC = [[ShareCamereViewController alloc] init];
     liveVC.islLve = YES;
     liveVC.isShare = NO;
-    liveVC.url = @"rtmp://livertmppc.wasu.cn/live/dfws";
-    liveVC.playerTitle = @"北京航天航空（直播……）";
+    liveVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
+    liveVC.playerTitle = @"东方卫视（直播……）";
     [[SliderViewController sharedSliderController].navigationController pushViewController:liveVC animated:YES];
 }
 #pragma mark - cellAccessory

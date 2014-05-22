@@ -59,9 +59,9 @@
 //    NSURL *url = [NSURL fileURLWithPath:path];
 //    NSURL *url = [NSURL URLWithString:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=vod&access_token= b778fb598c717c0ad7ea8c97c8f3a46f&deviceid=12345&st=1234454&et=1234512"];
     
-    MPMoviePlayerViewController *playC = [[MVViewController alloc] initWithContentURL:url];
-    playC.view.frame = CGRectMake(0, 20, 320, 460);
-    [self presentMoviePlayerViewControllerAnimated:playC];
+//    MPMoviePlayerViewController *playC = [[MVViewController alloc] initWithContentURL:url];
+//    playC.view.frame = CGRectMake(0, 20, 320, 460);
+//    [self presentMoviePlayerViewControllerAnimated:playC];
     
     //右滑回到上一个页面
     UISwipeGestureRecognizer *recognizer;

@@ -251,7 +251,7 @@
     [self.view addSubview:tapView];
     UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenOrNo:)];
     [tapView addGestureRecognizer:tapGest];
-//    [self isLoadingView];
+    [self isLoadingView];
 }
 
 //弹出或隐藏设置按钮
@@ -532,7 +532,7 @@
 
 - (void)isLoadingAnimation
 {
-    sleep(3);
+//    sleep(3);
 }
 
 //定时器实时更新时间

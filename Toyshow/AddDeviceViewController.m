@@ -166,8 +166,9 @@
     NSString *descc = [NSString stringWithUTF8String:[desc UTF8String]];
 
     NSString *URLstr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=%@&access_token=%@&device_type=1&desc=%@&Need_stream_id_when_exists=1",self.deviceID,self.access_token,descc];
-    
+    NSLog(@"urlSTR:%@",URLstr);
     NSString *URLWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)URLstr, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+    NSLog(@"URLwithUTF8:%@",URLWithUTF8);
     [[AFHTTPSessionManager manager] GET:URLWithUTF8 parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         //--------------------向Baidu注册成功，隐藏loginAlterView-------------------------
         [loginAlterView dismissWithClickedButtonIndex:0 animated:YES];
@@ -185,40 +186,49 @@
         }
         [self connectToWifi];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"==========访问服务器失败===============");
+        NSLog(@"==========注册失败===============");
         //--------------------向Baidu注册成功，隐藏loginAlterView-------------------------
         [loginAlterView dismissWithClickedButtonIndex:0 animated:YES];
-        NSLog(@"task:%@",task);
+//        NSLog(@"task:%@",task);
        NSDictionary *errorDict = [error userInfo];
         NSLog(@"dict:%@",errorDict);
-        NSString *error_code = [errorDict objectForKey:@"error_code"];
-        
+//        NSString *error_code = [errorDict objectForKey:@"error_code"];
+//        NSLog(@"error_code:%@",error_code);//null
         NSString *NSLocalizedDescription = [errorDict objectForKey:@"NSLocalizedDescription"];
-        NSLog(@"NSLocalizedDescription:%@",NSLocalizedDescription);
-        NSString *NSUnderlyingError = [errorDict objectForKey:@"NSUnderlyingError"];
-        NSLog(@"NSUnderlyingError:%@",NSUnderlyingError);
+        NSLog(@"NSLocalizedDescription:%@",NSLocalizedDescription);//Request failed: forbidden (403)
 
-        NSString *NSErrorFailingURLStringKey = [errorDict objectForKey:@"NSErrorFailingURLStringKey"];
-        NSLog(@"NSErrorFailingURLStringKey:%@",NSErrorFailingURLStringKey);
+//        NSLog(@"xuhao:========%lu",(unsigned long)[NSLocalizedDescription rangeOfString:@"403"].location);
+
+//        NSString *NSUnderlyingError = [errorDict objectForKey:@"NSUnderlyingError"];
+//        NSLog(@"NSUnderlyingError:%@",NSUnderlyingError);//null
+
+//        NSString *NSErrorFailingURLStringKey = [errorDict objectForKey:@"NSErrorFailingURLStringKey"];
+//        NSLog(@"NSErrorFailingURLStringKey:%@",NSErrorFailingURLStringKey);
 
 //        NSDictionary *NSErrorFailingURLStringKey = [errorDict objectForKey:@"NSErrorFailingURLStringKey"];
 
-        if (error_code) {
-            NSLog(@"注册失败了:%@error_code",error_code);
-            NSString *error_msg = [errorDict objectForKey:@"error_msg"];
-            NSLog(@"error_msg:%@",error_msg);
-            UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"错误信息" message:[NSString stringWithFormat:@"注册失败：%@",error_msg] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        if ([NSLocalizedDescription rangeOfString:@"403"].location) {
+            UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"错误信息" message:@"设备已经注册过了" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [errorView show];
+            return ;
+        }else if ([NSLocalizedDescription rangeOfString:@"503"].location)
+        {
+            UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"错误信息" message:@"添加设备出错或网络问题" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [errorView show];
+            return ;
+        }else if ([NSLocalizedDescription rangeOfString:@"400"].location)
+        {
+            UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"错误信息" message:@"访问的参数错误" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [errorView show];
             return ;
         }
-
-        NSString *errorStr = [NSString stringWithFormat:@"%@",error];
-        UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"连接失败"
-                                                           message:errorStr
-                                                          delegate:nil
-                                                 cancelButtonTitle:@"OK"
-                                                 otherButtonTitles:nil, nil];
-        [failView show];
+//        NSString *errorStr = [NSString stringWithFormat:@"%@",error];
+//        UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"连接失败"
+//                                                           message:errorStr
+//                                                          delegate:nil
+//                                                 cancelButtonTitle:@"OK"
+//                                                 otherButtonTitles:nil, nil];
+//        [failView show];
         return ;
 
     }];
@@ -426,26 +436,23 @@
 - (void)onUdpSocket:(AsyncUdpSocket *)sock didNotSendDataWithTag:(long)tag dueToError:(NSError *)error
 {
 	//无法发送时,返回的异常提示信息
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法发送"
 													message:[error description]
 												   delegate:self
 										  cancelButtonTitle:@"取消"
 										  otherButtonTitles:nil];
 	[alert show];
-    //	[alert release];
-	
 }
 
 - (void)onUdpSocket:(AsyncUdpSocket *)sock didNotReceiveDataWithTag:(long)tag dueToError:(NSError *)error
 {
 	//无法接收时，返回异常提示信息
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法接收"
 													message:[error description]
 												   delegate:self
 										  cancelButtonTitle:@"取消"
 										  otherButtonTitles:nil];
 	[alert show];
-    //	[alert release];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -474,6 +481,7 @@
     }
     return YES;
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

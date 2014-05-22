@@ -11,5 +11,6 @@
 @interface CameraSetViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIImageView *cellImage;
 @property (weak, nonatomic) IBOutlet UILabel *cellLabelT;
-
+@property (copy, nonatomic) NSString *deviceid;
+@property (copy, nonatomic)NSString *access_token;
 @end

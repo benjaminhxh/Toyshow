@@ -255,7 +255,7 @@
     ShareCamereViewController *vodVC = [[ShareCamereViewController alloc] init];
     vodVC.islLve = NO;
     vodVC.url = @"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4";
-    vodVC.playerTitle = @"清华大学(录像)";
+    vodVC.playerTitle = @"汶川地震(录像)";
     [[SliderViewController sharedSliderController].navigationController pushViewController:vodVC animated:YES];
 }
 

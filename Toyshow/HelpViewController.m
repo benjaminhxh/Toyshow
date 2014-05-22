@@ -11,8 +11,9 @@
 #import "TransformViewController.h"
 #import "NetworkRequest.h"
 #import "AFNetworking.h"
+#import "HowToUseViewController.h"
 
-@interface HelpViewController ()
+@interface HelpViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @end
 
@@ -56,22 +57,17 @@
 ////    title.textAlignment = NSTextAlignmentCenter;
 //    [self.view addSubview:title];
     
-    UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    nextBtn.frame = CGRectMake(260, 25, 50, 24);
-    [nextBtn addTarget:self action:@selector(nextBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [topView addSubview:nextBtn];
+//    UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeContactAdd];
+//    nextBtn.frame = CGRectMake(260, 25, 50, 24);
+//    [nextBtn addTarget:self action:@selector(nextBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//    [topView addSubview:nextBtn];
     
-    UIView *vieww = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
-    vieww.backgroundColor = [UIColor colorWithRed:48/255 green:191/255 blue:196/255 alpha:1];
-//    [self.view addSubview:vieww];
-    [self networkReloadData];
+    UITableView *tabView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64) style:UITableViewStylePlain];
+    tabView.delegate = self;
+    tabView.dataSource = self;
+    [self.view addSubview:tabView];
 }
 
-- (void)networkReloadData
-{
-    NSDictionary *dict = [[NetworkRequest shareInstance] requestWithURL:@"http://www.douban.com/j/app/radio/channels" setHTTPMethod:@"POST"];
-    NSLog(@"dict:%@",dict);
-}
 - (void)backBtn{
 //    [self dismissViewControllerAnimated:YES completion:^{
 //    }];
@@ -79,41 +75,35 @@
 
 }
 
-- (void)nextBtnClick
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    TransformViewController *transformVC = [[TransformViewController alloc] init];
-//    [[SliderViewController sharedSliderController].navigationController pushViewController:transformVC animated:YES];
-    
-//    NSURL *url=[NSURL URLWithString:@"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4"];
-    NSURL *url = [NSURL URLWithString:@"http://www.douban.com/j/app/radio/channels"];
-    NSURLRequest *requesr=[NSURLRequest requestWithURL:url];
-    
-    AFHTTPRequestOperation *_operation=[[AFHTTPRequestOperation alloc] initWithRequest:requesr];
-    
-    [_operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSDictionary *userInfo=[NSDictionary dictionaryWithObject:operation.responseData forKey:@"data"];
-//        NSDictionary *dict = (NSDictionary*)responseObject;
-//        NSData *data = (NSData *)responseObject;
-//        NSLog(@"responseObject:%@",dict);
-//        NSLog(@"operation,data:%@",operation.responseData);
-//        NSLog(@"data:%@",data);
-//        NSDictionary *dictor = [NSData dataWithData:data];
-//        NSLog(@"dictor:%@",dictor);
-        NSString *str = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
-        NSLog(@"str:%@",str);
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"song  error%@",error);
-    }];
-    
-    //设置下载进度
-    [_operation setDownloadProgressBlock:^(NSUInteger bytesRead, NSInteger totalBytesRead, NSInteger totalBytesExpectedToRead) {
-        NSNumber *progress=[NSNumber numberWithFloat:totalBytesRead *1.0/totalBytesExpectedToRead];
-        NSLog(@"progress:%@",progress);
-    }];
-    [_operation start];
-
+    return 3;
 }
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellI = @"cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellI];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellI];
+        cell.imageView.image = [UIImage imageNamed:@"dingshi_h@2x"];
+        cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
+        cell.textLabel.text = @"如何使用乐现";
+    }
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    HowToUseViewController *howUseVC = [[HowToUseViewController alloc] init];
+    [self presentViewController:howUseVC animated:YES completion:nil];
+}
+
 //强制不允许转屏
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
     return (toInterfaceOrientation == UIInterfaceOrientationMaskPortrait);

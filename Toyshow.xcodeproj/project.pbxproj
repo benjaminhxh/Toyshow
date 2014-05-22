@@ -186,6 +186,7 @@
 		27C5F8331905037A0078BBBE /* cameraSet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27C5F8321905037A0078BBBE /* cameraSet.xib */; };
 		27C5F8391905342B0078BBBE /* fanhui_jiantou@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27C5F8381905342B0078BBBE /* fanhui_jiantou@2x.png */; };
 		27C5F83F19053E4E0078BBBE /* bofang_anniu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27C5F83E19053E4E0078BBBE /* bofang_anniu@2x.png */; };
+		27F0A43E192C984400D02A79 /* HowToUseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F0A43D192C984400D02A79 /* HowToUseViewController.m */; };
 		27F4D8B318D83AE300538393 /* Frontia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F4D8B118D83AE300538393 /* Frontia.framework */; };
 		27F4D8B418D83AE300538393 /* FrontiaSource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 27F4D8B218D83AE300538393 /* FrontiaSource.bundle */; };
 		27F4D8C918D83B3900538393 /* TencentOpenAPI in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F4D8BE18D83B3900538393 /* TencentOpenAPI */; };
@@ -476,6 +477,8 @@
 		27C5F8321905037A0078BBBE /* cameraSet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cameraSet.xib; sourceTree = "<group>"; };
 		27C5F8381905342B0078BBBE /* fanhui_jiantou@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fanhui_jiantou@2x.png"; sourceTree = "<group>"; };
 		27C5F83E19053E4E0078BBBE /* bofang_anniu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bofang_anniu@2x.png"; sourceTree = "<group>"; };
+		27F0A43C192C984400D02A79 /* HowToUseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HowToUseViewController.h; sourceTree = "<group>"; };
+		27F0A43D192C984400D02A79 /* HowToUseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HowToUseViewController.m; sourceTree = "<group>"; };
 		27F4D8B118D83AE300538393 /* Frontia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Frontia.framework; sourceTree = "<group>"; };
 		27F4D8B218D83AE300538393 /* FrontiaSource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FrontiaSource.bundle; sourceTree = "<group>"; };
 		27F4D8B618D83B3900538393 /* QQApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQApi.h; sourceTree = "<group>"; };
@@ -1074,6 +1077,8 @@
 				2751C14218C45F8A006173B3 /* MVViewController.m */,
 				2758509318D69A1800CCB075 /* HelpViewController.h */,
 				2758509418D69A1800CCB075 /* HelpViewController.m */,
+				27F0A43C192C984400D02A79 /* HowToUseViewController.h */,
+				27F0A43D192C984400D02A79 /* HowToUseViewController.m */,
 				272C415A18ED66DB00432D5D /* TransformViewController.h */,
 				272C415B18ED66DB00432D5D /* TransformViewController.m */,
 				275C716918CEC91E00288C83 /* AboutViewController.h */,
@@ -1316,6 +1321,7 @@
 			files = (
 				271BB90318CDDED9000DFC4A /* qrencode.c in Sources */,
 				272C415918ED07AD00432D5D /* AsyncUdpSocket.m in Sources */,
+				27F0A43E192C984400D02A79 /* HowToUseViewController.m in Sources */,
 				271BB90218CDDED9000DFC4A /* QRCodeGenerator.m in Sources */,
 				2758508B18D6992100CCB075 /* EGORefreshTableHeaderView.m in Sources */,
 				2777607418FB74BD000A5F83 /* AFURLConnectionOperation.m in Sources */,

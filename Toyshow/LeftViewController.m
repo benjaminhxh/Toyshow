@@ -140,7 +140,9 @@
         }
             break;
         case 1://添加设备、扫描二维码
-            [self scanBtnAction];
+            if ([self accessTokenIsExist]) {
+                [self scanBtnAction];
+            }
             break;
         case 2://分享的设备
             [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MainViewController"];
@@ -289,7 +291,7 @@
             
         {
             result = [NSString stringWithCString:[symbol.data cStringUsingEncoding: NSShiftJISStringEncoding] encoding:NSUTF8StringEncoding];
-//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------//
             //扫描成功获得设备二维码--->跳转到WiFi设置页面
             AddDeviceViewController *addDeviceVC = [[AddDeviceViewController alloc] init];
             addDeviceVC.deviceID = result;

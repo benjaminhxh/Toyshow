@@ -12,6 +12,6 @@
 
 @property (nonatomic,assign) BOOL islLve;
 @property (nonatomic,assign) BOOL isShare;
-@property (nonatomic,strong) NSString *url;
-@property (nonatomic,strong) NSString *playerTitle;
+@property (nonatomic,copy) NSString *url;
+@property (nonatomic,copy) NSString *playerTitle;
 @end
