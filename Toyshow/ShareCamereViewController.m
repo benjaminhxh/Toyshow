@@ -15,9 +15,7 @@
 #import "MBProgressHUD.h"
 #import "UIProgressView+AFNetworking.h"
 
-//#define kHeight [UIScreen mainScreen].bounds.size.height
-//#define kWidth [UIScreen mainScreen].bounds.size.width
-@interface ShareCamereViewController ()<MBProgressHUDDelegate>
+@interface ShareCamereViewController ()<MBProgressHUDDelegate,UIAlertViewDelegate>
 {
     UIView *cbdPlayerView;
     CyberPlayerController *cbPlayerController;
@@ -230,7 +228,7 @@
         //下载进度条
         progressV = [[UIProgressView alloc] initWithFrame:CGRectMake(60, 47, kHeight - 105, 2)];
         progressV.progressViewStyle = UIProgressViewStyleBar;
-        progressV.progress = 0.5;
+//        progressV.progress = 0.5;
         //        progressV.trackTintColor = [UIColor redColor];//未缓冲的
         progressV.progressTintColor = [UIColor grayColor];
         [bottomView addSubview:progressV];
@@ -294,7 +292,10 @@
 
 - (void)shareClick  //分享
 {
-    
+    UIAlertView *shareView = [[UIAlertView alloc] initWithTitle:@"分享" message:@"确定分享该摄像头？" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    shareView.transform = CGAffineTransformMakeRotation(M_PI_2);
+
+    [shareView show];
 }
 
 - (void)SetClick    //设置
@@ -555,6 +556,13 @@
 //    return UIInterfaceOrientationMaskLandscapeRight;
 //}
 
+#pragma maek - alertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex) {
+        NSLog(@"分享:%@",self.url);
+    }
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

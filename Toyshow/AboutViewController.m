@@ -9,6 +9,7 @@
 #import "AboutViewController.h"
 #import "ShowImageViewController.h"
 #import "SliderViewController.h"
+#import "AFNetworking.h"
 
 @interface AboutViewController ()
 
@@ -61,6 +62,7 @@
     recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(backBtn)];
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [self.view addGestureRecognizer:recognizer];
+
 }
 
 - (void)backBtn{

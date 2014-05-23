@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface AboutViewController : UIViewController
-
+@property (nonatomic, copy) NSString *access_token;
 @end

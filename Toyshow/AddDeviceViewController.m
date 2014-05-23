@@ -95,6 +95,7 @@
     SSIDPWF = [[UITextField alloc] initWithFrame:CGRectMake(120, 220, 180, 30)];
     SSIDPWF.borderStyle = UITextBorderStyleRoundedRect;
     SSIDPWF.returnKeyType = UIReturnKeyNext;
+    SSIDPWF.text = @"zhxf0602";
     [self.view addSubview:SSIDPWF];
     
     UILabel *SSIDPWconfirm = [[UILabel alloc] initWithFrame:CGRectMake(10, 260, 80, 30)];
@@ -103,6 +104,7 @@
     SSIDPWFconfirm = [[UITextField alloc] initWithFrame:CGRectMake(120, 260, 180, 30)];
     SSIDPWFconfirm.borderStyle = UITextBorderStyleRoundedRect;
     SSIDPWFconfirm.returnKeyType = UIReturnKeyDone;
+    SSIDPWFconfirm.text = @"zhxf0602";
     [self.view addSubview:SSIDPWFconfirm];
     
     UIButton *startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -162,51 +164,32 @@
     }
     //向Baidu服务器注册设备
 //    NSData *data = [URLstr dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *desc = [deviceDetailF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-    NSString *descc = [NSString stringWithUTF8String:[desc UTF8String]];
+    NSString *des = [deviceDetailF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+//    NSString *descc = [NSString stringWithUTF8String:[desc UTF8String]];
+    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)des, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
 
-    NSString *URLstr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=%@&access_token=%@&device_type=1&desc=%@&Need_stream_id_when_exists=1",self.deviceID,self.access_token,descc];
+                                                  //https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=123456&access_token= b778fb598c717c0ad7ea8c97c8f3a46f&device_type=1&desc=摄像头描述
+    NSString *URLstr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=%@&access_token=%@&device_type=1&desc=%@",self.deviceID,self.access_token,strWithUTF8];
     NSLog(@"urlSTR:%@",URLstr);
-    NSString *URLWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)URLstr, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
-    NSLog(@"URLwithUTF8:%@",URLWithUTF8);
-    [[AFHTTPSessionManager manager] GET:URLWithUTF8 parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//    NSString *URLWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)URLstr, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+//    NSLog(@"URLwithUTF8:%@",URLWithUTF8);
+    [[AFHTTPRequestOperationManager manager] POST:URLstr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //--------------------向Baidu注册成功，隐藏loginAlterView-------------------------
         [loginAlterView dismissWithClickedButtonIndex:0 animated:YES];
         
         NSDictionary *dict = (NSDictionary *)responseObject;
         NSLog(@"dict:%@",dict);
-        NSString *error_code = [dict objectForKey:@"error_code"];
-        if (error_code) {
-        NSLog(@"注册失败了:%@error_code",error_code);
-            NSString *error_msg = [dict objectForKey:@"error_msg"];
-            NSLog(@"error_msg:%@",error_msg);
-            UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"错误信息" message:[NSString stringWithFormat:@"注册失败：%@",error_msg] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [errorView show];
-            return ;
-        }
+        NSString *stream_id = [dict objectForKey:@"stream_id"];
+        NSLog(@"注册stream_id:%@",stream_id);
         [self connectToWifi];
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"==========注册失败===============");
         //--------------------向Baidu注册成功，隐藏loginAlterView-------------------------
         [loginAlterView dismissWithClickedButtonIndex:0 animated:YES];
-//        NSLog(@"task:%@",task);
-       NSDictionary *errorDict = [error userInfo];
-        NSLog(@"dict:%@",errorDict);
-//        NSString *error_code = [errorDict objectForKey:@"error_code"];
-//        NSLog(@"error_code:%@",error_code);//null
+        NSDictionary *errorDict = [error userInfo];
+//        NSLog(@"dict:%@",errorDict);
         NSString *NSLocalizedDescription = [errorDict objectForKey:@"NSLocalizedDescription"];
         NSLog(@"NSLocalizedDescription:%@",NSLocalizedDescription);//Request failed: forbidden (403)
-
-//        NSLog(@"xuhao:========%lu",(unsigned long)[NSLocalizedDescription rangeOfString:@"403"].location);
-
-//        NSString *NSUnderlyingError = [errorDict objectForKey:@"NSUnderlyingError"];
-//        NSLog(@"NSUnderlyingError:%@",NSUnderlyingError);//null
-
-//        NSString *NSErrorFailingURLStringKey = [errorDict objectForKey:@"NSErrorFailingURLStringKey"];
-//        NSLog(@"NSErrorFailingURLStringKey:%@",NSErrorFailingURLStringKey);
-
-//        NSDictionary *NSErrorFailingURLStringKey = [errorDict objectForKey:@"NSErrorFailingURLStringKey"];
-
         if ([NSLocalizedDescription rangeOfString:@"403"].location) {
             UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"错误信息" message:@"设备已经注册过了" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [errorView show];
@@ -222,73 +205,17 @@
             [errorView show];
             return ;
         }
-//        NSString *errorStr = [NSString stringWithFormat:@"%@",error];
-//        UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"连接失败"
-//                                                           message:errorStr
-//                                                          delegate:nil
-//                                                 cancelButtonTitle:@"OK"
-//                                                 otherButtonTitles:nil, nil];
-//        [failView show];
         return ;
 
     }];
-//    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(loginAlterViewDismiss:) userInfo:nil repeats:NO];
+    
     loginAlterView = [[UIAlertView alloc] initWithTitle:nil message:@"载入中\n请稍后……" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
     [loginAlterView show];
-//    NSURL *requestURL = [NSURL URLWithString:URLstr];
-//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL];
-//    [request setHTTPMethod:@"POST"];
-//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-//    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-//        if (connectionError||!data.length) {
-//            NSString *errorStr = [NSString stringWithFormat:@"%@",connectionError];
-//            UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"连接失败"
-//                                                               message:errorStr
-//                                                              delegate:nil
-//                                                     cancelButtonTitle:@"OK"
-//                                                     otherButtonTitles:nil, nil];
-//            [failView show];
-//            return ;
-//        }
-//        //解析Data，判断是否请求成功
-//        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
-//                                                       options:NSJSONReadingMutableLeaves
-//                                                         error:nil];
-////        NSLog(@"dict:%@",dict);
-//        NSString *error_code = [dict objectForKey:@"error_code"];
-////        if (error_code) {
-//            NSLog(@"注册失败了:%@error_code",error_code);
-////            dispatch_async(dispatch_get_main_queue(), ^{
-//                NSString *error_msg = [dict objectForKey:@"error_msg"];
-//        NSLog(@"error_msg:%@",error_msg);
-////                UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"错误信息" message:[NSString stringWithFormat:@"注册失败：%@",error_msg] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-////                [errorView show];
-////                [self.view setNeedsDisplay];
-////            });
-//        
-////            return;
-////        }
-//
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            nextAlertview = [[UIAlertView alloc] initWithTitle:@"连接设备AP" message:@"1.请切换到“系统设置”>>“无线局域网”\n2.连接joyshow,(密码为joyshow)\n3.切换回此页面，点击下一步" delegate:self cancelButtonTitle:@"下一步" otherButtonTitles:nil, nil];
-//            nextAlertview.delegate = self;
-//            [nextAlertview show];
-////            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, 200, 40)];
-////            label.text = @"下一步";
-////            [nextAlertview addSubview:label];
-//            
-//            //            [self.view setNeedsDisplay];
-//        });
-//    }];
-
-
-//    NSDictionary *dict = [[NetworkRequest shareInstance]requestWithURL:URLstr setHTTPMethod:@"POST"];
-    
 }
 
 - (void)connectToWifi
 {
-    nextAlertview = [[UIAlertView alloc] initWithTitle:@"连接设备AP" message:@"1.请切换到“系统设置”>>“无线局域网”\n2.连接joyshow,(密码为joyshow)\n3.切换回此页面，点击下一步" delegate:self cancelButtonTitle:@"下一步" otherButtonTitles:nil, nil];
+    nextAlertview = [[UIAlertView alloc] initWithTitle:@"连接设备AP" message:@"1.请切换到“系统设置”>>“无线局域网”\n2.连接Joyshow开头的摄像头热点,(密码为123456789)\n3.切换回此页面，点击下一步" delegate:self cancelButtonTitle:@"下一步" otherButtonTitles:nil, nil];
     nextAlertview.delegate = self;
     [nextAlertview show];
 }
@@ -299,11 +226,9 @@
 #pragma mark - alertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    NSLog(@"下一步");
     [self.view setNeedsDisplay];
-
     //判断WiFi名是否以joyshow开头
-    if ([[self fetchSSIDInfo]hasPrefix:@"joyshow" ]) {
+    if ([[self fetchSSIDInfo]hasPrefix:@"Joyshow" ]) {
         [self openUDPServer];
         NSDictionary *headDict = [NSDictionary dictionaryWithObjectsAndKeys:@"62",@"length",@"23130",@"verify", nil];
         NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:@"IOS",@"OS",SSIDF.text,@"SSID",SSIDPWF.text,@"PWD",self.userID,@"USERID",headDict,@"HEAD", nil];
@@ -318,8 +243,6 @@
         [self connectToWifi];
     }
 }
-
-
 
 #pragma mark - HTTPrequest
 //
