@@ -45,7 +45,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userInfoNotification:) name:kUserInfoNotification object:nil];
+    
     UIImageView *imgV=[[UIImageView alloc] initWithFrame:self.view.bounds];
     [imgV setImage:[UIImage imageNamed:@"dabeijing@2x"]];
     [self.view addSubview:imgV];
@@ -120,17 +121,8 @@
     [self addFooter];
 
 //    [self isLoadingView];//模拟正在加载
-
-    NSLog(@"mycamera:userID:%@",self.userId);
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(myCamera:) name:@"myCamera" object:nil];
 }
 
-- (void)myCamera:(NSNotification *)notif
-{
-    NSDictionary *receiceDict = [notif userInfo];
-    NSLog(@"receiveDict:%@",receiceDict);
-    
-}
 - (void)isLoadingView
 {
     _loadingView = [[MBProgressHUD alloc] initWithView:self.view];
@@ -148,24 +140,6 @@
 {
     sleep(3);
 }
-//- (void)requestData{
-//    NSString *appURL = @"https://pcs.baidu.com/rest/2.0/pcs/device?method=listshare&sign=APPID-AK-REALSIGN&expire=TIME&start=START&num=NUM";
-//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:appURL]];
-//    [request setHTTPMethod:@"POST"];
-//    //    [request setHTTPBody:[jsonStr dataUsingEncoding:NSUTF8StringEncoding]];
-//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-//    //异步下载，接收返回的data
-//    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-//        if (data.length > 0 && connectionError == nil) {
-//            NSDictionary *downloadDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-//            NSArray *listArr = [downloadDict objectForKey:@"device_list"];//获取返回的摄像头列表
-//        }
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            //            [icarousView reloadData];
-//        });
-//    }];
-//    
-//}
 
 - (void)leftClick
 {
@@ -191,13 +165,19 @@
     header.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView) {
         // 进入刷新状态就会回调这个Block
         //向服务器发起请求
-        [[AFHTTPSessionManager manager] GET:@"http://www.douban.com/j/app/radio/channels" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=list&access_token=%@&device_type=1",self.accessToken];
+        [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
             //2、初始化数据
             _fakeData = [NSMutableArray array];
             downloadArr = [NSArray array];
-            downloadArr = [dict objectForKey:@"channels"];
+            downloadArr = [dict objectForKey:@"list"];
             NSLog(@"downloadArr:%@",downloadArr);
+//            {“count”:N,
+//        “list”:[{DEVICE_ID1, STREAM_ID1, STATUS1, DESC1, CVR_DAY1, EXPIRE_TIME1,SHARE_TYPE1, THUMBNAIL1},
+//                {DEVICE_ID2, STREAM_ID2,STATUS2,DESC2, CVR_DAY2, EXPIRE_TIME2,SHARE_TYPE2, THUMBNAIL1},...
+//                {DEVICE_IDN, STREAM_IDN,STATUSN,DESCN, CVR_DAYn, EXPIRE_TIMEn,SHARE_TYPEn, THUMBNAILn}],
+//                “request_id”:12345678}
             if (downloadArr.count>20) {
                 for (int i = 0; i < 20; i++) {
                     [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
@@ -328,18 +308,26 @@
     // Configure the cell...
         if (nil == cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"MyCameraCell" owner:self options:nil] lastObject];
-            self.cameraId.text = @"20140312";
+            NSDictionary *cameraUserInfoDict = [_fakeData objectAtIndex:indexPath.row];
+            self.cameraId.text = [cameraUserInfoDict objectForKey:@"deviceid"];
 //            self.cameraPic.image = [_imageArr objectAtIndex:indexPath.row];
-            self.cameraTitle.text = [[_fakeData objectAtIndex:indexPath.row] objectForKey:@"name"];
-            self.cameraStatus.text = @"在线";
+            self.cameraTitle.text = [cameraUserInfoDict objectForKey:@"description"];
+            NSString *status = [cameraUserInfoDict objectForKey:@"status"];
+            int stat = [status intValue];
+            if (stat) {
+                self.cameraStatus.text = @"在线";
+            }else
+            {
+                self.cameraStatus.text = @"离线";
+            }
 
             UIImage *image= [ UIImage imageNamed:@"setanniuhei@2x"];
             UIButton *button = [ UIButton buttonWithType:UIButtonTypeCustom ];
-            CGRect frame = CGRectMake( 0.0 , 0.0 , 26 , 20 );
+            CGRect frame = CGRectMake( 0.0 , 0.0 , 30 , 24 );
             button.frame = frame;
             [button setImage:image forState:UIControlStateNormal ];
 //            button.backgroundColor = [UIColor clearColor ];
-            [button addTarget:self action:@selector(buttonPressedAction:) forControlEvents:UIControlEventTouchUpInside];
+            [button addTarget:self action:@selector(accessoryButtonTappedAction:) forControlEvents:UIControlEventTouchUpInside];
             cell. accessoryView = button;
         }
 
@@ -357,14 +345,14 @@
 }
 #pragma mark - cellAccessory
 ////点击右边附件触发的方法
-//- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
-//{
-//    NSLog(@"accessoryType:%d",indexPath.row);
-//    ThumbnailViewController *thumbVC = [[ThumbnailViewController alloc] init];
-//    [[SliderViewController sharedSliderController].navigationController pushViewController:thumbVC animated:YES];
-//}
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"accessoryType:%d",indexPath.row);
+    ThumbnailViewController *thumbVC = [[ThumbnailViewController alloc] init];
+    [[SliderViewController sharedSliderController].navigationController pushViewController:thumbVC animated:YES];
+}
 
-- (void)buttonPressedAction:(id)sender
+- (void)accessoryButtonTappedAction:(id)sender
 {
     UIButton *button = (UIButton *)sender;
     UITableViewCell  *cell;
@@ -384,6 +372,13 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)userInfoNotification:(NSNotification *)notif
+{
+    NSDictionary *userinfoDict = [notif userInfo];
+    NSLog(@"userInfoDict:%@",userinfoDict);
+    self.accessToken = [userinfoDict objectForKey:@"accessToken"];
 }
 
 //强制不允许转屏

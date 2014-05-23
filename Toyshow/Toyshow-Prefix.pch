@@ -12,6 +12,7 @@
 #define navigationBarImageiOS7  @"bantou_dida@2x"
 #define navigationBarImage      @"bantou_di@2x"
 #define backBtnImage            @"cehuajiantou18x34@2x"
+#define kUserInfoNotification   @"userInfoNotification"
 
 #define iOS7 [[UIDevice currentDevice].systemVersion integerValue]>=7
 #define iphone5     [UIScreen mainScreen].bounds.size.height > 480

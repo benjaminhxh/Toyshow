@@ -167,18 +167,15 @@
     NSString *des = [deviceDetailF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
 //    NSString *descc = [NSString stringWithUTF8String:[desc UTF8String]];
     NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)des, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
-
-                                                  //https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=123456&access_token= b778fb598c717c0ad7ea8c97c8f3a46f&device_type=1&desc=摄像头描述
+                                                  //https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=123456&access_token=52.88be325d08d983f7403be8438c0c1eed.2592000.1403337720.1812238483-2271149&device_type=1&desc=摄像头描述
     NSString *URLstr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=%@&access_token=%@&device_type=1&desc=%@",self.deviceID,self.access_token,strWithUTF8];
     NSLog(@"urlSTR:%@",URLstr);
-//    NSString *URLWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)URLstr, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
-//    NSLog(@"URLwithUTF8:%@",URLWithUTF8);
     [[AFHTTPRequestOperationManager manager] POST:URLstr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //--------------------向Baidu注册成功，隐藏loginAlterView-------------------------
         [loginAlterView dismissWithClickedButtonIndex:0 animated:YES];
         
         NSDictionary *dict = (NSDictionary *)responseObject;
-        NSLog(@"dict:%@",dict);
+//        NSLog(@"dict:%@",dict);
         NSString *stream_id = [dict objectForKey:@"stream_id"];
         NSLog(@"注册stream_id:%@",stream_id);
         [self connectToWifi];

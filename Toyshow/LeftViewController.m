@@ -134,7 +134,7 @@
         {
 //            if ([self accessTokenIsExist]) {
                 NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:userID,@"userID",accessToken,@"accessToken",nil];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"myCamera" object:nil userInfo:dict];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kUserInfoNotification object:nil userInfo:dict];
                 [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MyCameraViewController"];
 //            }
         }
