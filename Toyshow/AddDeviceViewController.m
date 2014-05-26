@@ -236,7 +236,7 @@
         NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:dataDict,@"DATA", nil];
         NSString *jsonStr = [dict JSONString];
         [self sendMassage:jsonStr];
-        configurationTipView = [[UIAlertView alloc] initWithTitle:@"nil" message:@"正在配置，请稍后……" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        configurationTipView = [[UIAlertView alloc] initWithTitle:@"配置摄像头" message:@"正在配置，请稍后……" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
         [configurationTipView show];
         return;
     }

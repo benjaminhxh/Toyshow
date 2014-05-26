@@ -97,6 +97,21 @@
     [self addFooter];
 }
 
+- (NSDateFormatter *)dateFormateAlltime
+{
+    NSDateFormatter *dateFormate = [[NSDateFormatter alloc] init];
+    [dateFormate setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    return dateFormate;
+}
+
+- (NSDate *)dateFrom:(NSDate *)datenow
+{
+    NSTimeZone *zone = [NSTimeZone localTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate:datenow];
+    NSDate *localeDate = [datenow  dateByAddingTimeInterval: interval];
+    return localeDate;
+}
+
 - (void)backBtn
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -110,12 +125,20 @@
     header.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView) {
         // 进入刷新状态就会回调这个Block
         //向服务器发起请求
-        [[AFHTTPSessionManager manager] GET:@"http://www.douban.com/j/app/radio/channels" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSDate *datenow = [NSDate dateWithTimeIntervalSinceNow:0];//现在时间,你可以输出来看下是什么格式
+//        NSDate *localDate = [self dateFrom:datenow];
+//        NSLog(@"当地时间localDate:%@",localDate);
+//        NSString *nowTimeStr = [[self dateFormateAlltime] stringFromDate:datenow];
+//        NSLog(@"现在时间:%@", nowTimeStr);
+        long t = (long)[datenow timeIntervalSince1970];
+        NSLog(@"t:%ld",t);
+        NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=playlist&access_token=%@&deviceid=%@&st=1234454&et=%ld",self.accessToken,self.deviceID,t];
+        [[AFHTTPSessionManager manager] GET:urlStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
             //2、初始化数据
             _fakeData = [NSMutableArray array];
             downloadArr = [NSArray array];
-            downloadArr = [dict objectForKey:@"channels"];
+            downloadArr = [dict objectForKey:@"results"];
             NSLog(@"downloadArr:%@",downloadArr);
             if (downloadArr.count>20) {
                 for (int i = 0; i < 20; i++) {
@@ -127,7 +150,8 @@
             }
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            
+            NSDictionary *errorDict = [error userInfo];
+            NSLog(@"errorDict:%@",errorDict);
         }];
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header

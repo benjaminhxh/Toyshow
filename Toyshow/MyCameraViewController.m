@@ -422,8 +422,37 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self addheader];
+    NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=list&access_token=%@&device_type=1",self.accessToken];
+    [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        //2、初始化数据
+        _fakeData = [NSMutableArray array];
+        downloadArr = [NSArray array];
+        downloadArr = [dict objectForKey:@"list"];
+        NSLog(@"downloadArr:%@",downloadArr);
+        //            {“count”:N,
+        //        “list”:[{DEVICE_ID1, STREAM_ID1, STATUS1, DESC1, CVR_DAY1, EXPIRE_TIME1,SHARE_TYPE1, THUMBNAIL1},
+        //                {DEVICE_ID2, STREAM_ID2,STATUS2,DESC2, CVR_DAY2, EXPIRE_TIME2,SHARE_TYPE2, THUMBNAIL1},...
+        //                {DEVICE_IDN, STREAM_IDN,STATUSN,DESCN, CVR_DAYn, EXPIRE_TIMEn,SHARE_TYPEn, THUMBNAILn}],
+        //                “request_id”:12345678}
+        if (downloadArr.count>20) {
+            for (int i = 0; i < 20; i++) {
+                [_fakeData addObject:[downloadArr objectAtIndex:i]];
+            }
+        }else
+        {
+            _fakeData = (NSMutableArray *)downloadArr;
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"shibai");
+    }];
+    [_tableView reloadData];
     [self.view setNeedsDisplay];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    NSLog(@"viewDidAppear");
 }
 
 @end

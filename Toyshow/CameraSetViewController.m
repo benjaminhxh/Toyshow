@@ -141,6 +141,9 @@
         case 0:
         {
             ThumbnailViewController *thumbVC = [[ThumbnailViewController alloc] init];
+            thumbVC.deviceID = self.deviceid;
+            thumbVC.accessToken = self.access_token;
+            thumbVC.deviceDesc = self.deviceDesc;
             [[SliderViewController sharedSliderController].navigationController pushViewController:thumbVC animated:YES];
 
         }
@@ -173,7 +176,6 @@
             UIAlertView *logOutView = [[UIAlertView alloc] initWithTitle:@"注销设备？" message:@"确定要注销设备吗？注销之后该设备的录像等信息将全部被清除" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
             logOutView.delegate = self;
             [logOutView show];
-            
         }
             break;
         default:

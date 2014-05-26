@@ -8,6 +8,8 @@
 
 #import "ModifyViewController.h"
 #import "AFNetworking.h"
+#import "MyCameraViewController.h"
+#import "SliderViewController.h"
 
 @interface ModifyViewController ()
 {
@@ -117,6 +119,8 @@
 }
 - (void)backBtn{
     [self.navigationController popViewControllerAnimated:YES];
+//    MyCameraViewController *mycameraVC = [[MyCameraViewController alloc] init];
+//    [[SliderViewController sharedSliderController].navigationController popToViewController:mycameraVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning

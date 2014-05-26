@@ -54,16 +54,16 @@
     [imgV setImage:[UIImage imageNamed:backGroundImage]];
     [self.view addSubview:imgV];
     _listArr = [NSArray array];
-    _listArr = [NSArray arrayWithObjects:@"我的摄像头",@"添加新设备",@"分享的摄像头",@"摄像头设置",@"退出登录等",@"帮助",@"关于", nil];
+    _listArr = [NSArray arrayWithObjects:@"我的摄像头",@"添加新设备",@"分享的摄像头",@"退出登录等",@"帮助",@"关于", nil];
     UIImage *image1 = [UIImage imageNamed:@"shejingtou@2x"];
     UIImage *image2 = [UIImage imageNamed:@"tianjia@2x"];
     UIImage *image3 = [UIImage imageNamed:@"fenxiang@2x"];
-    UIImage *image4 = [UIImage imageNamed:@"shejingtou_shezhi@2x"];
+//    UIImage *image4 = [UIImage imageNamed:@"shejingtou_shezhi@2x"];
     UIImage *image5 = [UIImage imageNamed:@"tuichudenglu@2x"];
     UIImage *image6 = [UIImage imageNamed:@"bangzhu@2x"];
     UIImage *image7 = [UIImage imageNamed:@"guanyu@2x"];
 //    UIImage *image8 = [UIImage imageNamed:@"fenxiang@2x"];
-    _imageArr = [NSArray arrayWithObjects:image1,image2,image3,image4,image5,image6,image7, nil];
+    _imageArr = [NSArray arrayWithObjects:image1,image2,image3,image5,image6,image7, nil];
 
     self.navigationController.navigationBarHidden = YES;
 //    self.cameraThumb.layer.cornerRadius = self.cameraThumb.bounds.size.height/2;
@@ -132,11 +132,11 @@
     switch (indexPath.row) {
         case 0://我的摄像头
         {
-//            if ([self accessTokenIsExist]) {
+            if ([self accessTokenIsExist]) {
                 NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:userID,@"userID",accessToken,@"accessToken",nil];
                 [[NSNotificationCenter defaultCenter] postNotificationName:kUserInfoNotification object:nil userInfo:dict];
                 [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MyCameraViewController"];
-//            }
+            }
         }
             break;
         case 1://添加设备、扫描二维码
@@ -147,10 +147,10 @@
         case 2://分享的设备
             [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MainViewController"];
             break;
-        case 3://摄像头设置
-            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"CameraSetViewController"];
-            break;
-        case 4://登录or退出
+//        case 3://摄像头设置
+//            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"CameraSetViewController"];
+//            break;
+        case 3://登录or退出
         {
             if (!accessToken) {
                 //------------------------登录
@@ -164,13 +164,13 @@
             }
         }
             break;
-        case 5://帮助
+        case 4://帮助
             [[SliderViewController sharedSliderController] showContentControllerWithModel:@"HelpViewController"];
             break;
-        case 6://关于
+        case 5://关于
             [[SliderViewController sharedSliderController] showContentControllerWithModel:@"AboutViewController"];
             break;
-        case 7://分享到……
+        case 6://分享到……
             [self shareToQQ];
             break;
         default:
