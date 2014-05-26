@@ -9,6 +9,8 @@
 #import "CameraSetViewController.h"
 #import "SliderViewController.h"
 #import "ModifyViewController.h"
+#import "AFNetworking.h"
+#import "ThumbnailViewController.h"
 
 @interface CameraSetViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 {
@@ -73,7 +75,7 @@
 
 - (void)backBtn:(id)sender
 {
-    [[SliderViewController sharedSliderController] leftItemClick];
+    [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didSeeVideoClick
@@ -137,7 +139,11 @@
 {
     switch (indexPath.row) {
         case 0:
-            
+        {
+            ThumbnailViewController *thumbVC = [[ThumbnailViewController alloc] init];
+            [[SliderViewController sharedSliderController].navigationController pushViewController:thumbVC animated:YES];
+
+        }
             break;
         case 1:
             
@@ -155,9 +161,9 @@
         case 5:
         {
             ModifyViewController *modifyVC = [[ModifyViewController alloc] init];
-            modifyVC.deviceId = @"123456";
-            modifyVC.deviceName = @"中和讯飞";
-            modifyVC.accessToken = @"1382750198753014";
+            modifyVC.deviceId = self.deviceid;
+            modifyVC.deviceName = self.deviceDesc;
+            modifyVC.accessToken = self.access_token;
             [[SliderViewController sharedSliderController].navigationController pushViewController:modifyVC animated:YES];
         }
             break;
@@ -167,6 +173,7 @@
             UIAlertView *logOutView = [[UIAlertView alloc] initWithTitle:@"注销设备？" message:@"确定要注销设备吗？注销之后该设备的录像等信息将全部被清除" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
             logOutView.delegate = self;
             [logOutView show];
+            
         }
             break;
         default:
@@ -206,9 +213,24 @@
 {
     if (buttonIndex) {
         NSLog(@"注销设备了");
-        NSString *urlStr = @"https://pcs.baidu.com/rest/2.0/pcs/device?method=drop&deviceid=123456&access_token= b778fb598c717c0ad7ea8c97c8f3a46f";
-        NSURL *url = [NSURL URLWithString:urlStr];
-        [[SliderViewController sharedSliderController] leftItemClick];
+        NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=drop&deviceid=%@&access_token=%@",self.deviceid,self.access_token];
+        NSLog(@"urlStr:%@",urlStr);
+        [[AFHTTPRequestOperationManager manager] POST:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            NSString *deviceID = [dict objectForKey:@"deviceid"];
+            NSLog(@"deviceid:%@",deviceID);
+            [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
+
+            UIAlertView *tipView = [[UIAlertView alloc] initWithTitle:@"注销成功" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [tipView show];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSDictionary *errorDict = [error userInfo];
+            NSString *errorMSG = [errorDict objectForKey:@"error_msg"];
+            NSLog(@"erroeMSG:%@",errorMSG);
+            UIAlertView *tipView = [[UIAlertView alloc] initWithTitle:@"注销失败" message:[NSString stringWithFormat:@"%@",errorMSG] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [tipView show];
+        }];
     }
 }
 

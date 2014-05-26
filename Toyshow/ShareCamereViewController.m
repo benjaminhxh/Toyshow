@@ -444,7 +444,6 @@
     slider.value = currentTime;
     slider.maximumValue = allSecond;
 //    progressV.progress = currentTime;
-    
 }
 
 + (NSDictionary*)convertSecond2HourMinuteSecond:(int)second
@@ -460,7 +459,6 @@
     [dict setObject:[NSNumber numberWithInt:hour] forKey:@"hour"];
     [dict setObject:[NSNumber numberWithInt:minute] forKey:@"minute"];
     [dict setObject:[NSNumber numberWithInt:second] forKey:@"second"];
-    
     return dict;
 }
 
@@ -486,6 +484,7 @@
     //为了保证UI刷新在主线程中完成。
     [self performSelectorOnMainThread:@selector(startTimeroOnMainThread) withObject:nil waitUntilDone:NO];
 }
+
 - (void)startTimeroOnMainThread{
     timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(timerHandler:) userInfo:nil repeats:YES];
 }
@@ -533,7 +532,7 @@
 
 - (void)isLoadingAnimation
 {
-//    sleep(3);
+    sleep(3);
 }
 
 //定时器实时更新时间
@@ -563,6 +562,7 @@
         NSLog(@"分享:%@",self.url);
     }
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

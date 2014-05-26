@@ -14,4 +14,5 @@
 @property (nonatomic,assign) BOOL isShare;
 @property (nonatomic,copy) NSString *url;
 @property (nonatomic,copy) NSString *playerTitle;
+@property (nonatomic,copy) NSString *stream_id;
 @end

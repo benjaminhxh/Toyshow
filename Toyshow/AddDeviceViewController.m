@@ -129,10 +129,14 @@
     id info = nil;
     for (NSString *ifnam in ifs) {
         info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifnam);
-//        NSLog(@"%@ => %@", ifnam, info);
-//        NSData *ssiddata = [info objectForKey:@"SSIDDATA"];
-//        NSString *ssidda = [NSString stringWithFormat:@"%@",ssiddata ];
-//        NSLog(@"ssiddata:%@",ssidda);
+        NSLog(@"%@ => %@", ifnam, info);
+        NSString *BSSID = [info objectForKey:@"BSSID"];
+        NSLog(@"BSSID:%@",BSSID);
+        NSString *SSIDDATAT = [info objectForKey:@"SSIDDATA"];
+        NSLog(@"SSIDDATA:%@",SSIDDATAT);
+        NSData *ssiddata = [info objectForKey:@"SSIDDATA"];
+        NSString *ssidda = [NSString stringWithFormat:@"%@",ssiddata ];
+        NSLog(@"ssiddata:%@",ssidda);
         if (info && [info count]) { break; }
     }
     NSString *SSID = [info objectForKey:@"SSID"];
@@ -240,29 +244,6 @@
         [self connectToWifi];
     }
 }
-
-#pragma mark - HTTPrequest
-//
-//- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-//{
-//    //失败
-//    NSString *errorStr = [NSString stringWithFormat:@"%@",error];
-//    UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"连接失败" message:errorStr delegate:nil
-//    cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//    [failView show];
-//}
-//
-//- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-//{
-//    //数据接收完成
-//    UIAlertView *finishView = [[UIAlertView alloc] initWithTitle:@"配置完成" message:@"成功配置摄像头" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//    [finishView show];
-//}
-//- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-//{
-//    //接收数据
-//    
-//}
 
 #pragma mark - UDP Socket
 //建立基于UDP的Socket连接

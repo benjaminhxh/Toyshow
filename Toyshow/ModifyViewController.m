@@ -89,17 +89,18 @@
     
 
     //UTF8编码，上传服务器修改设备名
-    NSString *modifyT = [[NSString alloc] initWithUTF8String:[modifyText.text UTF8String]];
+//    NSString *modifyT = [[NSString alloc] initWithUTF8String:[modifyText.text UTF8String]];
     //    NSLog(@"desc:%@",desc);
-    NSString *des = [modifyT stringByReplacingOccurrencesOfString:@" " withString:@""];
-    NSString *URLstr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=update&deviceid=%@&access_token=%@&device_type=1&desc=%@&Need_stream_id_when_exists=1",self.deviceId,self.accessToken,des];
-    NSLog(@"URLstr:%@",URLstr);
-    NSString *URLWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)URLstr, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+    NSString *des = [modifyText.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString *desWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)des, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
 
-    NSLog(@"modify.text:%@",modifyText.text);
-    [[AFHTTPRequestOperationManager manager]GET:URLWithUTF8 parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *URLstr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=update&deviceid=%@&access_token=%@&device_type=1&desc=%@&Need_stream_id_when_exists=1",self.deviceId,self.accessToken,desWithUTF8];
+    NSLog(@"URLstr:%@",URLstr);
+
+//    NSLog(@"modify.text:%@",modifyText.text);
+    [[AFHTTPRequestOperationManager manager]GET:URLstr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
-        NSString *desc = [dict objectForKey:@"desc"];
+        NSString *desc = [dict objectForKey:@"description"];
         if ([desc isEqualToString:modifyText.text]) {
             UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备修改成功" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [view show];
@@ -107,6 +108,8 @@
         }
         NSLog(@"<#string#>");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSDictionary *errorDict = [error userInfo];
+        NSLog(@"errorDict:%@",errorDict);
         UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备修改失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [view show];
         [self backBtn];

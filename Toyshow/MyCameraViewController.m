@@ -11,10 +11,10 @@
 #import "MyphotoViewController.h"
 #import "EGORefreshTableHeaderView.h"
 #import "MBProgressHUD.h"
-#import "ThumbnailViewController.h"
 #import "ShareCamereViewController.h"
 #import "MJRefresh.h"
 #import "AFNetworking.h"
+#import "CameraSetViewController.h"
 
 @interface MyCameraViewController ()<UITableViewDelegate,UITableViewDataSource,MJRefreshBaseViewDelegate,MBProgressHUDDelegate>
 {
@@ -119,7 +119,6 @@
     _fakeData = [NSMutableArray array];
     [self addheader];
     [self addFooter];
-
 //    [self isLoadingView];//模拟正在加载
 }
 
@@ -336,20 +335,41 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ShareCamereViewController *liveVC = [[ShareCamereViewController alloc] init];
-    liveVC.islLve = YES;
-    liveVC.isShare = NO;
-    liveVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
-    liveVC.playerTitle = @"东方卫视（直播……）";
-    [[SliderViewController sharedSliderController].navigationController pushViewController:liveVC animated:YES];
+    NSDictionary *dict = [_fakeData objectAtIndex:indexPath.row];
+//    NSString *stream_id = [dict objectForKey:@"stream_id"];
+    NSString *deviceid = [dict objectForKey:@"deviceid"];
+    NSString *status = [dict objectForKey:@"status"];
+    int stat = [status intValue];
+    //判断是被是否在线，在线则可以看直播
+    if (stat) {
+        NSString *liveUrl = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&access_token=%@&deviceid=%@",self.accessToken,deviceid];
+        [[AFHTTPRequestOperationManager manager] POST:liveUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            //获取直播rtmp地址
+            NSString *rtmp = [dict objectForKey:@"url"];
+            ShareCamereViewController *liveVC = [[ShareCamereViewController alloc] init];
+            liveVC.islLve = YES;
+            liveVC.isShare = NO;
+            //        liveVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
+            liveVC.url = rtmp;
+            liveVC.playerTitle = [[dict objectForKey:@"description"] stringByAppendingString:@"(直播)"];
+            [[SliderViewController sharedSliderController].navigationController pushViewController:liveVC animated:YES];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"失败了");
+        }];
+    }else
+    {
+        //设备不在线
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备不在线" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [view show];
+    }
+   
 }
 #pragma mark - cellAccessory
 ////点击右边附件触发的方法
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"accessoryType:%d",indexPath.row);
-    ThumbnailViewController *thumbVC = [[ThumbnailViewController alloc] init];
-    [[SliderViewController sharedSliderController].navigationController pushViewController:thumbVC animated:YES];
 }
 
 - (void)accessoryButtonTappedAction:(id)sender
@@ -364,8 +384,12 @@
     }
     int row = [_tableView indexPathForCell:cell].row;
     NSLog(@"row:%d",row);
-    ThumbnailViewController *thumbVC = [[ThumbnailViewController alloc] init];
-    [[SliderViewController sharedSliderController].navigationController pushViewController:thumbVC animated:YES];
+    CameraSetViewController *setVC = [[CameraSetViewController alloc] init];
+    NSDictionary *dict = [_fakeData objectAtIndex:row];
+    setVC.deviceDesc = [dict objectForKey:@"description"];
+    setVC.access_token = self.accessToken;
+    setVC.deviceid = [dict objectForKey:@"deviceid"];
+    [[SliderViewController sharedSliderController].navigationController pushViewController:setVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -395,4 +419,11 @@
     //移除观察者
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self addheader];
+    [self.view setNeedsDisplay];
+}
+
 @end
