@@ -23,6 +23,9 @@
 {
     UITextField *deviceDetailF,*SSIDPWF,*SSIDF,*SSIDPWFconfirm;
     UIAlertView *nextAlertview,*loginAlterView,*configurationTipView;
+    NSArray *securyArr;
+    UIView *userView;
+    UITextField *userField;
 }
 @end
 
@@ -62,54 +65,100 @@
 //    titleL.textAlignment = NSTextAlignmentCenter;
 //    [topView addSubview:titleL];
     
-    UILabel *deviceL = [[UILabel alloc] initWithFrame:CGRectMake(10, 100, 80, 30)];
+    UILabel *deviceL = [[UILabel alloc] initWithFrame:CGRectMake(10, 70, 100, 30)];
     deviceL.text = @"设备ID:";
     [self.view addSubview:deviceL];
-    UITextField *deviceF = [[UITextField alloc] initWithFrame:CGRectMake(120, 100, 180, 30)];
+    UITextField *deviceF = [[UITextField alloc] initWithFrame:CGRectMake(100, 70, 180, 30)];
     deviceF.text = self.deviceID;
     deviceF.enabled = NO;
     deviceF.allowsEditingTextAttributes = YES;
     deviceF.borderStyle = UITextBorderStyleRoundedRect;
     [self.view addSubview:deviceF];
     
-    UILabel *deviceDetail = [[UILabel alloc] initWithFrame:CGRectMake(10, 140, 80, 30)];
+    UILabel *deviceDetail = [[UILabel alloc] initWithFrame:CGRectMake(10, 110, 100, 30)];
     deviceDetail.text = @"设备描述:";
     [self.view addSubview:deviceDetail];
-    deviceDetailF = [[UITextField alloc] initWithFrame:CGRectMake(120, 140, 180, 30)];
+    deviceDetailF = [[UITextField alloc] initWithFrame:CGRectMake(100, 110, 180, 30)];
     deviceDetailF.borderStyle = UITextBorderStyleRoundedRect;
     deviceDetailF.returnKeyType = UIReturnKeyNext;
     [self.view addSubview:deviceDetailF];
     
-    UILabel *SSIDL = [[UILabel alloc] initWithFrame:CGRectMake(10, 180, 80, 30)];
+    UILabel *SSIDL = [[UILabel alloc] initWithFrame:CGRectMake(10, 150, 100, 30)];
     SSIDL.text = @"WiFi名称:";
     [self.view addSubview:SSIDL];
-    SSIDF = [[UITextField alloc] initWithFrame:CGRectMake(120, 180, 180, 30)];
+    SSIDF = [[UITextField alloc] initWithFrame:CGRectMake(100, 150, 180, 30)];
     SSIDF.borderStyle = UITextBorderStyleRoundedRect;
-    SSIDF.text = [self fetchSSIDInfo];
+    //    SSIDF.text = [self fetchSSIDInfo];
+    SSIDF.text = @"zhonghexunfei";
     SSIDF.enabled = NO;
     [self.view addSubview:SSIDF];
     
-    UILabel *SSIDPW = [[UILabel alloc] initWithFrame:CGRectMake(10, 220, 80, 30)];
+    UILabel *SSIDPW = [[UILabel alloc] initWithFrame:CGRectMake(10, 190, 100, 30)];
     SSIDPW.text = @"WiFi密码:";
     [self.view addSubview:SSIDPW];
-    SSIDPWF = [[UITextField alloc] initWithFrame:CGRectMake(120, 220, 180, 30)];
+    SSIDPWF = [[UITextField alloc] initWithFrame:CGRectMake(100, 190, 180, 30)];
     SSIDPWF.borderStyle = UITextBorderStyleRoundedRect;
     SSIDPWF.returnKeyType = UIReturnKeyNext;
     SSIDPWF.text = @"zhxf0602";
     [self.view addSubview:SSIDPWF];
     
-    UILabel *SSIDPWconfirm = [[UILabel alloc] initWithFrame:CGRectMake(10, 260, 80, 30)];
+    UILabel *SSIDPWconfirm = [[UILabel alloc] initWithFrame:CGRectMake(10, 230, 80, 30)];
     SSIDPWconfirm.text = @"确认密码:";
     [self.view addSubview:SSIDPWconfirm];
-    SSIDPWFconfirm = [[UITextField alloc] initWithFrame:CGRectMake(120, 260, 180, 30)];
+    SSIDPWFconfirm = [[UITextField alloc] initWithFrame:CGRectMake(100, 230, 180, 30)];
     SSIDPWFconfirm.borderStyle = UITextBorderStyleRoundedRect;
     SSIDPWFconfirm.returnKeyType = UIReturnKeyDone;
     SSIDPWFconfirm.text = @"zhxf0602";
     [self.view addSubview:SSIDPWFconfirm];
     
+    UILabel *securtyStyleLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 265, 75, 24)];
+    securtyStyleLab.text = @"加密方式:";
+    [self.view addSubview:securtyStyleLab];
+    
+    UILabel *textL = [[UILabel alloc] initWithFrame:CGRectMake(90, 265, 220, 44)];
+    textL.font = [UIFont systemFontOfSize:10];
+    textL.textColor = [UIColor redColor];
+    NSString *str = @"以下6种加密方式从左到右依次为最常用到最不常用，请根据WiFi路由器设定的加密方式谨慎选择，不然可能出现配置不成功的情况。";
+    textL.numberOfLines = 3;
+    textL.text = str;
+    [self.view addSubview:textL];
+    
+    securyArr = [NSArray arrayWithObjects:@"[WPA2-PSK-TKIP+CCMP]",@"[WPA-PSK-TKIP+CCMP]",@"[WPA2-EAP-TKIP+CCMP]",@"[WPA-EAP-TKIP+CCMP]",@"[WEP]",@"[ESS]", nil];
+    self.security = [securyArr objectAtIndex:0];
+//    NSMutableArray *imageArr = [NSMutableArray array];
+//    for (int i=0; i<6; i++) {
+//        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%d@2x",i+1]];
+//        [imageArr addObject:image];
+//    }
+//    NSLog(@"imageArr.count:%d",imageArr.count);
+    NSArray *titleArr = [NSArray arrayWithObjects:@"W2-PSK",@"W-PSK",@"W2-EAP",@"W-EAP",@"WEP",@"ESS", nil];
+    UISegmentedControl *wepControl = [[UISegmentedControl alloc] initWithItems:titleArr];
+    wepControl.frame = CGRectMake(2, 310, 320, 29);
+    [wepControl addTarget:self action:@selector(selectWEBstyle:) forControlEvents:UIControlEventValueChanged];
+    wepControl.selectedSegmentIndex = 0;
+    [self.view addSubview:wepControl];
+    
+    userView = [[UIView alloc] initWithFrame:CGRectMake(0, 345, 320, 42)];
+    userView.hidden = YES;
+    [self.view addSubview:userView];
+    
+    UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 310, 1)];
+    line1.backgroundColor = [UIColor grayColor];
+    [userView addSubview:line1];
+    UILabel *line2 = [[UILabel alloc] initWithFrame:CGRectMake(5, 40, 310, 1)];
+    line2.backgroundColor = [UIColor grayColor];
+    [userView addSubview:line2];
+    
+    UILabel *userL = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 70, 30)];
+    userL.text = @"用户名";
+    [userView addSubview:userL];
+    
+    userField = [[UITextField alloc] initWithFrame:CGRectMake(100, 5, 200, 30)];
+    userField.borderStyle = UITextBorderStyleLine;
+    [userView addSubview:userField];
+    
     UIButton *startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    startBtn.frame = CGRectMake(80, 360, 160, 40);
-//    startBtn.backgroundColor = [UIColor blueColor];
+    startBtn.frame = CGRectMake(80, 420, 160, 40);
     [startBtn setBackgroundImage:[UIImage imageNamed:@"kaishipeizhi_anniu@2x"] forState:UIControlStateNormal];
     [startBtn setTitle:@"开始配置" forState:UIControlStateNormal];
     [startBtn addTarget:self action:@selector(startConfigure) forControlEvents:UIControlEventTouchUpInside];
@@ -125,13 +174,14 @@
 //获取WiFi名称
 - (id)fetchSSIDInfo {
     NSArray *ifs = (__bridge_transfer id)CNCopySupportedInterfaces();
-//    NSLog(@"Supported interfaces: %@", ifs);
+    NSLog(@"Supported interfaces: %@", ifs);
     id info = nil;
     for (NSString *ifnam in ifs) {
         info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifnam);
         NSLog(@"%@ => %@", ifnam, info);
         NSString *BSSID = [info objectForKey:@"BSSID"];
         NSLog(@"BSSID:%@",BSSID);
+        self.wifiBssid = BSSID;
         NSString *SSIDDATAT = [info objectForKey:@"SSIDDATA"];
         NSLog(@"SSIDDATA:%@",SSIDDATAT);
         NSData *ssiddata = [info objectForKey:@"SSIDDATA"];
@@ -143,6 +193,38 @@
     return SSID;
 }
 
+- (void)selectWEBstyle:(id)sender
+{
+    UISegmentedControl *segment = (UISegmentedControl *)sender;
+    self.security = [securyArr objectAtIndex:segment.selectedSegmentIndex];
+    switch (segment.selectedSegmentIndex) {
+        case 0:
+            userView.hidden = YES;
+            break;
+        case 1:
+            userView.hidden = YES;
+
+            break;
+        case 2:
+            userView.hidden = YES;
+
+            break;
+        case 3:
+            userView.hidden = YES;
+
+            break;
+        case 4:
+            userView.hidden = YES;
+
+            break;
+        case 5:
+            userView.hidden = NO;
+
+            break;
+        default:
+            break;
+    }
+}
 //开始配置
 - (void)startConfigure
 {
@@ -231,8 +313,8 @@
     //判断WiFi名是否以joyshow开头
     if ([[self fetchSSIDInfo]hasPrefix:@"Joyshow" ]) {
         [self openUDPServer];
-        NSDictionary *headDict = [NSDictionary dictionaryWithObjectsAndKeys:@"62",@"length",@"23130",@"verify", nil];
-        NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:@"IOS",@"OS",SSIDF.text,@"SSID",SSIDPWF.text,@"PWD",self.userID,@"USERID",headDict,@"HEAD", nil];
+//        NSDictionary *headDict = [NSDictionary dictionaryWithObjectsAndKeys:@"62",@"length",@"23130",@"verify", nil];
+        NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:@"2",@"OS","1","OPCODE",self.wifiBssid,"BSSID",SSIDF.text,@"SSID",self.security,"SECURITY",SSIDPWF.text,@"PWD",self.userID,@"USERID",userField.text,"identity",@"1","HEXASCII", nil];
         NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:dataDict,@"DATA", nil];
         NSString *jsonStr = [dict JSONString];
         [self sendMassage:jsonStr];

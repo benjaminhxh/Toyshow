@@ -134,8 +134,8 @@
         {
             if ([self accessTokenIsExist]) {
                 NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:userID,@"userID",accessToken,@"accessToken",nil];
-                [[NSNotificationCenter defaultCenter] postNotificationName:kUserInfoNotification object:nil userInfo:dict];
-                [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MyCameraViewController"];
+//                [[NSNotificationCenter defaultCenter] postNotificationName:kUserInfoNotification object:nil userInfo:dict];
+                [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MyCameraViewController" withDictionary:dict];
             }
         }
             break;
@@ -145,7 +145,7 @@
             }
             break;
         case 2://分享的设备
-            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MainViewController"];
+            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MainViewController" withDictionary:nil];
             break;
 //        case 3://摄像头设置
 //            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"CameraSetViewController"];
@@ -165,10 +165,10 @@
         }
             break;
         case 4://帮助
-            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"HelpViewController"];
+            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"HelpViewController" withDictionary:nil];
             break;
         case 5://关于
-            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"AboutViewController"];
+            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"AboutViewController" withDictionary:nil];
             break;
         case 6://分享到……
             [self shareToQQ];

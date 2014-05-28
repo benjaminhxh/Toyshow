@@ -43,6 +43,7 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
     [_leftVC release];
     [_rightVC release];
     [_MainVC release];
+    [_dict release];
     [super dealloc];
 }
 #endif
@@ -87,7 +88,7 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
     
     [self initChildControllers:_LeftVC rightVC:_RightVC];
     
-    [self showContentControllerWithModel:@"MainViewController"];
+    [self showContentControllerWithModel:@"MainViewController" withDictionary:self.dict];
     
     _tapGestureRec = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeSideBar)];
     _tapGestureRec.delegate=self;
@@ -127,7 +128,7 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
 
 #pragma mark - Actions
 
-- (void)showContentControllerWithModel:(NSString *)className
+- (void)showContentControllerWithModel:(NSString *)className withDictionary:(NSDictionary *)dict
 {
     [self closeSideBar];
     
@@ -149,7 +150,7 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
         UIView *view = [_mainContentView.subviews firstObject];
         [view removeFromSuperview];
     }
-    
+    self.dict = dict;
     controller.view.frame = _mainContentView.frame;
     [_mainContentView addSubview:controller.view];
     

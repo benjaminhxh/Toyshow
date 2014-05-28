@@ -13,6 +13,7 @@
 @property(nonatomic,strong)UIViewController *LeftVC;
 @property(nonatomic,strong)UIViewController *RightVC;
 @property(nonatomic,strong)UIViewController *MainVC;
+@property(nonatomic,strong)NSDictionary *dict;
 
 @property(nonatomic,assign)float LeftSContentOffset;
 @property(nonatomic,assign)float RightSContentOffset;
@@ -31,7 +32,8 @@
 
 + (SliderViewController*)sharedSliderController;
 
-- (void)showContentControllerWithModel:(NSString*)className;
+- (void)showContentControllerWithModel:(NSString*)className withDictionary:(NSDictionary *)dict;
+
 - (void)leftItemClick;
 - (void)rightItemClick;
 

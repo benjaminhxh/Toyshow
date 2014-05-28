@@ -42,11 +42,16 @@
     return self;
 }
 
+//-(void)loadView
+//{
+//    [super loadView];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userInfoNotification:) name:kUserInfoNotification object:nil];
+//}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userInfoNotification:) name:kUserInfoNotification object:nil];
-    
+    self.accessToken = [[SliderViewController sharedSliderController].dict objectForKey:@"accessToken"];
+
     UIImageView *imgV=[[UIImageView alloc] initWithFrame:self.view.bounds];
     [imgV setImage:[UIImage imageNamed:@"dabeijing@2x"]];
     [self.view addSubview:imgV];
@@ -172,11 +177,7 @@
             downloadArr = [NSArray array];
             downloadArr = [dict objectForKey:@"list"];
             NSLog(@"downloadArr:%@",downloadArr);
-//            {“count”:N,
-//        “list”:[{DEVICE_ID1, STREAM_ID1, STATUS1, DESC1, CVR_DAY1, EXPIRE_TIME1,SHARE_TYPE1, THUMBNAIL1},
-//                {DEVICE_ID2, STREAM_ID2,STATUS2,DESC2, CVR_DAY2, EXPIRE_TIME2,SHARE_TYPE2, THUMBNAIL1},...
-//                {DEVICE_IDN, STREAM_IDN,STATUSN,DESCN, CVR_DAYn, EXPIRE_TIMEn,SHARE_TYPEn, THUMBNAILn}],
-//                “request_id”:12345678}
+
             if (downloadArr.count>20) {
                 for (int i = 0; i < 20; i++) {
                     [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
@@ -329,7 +330,6 @@
             [button addTarget:self action:@selector(accessoryButtonTappedAction:) forControlEvents:UIControlEventTouchUpInside];
             cell. accessoryView = button;
         }
-
     return cell;
 }
 
@@ -363,7 +363,6 @@
         UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备不在线" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [view show];
     }
-   
 }
 #pragma mark - cellAccessory
 ////点击右边附件触发的方法
@@ -398,12 +397,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)userInfoNotification:(NSNotification *)notif
-{
-    NSDictionary *userinfoDict = [notif userInfo];
-    NSLog(@"userInfoDict:%@",userinfoDict);
-    self.accessToken = [userinfoDict objectForKey:@"accessToken"];
-}
+//- (void)userInfoNotification:(NSNotification *)notif
+//{
+//    NSDictionary *userinfoDict = [notif userInfo];
+//    NSLog(@"userInfoDict:%@",userinfoDict);
+//    self.accessToken = [userinfoDict objectForKey:@"accessToken"];
+//}
 
 //强制不允许转屏
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
@@ -414,11 +413,11 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
-- (void)dealloc
-{
-    //移除观察者
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
+//- (void)dealloc
+//{
+//    //移除观察者
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -430,11 +429,7 @@
         downloadArr = [NSArray array];
         downloadArr = [dict objectForKey:@"list"];
         NSLog(@"downloadArr:%@",downloadArr);
-        //            {“count”:N,
-        //        “list”:[{DEVICE_ID1, STREAM_ID1, STATUS1, DESC1, CVR_DAY1, EXPIRE_TIME1,SHARE_TYPE1, THUMBNAIL1},
-        //                {DEVICE_ID2, STREAM_ID2,STATUS2,DESC2, CVR_DAY2, EXPIRE_TIME2,SHARE_TYPE2, THUMBNAIL1},...
-        //                {DEVICE_IDN, STREAM_IDN,STATUSN,DESCN, CVR_DAYn, EXPIRE_TIMEn,SHARE_TYPEn, THUMBNAILn}],
-        //                “request_id”:12345678}
+
         if (downloadArr.count>20) {
             for (int i = 0; i < 20; i++) {
                 [_fakeData addObject:[downloadArr objectAtIndex:i]];
