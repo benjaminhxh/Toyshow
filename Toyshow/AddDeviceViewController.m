@@ -15,7 +15,7 @@
 #import "NetworkRequest.h"
 #import "NetworkRequest.h"
 #import "AFNetworking.h"
-
+#import <CommonCrypto/CommonDigest.h>
 #define kTestHost @"telnet://towel.blinkenlights.nl"
 #define kTestPort 23
 
@@ -26,6 +26,7 @@
     NSArray *securyArr;
     UIView *userView;
     UITextField *userField;
+    UISegmentedControl *hexOrAscii;
 }
 @end
 
@@ -123,6 +124,7 @@
     textL.text = str;
     [self.view addSubview:textL];
     
+    self.userID = @"中和讯飞科技";
     securyArr = [NSArray arrayWithObjects:@"[WPA2-PSK-TKIP+CCMP]",@"[WPA-PSK-TKIP+CCMP]",@"[WPA2-EAP-TKIP+CCMP]",@"[WPA-EAP-TKIP+CCMP]",@"[WEP]",@"[ESS]", nil];
     self.security = [securyArr objectAtIndex:0];
 //    NSMutableArray *imageArr = [NSMutableArray array];
@@ -154,8 +156,16 @@
     [userView addSubview:userL];
     
     userField = [[UITextField alloc] initWithFrame:CGRectMake(100, 5, 200, 30)];
-    userField.borderStyle = UITextBorderStyleLine;
+    userField.borderStyle = UITextBorderStyleRoundedRect;
     [userView addSubview:userField];
+    
+    NSArray *wepStyleArr = [NSArray arrayWithObjects:@"Hex",@"Ascii", nil];
+    hexOrAscii = [[UISegmentedControl alloc] initWithItems:wepStyleArr];
+    hexOrAscii.frame = CGRectMake(80, 345, 160, 42);
+    [hexOrAscii addTarget:self action:@selector(wepStyleAction:) forControlEvents:UIControlEventValueChanged];
+    hexOrAscii.selectedSegmentIndex = 0;
+    hexOrAscii.hidden = YES;
+    [self.view addSubview:hexOrAscii];
     
     UIButton *startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     startBtn.frame = CGRectMake(80, 420, 160, 40);
@@ -193,38 +203,6 @@
     return SSID;
 }
 
-- (void)selectWEBstyle:(id)sender
-{
-    UISegmentedControl *segment = (UISegmentedControl *)sender;
-    self.security = [securyArr objectAtIndex:segment.selectedSegmentIndex];
-    switch (segment.selectedSegmentIndex) {
-        case 0:
-            userView.hidden = YES;
-            break;
-        case 1:
-            userView.hidden = YES;
-
-            break;
-        case 2:
-            userView.hidden = YES;
-
-            break;
-        case 3:
-            userView.hidden = YES;
-
-            break;
-        case 4:
-            userView.hidden = YES;
-
-            break;
-        case 5:
-            userView.hidden = NO;
-
-            break;
-        default:
-            break;
-    }
-}
 //开始配置
 - (void)startConfigure
 {
@@ -306,6 +284,36 @@
 //{
 //
 //}
+
+//32位MD5加密方式
+- (NSString *)getMd5_32Bit_String:(NSString *)srcString{
+    const char *cStr = [srcString UTF8String];
+    unsigned char digest[CC_MD5_DIGEST_LENGTH];
+    CC_MD5( cStr, strlen(cStr), digest );
+    NSMutableString *result = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+        [result appendFormat:@"%02x", digest[i]];
+    return result;
+}
+
+- (NSMutableString *)exchangeString:(NSString *)string
+{
+    NSMutableArray *arr = [NSMutableArray array];
+    for (int i=0; i<32; i++) {
+        NSString *s = [string substringWithRange:NSMakeRange(i, 1)];
+        [arr addObject:s];
+    }
+    [arr exchangeObjectAtIndex:1 withObjectAtIndex:6];
+    [arr exchangeObjectAtIndex:4 withObjectAtIndex:13];
+    [arr exchangeObjectAtIndex:21 withObjectAtIndex:29];
+    [arr exchangeObjectAtIndex:20 withObjectAtIndex:25];
+    NSMutableString *mutableString = [NSMutableString string];
+    for (NSString *s in arr) {
+        [mutableString appendString:s];
+    }
+    return mutableString;
+}
+
 #pragma mark - alertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -313,11 +321,34 @@
     //判断WiFi名是否以joyshow开头
     if ([[self fetchSSIDInfo]hasPrefix:@"Joyshow" ]) {
         [self openUDPServer];
-//        NSDictionary *headDict = [NSDictionary dictionaryWithObjectsAndKeys:@"62",@"length",@"23130",@"verify", nil];
-        NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:@"2",@"OS","1","OPCODE",self.wifiBssid,"BSSID",SSIDF.text,@"SSID",self.security,"SECURITY",SSIDPWF.text,@"PWD",self.userID,@"USERID",userField.text,"identity",@"1","HEXASCII", nil];
-        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:dataDict,@"DATA", nil];
-        NSString *jsonStr = [dict JSONString];
-        [self sendMassage:jsonStr];
+        if (hexOrAscii.hidden) {
+            self.wepStyle = @"1";
+        }
+        NSString *dataStr = [NSString stringWithFormat:@"1%@%@%@%@%@%@%@2%@",self.wifiBssid,SSIDF.text,self.security,userField.text,SSIDPWF.text,self.userID,self.access_token,self.wepStyle];
+        NSLog(@"dataStr:%@",dataStr);
+        NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  @"1",@"opcode",//1为注册
+                                  self.wifiBssid,@"bssid",
+                                  SSIDF.text,@"ssid",
+                                  self.security,@"security",
+                                  userField.text,@"identify",
+                                  SSIDPWF.text,@"pwd",
+                                  self.userID,@"userId",
+                                  self.access_token,@"accessToken",
+                                  @"2",@"osType",//2为iOS平台
+                                  self.wepStyle,@"hexAscii", nil];
+        NSLog(@"dataDict:%@",dataDict);
+        NSString *md5String = [self getMd5_32Bit_String:dataStr];//得到md5加密后的32位字符串
+        NSLog(@"md5String:%@",md5String);//0ea7ccca8f7eeefb255e1931cb1409aa
+        
+        NSMutableString *md5exchangeString = [self exchangeString:md5String];//1,6;4,13;21,29;20,25交换
+        NSLog(@"md5exchangeString:%@",md5exchangeString);
+        NSInteger length = dataStr.length;//data的长度
+        NSString *md5Length = [NSString stringWithFormat:@"%ld",(long)length];
+        NSDictionary *headDict = [NSDictionary dictionaryWithObjectsAndKeys:md5Length,@"length",md5exchangeString,@"verify", nil];
+        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:headDict,@"head",dataDict,@"data", nil];
+        NSString *sendString = [dict JSONString];
+        [self sendMassage:sendString];
         configurationTipView = [[UIAlertView alloc] initWithTitle:@"配置摄像头" message:@"正在配置，请稍后……" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
         [configurationTipView show];
         return;
@@ -331,8 +362,8 @@
 //建立基于UDP的Socket连接
 -(void)openUDPServer{
 	//初始化udp
-	AsyncUdpSocket *tempSocket=[[AsyncUdpSocket alloc] initWithDelegate:self];
-	self.udpSocket=tempSocket;
+		self.udpSocket=[[AsyncUdpSocket alloc] initWithDelegate:self];
+//	self.udpSocket=tempSocket;
     //	[tempSocket release];
 	//绑定端口
 	NSError *error = nil;
@@ -355,17 +386,14 @@
 //通过UDP,发送消息
 -(void)sendMassage:(NSString *)message
 {
-    
     //	NSDate *nowTime = [NSDate date];
-	
 	NSMutableString *sendString=[NSMutableString stringWithCapacity:100];
 	[sendString appendString:message];
 	//开始发送
 	BOOL res = [self.udpSocket sendData:[sendString dataUsingEncoding:NSUTF8StringEncoding]
-								 toHost:@"192.168.8.1"
+								 toHost:@"192.168.62.1"
 								   port:7860
 							withTimeout:-1
-                
                                     tag:0];
     
     
@@ -376,42 +404,27 @@
 											  cancelButtonTitle:@"取消"
 											  otherButtonTitles:nil];
 		[alert show];
-        //		[alert release];
 	}
-	
-    //	if ([self.chatArray lastObject] == nil) {
-    //		self.lastTime = nowTime;
-    //		[self.chatArray addObject:nowTime];
-    //	}
-    //
-    //	NSTimeInterval timeInterval = [nowTime timeIntervalSinceDate:self.lastTime];
-    //	if (timeInterval >5) {
-    //		self.lastTime = nowTime;
-    //		[self.chatArray addObject:nowTime];
-    //	}
 }
 
 #pragma mark -
 #pragma mark UDP Delegate Methods
 - (BOOL)onUdpSocket:(AsyncUdpSocket *)sock didReceiveData:(NSData *)data withTag:(long)tag fromHost:(NSString *)host port:(UInt16)port
 {
-    
     [self.udpSocket receiveWithTimeout:-1 tag:0];
     NSLog(@"host---->%@",host);
     
-    //    //收到自己发的广播时不显示出来
-    //    NSMutableString *tempIP = [NSMutableString stringWithFormat:@"::ffff:%@",myIP];
-    //    if ([host isEqualToString:self.myIP]||[host isEqualToString:tempIP])
-    //    {
-    //        //        return YES;
-    //    }
-    
-   	//接收到数据回调，用泡泡VIEW显示出来
-	
+   	//接收到数据回调，显示出来
 	NSString *info=[[NSString alloc] initWithData:data encoding: NSUTF8StringEncoding];
 	NSLog(@"UDP代理接收到的数据：%@",info);
 	//已经处理完毕
-    //configurationTipView 消失
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"配置成功"
+													message:@"配置成功"
+												   delegate:nil
+										  cancelButtonTitle:@"OK"
+										  otherButtonTitles:nil];
+	[alert show];
+
     [configurationTipView dismissWithClickedButtonIndex:0 animated:YES];
 	return YES;
 }
@@ -421,7 +434,7 @@
 	//无法发送时,返回的异常提示信息
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法发送"
 													message:[error description]
-												   delegate:self
+												   delegate:nil
 										  cancelButtonTitle:@"取消"
 										  otherButtonTitles:nil];
 	[alert show];
@@ -432,7 +445,7 @@
 	//无法接收时，返回异常提示信息
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法接收"
 													message:[error description]
-												   delegate:self
+												   delegate:nil
 										  cancelButtonTitle:@"取消"
 										  otherButtonTitles:nil];
 	[alert show];
@@ -441,6 +454,63 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
+}
+#pragma mark - selectAction
+//select 加密方式
+- (void)selectWEBstyle:(id)sender
+{
+    UISegmentedControl *segment = (UISegmentedControl *)sender;
+    self.security = [securyArr objectAtIndex:segment.selectedSegmentIndex];
+    switch (segment.selectedSegmentIndex) {
+        case 0:
+            userView.hidden = YES;
+            userField.text = @"";
+            hexOrAscii.hidden = YES;
+            break;
+        case 1:
+            userView.hidden = YES;
+            userField.text = @"";
+            hexOrAscii.hidden = YES;
+            
+            break;
+        case 2:
+            userView.hidden = NO;
+            hexOrAscii.hidden = YES;
+            
+            break;
+        case 3:
+            userView.hidden = NO;
+            hexOrAscii.hidden = YES;
+            
+            break;
+        case 4:
+            userView.hidden = YES;
+            userField.text = @"";
+            hexOrAscii.hidden = NO;
+            
+            break;
+        case 5:
+            userView.hidden = YES;
+            userField.text = @"";
+            hexOrAscii.hidden = YES;
+            
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)wepStyleAction:(id)sender
+{
+    UISegmentedControl *segment = (UISegmentedControl *)sender;
+    if (segment.selectedSegmentIndex) {
+        //2
+        self.wepStyle = @"2";
+    }else
+    {
+        self.wepStyle = @"1";
+        //1
+    }
 }
 
 ////强制不允许转屏

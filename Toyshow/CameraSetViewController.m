@@ -221,6 +221,9 @@
             NSDictionary *dict = (NSDictionary *)responseObject;
             NSString *deviceID = [dict objectForKey:@"deviceid"];
             NSLog(@"deviceid:%@",deviceID);
+            if (self.delegate && [self.delegate respondsToSelector:@selector(logoutCameraAtindex:)]) {
+                [self.delegate logoutCameraAtindex:self.index];
+            }
             [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
 
             UIAlertView *tipView = [[UIAlertView alloc] initWithTitle:@"注销成功" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];

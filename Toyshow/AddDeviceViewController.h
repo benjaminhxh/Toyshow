@@ -16,6 +16,7 @@
 @property (nonatomic, copy) NSString *wifiBssid;
 @property (nonatomic, copy) NSString *security;//加密方式
 @property (nonatomic, copy) NSString *identifify;//身份
+@property (nonatomic, copy) NSString *wepStyle;//16进制或ASCII
 
 @property (nonatomic, retain) AsyncUdpSocket         *udpSocket;
 

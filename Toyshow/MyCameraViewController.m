@@ -16,7 +16,7 @@
 #import "AFNetworking.h"
 #import "CameraSetViewController.h"
 
-@interface MyCameraViewController ()<UITableViewDelegate,UITableViewDataSource,MJRefreshBaseViewDelegate,MBProgressHUDDelegate>
+@interface MyCameraViewController ()<UITableViewDelegate,UITableViewDataSource,MJRefreshBaseViewDelegate,MBProgressHUDDelegate,CameraSetViewControllerDelegate>
 {
     NSArray *_titleArr,*_imageArr;
     NSArray *_shareCameraListArr;
@@ -25,7 +25,7 @@
     MJRefreshHeaderView *_headerView;
     MJRefreshFooterView *_footerView;
     NSMutableArray *_fakeData;
-    NSArray *downloadArr;
+    NSMutableArray *downloadArr;
     MBProgressHUD *_loadingView;
     UILabel *noDataLoadL,*noInternetL;
 }
@@ -174,7 +174,7 @@
             NSDictionary *dict = (NSDictionary *)responseObject;
             //2、初始化数据
             _fakeData = [NSMutableArray array];
-            downloadArr = [NSArray array];
+            downloadArr = [NSMutableArray array];
             downloadArr = [dict objectForKey:@"list"];
             NSLog(@"downloadArr:%@",downloadArr);
 
@@ -280,7 +280,6 @@
 }
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
@@ -388,7 +387,18 @@
     setVC.deviceDesc = [dict objectForKey:@"description"];
     setVC.access_token = self.accessToken;
     setVC.deviceid = [dict objectForKey:@"deviceid"];
+    setVC.index = row;
+    setVC.delegate = self;
     [[SliderViewController sharedSliderController].navigationController pushViewController:setVC animated:YES];
+}
+
+#pragma mark - cameraSetDelegate
+- (void)logoutCameraAtindex:(int)index
+{
+    NSLog(@"==============分隔符==================%d",index);
+    NSLog(@"=============_fakeData：%@",_fakeData);
+//    [_fakeData removeObjectAtIndex:index];
+    [_tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -419,31 +429,31 @@
 //    [[NSNotificationCenter defaultCenter] removeObserver:self];
 //}
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=list&access_token=%@&device_type=1",self.accessToken];
-    [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSDictionary *dict = (NSDictionary *)responseObject;
-        //2、初始化数据
-        _fakeData = [NSMutableArray array];
-        downloadArr = [NSArray array];
-        downloadArr = [dict objectForKey:@"list"];
-        NSLog(@"downloadArr:%@",downloadArr);
-
-        if (downloadArr.count>20) {
-            for (int i = 0; i < 20; i++) {
-                [_fakeData addObject:[downloadArr objectAtIndex:i]];
-            }
-        }else
-        {
-            _fakeData = (NSMutableArray *)downloadArr;
-        }
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"shibai");
-    }];
-    [_tableView reloadData];
-    [self.view setNeedsDisplay];
-}
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=list&access_token=%@&device_type=1",self.accessToken];
+//    [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//        NSDictionary *dict = (NSDictionary *)responseObject;
+//        //2、初始化数据
+//        _fakeData = [NSMutableArray array];
+//        downloadArr = [NSArray array];
+//        downloadArr = [dict objectForKey:@"list"];
+//        NSLog(@"downloadArr:%@",downloadArr);
+//
+//        if (downloadArr.count>20) {
+//            for (int i = 0; i < 20; i++) {
+//                [_fakeData addObject:[downloadArr objectAtIndex:i]];
+//            }
+//        }else
+//        {
+//            _fakeData = (NSMutableArray *)downloadArr;
+//        }
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        NSLog(@"shibai");
+//    }];
+//    [_tableView reloadData];
+//    [self.view setNeedsDisplay];
+//}
 
 - (void)viewDidAppear:(BOOL)animated
 {

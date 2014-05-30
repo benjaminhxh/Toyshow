@@ -212,7 +212,7 @@
     reader.cameraOverlayView = view;
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 40)];
-    label.text = @"请将设备的二维码至于下面的扫描框内\n谢谢！";
+    label.text = @"请将设备的二维码置于下面的扫描框内\n谢谢！";
     label.textColor = [UIColor whiteColor];
     label.font = [UIFont systemFontOfSize:15];
     label.textAlignment = 1;
@@ -305,7 +305,6 @@
             UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"扫描失败" message:@"请重新扫描" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [view show];
         }
-//        NSLog(@"%@",result);
     }];
 }
 #pragma mark - baidu登陆

@@ -340,6 +340,7 @@
     shareVC.isShare = YES;
     shareVC.playerTitle = @"浙江卫视(分享)";
     shareVC.url = @"http://zb.v.qq.com:1863/?progid=1975434150";
+//    shareVC.url = @"http://a.puteasy.com:8800/authorize?chn_id=89&mac=ffffffffffff&mac_code=67a2e0b15d7b1b6ab6ab4e1f6cc516d1";
     [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
 }
 
