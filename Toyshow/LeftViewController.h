@@ -12,7 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageIcon;
 @property (weak, nonatomic) IBOutlet UILabel *titleText;
-@property (weak, nonatomic) NSString *titleT;
+@property (copy, nonatomic) NSString *titleT;
 @property (nonatomic, strong) UIImageView * line;
 @property (nonatomic, strong) UIImageView *userImageVIew;
 @property (nonatomic, strong) UILabel *userNameL;

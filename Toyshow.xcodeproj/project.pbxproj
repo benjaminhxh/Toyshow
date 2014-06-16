@@ -110,6 +110,8 @@
 		2751C13718C42828006173B3 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2751C13618C42828006173B3 /* MediaPlayer.framework */; };
 		2751C13D18C457D4006173B3 /* wwmxd.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2751C13C18C457D4006173B3 /* wwmxd.mp4 */; };
 		2751C14318C45F8A006173B3 /* MVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2751C14218C45F8A006173B3 /* MVViewController.m */; };
+		27540A8D1945B84600B73945 /* IPObtainStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27540A8A1945B84600B73945 /* IPObtainStyleViewController.m */; };
+		27540A8E1945B84600B73945 /* SecurtyStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27540A8C1945B84600B73945 /* SecurtyStyleViewController.m */; };
 		2758508A18D6992100CCB075 /* CircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2758508718D6992100CCB075 /* CircleView.m */; };
 		2758508B18D6992100CCB075 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2758508918D6992100CCB075 /* EGORefreshTableHeaderView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2758509018D6999000CCB075 /* ShareCameraCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2758508E18D6999000CCB075 /* ShareCameraCell.xib */; };
@@ -369,6 +371,10 @@
 		2751C13C18C457D4006173B3 /* wwmxd.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = wwmxd.mp4; sourceTree = "<group>"; };
 		2751C14118C45F8A006173B3 /* MVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVViewController.h; sourceTree = "<group>"; };
 		2751C14218C45F8A006173B3 /* MVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVViewController.m; sourceTree = "<group>"; };
+		27540A891945B84600B73945 /* IPObtainStyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPObtainStyleViewController.h; sourceTree = "<group>"; };
+		27540A8A1945B84600B73945 /* IPObtainStyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPObtainStyleViewController.m; sourceTree = "<group>"; };
+		27540A8B1945B84600B73945 /* SecurtyStyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecurtyStyleViewController.h; sourceTree = "<group>"; };
+		27540A8C1945B84600B73945 /* SecurtyStyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecurtyStyleViewController.m; sourceTree = "<group>"; };
 		2758508618D6992100CCB075 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
 		2758508718D6992100CCB075 /* CircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleView.m; sourceTree = "<group>"; };
 		2758508818D6992100CCB075 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
@@ -776,6 +782,19 @@
 			name = image;
 			sourceTree = "<group>";
 		};
+		27540A881945B82200B73945 /* AddCamera */ = {
+			isa = PBXGroup;
+			children = (
+				270C941418C732B900BE56C8 /* AddDeviceViewController.h */,
+				270C941518C732B900BE56C8 /* AddDeviceViewController.m */,
+				27540A891945B84600B73945 /* IPObtainStyleViewController.h */,
+				27540A8A1945B84600B73945 /* IPObtainStyleViewController.m */,
+				27540A8B1945B84600B73945 /* SecurtyStyleViewController.h */,
+				27540A8C1945B84600B73945 /* SecurtyStyleViewController.m */,
+			);
+			name = AddCamera;
+			sourceTree = "<group>";
+		};
 		2758508518D6992100CCB075 /* RefreshTableHeaderView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1039,6 +1058,7 @@
 		27FFE28A18BF287B00AE47FF /* Toyshow */ = {
 			isa = PBXGroup;
 			children = (
+				27540A881945B82200B73945 /* AddCamera */,
 				2794B6DC18E023AB008DCF83 /* NetworkTool */,
 				2703E51618D97EA500E31DF0 /* SliderViewController.h */,
 				2703E51718D97EA500E31DF0 /* SliderViewController.m */,
@@ -1054,8 +1074,6 @@
 				2703E51018D97E8C00E31DF0 /* RightViewController.m */,
 				274D771718E571BF00F352C7 /* ThumbnailViewController.h */,
 				274D771818E571BF00F352C7 /* ThumbnailViewController.m */,
-				270C941418C732B900BE56C8 /* AddDeviceViewController.h */,
-				270C941518C732B900BE56C8 /* AddDeviceViewController.m */,
 				271BB8CA18CDC01C000DFC4A /* CameraSetViewController.h */,
 				271BB8CB18CDC01C000DFC4A /* CameraSetViewController.m */,
 				2758508E18D6999000CCB075 /* ShareCameraCell.xib */,
@@ -1339,6 +1357,7 @@
 				271BB90118CDDED9000DFC4A /* mask.c in Sources */,
 				2777607218FB74BD000A5F83 /* AFNetworkReachabilityManager.m in Sources */,
 				2703E51418D97E8C00E31DF0 /* LeftViewController.m in Sources */,
+				27540A8D1945B84600B73945 /* IPObtainStyleViewController.m in Sources */,
 				2777606F18FB74BD000A5F83 /* AFHTTPRequestOperation.m in Sources */,
 				2758509518D69A1800CCB075 /* HelpViewController.m in Sources */,
 				2751C13118C41FA7006173B3 /* VideoViewController.m in Sources */,
@@ -1356,6 +1375,7 @@
 				2713684A18BF3659006CF446 /* SiderCell.m in Sources */,
 				271BB90618CDDED9000DFC4A /* rscode.c in Sources */,
 				27FFE29518BF287B00AE47FF /* HXHAppDelegate.m in Sources */,
+				27540A8E1945B84600B73945 /* SecurtyStyleViewController.m in Sources */,
 				27157E3F18E40C30008D5858 /* MBProgressHUD.m in Sources */,
 				272C415C18ED66DB00432D5D /* TransformViewController.m in Sources */,
 				2751C14318C45F8A006173B3 /* MVViewController.m in Sources */,

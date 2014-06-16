@@ -15,4 +15,6 @@
 @property (nonatomic,copy) NSString *url;
 @property (nonatomic,copy) NSString *playerTitle;
 @property (nonatomic,copy) NSString *stream_id;
+@property (nonatomic,copy) NSString *accecc_token;
+@property (nonatomic,copy) NSString *deviceId;
 @end

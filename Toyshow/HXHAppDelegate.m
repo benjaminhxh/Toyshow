@@ -13,6 +13,8 @@
 
 #define APP_KEY @"ZIAgdlC7Vw7syTjeKG9zS4QP"
 #define REPORT_ID @"2271149"
+#define APP_ID @"2271149"
+#define APP_SecrectKey @"pavlqfU4mzYQ1dH0NG3b7LyXNBy5SYk6"
 
 @implementation HXHAppDelegate
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

@@ -71,6 +71,11 @@
 //    tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:tableView];
     
+    //右滑回到上一个页面
+    UISwipeGestureRecognizer *recognizer;
+    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(backBtn:)];
+    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    [self.view addGestureRecognizer:recognizer];
 }
 
 - (void)backBtn:(id)sender

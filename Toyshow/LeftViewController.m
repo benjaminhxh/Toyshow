@@ -54,7 +54,7 @@
     [imgV setImage:[UIImage imageNamed:backGroundImage]];
     [self.view addSubview:imgV];
     _listArr = [NSArray array];
-    _listArr = [NSArray arrayWithObjects:@"我的摄像头",@"添加新设备",@"分享的摄像头",@"退出登录等",@"帮助",@"关于", nil];
+    _listArr = [NSArray arrayWithObjects:@"我的摄像头",@"添加新设备",@"分享的摄像头",@"登录/退出",@"帮助",@"关于", nil];
     UIImage *image1 = [UIImage imageNamed:@"shejingtou@2x"];
     UIImage *image2 = [UIImage imageNamed:@"tianjia@2x"];
     UIImage *image3 = [UIImage imageNamed:@"fenxiang@2x"];
@@ -334,9 +334,7 @@
             self.userNameL.text = result.accountName;
             userID = result.accountName;
             [Frontia setCurrentAccount:result];
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [self.view setNeedsDisplay]; //
-//            });
+
             [self onUserInfo];
         };
         //---------------------------------------------------------
@@ -345,7 +343,7 @@
         NSMutableArray *scope = [[NSMutableArray alloc] init];
         [scope addObject:FRONTIA_PERMISSION_USER_INFO];
         [scope addObject:FRONTIA_PERMISSION_PCS];
-        
+//        NSLog(@"-------fengexian---------scope:%@",scope);
         [authorization authorizeWithPlatform:FRONTIA_SOCIAL_PLATFORM_BAIDU scope:scope supportedInterfaceOrientations:UIInterfaceOrientationMaskPortrait isStatusBarHidden:NO cancelListener:onCancel failureListener:onFailure resultListener:onResult];
     }
 }
@@ -370,7 +368,13 @@
 //            userID = result.accountName;
 //            self.titleText.text = @"退出登录";
             //            accessToken = result.accessToken;
-            NSLog(@"用户信息的accessToken:%@",result.accessToken);//null
+//            NSLog(@"用户信息的accessToken:%@",result.accessToken);//null
+            FrontiaUserQuery *frontia;
+            [FrontiaUser findUser:frontia  resultListener:^(NSArray *result) {
+                NSLog(@"resultArray:%@",result);
+            } failureListener:^(int errorCode, NSString *errorMessage) {
+                NSLog(@"erroeMessage:%@",errorMessage);
+            }];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.view setNeedsDisplay]; //7
             });
@@ -392,18 +396,19 @@
             self.userNameL.text = @"请登录";
 //            self.titleText.text = @"登录";
             accessToken = nil;
+            accessToken = @"";
             dispatch_async(dispatch_get_main_queue(), ^{
 //                [self.view setNeedsDisplay];
                 exit(0);
             });
         }else
         {
+            [auth clearAuthorizationInfoWithPlatform:@"iOS"];
             [auth clearAllAuthorizationInfo];
             NSLog(@"fail");
         }
     }else
     {
-        NSLog(@"000--------0000");
     }
 }
 #pragma mark - shareTo

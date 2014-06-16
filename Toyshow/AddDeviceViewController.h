@@ -17,6 +17,12 @@
 @property (nonatomic, copy) NSString *security;//加密方式
 @property (nonatomic, copy) NSString *identifify;//身份
 @property (nonatomic, copy) NSString *wepStyle;//16进制或ASCII
+@property (nonatomic, copy) NSString *dhcp;//dhcp为1为动态、0为static
+@property (nonatomic, copy) NSString *ipaddr;
+@property (nonatomic, copy) NSString *mask;
+@property (nonatomic, copy) NSString *gateway;
+@property (nonatomic, copy) NSString *url;
+@property (nonatomic, copy) NSString *reserved;
 
 @property (nonatomic, retain) AsyncUdpSocket         *udpSocket;
 

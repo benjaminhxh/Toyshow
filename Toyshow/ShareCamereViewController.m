@@ -14,8 +14,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MBProgressHUD.h"
 #import "UIProgressView+AFNetworking.h"
-
-@interface ShareCamereViewController ()<MBProgressHUDDelegate,UIAlertViewDelegate>
+//6227 0000 1616 0056 890
+@interface ShareCamereViewController ()<MBProgressHUDDelegate,UIAlertViewDelegate,UIActionSheetDelegate>
 {
     UIView *cbdPlayerView;
     CyberPlayerController *cbPlayerController;
@@ -31,6 +31,8 @@
     UILabel *timeL;
     MPVolumeView *volumView;
     UIView *tapView;
+    UIAlertView *publicView,*securityView;
+
 }
 @end
 
@@ -61,7 +63,7 @@
     UISwipeGestureRecognizer *recognizer;
     recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(backBtn:)];
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-//    [self.view addGestureRecognizer:recognizer];
+    [self.view addGestureRecognizer:recognizer];
     cbdPlayerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kHeight, kWidth)];
     //请添加您百度开发者中心应用对应的APIKey和SecretKey。
 //    NSString* msAK=@"ZIAgdlC7Vw7syTjeKG9zS4QP";
@@ -292,10 +294,8 @@
 
 - (void)shareClick  //分享
 {
-    UIAlertView *shareView = [[UIAlertView alloc] initWithTitle:@"分享" message:@"确定分享该摄像头？" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-    shareView.transform = CGAffineTransformMakeRotation(M_PI_2);
-
-    [shareView show];
+    UIActionSheet *shareTypeSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"公共分享" otherButtonTitles:@"私密分享", nil];
+    [shareTypeSheet showInView:self.view];
 }
 
 - (void)SetClick    //设置
@@ -427,7 +427,7 @@
     NSDictionary* dictLeft = [[self class] convertSecond2HourMinuteSecond:allSecond - playableDuration];
     NSString* strLeft = [self getTimeString:dictLeft prefix:@"-"];
     remainsProgress.text = strLeft;
-    NSLog(@"可播放的strLeft:%@",strLeft);
+//    NSLog(@"可播放的strLeft:%@",strLeft);
 }
 
 - (void)refreshProgress:(int) currentTime totalDuration:(int)allSecond{
@@ -545,24 +545,52 @@
 //    NSLog(@"localTime:%@",localTIme);
     timeL.text = localTIme;
 }
-#pragma mark - 强制转屏
-//强制右转屏
-//- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-//    return (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight);
-//}
 
-//- (NSUInteger)supportedInterfaceOrientations {
-//    return UIInterfaceOrientationMaskLandscapeRight;
-//}
-
-#pragma maek - alertViewDelegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+#pragma mark - ActionsheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex) {
-        NSLog(@"分享:%@",self.url);
+    switch (buttonIndex) {
+        case 0:
+        {
+            NSLog(@"公共分享");//
+            publicView = [[UIAlertView alloc] initWithTitle:@"确定要将该摄像头公共分享吗？" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+            [publicView show];
+        }
+            break;
+        case 1:
+        {
+            NSLog(@"私密分享");
+            securityView = [[UIAlertView alloc] initWithTitle:@"私密分享" message:@"私密分享的摄像头需要密码才能观看" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+            [securityView show];
+
+        }
+            break;
+        case 2:
+            
+            break;
+        default:
+            break;
     }
+    
 }
 
+#pragma mark - alertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (publicView == alertView) {
+        if (buttonIndex) {
+            NSLog(@"公共分享alertView");
+            NSString *publicShareUrl = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=%@&deviceid=%@&share=1",self.accecc_token,self.deviceId];//1为公共分享
+            
+        }
+    }else
+    {
+        if (buttonIndex) {
+            NSLog(@"私密分享alertView");
+            NSString *securityShareUrl = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=%@&deviceid=%@&share=2",self.accecc_token,self.deviceId];//2为私密分享
+        }
+    }
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

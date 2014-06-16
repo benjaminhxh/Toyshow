@@ -79,26 +79,6 @@
     [backBtn addTarget:self action:@selector(leftClick) forControlEvents:UIControlEventTouchUpInside];
     [navBar addSubview:backBtn];
     
-//    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    rightBtn.frame = CGRectMake(self.view.frame.size.width-44, [UIApplication sharedApplication].statusBarFrame.size.height, 44, 44);
-//    [rightBtn setTitle:@"右" forState:UIControlStateNormal];
-//    [rightBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    [rightBtn addTarget:self action:@selector(rightClick) forControlEvents:UIControlEventTouchUpInside];
-//    [navBar addSubview:rightBtn];
-    
-//    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(25, 25, 120, 24)];
-//    title.textColor = [UIColor whiteColor];
-//    title.text = @"我的摄像头";
-//    title.textAlignment = NSTextAlignmentCenter;
-//    [self.view addSubview:title];
-	// Do any additional setup after loading the view.
-//    _refreshView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0, 65, 320, self.view.frame.size.height-65)];
-//    _refreshView.delegate = self;
-//    _refreshView.userInteractionEnabled = YES;
-//    _refreshView.backgroundColor = [UIColor clearColor];
-//    [self.view addSubview:_refreshView];
-//    [_refreshView refreshLastUpdatedDate];
-    
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, 320, [UIScreen mainScreen].bounds.size.height-65) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -351,6 +331,8 @@
             liveVC.isShare = NO;
             //        liveVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
             liveVC.url = rtmp;
+            liveVC.accecc_token = self.accessToken;//
+            liveVC.deviceId = deviceid;//设备ID
             liveVC.playerTitle = [[dict objectForKey:@"description"] stringByAppendingString:@"(直播)"];
             [[SliderViewController sharedSliderController].navigationController pushViewController:liveVC animated:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -389,6 +371,7 @@
     setVC.deviceid = [dict objectForKey:@"deviceid"];
     setVC.index = row;
     setVC.delegate = self;
+
     [[SliderViewController sharedSliderController].navigationController pushViewController:setVC animated:YES];
 }
 

@@ -16,17 +16,24 @@
 #import "NetworkRequest.h"
 #import "AFNetworking.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "SecurtyStyleViewController.h"
+#import "IPObtainStyleViewController.h"
+#import "SliderViewController.h"
+
 #define kTestHost @"telnet://towel.blinkenlights.nl"
 #define kTestPort 23
 
-@interface AddDeviceViewController ()<UIAlertViewDelegate,NSURLConnectionDataDelegate,NSURLConnectionDelegate,UITextFieldDelegate>
+@interface AddDeviceViewController ()<UIAlertViewDelegate,NSURLConnectionDataDelegate,NSURLConnectionDelegate,UITextFieldDelegate,IPObtainStyleViewControllerDelegate,SecurtyStyleViewControllerDelegate>
 {
     UITextField *deviceDetailF,*SSIDPWF,*SSIDF,*SSIDPWFconfirm;
     UIAlertView *nextAlertview,*loginAlterView,*configurationTipView;
     NSArray *securyArr;
-    UIView *userView;
-    UITextField *userField;
-    UISegmentedControl *hexOrAscii;
+//    UIView *userView;
+//    UITextField *userField;
+    UIButton *ipStyleBtn,*securtyBtn,*shareBtn;
+    NSInteger IPIndexPath,securtyIndexPath;
+    NSDictionary *ipParameraDict;
+//    UISegmentedControl *hexOrAscii;
 }
 @end
 
@@ -60,11 +67,6 @@
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtn:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backBtn];
-//    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(80, 20, 160, 24)];
-//    titleL.text = @"配置";
-//    titleL.textColor = [UIColor whiteColor];
-//    titleL.textAlignment = NSTextAlignmentCenter;
-//    [topView addSubview:titleL];
     
     UILabel *deviceL = [[UILabel alloc] initWithFrame:CGRectMake(10, 70, 100, 30)];
     deviceL.text = @"设备ID:";
@@ -89,8 +91,8 @@
     [self.view addSubview:SSIDL];
     SSIDF = [[UITextField alloc] initWithFrame:CGRectMake(100, 150, 180, 30)];
     SSIDF.borderStyle = UITextBorderStyleRoundedRect;
-    //    SSIDF.text = [self fetchSSIDInfo];
-    SSIDF.text = @"zhonghexunfei";
+    SSIDF.text = [self fetchSSIDInfo];
+//    SSIDF.text = @"zhonghexunfei";
     SSIDF.enabled = NO;
     [self.view addSubview:SSIDF];
     
@@ -112,60 +114,48 @@
     SSIDPWFconfirm.text = @"zhxf0602";
     [self.view addSubview:SSIDPWFconfirm];
     
-    UILabel *securtyStyleLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 265, 75, 24)];
-    securtyStyleLab.text = @"加密方式:";
+    UILabel  *lineL = [[UILabel alloc] initWithFrame:CGRectMake(2, 265, 320-4, 1)];
+    lineL.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:lineL];
+    UILabel *securtyStyleLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 275, 145, 24)];
+    securtyStyleLab.text = @"高级设置";
+    securtyStyleLab.font = [UIFont systemFontOfSize:24];
     [self.view addSubview:securtyStyleLab];
     
-    UILabel *textL = [[UILabel alloc] initWithFrame:CGRectMake(90, 265, 220, 44)];
-    textL.font = [UIFont systemFontOfSize:10];
-    textL.textColor = [UIColor redColor];
-    NSString *str = @"以下6种加密方式从左到右依次为最常用到最不常用，请根据WiFi路由器设定的加密方式谨慎选择，不然可能出现配置不成功的情况。";
-    textL.numberOfLines = 3;
-    textL.text = str;
-    [self.view addSubview:textL];
+    UILabel *ipStyleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 310, 140, 34)];
+    ipStyleLabel.text = @"IP地址获取方式:";
+    [self.view addSubview:ipStyleLabel];
+    ipStyleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    ipStyleBtn.frame = CGRectMake(220, 310, 80, 34);
+//    [ipStyleBtn setBackgroundColor:[UIColor grayColor]];
+    [ipStyleBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [ipStyleBtn setTitle:@"自动获取" forState:UIControlStateNormal];
+    [ipStyleBtn addTarget:self action:@selector(ipSelectAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:ipStyleBtn];
     
-    self.userID = @"中和讯飞科技";
-    securyArr = [NSArray arrayWithObjects:@"[WPA2-PSK-TKIP+CCMP]",@"[WPA-PSK-TKIP+CCMP]",@"[WPA2-EAP-TKIP+CCMP]",@"[WPA-EAP-TKIP+CCMP]",@"[WEP]",@"[ESS]", nil];
-    self.security = [securyArr objectAtIndex:0];
-//    NSMutableArray *imageArr = [NSMutableArray array];
-//    for (int i=0; i<6; i++) {
-//        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%d@2x",i+1]];
-//        [imageArr addObject:image];
-//    }
-//    NSLog(@"imageArr.count:%d",imageArr.count);
-    NSArray *titleArr = [NSArray arrayWithObjects:@"W2-PSK",@"W-PSK",@"W2-EAP",@"W-EAP",@"WEP",@"ESS", nil];
-    UISegmentedControl *wepControl = [[UISegmentedControl alloc] initWithItems:titleArr];
-    wepControl.frame = CGRectMake(2, 310, 320, 29);
-    [wepControl addTarget:self action:@selector(selectWEBstyle:) forControlEvents:UIControlEventValueChanged];
-    wepControl.selectedSegmentIndex = 0;
-    [self.view addSubview:wepControl];
+    UILabel *securtyLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 350, 200, 34)];
+    securtyLabel.text = @"路由器无线认证安全类型:";
+    [self.view addSubview:securtyLabel];
+    securtyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    securtyBtn.frame = CGRectMake(220, 350, 80, 34);
+    [securtyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [securtyBtn setTitle:@"WPA*" forState:UIControlStateNormal];
+    [securtyBtn addTarget:self action:@selector(securtySelectAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:securtyBtn];
+    self.identifify = @"";
+
+//    securyArr = [NSArray arrayWithObjects:@"[WPA2-PSK-TKIP+CCMP]",@"[WPA-PSK-TKIP+CCMP]",@"[WPA2-EAP-TKIP+CCMP]",@"[WPA-EAP-TKIP+CCMP]",@"[WEP]",@"[ESS]", nil];
+    securyArr = [NSArray arrayWithObjects:@"[WPA2-PSK-TKIP+CCMP]",@"[WPA2-EAP-TKIP+CCMP]",@"[WEP]",@"[ESS]", nil];
+    self.security = @"[WPA2-PSK-TKIP+CCMP]";
+    self.wepStyle = @"1";
     
-    userView = [[UIView alloc] initWithFrame:CGRectMake(0, 345, 320, 42)];
-    userView.hidden = YES;
-    [self.view addSubview:userView];
-    
-    UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 310, 1)];
-    line1.backgroundColor = [UIColor grayColor];
-    [userView addSubview:line1];
-    UILabel *line2 = [[UILabel alloc] initWithFrame:CGRectMake(5, 40, 310, 1)];
-    line2.backgroundColor = [UIColor grayColor];
-    [userView addSubview:line2];
-    
-    UILabel *userL = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 70, 30)];
-    userL.text = @"用户名";
-    [userView addSubview:userL];
-    
-    userField = [[UITextField alloc] initWithFrame:CGRectMake(100, 5, 200, 30)];
-    userField.borderStyle = UITextBorderStyleRoundedRect;
-    [userView addSubview:userField];
-    
-    NSArray *wepStyleArr = [NSArray arrayWithObjects:@"Hex",@"Ascii", nil];
-    hexOrAscii = [[UISegmentedControl alloc] initWithItems:wepStyleArr];
-    hexOrAscii.frame = CGRectMake(80, 345, 160, 42);
-    [hexOrAscii addTarget:self action:@selector(wepStyleAction:) forControlEvents:UIControlEventValueChanged];
-    hexOrAscii.selectedSegmentIndex = 0;
-    hexOrAscii.hidden = YES;
-    [self.view addSubview:hexOrAscii];
+//    NSArray *wepStyleArr = [NSArray arrayWithObjects:@"Hex",@"Ascii", nil];
+//    hexOrAscii = [[UISegmentedControl alloc] initWithItems:wepStyleArr];
+//    hexOrAscii.frame = CGRectMake(80, 345, 160, 42);
+//    [hexOrAscii addTarget:self action:@selector(wepStyleAction:) forControlEvents:UIControlEventValueChanged];
+//    hexOrAscii.selectedSegmentIndex = 0;
+//    hexOrAscii.hidden = YES;
+//    [self.view addSubview:hexOrAscii];
     
     UIButton *startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     startBtn.frame = CGRectMake(80, 420, 160, 40);
@@ -173,7 +163,6 @@
     [startBtn setTitle:@"开始配置" forState:UIControlStateNormal];
     [startBtn addTarget:self action:@selector(startConfigure) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:startBtn];
-    
 }
 
 - (void)backBtn:(id)sender
@@ -190,13 +179,13 @@
         info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifnam);
         NSLog(@"%@ => %@", ifnam, info);
         NSString *BSSID = [info objectForKey:@"BSSID"];
-        NSLog(@"BSSID:%@",BSSID);
+//        NSLog(@"BSSID:%@",BSSID);
         self.wifiBssid = BSSID;
-        NSString *SSIDDATAT = [info objectForKey:@"SSIDDATA"];
-        NSLog(@"SSIDDATA:%@",SSIDDATAT);
-        NSData *ssiddata = [info objectForKey:@"SSIDDATA"];
-        NSString *ssidda = [NSString stringWithFormat:@"%@",ssiddata ];
-        NSLog(@"ssiddata:%@",ssidda);
+//        NSString *SSIDDATAT = [info objectForKey:@"SSIDDATA"];
+//        NSLog(@"SSIDDATA:%@",SSIDDATAT);
+//        NSData *ssiddata = [info objectForKey:@"SSIDDATA"];
+//        NSString *ssidda = [NSString stringWithFormat:@"%@",ssiddata ];
+//        NSLog(@"ssiddata:%@",ssidda);
         if (info && [info count]) { break; }
     }
     NSString *SSID = [info objectForKey:@"SSID"];
@@ -234,6 +223,8 @@
                                                   //https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=123456&access_token=52.88be325d08d983f7403be8438c0c1eed.2592000.1403337720.1812238483-2271149&device_type=1&desc=摄像头描述
     NSString *URLstr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=%@&access_token=%@&device_type=1&desc=%@",self.deviceID,self.access_token,strWithUTF8];
     NSLog(@"urlSTR:%@",URLstr);
+    return ;
+    
     [[AFHTTPRequestOperationManager manager] POST:URLstr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //--------------------向Baidu注册成功，隐藏loginAlterView-------------------------
         [loginAlterView dismissWithClickedButtonIndex:0 animated:YES];
@@ -267,7 +258,6 @@
             return ;
         }
         return ;
-
     }];
     
     loginAlterView = [[UIAlertView alloc] initWithTitle:nil message:@"载入中\n请稍后……" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
@@ -279,6 +269,7 @@
     nextAlertview = [[UIAlertView alloc] initWithTitle:@"连接设备AP" message:@"1.请切换到“系统设置”>>“无线局域网”\n2.连接Joyshow开头的摄像头热点,(密码为123456789)\n3.切换回此页面，点击下一步" delegate:self cancelButtonTitle:@"下一步" otherButtonTitles:nil, nil];
     nextAlertview.delegate = self;
     [nextAlertview show];
+    
 }
 //- (void)loginAlterViewDismiss:(id)sender
 //{
@@ -300,15 +291,18 @@
 {
     NSMutableArray *arr = [NSMutableArray array];
     for (int i=0; i<32; i++) {
+        //一一截取字符串，加入到可变数组中
         NSString *s = [string substringWithRange:NSMakeRange(i, 1)];
         [arr addObject:s];
     }
+    //数组交换
     [arr exchangeObjectAtIndex:1 withObjectAtIndex:6];
     [arr exchangeObjectAtIndex:4 withObjectAtIndex:13];
     [arr exchangeObjectAtIndex:21 withObjectAtIndex:29];
     [arr exchangeObjectAtIndex:20 withObjectAtIndex:25];
     NSMutableString *mutableString = [NSMutableString string];
     for (NSString *s in arr) {
+        //遍历数组，加到可变数组中
         [mutableString appendString:s];
     }
     return mutableString;
@@ -321,22 +315,41 @@
     //判断WiFi名是否以joyshow开头
     if ([[self fetchSSIDInfo]hasPrefix:@"Joyshow" ]) {
         [self openUDPServer];
-        if (hexOrAscii.hidden) {
-            self.wepStyle = @"1";
+//        if (hexOrAscii.hidden) {
+//            self.wepStyle = @"1";
+//        }
+        self.security = [securyArr objectAtIndex:securtyIndexPath];
+        if (IPIndexPath) {
+            self.dhcp = @"0";
+            self.ipaddr  = [ipParameraDict objectForKey:@"ipaddr"];
+            self.mask    = [ipParameraDict objectForKey:@"mask"];
+            self.gateway = [ipParameraDict objectForKey:@"gateway"];
+        }else
+        {
+            self.dhcp = @"1";
+            self.ipaddr  = @"";
+            self.mask    = @"";
+            self.gateway = @"";
         }
-        NSString *dataStr = [NSString stringWithFormat:@"1%@%@%@%@%@%@%@2%@",self.wifiBssid,SSIDF.text,self.security,userField.text,SSIDPWF.text,self.userID,self.access_token,self.wepStyle];
+        NSString *dataStr = [NSString stringWithFormat:@"1%@%@%@%@%@%s%@2%@%@%@%@%@",self.wifiBssid,SSIDF.text,self.security,self.identifify,SSIDPWF.text,[self.userID UTF8String],self.access_token,self.wepStyle,self.dhcp,self.ipaddr,self.mask,self.gateway];
         NSLog(@"dataStr:%@",dataStr);
         NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                   @"1",@"opcode",//1为注册
-                                  self.wifiBssid,@"bssid",
-                                  SSIDF.text,@"ssid",
-                                  self.security,@"security",
-                                  userField.text,@"identify",
-                                  SSIDPWF.text,@"pwd",
-                                  self.userID,@"userId",
-                                  self.access_token,@"accessToken",
+                                  self.wifiBssid,@"bssid",//
+                                  SSIDF.text,@"ssid",//WiFi名称
+                                  self.security,@"security",//加密方式
+                                  self.identifify,@"identify",//二次加密的密码
+                                  SSIDPWF.text,@"pwd",//WiFi密码
+                                  [self.userID UTF8String],@"userId",//百度用户名
+                                  self.access_token,@"accessToken",//accessToken
                                   @"2",@"osType",//2为iOS平台
-                                  self.wepStyle,@"hexAscii", nil];
+                                  self.wepStyle,@"hexAscii",//16进制或ascll
+                                  self.dhcp,@"dhcp",//1为自动
+                                  self.ipaddr,@"ipaddr",//ip
+                                  self.mask,@"mask",//掩码
+                                  self.mask,@"geteway",//路由器
+                                  @"",@"url",//保留URL
+                                  @"",@"reserved",nil];//保留参数
         NSLog(@"dataDict:%@",dataDict);
         NSString *md5String = [self getMd5_32Bit_String:dataStr];//得到md5加密后的32位字符串
         NSLog(@"md5String:%@",md5String);//0ea7ccca8f7eeefb255e1931cb1409aa
@@ -380,13 +393,11 @@
     
    	//启动接收线程
 	[self.udpSocket receiveWithTimeout:-1 tag:0];
-    
 }
 
 //通过UDP,发送消息
 -(void)sendMassage:(NSString *)message
 {
-    //	NSDate *nowTime = [NSDate date];
 	NSMutableString *sendString=[NSMutableString stringWithCapacity:100];
 	[sendString appendString:message];
 	//开始发送
@@ -395,7 +406,6 @@
 								   port:7860
 							withTimeout:-1
                                     tag:0];
-    
     
    	if (!res) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
@@ -419,12 +429,12 @@
 	NSLog(@"UDP代理接收到的数据：%@",info);
 	//已经处理完毕
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"配置成功"
-													message:@"配置成功"
+													message:@"1.请切换到“系统设置”>>“无线局域网”\n2.断开Joyshow开头的摄像头热点\n3.切换回此页面，再次刷新页面"
 												   delegate:nil
 										  cancelButtonTitle:@"OK"
 										  otherButtonTitles:nil];
 	[alert show];
-
+    [self backBtn:nil];
     [configurationTipView dismissWithClickedButtonIndex:0 animated:YES];
 	return YES;
 }
@@ -455,72 +465,57 @@
 {
     [self.view endEditing:YES];
 }
-#pragma mark - selectAction
-//select 加密方式
-- (void)selectWEBstyle:(id)sender
+
+
+#pragma mark - 高级设置
+//IP模式选择
+- (void)ipSelectAction:(id)sender
 {
-    UISegmentedControl *segment = (UISegmentedControl *)sender;
-    self.security = [securyArr objectAtIndex:segment.selectedSegmentIndex];
-    switch (segment.selectedSegmentIndex) {
-        case 0:
-            userView.hidden = YES;
-            userField.text = @"";
-            hexOrAscii.hidden = YES;
-            break;
-        case 1:
-            userView.hidden = YES;
-            userField.text = @"";
-            hexOrAscii.hidden = YES;
-            
-            break;
-        case 2:
-            userView.hidden = NO;
-            hexOrAscii.hidden = YES;
-            
-            break;
-        case 3:
-            userView.hidden = NO;
-            hexOrAscii.hidden = YES;
-            
-            break;
-        case 4:
-            userView.hidden = YES;
-            userField.text = @"";
-            hexOrAscii.hidden = NO;
-            
-            break;
-        case 5:
-            userView.hidden = YES;
-            userField.text = @"";
-            hexOrAscii.hidden = YES;
-            
-            break;
-        default:
-            break;
+    IPObtainStyleViewController *ipVC = [[IPObtainStyleViewController alloc] init];
+    ipVC.delegate = self;
+    ipVC.selectedIndex = IPIndexPath;
+    if (IPIndexPath) {
+        ipVC.ipParameter = ipParameraDict;
     }
+//    [self presentViewController:ipVC animated:YES completion:nil];
+    [[SliderViewController sharedSliderController].navigationController pushViewController:ipVC animated:YES];
 }
 
-- (void)wepStyleAction:(id)sender
+//路由器无线加密方式
+- (void)securtySelectAction:(id)sender
 {
-    UISegmentedControl *segment = (UISegmentedControl *)sender;
-    if (segment.selectedSegmentIndex) {
-        //2
-        self.wepStyle = @"2";
+    SecurtyStyleViewController *securtyVC = [[SecurtyStyleViewController alloc] init];
+    securtyVC.delegate = self;
+    securtyVC.selectIndex = securtyIndexPath;
+    securtyVC.pwd = self.identifify;
+    [[SliderViewController sharedSliderController].navigationController pushViewController:securtyVC animated:YES];
+}
+#pragma mark - delegate
+//IP模式代理
+- (void)ipObtainStyle:(NSInteger)integer withStaticParameter:(NSDictionary *)ipParameter
+{
+    IPIndexPath = integer;
+    if (integer) {
+        NSLog(@"1");
+//        NSString *subnetMask = [ipParameter objectForKey:@"subnetMask"];
+//        NSLog(@"subnetmask:%@",subnetMask);
+        ipParameraDict = ipParameter;
+        [ipStyleBtn setTitle:@"手动设置" forState:UIControlStateNormal];
+        
     }else
     {
-        self.wepStyle = @"1";
-        //1
+        NSLog(@"0");
+        [ipStyleBtn setTitle:@"自动获取" forState:UIControlStateNormal];
     }
 }
-
-////强制不允许转屏
-//- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-//    return (toInterfaceOrientation == UIInterfaceOrientationMaskPortrait);
-//}
-//
-//- (NSUInteger)supportedInterfaceOrientations {
-//    return UIInterfaceOrientationMaskPortrait;
-//}
+//无线加密方式
+- (void)securtyStyleSelect:(NSString *)securtyStyle withIndex:(NSInteger)index withpwd:(NSString *)pwd
+{
+    NSLog(@"securtyStyle:%@,index:%d,pwd:%@",securtyStyle,index,pwd);
+    securtyIndexPath = index;
+    self.identifify = pwd;
+    [securtyBtn setTitle:securtyStyle forState:UIControlStateNormal];
+}
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
