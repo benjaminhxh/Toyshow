@@ -185,6 +185,11 @@
 		27966A0F18E2EB1A0076423C /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 27966A0818E2EB1A0076423C /* MJRefreshConst.m */; };
 		27966A1018E2EB1A0076423C /* MJRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27966A0A18E2EB1A0076423C /* MJRefreshFooterView.m */; };
 		27966A1118E2EB1A0076423C /* MJRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27966A0C18E2EB1A0076423C /* MJRefreshHeaderView.m */; };
+		2799684B1950440E00D9C6DD /* SceneModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279968421950440E00D9C6DD /* SceneModeViewController.m */; };
+		2799684C1950440E00D9C6DD /* NtscOrpalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279968441950440E00D9C6DD /* NtscOrpalViewController.m */; };
+		2799684D1950440E00D9C6DD /* ImageResolutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279968461950440E00D9C6DD /* ImageResolutionViewController.m */; };
+		2799684E1950440E00D9C6DD /* DeviceControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279968481950440E00D9C6DD /* DeviceControlViewController.m */; };
+		2799684F1950440E00D9C6DD /* SensitivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2799684A1950440E00D9C6DD /* SensitivityViewController.m */; };
 		27C5F8331905037A0078BBBE /* cameraSet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27C5F8321905037A0078BBBE /* cameraSet.xib */; };
 		27C5F8391905342B0078BBBE /* fanhui_jiantou@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27C5F8381905342B0078BBBE /* fanhui_jiantou@2x.png */; };
 		27C5F83F19053E4E0078BBBE /* bofang_anniu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27C5F83E19053E4E0078BBBE /* bofang_anniu@2x.png */; };
@@ -480,6 +485,16 @@
 		27966A0A18E2EB1A0076423C /* MJRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshFooterView.m; sourceTree = "<group>"; };
 		27966A0B18E2EB1A0076423C /* MJRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshHeaderView.h; sourceTree = "<group>"; };
 		27966A0C18E2EB1A0076423C /* MJRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshHeaderView.m; sourceTree = "<group>"; };
+		279968411950440E00D9C6DD /* SceneModeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneModeViewController.h; sourceTree = "<group>"; };
+		279968421950440E00D9C6DD /* SceneModeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneModeViewController.m; sourceTree = "<group>"; };
+		279968431950440E00D9C6DD /* NtscOrpalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NtscOrpalViewController.h; sourceTree = "<group>"; };
+		279968441950440E00D9C6DD /* NtscOrpalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NtscOrpalViewController.m; sourceTree = "<group>"; };
+		279968451950440E00D9C6DD /* ImageResolutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageResolutionViewController.h; sourceTree = "<group>"; };
+		279968461950440E00D9C6DD /* ImageResolutionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageResolutionViewController.m; sourceTree = "<group>"; };
+		279968471950440E00D9C6DD /* DeviceControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceControlViewController.h; sourceTree = "<group>"; };
+		279968481950440E00D9C6DD /* DeviceControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceControlViewController.m; sourceTree = "<group>"; };
+		279968491950440E00D9C6DD /* SensitivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensitivityViewController.h; sourceTree = "<group>"; };
+		2799684A1950440E00D9C6DD /* SensitivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensitivityViewController.m; sourceTree = "<group>"; };
 		27C5F8321905037A0078BBBE /* cameraSet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cameraSet.xib; sourceTree = "<group>"; };
 		27C5F8381905342B0078BBBE /* fanhui_jiantou@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fanhui_jiantou@2x.png"; sourceTree = "<group>"; };
 		27C5F83E19053E4E0078BBBE /* bofang_anniu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bofang_anniu@2x.png"; sourceTree = "<group>"; };
@@ -914,6 +929,23 @@
 			path = MJRefresh;
 			sourceTree = "<group>";
 		};
+		27996840195043EE00D9C6DD /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				279968411950440E00D9C6DD /* SceneModeViewController.h */,
+				279968421950440E00D9C6DD /* SceneModeViewController.m */,
+				279968431950440E00D9C6DD /* NtscOrpalViewController.h */,
+				279968441950440E00D9C6DD /* NtscOrpalViewController.m */,
+				279968451950440E00D9C6DD /* ImageResolutionViewController.h */,
+				279968461950440E00D9C6DD /* ImageResolutionViewController.m */,
+				279968471950440E00D9C6DD /* DeviceControlViewController.h */,
+				279968481950440E00D9C6DD /* DeviceControlViewController.m */,
+				279968491950440E00D9C6DD /* SensitivityViewController.h */,
+				2799684A1950440E00D9C6DD /* SensitivityViewController.m */,
+			);
+			name = Setting;
+			sourceTree = "<group>";
+		};
 		27EC6576190799760055B0E2 /* guide */ = {
 			isa = PBXGroup;
 			children = (
@@ -1076,6 +1108,7 @@
 				274D771818E571BF00F352C7 /* ThumbnailViewController.m */,
 				271BB8CA18CDC01C000DFC4A /* CameraSetViewController.h */,
 				271BB8CB18CDC01C000DFC4A /* CameraSetViewController.m */,
+				27996840195043EE00D9C6DD /* Setting */,
 				2758508E18D6999000CCB075 /* ShareCameraCell.xib */,
 				2732466E18D99EC400F82011 /* MyCameraCell.xib */,
 				274D771A18E572FA00F352C7 /* thumbCell.xib */,
@@ -1339,6 +1372,7 @@
 			files = (
 				271BB90318CDDED9000DFC4A /* qrencode.c in Sources */,
 				272C415918ED07AD00432D5D /* AsyncUdpSocket.m in Sources */,
+				2799684B1950440E00D9C6DD /* SceneModeViewController.m in Sources */,
 				27F0A43E192C984400D02A79 /* HowToUseViewController.m in Sources */,
 				271BB90218CDDED9000DFC4A /* QRCodeGenerator.m in Sources */,
 				2758508B18D6992100CCB075 /* EGORefreshTableHeaderView.m in Sources */,
@@ -1347,6 +1381,7 @@
 				27FFE29118BF287B00AE47FF /* main.m in Sources */,
 				2777607E18FB74BD000A5F83 /* UIRefreshControl+AFNetworking.m in Sources */,
 				27966A0F18E2EB1A0076423C /* MJRefreshConst.m in Sources */,
+				2799684D1950440E00D9C6DD /* ImageResolutionViewController.m in Sources */,
 				271BB90518CDDED9000DFC4A /* qrspec.c in Sources */,
 				27966A1118E2EB1A0076423C /* MJRefreshHeaderView.m in Sources */,
 				2777607A18FB74BD000A5F83 /* UIAlertView+AFNetworking.m in Sources */,
@@ -1354,6 +1389,7 @@
 				271BB90018CDDED9000DFC4A /* bitstream.c in Sources */,
 				2777607018FB74BD000A5F83 /* AFHTTPRequestOperationManager.m in Sources */,
 				27966A0E18E2EB1A0076423C /* MJRefreshBaseView.m in Sources */,
+				2799684F1950440E00D9C6DD /* SensitivityViewController.m in Sources */,
 				271BB90118CDDED9000DFC4A /* mask.c in Sources */,
 				2777607218FB74BD000A5F83 /* AFNetworkReachabilityManager.m in Sources */,
 				2703E51418D97E8C00E31DF0 /* LeftViewController.m in Sources */,
@@ -1375,6 +1411,7 @@
 				2713684A18BF3659006CF446 /* SiderCell.m in Sources */,
 				271BB90618CDDED9000DFC4A /* rscode.c in Sources */,
 				27FFE29518BF287B00AE47FF /* HXHAppDelegate.m in Sources */,
+				2799684E1950440E00D9C6DD /* DeviceControlViewController.m in Sources */,
 				27540A8E1945B84600B73945 /* SecurtyStyleViewController.m in Sources */,
 				27157E3F18E40C30008D5858 /* MBProgressHUD.m in Sources */,
 				272C415C18ED66DB00432D5D /* TransformViewController.m in Sources */,
@@ -1391,6 +1428,7 @@
 				2732466D18D98B2000F82011 /* MyCameraViewController.m in Sources */,
 				2758508A18D6992100CCB075 /* CircleView.m in Sources */,
 				2751C12718C417A9006173B3 /* ShowImageViewController.m in Sources */,
+				2799684C1950440E00D9C6DD /* NtscOrpalViewController.m in Sources */,
 				274D771918E571BF00F352C7 /* ThumbnailViewController.m in Sources */,
 				2777607518FB74BD000A5F83 /* AFURLRequestSerialization.m in Sources */,
 				275C716B18CEC91E00288C83 /* AboutViewController.m in Sources */,
