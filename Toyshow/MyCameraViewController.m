@@ -329,6 +329,7 @@
             ShareCamereViewController *liveVC = [[ShareCamereViewController alloc] init];
             liveVC.islLve = YES;
             liveVC.isShare = NO;
+            liveVC.shareStaue = [[dict objectForKey:@"share"] intValue];
             //        liveVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
             liveVC.url = rtmp;
             liveVC.accecc_token = self.accessToken;//

@@ -148,7 +148,7 @@
     securyArr = [NSArray arrayWithObjects:@"[WPA2-PSK-TKIP+CCMP]",@"[WPA2-EAP-TKIP+CCMP]",@"[WEP]",@"[ESS]", nil];
     self.security = @"[WPA2-PSK-TKIP+CCMP]";
     self.wepStyle = @"1";
-    
+    //
 //    NSArray *wepStyleArr = [NSArray arrayWithObjects:@"Hex",@"Ascii", nil];
 //    hexOrAscii = [[UISegmentedControl alloc] initWithItems:wepStyleArr];
 //    hexOrAscii.frame = CGRectMake(80, 345, 160, 42);

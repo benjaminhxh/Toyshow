@@ -73,8 +73,6 @@
 
 - (void)modifyDevice:(id)sender
 {
-//    UIButton *button = (UIButton *)sender;
-
     if ([modifyText.text isEqualToString:self.deviceName]) {
         UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备未作修改" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [view show];
@@ -85,11 +83,6 @@
         [view show];
         return;
     }
-//    UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备修改成功" message:@"设备修改成功" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//    [view show];
-//    [self.navigationController popViewControllerAnimated:YES];
-    
-
     //UTF8编码，上传服务器修改设备名
 //    NSString *modifyT = [[NSString alloc] initWithUTF8String:[modifyText.text UTF8String]];
     //    NSLog(@"desc:%@",desc);
@@ -99,7 +92,6 @@
     NSString *URLstr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=update&deviceid=%@&access_token=%@&device_type=1&desc=%@&Need_stream_id_when_exists=1",self.deviceId,self.accessToken,desWithUTF8];
     NSLog(@"URLstr:%@",URLstr);
 
-//    NSLog(@"modify.text:%@",modifyText.text);
     [[AFHTTPRequestOperationManager manager]GET:URLstr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
         NSString *desc = [dict objectForKey:@"description"];
@@ -108,7 +100,6 @@
             [view show];
             [self backBtn];
         }
-        NSLog(@"<#string#>");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSDictionary *errorDict = [error userInfo];
         NSLog(@"errorDict:%@",errorDict);
@@ -118,9 +109,7 @@
     }];
 }
 - (void)backBtn{
-    [self.navigationController popViewControllerAnimated:YES];
-//    MyCameraViewController *mycameraVC = [[MyCameraViewController alloc] init];
-//    [[SliderViewController sharedSliderController].navigationController popToViewController:mycameraVC animated:YES];
+    [[SliderViewController sharedSliderController].navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning

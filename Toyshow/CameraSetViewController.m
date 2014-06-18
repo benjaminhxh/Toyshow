@@ -19,8 +19,6 @@
 
 @interface CameraSetViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,SceneModeViewControllerDelegate,NtscOrpalViewControllerDelegate,ImageResolutionViewControllerDelegate,DeviceControlViewControlDelegate,SensitivityViewControllerDelegate>
 {
-//    NSArray *_listArr,*_cellImageArr,*_cellHightLightArr;
-//    BOOL nightFlag;
     NSArray *cameraInfoArr;
     UIButton *codeStream;
     UILabel *deviceIDL,*deviceNameL;
@@ -71,10 +69,8 @@
     [topView addSubview:seeVideoBtn];
     self.controlONOrOFFIndex = 3;
     self.lightFilterModeIndex = 1;
+    self.imageResolutionIndex = 1;
 
-//    _listArr = [NSArray arrayWithObjects:@"看录像",@"夜间模式",@"定时开关机",@"清晰度设置",@"音频设置",@"修改名称",@"注销设备", nil];
-//    _cellImageArr = [NSArray arrayWithObjects:@"qingxidu_h@2x",@"yejian_h@2x",@"dingshi_h@2x",@"qingxidu_h@2x",@"yinpin_h@2x",@"xiugai_h@2x",@"tuichudenglu@2x", nil];
-//    _cellHightLightArr = [NSArray arrayWithObjects:@"qingxidu_b@2x",@"yejian_b@2x",@"dingshi_b",@"qingxidu_b@2x",@"yinpin_b@2x",@"xiugai_b@2x",@"tuichudenglu@2x", nil];
     cameraInfoArr = [NSArray arrayWithObjects:@"事件通知",@"音频开关",@"视频开关",@"画面旋转",@"户外模式",@"拍摄模式",@"状态指示灯",@"码流设置",@"NTSC或PAL制式",@"分辨率",@"设备控制",@"灵敏度",@"设备ID",@"修改设备名称",@"",@"", nil];
 
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, 320, [UIScreen mainScreen].bounds.size.height-64) style:UITableViewStylePlain];
@@ -221,7 +217,7 @@
             imageResolutionL = [[UILabel alloc] init];
             imageResolutionL.frame = CGRectMake(200, 7, 80, 30);
             [cell addSubview:imageResolutionL];
-            imageResolutionL.text = [arr objectAtIndex:self.imageResolutionIndex];
+            imageResolutionL.text = [arr objectAtIndex:self.imageResolutionIndex-1];
             imageResolutionL.textAlignment = NSTextAlignmentRight;
             imageResolutionL.textColor = [UIColor grayColor];
         }
@@ -561,7 +557,6 @@
                 [codeStream setTitle:[textfied.text stringByAppendingString:@"kb/s"] forState:UIControlStateNormal];
                 self.streamBitrateIndex = [textfied.text integerValue];
             }
-            
         }
     }
     

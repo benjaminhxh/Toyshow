@@ -14,12 +14,14 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MBProgressHUD.h"
 #import "UIProgressView+AFNetworking.h"
+#import "AFNetworking.h"
+
 //6227 0000 1616 0056 890
 @interface ShareCamereViewController ()<MBProgressHUDDelegate,UIAlertViewDelegate,UIActionSheetDelegate>
 {
     UIView *cbdPlayerView;
     CyberPlayerController *cbPlayerController;
-    UIButton *startBtn;
+    UIButton *startBtn, *shareBtn;
     UISlider *lightSlider;
     NSTimer *timer,*localTimer;
     UIProgressView *progressV;
@@ -128,6 +130,7 @@
     timeL.textColor = [UIColor whiteColor];
     [topView addSubview:timeL];
     localTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
+    shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 
     //直播
     if (self.islLve) {
@@ -141,11 +144,10 @@
             [collectionBtn addTarget:self action:@selector(collectClick) forControlEvents:UIControlEventTouchUpInside];
             [topView addSubview:collectionBtn];
             
-            UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            //分享
             shareBtn.frame = CGRectMake(kHeight*7/8, 11, 37, 22);
-            [shareBtn setImage:[UIImage imageNamed:@"fenxiang_wei@2x"] forState:UIControlStateNormal];
-            [shareBtn setBackgroundImage:[UIImage imageNamed:@"fenxiang_zhong@2x"] forState:UIControlStateHighlighted];
-            [shareBtn addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchUpInside];
+//            [shareBtn setImage:[UIImage imageNamed:@"fenxiang_wei@2x"] forState:UIControlStateNormal];
+//            [shareBtn setBackgroundImage:[UIImage imageNamed:@"fenxiang_zhong@2x"] forState:UIControlStateHighlighted];
             [topView addSubview:shareBtn];
             //开始播放
             [self startPlayback];
@@ -154,10 +156,7 @@
             //我的摄像头直播
             //分享、设置、截图、对讲
             //分享
-            UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [shareBtn setImage:[UIImage imageNamed:@"fenxiang_wei@2x"] forState:UIControlStateNormal];
-            [shareBtn setImage:[UIImage imageNamed:@"fenxiang_zhong@2x"] forState:UIControlStateHighlighted];
-            [shareBtn addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchUpInside];
+//            [shareBtn addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchUpInside];
             [topView addSubview:shareBtn];
             //设置
             UIButton *setBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -193,6 +192,16 @@
             //开始播放
             [self startPlayback];
         }
+        if (self.shareStaue) {
+            [shareBtn setBackgroundImage:[UIImage imageNamed:@"lishijilu"] forState:UIControlStateNormal];
+            [shareBtn setTitle:@"取消分享" forState:UIControlStateNormal];
+
+        }else{
+            [shareBtn setImage:[UIImage imageNamed:@"fenxiang_wei@2x"] forState:UIControlStateNormal];
+            [shareBtn setImage:[UIImage imageNamed:@"fenxiang_zhong@2x"] forState:UIControlStateHighlighted];
+
+        }
+        [shareBtn addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchUpInside];
     }
     else{
         //点播(看录像)
@@ -294,8 +303,28 @@
 
 - (void)shareClick  //分享
 {
-    UIActionSheet *shareTypeSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"公共分享" otherButtonTitles:@"私密分享", nil];
-    [shareTypeSheet showInView:self.view];
+//    UIActionSheet *shareTypeSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"公共分享" otherButtonTitles:@"私密分享", nil];
+//    [shareTypeSheet showInView:self.view];
+    if (self.shareStaue) {
+        //取消分享
+        NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=cancelshare&access_token=%@&deviceid=%@",self.accecc_token,self.deviceId];
+        [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            UIAlertView *successView = [[UIAlertView alloc] initWithTitle:@"已成功取消分享" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [successView show];
+            [shareBtn setImage:[UIImage imageNamed:@"fenxiang_wei@2x"] forState:UIControlStateNormal];
+            [shareBtn setImage:[UIImage imageNamed:@"fenxiang_zhong@2x"] forState:UIControlStateHighlighted];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"error:%@",[error userInfo]);
+            UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"取消分享失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [failView show];
+            
+        }];
+    }else
+    {
+        UIActionSheet *shareTypeSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"公共分享" otherButtonTitles:@"私密分享", nil];
+        [shareTypeSheet showInView:self.view];
+    }
 }
 
 - (void)SetClick    //设置
@@ -349,19 +378,19 @@
 {
     //视频文件完成初始化，开始播放视频并启动刷新timer。
     [self startTimer];
-    NSLog(@"prepareeeeeeeeeeeeeeee");
+//    NSLog(@"prepareeeeeeeeeeeeeeee");
 }
 
 - (void)startCatching:(NSNotification*)botif
 {
     [self startTimer];
-    NSLog(@"startCatchhhhhhhhhhhhhh");
+//    NSLog(@"startCatchhhhhhhhhhhhhh");
 }
 - (void)seekComplete:(NSNotification*)notification
 {
     //开始启动UI刷新
     [self startTimer];
-    NSLog(@"seekCompleteeeeeeeeeeee");
+//    NSLog(@"seekCompleteeeeeeeeeeee");
 }
 
 - (void)onClickPlay:(id)sender {
@@ -580,14 +609,59 @@
     if (publicView == alertView) {
         if (buttonIndex) {
             NSLog(@"公共分享alertView");
-            NSString *publicShareUrl = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=%@&deviceid=%@&share=1",self.accecc_token,self.deviceId];//1为公共分享
+            //https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=123456&access_token=52.68c5177d0382475c0162e3aa5b3d5a22.2592000.1403763927.1812238483-2271149&device_type=1&desc=hello
+            NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=%@&deviceid=%@&share=1",self.accecc_token,self.deviceId];//share=1为公共分享
             
+            [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSDictionary *dict = (NSDictionary *)responseObject;
+                NSLog(@"dict:%@",dict);
+                NSString *shareid = [dict objectForKey:@"shareid"];
+                NSLog(@"shareid:%@",shareid);
+                self.shareStaue = YES;
+                [shareBtn setBackgroundImage:[UIImage imageNamed:@"lishijilu"] forState:UIControlStateNormal];
+                [shareBtn setTitle:@"取消分享" forState:UIControlStateNormal];
+                
+                //{“shareid”:SHARE_ID, “uk”:UK, “request_id”:12345678}
+                /*
+                 {
+                 "request_id" = 2869117991;
+                 share = 1;
+                 shareid = 39337debf90f3edfc3374ccfca12fbcb;
+                 2 = 474433575;
+                 }
+                 */
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"error:%@",[error userInfo]);
+                UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"分享失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [failView show];
+            }];
         }
     }else
     {
         if (buttonIndex) {
             NSLog(@"私密分享alertView");
-            NSString *securityShareUrl = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=%@&deviceid=%@&share=2",self.accecc_token,self.deviceId];//2为私密分享
+            NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=%@&deviceid=%@&share=2",self.accecc_token,self.deviceId];//share=2为加密分享
+            
+            [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSDictionary *dict = (NSDictionary *)responseObject;
+                NSLog(@"dict:%@",dict);
+                NSString *shareid = [dict objectForKey:@"shareid"];
+                NSLog(@"shareid:%@",shareid);
+                self.shareStaue = YES;
+                [shareBtn setBackgroundImage:[UIImage imageNamed:@"lishijilu"] forState:UIControlStateNormal];
+                [shareBtn setTitle:@"取消分享" forState:UIControlStateNormal];
+                //{“shareid”:SHARE_ID, “uk”:UK, “password”:YYYY,“request_id”:12345678}
+                /*:{
+                 "request_id" = 3258421057;
+                 share = 2;
+                 shareid = 658579b06c47dedf2bc6e11e77e06ae8;
+                 uk = 474433575;
+                 */
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"error:%@",[error userInfo]);
+                UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"分享失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [failView show];
+            }];
         }
     }
 }
