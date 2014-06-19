@@ -6,6 +6,11 @@
 //  Created by Zhao Yiqi on 13-11-27.
 //  Copyright (c) 2013年 Zhxf. All rights reserved.
 //分享的摄像头页面
+#define APP_KEY @"ZIAgdlC7Vw7syTjeKG9zS4QP"
+#define APP_ID @"2271149"
+#define APP_SecrectKey @"pavlqfU4mzYQ1dH0NG3b7LyXNBy5SYk6"
+#define expire @"1802889632"
+#define start 100
 
 #import "MainViewController.h"
 #import "SliderViewController.h"
@@ -14,7 +19,9 @@
 #import "MJRefreshFooterView.h"
 //#import "NetworkRequest.h"
 #import "AFNetworking.h"
+#import "UIImageView+AFNetworking.h"
 #import "Reachability1.h"
+#import <CommonCrypto/CommonDigest.h> //md5加密需要的头文件
 
 @interface MainViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -28,6 +35,8 @@
     NSArray *downloadArr;
     UIActivityIndicatorView *activiView;
     UILabel *blockLabel,*noDataLoadL;
+    NSString *realSign,*sign;
+
 }
 @end
 
@@ -49,31 +58,50 @@
     return dateFormate;
 }
 
+//32位MD5加密方式
+- (NSString *)getMd5_32Bit_String:(NSString *)srcString{
+    const char *cStr = [srcString UTF8String];
+    unsigned char digest[CC_MD5_DIGEST_LENGTH *2];
+    NSLog(@"CC_MD5_DIGEST_LENGTH:%d",CC_MD5_DIGEST_LENGTH);
+    CC_MD5( cStr, strlen(cStr), digest );
+    NSMutableString *result = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+        [result appendFormat:@"%02x", digest[i]];
+    return result;
+}
+
 - (void)viewDidLoad
 {
     
     [super viewDidLoad];
-    NSDateFormatter *dateFormate = [[NSDateFormatter alloc] init];
-    [dateFormate setDateFormat:@"MM-dd HH:mm"];
+    //先拼接再MD5加密
+    NSString *string = [NSString stringWithFormat:@"%@%@%@%@",APP_ID,expire,APP_KEY,APP_SecrectKey];
+    realSign = [self getMd5_32Bit_String:string];
+    NSLog(@"md5String:%@",realSign);
+    //再拼接
+    sign = [NSString stringWithFormat:@"%@-%@-%@",APP_ID,APP_KEY,realSign];
+    NSLog(@"sign:%@",sign);
     
-    NSDate *datenow = [NSDate date];//现在时间,你可以输出来看下是什么格式
-    NSTimeZone *zone = [NSTimeZone systemTimeZone];
-    NSInteger interval = [zone secondsFromGMTForDate:datenow];
-    NSDate *localeDate = [datenow  dateByAddingTimeInterval: interval];
-    NSString *nowTimeStr = [dateFormate stringFromDate:localeDate];
-    NSLog(@"nowTimeStr:%@", nowTimeStr);
-    NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[localeDate timeIntervalSince1970]];
+//    NSDateFormatter *dateFormate = [[NSDateFormatter alloc] init];
+//    [dateFormate setDateFormat:@"MM-dd HH:mm"];
+//    NSDate *datenow = [NSDate date];//现在时间,你可以输出来看下是什么格式
+//    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+//    NSInteger interval = [zone secondsFromGMTForDate:datenow];
+//    NSDate *localeDate = [datenow  dateByAddingTimeInterval: interval];
+//    NSString *nowTimeStr = [dateFormate stringFromDate:localeDate];
+//    NSLog(@"nowTimeStr:%@", nowTimeStr);
+//    NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[localeDate timeIntervalSince1970]];
 //    NSLog(@"timeSp:%@",timeSp); //时间戳的值
 //    NSDate *nowTime = [NSDate dateWithTimeIntervalSince1970:[timeSp integerValue]];
 //    NSLog(@"1363948516  = %@",nowTime);
-   NSInteger endTime = ([timeSp integerValue]/30)*30;
-    NSLog(@"endTime:%d",endTime);
-    NSDate *endT = [NSDate dateWithTimeIntervalSince1970:endTime];
-    NSDateFormatter *dateFormate2 = [[NSDateFormatter alloc] init];
-    [dateFormate2 setDateFormat:@"MM-dd HH:mm"];
-    NSString *lastTime = [dateFormate2 stringFromDate:endT];
+//   NSInteger endTime = ([timeSp integerValue]/30)*30;
+//    NSLog(@"endTime:%d",endTime);
+//    NSDate *endT = [NSDate dateWithTimeIntervalSince1970:endTime];
+//    NSDateFormatter *dateFormate2 = [[NSDateFormatter alloc] init];
+//    [dateFormate2 setDateFormat:@"MM-dd HH:mm"];
+//    NSString *lastTime = [dateFormate2 stringFromDate:endT];
 //    NSLog(@"最近半小时= %@",endT);
-    NSLog(@"last:%@",lastTime);
+//    NSLog(@"last:%@",lastTime);
 //    [self networkReloadData];
 //       ([UIScreen currentScreenSizeWithInterfaceOrientation:UIInterfaceOrientationPortrait].height > 480)
     [self shouldAutorotate];
@@ -93,21 +121,7 @@
     [backBtn setTitle:@"分享的摄像头" forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(leftItemClick) forControlEvents:UIControlEventTouchUpInside];
     [navBar addSubview:backBtn];
-    
-//    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    rightBtn.frame = CGRectMake(self.view.frame.size.width-44, [UIApplication sharedApplication].statusBarFrame.size.height, 44, 44);
-//    [rightBtn setTitle:@"右" forState:UIControlStateNormal];
-//    [rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [rightBtn addTarget:self action:@selector(rightItemClick) forControlEvents:UIControlEventTouchUpInside];
-//    [navBar addSubview:rightBtn];
-    
-//    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(25, 25, 120, 24)];
-//    title.textColor = [UIColor whiteColor];
-//    title.text = @"分享的摄像头";
-//    title.textAlignment = NSTextAlignmentLeft;
-//    [self.view addSubview:title];
-	// Do any additional setup after loading the view.
-    
+
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, 320, [UIScreen mainScreen].bounds.size.height-65) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -178,14 +192,20 @@
 //        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //            
 //        }];
-
-        [[AFHTTPSessionManager manager] GET:@"http://www.douban.com/j/app/radio/channels" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSString *sharelistURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listshare&sign=%@&expire=%@&start=%d&num=100",sign,expire,0];
+        NSLog(@"shareListUrl:%@",sharelistURL);
+        [[AFHTTPSessionManager manager] GET:sharelistURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
             //2、初始化数据
             _fakeData = [NSMutableArray array];
             downloadArr = [NSArray array];
-            downloadArr = [dict objectForKey:@"channels"];
-//            NSLog(@"downloadArr:%@",downloadArr);
+            downloadArr = [dict objectForKey:@"device_list"];
+            NSLog(@"downloadArr:%@",downloadArr);
+            if (downloadArr.count == 0) {
+                UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"无分享的摄像头" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+                [noDataView show];
+                return ;
+            }
             if (downloadArr.count>20) {
                 for (int i = 0; i < 20; i++) {
                     [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
@@ -322,9 +342,21 @@
         if (nil == cell) {
             //            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             cell = [[[NSBundle mainBundle] loadNibNamed:@"ShareCameraCell" owner:self options:nil] lastObject];
-            self.cameraId.text = @"20140312";
-            self.cameraName.text = [[_fakeData objectAtIndex:indexPath.row] objectForKey:@"name"];
-            self.cameraStatus.text = @"在线";
+            NSDictionary *dict = [_fakeData objectAtIndex:indexPath.row];
+            self.cameraName.text = [dict objectForKey:@"description"];
+            self.cameraId.text = [dict objectForKey:@"deviceid"];
+            NSString *imageURL = [dict objectForKey:@"thumbnail"];
+            [self.cameraHead setImageWithURL:[NSURL URLWithString:imageURL]];
+            int status = [[dict objectForKey:@"status"] intValue];
+            if (status) {
+                self.cameraStatus.text = @"在线";
+                self.cameraStatus.textColor = [UIColor blueColor];
+            }else
+            {
+                self.cameraStatus.text = @"离线";
+                self.cameraStatus.textColor = [UIColor grayColor];
+
+            }
 //            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 //            [self.cameraHead.image setImageWithURL:[(NSURL *)url];    //AFNetWorking
 
@@ -335,13 +367,25 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSDictionary *dict = [_fakeData objectAtIndex:indexPath.row];
+    NSString *shareID = [dict objectForKey:@"shareid"];
+    NSString *uk = [dict objectForKey:@"uk"];
     ShareCamereViewController *shareVC = [[ShareCamereViewController alloc] init];
     shareVC.islLve = YES;
     shareVC.isShare = YES;
-    shareVC.playerTitle = @"浙江卫视(分享)";
-    shareVC.url = @"http://zb.v.qq.com:1863/?progid=1975434150";
+    shareVC.playerTitle = [[dict objectForKey:@"description"] stringByAppendingString:@"(分享)"];
+    NSString *liveURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareID,uk];
+    [[AFHTTPSessionManager manager] GET:liveURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        NSLog(@"dict:%@",dict);
+        shareVC.url = [dict objectForKey:@"url"];
+        [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
+
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"error++++++++");
+    }];
+//    shareVC.url = @"http://zb.v.qq.com:1863/?progid=1975434150";
 //    shareVC.url = @"http://a.puteasy.com:8800/authorize?chn_id=89&mac=ffffffffffff&mac_code=67a2e0b15d7b1b6ab6ab4e1f6cc516d1";
-    [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
 }
 
 #define mark - 禁止转屏

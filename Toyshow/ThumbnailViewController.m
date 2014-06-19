@@ -114,7 +114,7 @@
 
 - (void)backBtn
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
 }
 
 - (void)addheader{

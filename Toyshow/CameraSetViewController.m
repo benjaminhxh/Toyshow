@@ -16,8 +16,9 @@
 #import "ImageResolutionViewController.h"
 #import "DeviceControlViewController.h"
 #import "SensitivityViewController.h"
+#import "MBProgressHUD.h"
 
-@interface CameraSetViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,SceneModeViewControllerDelegate,NtscOrpalViewControllerDelegate,ImageResolutionViewControllerDelegate,DeviceControlViewControlDelegate,SensitivityViewControllerDelegate>
+@interface CameraSetViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,SceneModeViewControllerDelegate,NtscOrpalViewControllerDelegate,ImageResolutionViewControllerDelegate,DeviceControlViewControlDelegate,SensitivityViewControllerDelegate,MBProgressHUDDelegate>
 {
     NSArray *cameraInfoArr;
     UIButton *codeStream;
@@ -25,6 +26,7 @@
     UIAlertView *codeStreamView,*logOutView;
     UILabel *scenceModeL,*cameraControlL,*sensitivityL,*ntscOrpalL,*imageResolutionL;
     UISwitch *iEnableEvent,*iScene,*iFlipImage,*iEnableAudioIn,*iEnableRecord,*iEnableDeviceStatusLed;
+    MBProgressHUD *_loginoutView;
 }
 @end
 
@@ -265,7 +267,7 @@
             //修改设备名称
             cell.selectionStyle = UITableViewCellSelectionStyleBlue;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            deviceNameL = [[UILabel alloc] initWithFrame:CGRectMake(160, 10, 120, 24)];
+            deviceNameL = [[UILabel alloc] initWithFrame:CGRectMake(160, 10, 130, 24)];
             deviceNameL.text = self.deviceDesc;
             deviceNameL.textAlignment = NSTextAlignmentRight;
             deviceNameL.textColor = [UIColor grayColor];
@@ -367,6 +369,7 @@
             modifyVC.deviceId = self.deviceid;
             modifyVC.deviceName = self.deviceDesc;
             modifyVC.accessToken = self.access_token;
+//            modifyVC.delegate = self;
             [[SliderViewController sharedSliderController].navigationController pushViewController:modifyVC animated:YES];
         }
             break;
@@ -476,7 +479,9 @@
     NSLog(@"setFinishAction");
     NSString *str = [NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",self.EnableEventIndex,self.audioIndex,self.videoRecordIndex,self.flipImageIndex,self.screneIndex,self.lightFilterModeIndex,self.lightStatueIndex,self.streamBitrateIndex,self.ntscOrpalIndex,self.imageResolutionIndex,self.controlONOrOFFIndex,self.controlONOrOFFIndex];
     NSLog(@"str:%@",str);
-    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(logoutCameraAtindex:)]) {
+        [self.delegate logoutCameraAtindex:self.index];
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -518,13 +523,27 @@
     sensitivityL.text = [NSString stringWithFormat:@"%d",index];
     self.sensitivityIndex = index;
 }
+
+- (void)isLoadingView
+{
+    _loginoutView = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:_loginoutView];
+    
+    _loginoutView.delegate = self;
+    _loginoutView.labelText = @"loading";
+    _loginoutView.detailsLabelText = @"正在注销，请稍后……";
+    _loginoutView.square = YES;
+    _loginoutView.color = [UIColor grayColor];
+    [_loginoutView show:YES];
+}
 #pragma mark - alertView delegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (logOutView == alertView) {
         //注销
         if (buttonIndex) {
-            NSLog(@"注销设备了");
+//            NSLog(@"注销设备了");
+            [self isLoadingView];
             NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=drop&deviceid=%@&access_token=%@",self.deviceid,self.access_token];
             NSLog(@"urlStr:%@",urlStr);
             [[AFHTTPRequestOperationManager manager] POST:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -534,20 +553,22 @@
                 if (self.delegate && [self.delegate respondsToSelector:@selector(logoutCameraAtindex:)]) {
                     [self.delegate logoutCameraAtindex:self.index];
                 }
+                [_loginoutView hide:YES];
+
                 [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
-                
                 UIAlertView *tipView = [[UIAlertView alloc] initWithTitle:@"注销成功" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [tipView show];
-                
+                                
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSDictionary *errorDict = [error userInfo];
                 NSString *errorMSG = [errorDict objectForKey:@"error_msg"];
                 NSLog(@"erroeMSG:%@",errorMSG);
+                [_loginoutView hide:YES];
+
                 UIAlertView *tipView = [[UIAlertView alloc] initWithTitle:@"注销失败" message:[NSString stringWithFormat:@"%@",errorMSG] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [tipView show];
             }];
         }
-        
     }else if (codeStreamView == alertView)
     {
         if (buttonIndex) {
@@ -574,6 +595,15 @@
     }
 }
 
+#pragma mark - modifyDelegate
+- (void)modifySuccessWith:(NSString *)newName
+{
+    deviceNameL.text = newName;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(logoutCameraAtindex:)]) {
+        [self.delegate logoutCameraAtindex:self.index];
+        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:NO];
+    }
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

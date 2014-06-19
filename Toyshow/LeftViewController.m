@@ -182,7 +182,7 @@
 - (BOOL)accessTokenIsExist
 {
     if (!accessToken) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"请登陆" message:@"请先登陆" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"请登陆" message:@"请先登陆" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
         [view show];
         return NO;
     }

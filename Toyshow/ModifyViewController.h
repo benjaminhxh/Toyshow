@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-
+//@class ModifyViewController;
+//@protocol ModifyViewControllerDelegate <NSObject>
+//
+//- (void)modifySuccessWith:(NSString *)newName;
+//
+//@end
 @interface ModifyViewController : UIViewController
 
 @property (nonatomic,weak)NSString *deviceId;
 @property (nonatomic,weak)NSString *deviceName;
 @property (nonatomic,weak)NSString *accessToken;
+//@property (nonatomic,assign) id <ModifyViewControllerDelegate>delegate;
 
 @end

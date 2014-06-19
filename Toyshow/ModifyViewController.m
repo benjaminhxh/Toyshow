@@ -44,12 +44,6 @@
     [backBtn addTarget:self action:@selector(backBtn) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backBtn];
     
-//    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(30, 25, 120, 24)];
-//    title.textColor = [UIColor whiteColor];
-//    title.text = @"修改设备名称";
-//    title.textAlignment = NSTextAlignmentLeft;
-//    [self.view addSubview:title];
-    
     //右滑回到上一个页面
     UISwipeGestureRecognizer *recognizer;
     recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(backBtn)];
@@ -98,7 +92,13 @@
         if ([desc isEqualToString:modifyText.text]) {
             UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备修改成功" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [view show];
-            [self backBtn];
+//            [self backBtn];
+//            if (self.delegate && [self.delegate respondsToSelector:@selector(modifySuccessWith:)]) {
+//                [self.delegate modifySuccessWith:modifyText.text];
+//            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"modifySuccess" object:nil];
+            [[SliderViewController sharedSliderController].navigationController popToRootViewControllerAnimated:YES];
+
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSDictionary *errorDict = [error userInfo];
@@ -109,7 +109,7 @@
     }];
 }
 - (void)backBtn{
-    [[SliderViewController sharedSliderController].navigationController popToRootViewControllerAnimated:YES];
+    [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning

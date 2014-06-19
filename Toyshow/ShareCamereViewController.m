@@ -591,7 +591,6 @@
             NSLog(@"私密分享");
             securityView = [[UIAlertView alloc] initWithTitle:@"私密分享" message:@"私密分享的摄像头需要密码才能观看" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
             [securityView show];
-
         }
             break;
         case 2:
