@@ -216,7 +216,7 @@
         startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         startBtn.frame = CGRectMake(kHeight/2-10, 5, 20, 27);
 //        startBtn.backgroundColor = [UIColor blueColor];
-        [startBtn setImage:[UIImage imageNamed:@"zanting_anniu@2x"] forState:UIControlStateNormal];
+        [startBtn setImage:[UIImage imageNamed:@"bofang_anniu@2x"] forState:UIControlStateNormal];
         [startBtn addTarget:self action:@selector(onClickPlay:) forControlEvents:UIControlEventTouchUpInside];
 //        [startBtn setImage:[UIImage imageNamed:@"bofang_zhong@2x"] forState:UIControlStateHighlighted];
         [bottomView addSubview:startBtn];
@@ -253,6 +253,8 @@
         [slider addTarget:self action:@selector(onDragSlideDone:) forControlEvents:UIControlEventTouchUpInside];
 //        slider.backgroundColor = [UIColor blueColor];
         [bottomView addSubview:slider];
+        [self startPlayback];
+
 
     }
     tapView = [[UIView alloc] initWithFrame:CGRectMake(70, 50, kHeight-80, kWidth-60-60)];

@@ -269,16 +269,13 @@
         if (nil == cell) {
             //            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             cell = [[[NSBundle mainBundle] loadNibNamed:@"thumbCell" owner:self options:nil] lastObject];
-//            self.thumbTitle.text = [[_fakeData objectAtIndex:indexPath.row] objectForKey:@"name"];
-//            self.cameraName.text = ;
+            self.thumbTitle.text = self.deviceDesc;
             NSArray *arr = [downloadArr objectAtIndex:indexPath.row];
             NSNumber *st = [arr objectAtIndex:0];
             float stf = [st floatValue];
             NSDate *currentTime = [NSDate dateWithTimeIntervalSince1970:stf];
             NSString *startT = [[self dateFormatterMMddHHmm] stringFromDate:currentTime];
             
-//            NSDate *startTDate = [NSDate dateWithTimeIntervalSince1970:[st floatValue]];
-//            NSLog(@"startT:%@",startT);
             NSNumber *et = [arr objectAtIndex:1];
 //            NSLog(@"et:%d",[et intValue]);
             float endtf = [et floatValue];
@@ -286,7 +283,7 @@
             NSString *endT = [[self dateFormatterMMddHHmm] stringFromDate:endfTime];
             NSLog(@"endT:%@",endT);
            NSLog(@"数组里的元素%@",[downloadArr objectAtIndex:indexPath.row]);
-            self.thumbDeadlines.text = [startT stringByAppendingString:endT];
+            self.thumbDeadlines.text = [NSString stringWithFormat:@"%@  ----%@",startT,[endT substringFromIndex:5]];
             self.thumbPic.image = [UIImage imageNamed:@"shipinkuang@2x"];
             //            [self.thumbPic.image setImageWithURL:[(NSURL *)url];    //AFNetWorking
         }
@@ -296,9 +293,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSArray *arr = [downloadArr objectAtIndex:indexPath.row];
+    NSNumber *st = [arr objectAtIndex:0];
+    int stf = [st intValue];
+    NSNumber *et = [arr objectAtIndex:1];
+    int endtf = [et intValue];
+
     ShareCamereViewController *vodVC = [[ShareCamereViewController alloc] init];
     vodVC.islLve = NO;
-    vodVC.url = @"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4";
+    NSString *URLstring = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=vod&access_token=%@&deviceid=%@&st=%d&et=%d",self.accessToken,self.deviceID,stf,endtf];
+    vodVC.url = URLstring;
+//    vodVC.url = @"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4";
     vodVC.playerTitle = @"汶川地震(录像)";
     vodVC.deviceId = self.deviceID;
     vodVC.accecc_token = self.accessToken;
