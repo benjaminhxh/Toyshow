@@ -19,17 +19,20 @@
 #import "SecurtyStyleViewController.h"
 #import "IPObtainStyleViewController.h"
 #import "SliderViewController.h"
+#import "MBProgressHUD.h"
 
 #define kTestHost @"telnet://towel.blinkenlights.nl"
 #define kTestPort 23
 
-@interface AddDeviceViewController ()<UIAlertViewDelegate,NSURLConnectionDataDelegate,NSURLConnectionDelegate,UITextFieldDelegate,IPObtainStyleViewControllerDelegate,SecurtyStyleViewControllerDelegate>
+@interface AddDeviceViewController ()<UIAlertViewDelegate,NSURLConnectionDataDelegate,NSURLConnectionDelegate,UITextFieldDelegate,IPObtainStyleViewControllerDelegate,SecurtyStyleViewControllerDelegate,MBProgressHUDDelegate>
 {
     UITextField *deviceDetailF,*SSIDPWF,*SSIDF,*SSIDPWFconfirm;
     UIAlertView *nextAlertview,*loginAlterView,*configurationTipView;
     NSArray *securyArr;
 //    UIView *userView;
 //    UITextField *userField;
+    MBProgressHUD *_loadingView;
+
     UIButton *ipStyleBtn,*securtyBtn,*shareBtn;
     NSInteger IPIndexPath,securtyIndexPath;
     NSDictionary *ipParameraDict;
@@ -223,8 +226,9 @@
                                                   //https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=123456&access_token=52.88be325d08d983f7403be8438c0c1eed.2592000.1403337720.1812238483-2271149&device_type=1&desc=摄像头描述
     NSString *URLstr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=%@&access_token=%@&device_type=1&desc=%@",self.deviceID,self.access_token,strWithUTF8];
     NSLog(@"urlSTR:%@",URLstr);
-    return ;
-    
+//    return ;
+    [self isLoadingView];
+
     [[AFHTTPRequestOperationManager manager] POST:URLstr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //--------------------向Baidu注册成功，隐藏loginAlterView-------------------------
         [loginAlterView dismissWithClickedButtonIndex:0 animated:YES];
@@ -240,6 +244,8 @@
         [loginAlterView dismissWithClickedButtonIndex:0 animated:YES];
         NSDictionary *errorDict = [error userInfo];
 //        NSLog(@"dict:%@",errorDict);
+        [_loadingView hide:YES];
+
         NSString *NSLocalizedDescription = [errorDict objectForKey:@"NSLocalizedDescription"];
         NSLog(@"NSLocalizedDescription:%@",NSLocalizedDescription);//Request failed: forbidden (403)
         if ([NSLocalizedDescription rangeOfString:@"403"].location) {
@@ -331,7 +337,11 @@
             self.mask    = @"";
             self.gateway = @"";
         }
-        NSString *dataStr = [NSString stringWithFormat:@"1%@%@%@%@%@%s%@2%@%@%@%@%@",self.wifiBssid,SSIDF.text,self.security,self.identifify,SSIDPWF.text,[self.userID UTF8String],self.access_token,self.wepStyle,self.dhcp,self.ipaddr,self.mask,self.gateway];
+        const char *str2 = [self.userID UTF8String];
+        
+        NSString *userName = [NSString stringWithCString:str2 encoding:NSUTF8StringEncoding];
+        
+        NSString *dataStr = [NSString stringWithFormat:@"1%@%@%@%@%@%@%@2%@%@%@%@%@",self.wifiBssid,SSIDF.text,self.security,self.identifify,SSIDPWF.text,userName,self.access_token,self.wepStyle,self.dhcp,self.ipaddr,self.mask,self.gateway];
         NSLog(@"dataStr:%@",dataStr);
         NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                   @"1",@"opcode",//1为注册
@@ -340,7 +350,7 @@
                                   self.security,@"security",//加密方式
                                   self.identifify,@"identify",//二次加密的密码
                                   SSIDPWF.text,@"pwd",//WiFi密码
-                                  [self.userID UTF8String],@"userId",//百度用户名
+                                  userName,@"userId",//百度用户名
                                   self.access_token,@"accessToken",//accessToken
                                   @"2",@"osType",//2为iOS平台
                                   self.wepStyle,@"hexAscii",//16进制或ascll
@@ -528,6 +538,20 @@
         [SSIDPWFconfirm becomeFirstResponder];
     }
     return YES;
+}
+
+- (void)isLoadingView
+{
+    _loadingView = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:_loadingView];
+    
+    _loadingView.delegate = self;
+    _loadingView.labelText = @"loading";
+    _loadingView.detailsLabelText = @"向服务器注册中，请稍后……";
+    _loadingView.square = YES;
+    [_loadingView show:YES];
+    _loadingView.color = [UIColor grayColor];
+    
 }
 
 - (void)didReceiveMemoryWarning

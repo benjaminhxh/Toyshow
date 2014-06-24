@@ -446,30 +446,30 @@
 //    [self refreshCurrentProgress:cbPlayerController.playableDuration totalDuration:cbPlayerController.duration];//当前可播放视频的长度
 }
 
-- (void)refreshCurrentProgress:(int)playableDuration totalDuration:(int)allSecond{
-    
-    NSDictionary* dict = [[self class] convertSecond2HourMinuteSecond:playableDuration];
-    NSString* strPlayedTime = [self getTimeString:dict prefix:@""];
-    currentProgress.text = strPlayedTime;
-    NSLog(@"可播放的strPlayedTime:%@",strPlayedTime);
-    NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);
-    NSDictionary* dictLeft = [[self class] convertSecond2HourMinuteSecond:allSecond - playableDuration];
-    NSString* strLeft = [self getTimeString:dictLeft prefix:@"-"];
-    remainsProgress.text = strLeft;
-//    NSLog(@"可播放的strLeft:%@",strLeft);
-}
+//- (void)refreshCurrentProgress:(int)playableDuration totalDuration:(int)allSecond{
+//    
+//    NSDictionary* dict = [[self class] convertSecond2HourMinuteSecond:playableDuration];
+//    NSString* strPlayedTime = [self getTimeString:dict prefix:@""];
+//    currentProgress.text = strPlayedTime;
+////    NSLog(@"可播放的strPlayedTime:%@",strPlayedTime);
+//    NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);
+//    NSDictionary* dictLeft = [[self class] convertSecond2HourMinuteSecond:allSecond - playableDuration];
+//    NSString* strLeft = [self getTimeString:dictLeft prefix:@"-"];
+//    remainsProgress.text = strLeft;
+////    NSLog(@"可播放的strLeft:%@",strLeft);
+//}
 
 - (void)refreshProgress:(int) currentTime totalDuration:(int)allSecond{
     
     NSDictionary* dict = [[self class] convertSecond2HourMinuteSecond:currentTime];
     NSString* strPlayedTime = [self getTimeString:dict prefix:@""];
     currentProgress.text = strPlayedTime;
-    NSLog(@"strPlayedTime:%@",strPlayedTime);
+//    NSLog(@"strPlayedTime:%@",strPlayedTime);
     NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);
     NSDictionary* dictLeft = [[self class] convertSecond2HourMinuteSecond:allSecond - currentTime];
     NSString* strLeft = [self getTimeString:dictLeft prefix:@"-"];
     remainsProgress.text = strLeft;
-    NSLog(@"strLeft:%@",strLeft);
+//    NSLog(@"strLeft:%@",strLeft);
     slider.value = currentTime;
     slider.maximumValue = allSecond;
 //    progressV.progress = currentTime;
@@ -512,10 +512,14 @@
 - (void)startTimer{
     //为了保证UI刷新在主线程中完成。
     [self performSelectorOnMainThread:@selector(startTimeroOnMainThread) withObject:nil waitUntilDone:NO];
+    NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);
+
 }
 
 - (void)startTimeroOnMainThread{
     timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(timerHandler:) userInfo:nil repeats:YES];
+    NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);
+
 }
 
 - (void)stopTimer{

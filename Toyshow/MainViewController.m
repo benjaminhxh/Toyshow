@@ -220,6 +220,8 @@
             NSLog(@"下载数据失败");
             NSLog(@"tabsk%@",task);
             NSLog(@"eror:%@",error);
+            UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+            [noDataView show];
         }];
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
@@ -380,7 +382,8 @@
         [[AFHTTPSessionManager manager] GET:liveURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
             NSLog(@"dict:%@",dict);
-            shareVC.url = [dict objectForKey:@"url"];
+//            shareVC.url = [dict objectForKey:@"url"];
+            shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
             [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
             
         } failure:^(NSURLSessionDataTask *task, NSError *error) {

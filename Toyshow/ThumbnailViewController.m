@@ -130,16 +130,19 @@
 //        NSLog(@"当地时间localDate:%@",localDate);
 //        NSString *nowTimeStr = [[self dateFormateAlltime] stringFromDate:datenow];
 //        NSLog(@"现在时间:%@", nowTimeStr);
-        long t = (long)[datenow timeIntervalSince1970];
-        NSLog(@"t:%ld",t);
-        NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=playlist&access_token=%@&deviceid=%@&st=1234454&et=%ld",self.accessToken,self.deviceID,t];
+        long et = (long)[datenow timeIntervalSince1970];
+//        NSLog(@"et:%ld",et);
+        int st = et - 24*3600;
+        NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=playlist&access_token=%@&deviceid=%@&st=%d&et=%ld",self.accessToken,self.deviceID,st,et];
         [[AFHTTPSessionManager manager] GET:urlStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
+//            NSLog(@"dict:%@",dict);
             //2、初始化数据
             _fakeData = [NSMutableArray array];
             downloadArr = [NSArray array];
             downloadArr = [dict objectForKey:@"results"];
-            NSLog(@"downloadArr:%@",downloadArr);
+            NSLog(@"downloadArr:%@=====%d",downloadArr,downloadArr.count);
+            
             if (downloadArr.count>20) {
                 for (int i = 0; i < 20; i++) {
                     [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
@@ -152,6 +155,8 @@
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSDictionary *errorDict = [error userInfo];
             NSLog(@"errorDict:%@",errorDict);
+            UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+            [noDataView show];
         }];
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
@@ -264,9 +269,24 @@
         if (nil == cell) {
             //            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             cell = [[[NSBundle mainBundle] loadNibNamed:@"thumbCell" owner:self options:nil] lastObject];
-            self.thumbTitle.text = [[_fakeData objectAtIndex:indexPath.row] objectForKey:@"name"];
+//            self.thumbTitle.text = [[_fakeData objectAtIndex:indexPath.row] objectForKey:@"name"];
 //            self.cameraName.text = ;
-            self.thumbDeadlines.text = @"12:00-12:05";
+            NSArray *arr = [downloadArr objectAtIndex:indexPath.row];
+            NSNumber *st = [arr objectAtIndex:0];
+            float stf = [st floatValue];
+            NSDate *currentTime = [NSDate dateWithTimeIntervalSince1970:stf];
+            NSString *startT = [[self dateFormatterMMddHHmm] stringFromDate:currentTime];
+            
+//            NSDate *startTDate = [NSDate dateWithTimeIntervalSince1970:[st floatValue]];
+//            NSLog(@"startT:%@",startT);
+            NSNumber *et = [arr objectAtIndex:1];
+//            NSLog(@"et:%d",[et intValue]);
+            float endtf = [et floatValue];
+            NSDate *endfTime = [NSDate dateWithTimeIntervalSince1970:endtf];
+            NSString *endT = [[self dateFormatterMMddHHmm] stringFromDate:endfTime];
+            NSLog(@"endT:%@",endT);
+           NSLog(@"数组里的元素%@",[downloadArr objectAtIndex:indexPath.row]);
+            self.thumbDeadlines.text = [startT stringByAppendingString:endT];
             self.thumbPic.image = [UIImage imageNamed:@"shipinkuang@2x"];
             //            [self.thumbPic.image setImageWithURL:[(NSURL *)url];    //AFNetWorking
         }
@@ -283,6 +303,12 @@
     vodVC.deviceId = self.deviceID;
     vodVC.accecc_token = self.accessToken;
     [[SliderViewController sharedSliderController].navigationController pushViewController:vodVC animated:YES];
+}
+
+- (NSDateFormatter *)dateFormatterMMddHHmm {
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"MM-dd HH:mm"];
+    return dateFormat;
 }
 
 //强制不允许转屏
