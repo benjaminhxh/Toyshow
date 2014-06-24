@@ -619,7 +619,8 @@
                 self.shareStaue = YES;
                 [shareBtn setBackgroundImage:[UIImage imageNamed:@"lishijilu"] forState:UIControlStateNormal];
                 [shareBtn setTitle:@"取消分享" forState:UIControlStateNormal];
-                
+                UIAlertView *successView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [successView show];
                 //{“shareid”:SHARE_ID, “uk”:UK, “request_id”:12345678}
                 /*
                  {

@@ -368,22 +368,32 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *dict = [_fakeData objectAtIndex:indexPath.row];
-    NSString *shareID = [dict objectForKey:@"shareid"];
-    NSString *uk = [dict objectForKey:@"uk"];
-    ShareCamereViewController *shareVC = [[ShareCamereViewController alloc] init];
-    shareVC.islLve = YES;
-    shareVC.isShare = YES;
-    shareVC.playerTitle = [[dict objectForKey:@"description"] stringByAppendingString:@"(分享)"];
-    NSString *liveURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareID,uk];
-    [[AFHTTPSessionManager manager] GET:liveURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSDictionary *dict = (NSDictionary *)responseObject;
-        NSLog(@"dict:%@",dict);
-        shareVC.url = [dict objectForKey:@"url"];
-        [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
+    int status = [[dict objectForKey:@"status"] intValue];
+    if (status) {
+        NSString *shareID = [dict objectForKey:@"shareid"];
+        NSString *uk = [dict objectForKey:@"uk"];
+        ShareCamereViewController *shareVC = [[ShareCamereViewController alloc] init];
+        shareVC.islLve = YES;
+        shareVC.isShare = YES;
+        shareVC.playerTitle = [[dict objectForKey:@"description"] stringByAppendingString:@"(分享)"];
+        NSString *liveURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareID,uk];
+        [[AFHTTPSessionManager manager] GET:liveURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            NSLog(@"dict:%@",dict);
+            shareVC.url = [dict objectForKey:@"url"];
+            [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
+            
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            NSLog(@"error++++++++");
+        }];
+    }else
+    {
 
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"error++++++++");
-    }];
+        UIAlertView *offlineView = [[UIAlertView alloc] initWithTitle:@"设备不在线" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [offlineView show];
+    }
+
+
 //    shareVC.url = @"http://zb.v.qq.com:1863/?progid=1975434150";
 //    shareVC.url = @"http://a.puteasy.com:8800/authorize?chn_id=89&mac=ffffffffffff&mac_code=67a2e0b15d7b1b6ab6ab4e1f6cc516d1";
 }
