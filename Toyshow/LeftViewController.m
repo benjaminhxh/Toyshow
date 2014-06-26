@@ -21,8 +21,9 @@
 #import "HelpViewController.h"
 #import "AboutViewController.h"
 #import "MyphotoViewController.h"
+#import "WXApi.h"
 
-@interface LeftViewController ()<UITableViewDataSource,UITableViewDelegate,ZBarReaderDelegate,UIAlertViewDelegate>
+@interface LeftViewController ()<UITableViewDataSource,UITableViewDelegate,ZBarReaderDelegate,UIAlertViewDelegate,WXApiDelegate>
 {
     NSArray *_listArr,*_imageArr;
     UILabel *_titleTextL;
@@ -54,7 +55,7 @@
     [imgV setImage:[UIImage imageNamed:backGroundImage]];
     [self.view addSubview:imgV];
     _listArr = [NSArray array];
-    _listArr = [NSArray arrayWithObjects:@"我的摄像头",@"添加新设备",@"分享的摄像头",@"登录/退出",@"帮助",@"关于", nil];
+    _listArr = [NSArray arrayWithObjects:@"我的摄像头",@"添加新设备",@"分享的摄像头",@"登录/退出",@"帮助",@"关于",@"分享", nil];
     UIImage *image1 = [UIImage imageNamed:@"shejingtou@2x"];
     UIImage *image2 = [UIImage imageNamed:@"tianjia@2x"];
     UIImage *image3 = [UIImage imageNamed:@"fenxiang@2x"];
@@ -62,8 +63,8 @@
     UIImage *image5 = [UIImage imageNamed:@"tuichudenglu@2x"];
     UIImage *image6 = [UIImage imageNamed:@"bangzhu@2x"];
     UIImage *image7 = [UIImage imageNamed:@"guanyu@2x"];
-//    UIImage *image8 = [UIImage imageNamed:@"fenxiang@2x"];
-    _imageArr = [NSArray arrayWithObjects:image1,image2,image3,image5,image6,image7, nil];
+    UIImage *image8 = [UIImage imageNamed:@"fenxiang@2x"];
+    _imageArr = [NSArray arrayWithObjects:image1,image2,image3,image5,image6,image7,image8, nil];
 
     self.navigationController.navigationBarHidden = YES;
 //    self.cameraThumb.layer.cornerRadius = self.cameraThumb.bounds.size.height/2;
@@ -369,12 +370,12 @@
 //            self.titleText.text = @"退出登录";
             //            accessToken = result.accessToken;
 //            NSLog(@"用户信息的accessToken:%@",result.accessToken);//null
-            FrontiaUserQuery *frontia;
-            [FrontiaUser findUser:frontia  resultListener:^(NSArray *result) {
-                NSLog(@"resultArray:%@",result);
-            } failureListener:^(int errorCode, NSString *errorMessage) {
-                NSLog(@"erroeMessage:%@",errorMessage);
-            }];
+//            FrontiaUserQuery *frontia;
+//            [FrontiaUser findUser:frontia  resultListener:^(NSArray *result) {
+////                NSLog(@"resultArray:%@",result);
+//            } failureListener:^(int errorCode, NSString *errorMessage) {
+//                NSLog(@"erroeMessage:%@",errorMessage);
+//            }];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.view setNeedsDisplay]; //7
             });
@@ -432,17 +433,27 @@
     //授权成功回调函数
     FrontiaMultiShareResultCallback onResult = ^(NSDictionary *respones){
         NSLog(@"OnResult: %@", [respones description]);
+        [share handleOpenURL:[NSURL URLWithString:@"taobao://"]];
     };
     
     FrontiaShareContent *content=[[FrontiaShareContent alloc] init];
-    content.url = @"http://developer.baidu.com/soc/share";
+    content.url = @"taobao://http://m.taobao.com";
     content.title = @"中和讯飞--乐现";
     content.description = @"乐现是由北京中和讯飞开发的一款家居类APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，看你所看。";
     content.imageObj = @"http://apps.bdimg.com/developer/static/04171450/developer/images/icon/terminal_adapter.png";
+    [share handleOpenURL:[NSURL URLWithString:content.url]];
     
     NSArray *platforms = @[FRONTIA_SOCIAL_SHARE_PLATFORM_SINAWEIBO,FRONTIA_SOCIAL_SHARE_PLATFORM_WEIXIN_TIMELINE,FRONTIA_SOCIAL_SHARE_PLATFORM_QQ,FRONTIA_SOCIAL_SHARE_PLATFORM_WEIXIN_SESSION,FRONTIA_SOCIAL_SHARE_PLATFORM_QQFRIEND,FRONTIA_SOCIAL_SHARE_PLATFORM_EMAIL,FRONTIA_SOCIAL_SHARE_PLATFORM_SMS];
     
     [share showShareMenuWithShareContent:content displayPlatforms:platforms supportedInterfaceOrientations:UIInterfaceOrientationMaskPortrait isStatusBarHidden:NO targetViewForPad:nil cancelListener:onCancel failureListener:onFailure resultListener:onResult];
+    [share handleOpenURL:[NSURL URLWithString:@"taobao://http://m.taobao.com"]];
+    [WXApi handleOpenURL:[NSURL URLWithString:@"taobao://http://m.taobao.com"] delegate:self];
+    if ([WXApi isWXAppInstalled]) {
+        NSLog(@"安装了taobao");
+    }else
+    {
+        NSLog(@"未安装");
+    }
 }
 
 //裁剪头像

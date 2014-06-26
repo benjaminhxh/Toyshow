@@ -81,29 +81,7 @@
     //再拼接
     sign = [NSString stringWithFormat:@"%@-%@-%@",APP_ID,APP_KEY,realSign];
     NSLog(@"sign:%@",sign);
-    
-//    NSDateFormatter *dateFormate = [[NSDateFormatter alloc] init];
-//    [dateFormate setDateFormat:@"MM-dd HH:mm"];
-//    NSDate *datenow = [NSDate date];//现在时间,你可以输出来看下是什么格式
-//    NSTimeZone *zone = [NSTimeZone systemTimeZone];
-//    NSInteger interval = [zone secondsFromGMTForDate:datenow];
-//    NSDate *localeDate = [datenow  dateByAddingTimeInterval: interval];
-//    NSString *nowTimeStr = [dateFormate stringFromDate:localeDate];
-//    NSLog(@"nowTimeStr:%@", nowTimeStr);
-//    NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[localeDate timeIntervalSince1970]];
-//    NSLog(@"timeSp:%@",timeSp); //时间戳的值
-//    NSDate *nowTime = [NSDate dateWithTimeIntervalSince1970:[timeSp integerValue]];
-//    NSLog(@"1363948516  = %@",nowTime);
-//   NSInteger endTime = ([timeSp integerValue]/30)*30;
-//    NSLog(@"endTime:%d",endTime);
-//    NSDate *endT = [NSDate dateWithTimeIntervalSince1970:endTime];
-//    NSDateFormatter *dateFormate2 = [[NSDateFormatter alloc] init];
-//    [dateFormate2 setDateFormat:@"MM-dd HH:mm"];
-//    NSString *lastTime = [dateFormate2 stringFromDate:endT];
-//    NSLog(@"最近半小时= %@",endT);
-//    NSLog(@"last:%@",lastTime);
-//    [self networkReloadData];
-//       ([UIScreen currentScreenSizeWithInterfaceOrientation:UIInterfaceOrientationPortrait].height > 480)
+    //       ([UIScreen currentScreenSizeWithInterfaceOrientation:UIInterfaceOrientationPortrait].height > 480)
     [self shouldAutorotate];
     UIImageView *imgV=[[UIImageView alloc] initWithFrame:self.view.bounds];
     [imgV setImage:[UIImage imageNamed:@"dabeijing@2x"]];
@@ -360,7 +338,6 @@
 
             }
 //            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//            [self.cameraHead.image setImageWithURL:[(NSURL *)url];    //AFNetWorking
 
         }
     }
@@ -382,8 +359,8 @@
         [[AFHTTPSessionManager manager] GET:liveURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
             NSLog(@"dict:%@",dict);
-//            shareVC.url = [dict objectForKey:@"url"];
-            shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
+            shareVC.url = [dict objectForKey:@"url"];
+//            shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
             [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
             
         } failure:^(NSURLSessionDataTask *task, NSError *error) {

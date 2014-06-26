@@ -7,9 +7,7 @@
 //
 
 #import "HXHAppDelegate.h"
-//#import "HomeViewController.h"
 #import <Frontia/Frontia.h>
-//#import "ShowImageViewController.h"
 
 #define APP_KEY @"ZIAgdlC7Vw7syTjeKG9zS4QP"
 #define REPORT_ID @"2271149"
@@ -67,7 +65,7 @@
 //    statTracker.shortAppVersion  = IosAppVersion; //参数为NSString * 类型,自定义app版本信息，如果不设置，默认从CFBundleVersion里取
 //    [statTracker startWithReportId:REPORT_ID];//设置您在mtj网站上添加的app的appkey
     
-
+    [WXApi registerApp:@"wx70162e2c344d4c79" withDescription:nil];
     return YES;
 }
 
@@ -96,6 +94,17 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return  [WXApi handleOpenURL:url delegate:self];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    BOOL isSuc = [WXApi handleOpenURL:url delegate:self];
+    NSLog(@"url %@ isSuc %d",url,isSuc == YES ? 1 : 0);
+    return  isSuc;
 }
 
 +(HXHAppDelegate*)instance

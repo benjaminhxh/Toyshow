@@ -10,8 +10,9 @@
 #import "SliderViewController.h"
 #import "LeftViewController.h"
 #import "RightViewController.h"
+#import "WXApi.h"
 
-@interface HXHAppDelegate : UIResponder <UIApplicationDelegate>
+@interface HXHAppDelegate : UIResponder <UIApplicationDelegate,WXApiDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

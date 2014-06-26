@@ -132,7 +132,7 @@
 //        NSLog(@"现在时间:%@", nowTimeStr);
         long et = (long)[datenow timeIntervalSince1970];
 //        NSLog(@"et:%ld",et);
-        int st = et - 24*3600;
+        int st = et - 7*24*3600;
         NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=playlist&access_token=%@&deviceid=%@&st=%d&et=%ld",self.accessToken,self.deviceID,st,et];
         [[AFHTTPSessionManager manager] GET:urlStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
@@ -304,7 +304,8 @@
     NSString *URLstring = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=vod&access_token=%@&deviceid=%@&st=%d&et=%d",self.accessToken,self.deviceID,stf,endtf];
     vodVC.url = URLstring;
 //    vodVC.url = @"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4";
-    vodVC.playerTitle = @"汶川地震(录像)";
+//    vodVC.playerTitle = @"汶川地震(录像)";
+    vodVC.playerTitle = [self.deviceDesc stringByAppendingString:@"(录像)"];
     vodVC.deviceId = self.deviceID;
     vodVC.accecc_token = self.accessToken;
     [[SliderViewController sharedSliderController].navigationController pushViewController:vodVC animated:YES];
