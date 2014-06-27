@@ -142,6 +142,8 @@
         });
     };
     [reachab startNotifier];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivesComeFromWeixin:) name:@"shareToWeixinNotif" object:nil];
+
 }
 
 - (void)addheader{
@@ -358,7 +360,7 @@
         NSString *liveURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareID,uk];
         [[AFHTTPSessionManager manager] GET:liveURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
-            NSLog(@"dict:%@",dict);
+            NSLog(@"公共摄像头url:%@",[dict objectForKey:@"url"]);
             shareVC.url = [dict objectForKey:@"url"];
 //            shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
             [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
@@ -406,6 +408,21 @@
 {
     return YES;
 }
+- (void)receivesComeFromWeixin:(NSNotification *)notif
+{
+    NSLog(@"notif:%@",[notif userInfo]);
+    NSDictionary *dict = (NSDictionary *)[notif userInfo];
+    NSString *info = [dict objectForKey:@"weixinInfo"];
+    NSLog(@"info come from weixin:%@",info);
+    NSLog(@"info title come from weixin:%@",[dict objectForKey:@"weixinTitle"]);
+    ShareCamereViewController *shareVideoVC = [[ShareCamereViewController alloc] init];
+    shareVideoVC.islLve = YES;
+    shareVideoVC.isShare = YES;
+    shareVideoVC.url = info;
+    shareVideoVC.playerTitle = [[dict objectForKey:@"weixinTitle"] stringByAppendingString:@"(分享)"];
+    [[SliderViewController sharedSliderController].navigationController pushViewController:shareVideoVC animated:YES];
+}
+
 //- (void)viewWillAppear:(BOOL)animated
 //{
 //    activiView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(130, 210, 120, 120)];

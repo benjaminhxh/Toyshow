@@ -11,7 +11,10 @@
 #import "LeftViewController.h"
 #import "RightViewController.h"
 #import "WXApi.h"
-
+#import <Frontia/Frontia.h>
+#import <Frontia/FrontiaShare.h>
+#import <Frontia/FrontiaShareContent.h>
+#import <Frontia/FrontiaShareDelegate.h>
 @interface HXHAppDelegate : UIResponder <UIApplicationDelegate,WXApiDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

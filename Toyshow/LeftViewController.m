@@ -415,45 +415,65 @@
 #pragma mark - shareTo
 //分享
 - (void)shareToQQ
+//{
+//    FrontiaShare *share = [Frontia getShare];
+//    [share registerQQAppId:@"100358052" enableSSO:NO];//QQ
+//    [share registerWeixinAppId:@"wx70162e2c344d4c79"];//微信
+//    
+//    //授权取消回调函数
+//    FrontiaShareCancelCallback onCancel = ^(){
+//        NSLog(@"OnCancel: share is cancelled");
+//    };
+//    
+//    //授权失败回调函数
+//    FrontiaShareFailureCallback onFailure = ^(int errorCode, NSString *errorMessage){
+//        NSLog(@"OnFailure: %d  %@", errorCode, errorMessage);
+//    };
+//
+//    //授权成功回调函数
+//    FrontiaMultiShareResultCallback onResult = ^(NSDictionary *respones){
+//        NSLog(@"response:%@OnResult: %@",respones,[respones description]);
+////        [share handleOpenURL:[NSURL URLWithString:@"taobao://"]];
+//    };
+//
+//    
+//    FrontiaShareContent *content=[[FrontiaShareContent alloc] init];
+//    content.url = @"Joyshow://";
+//    content.title = @"中和讯飞--乐现";
+//    content.description = @"乐现是由北京中和讯飞开发的一款家居类APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，看你所看。";
+//    content.imageObj = @"http://apps.bdimg.com/developer/static/04171450/developer/images/icon/terminal_adapter.png";
+//    [share handleOpenURL:[NSURL URLWithString:content.url]];
+//    
+//    NSArray *platforms = @[FRONTIA_SOCIAL_SHARE_PLATFORM_SINAWEIBO,FRONTIA_SOCIAL_SHARE_PLATFORM_WEIXIN_TIMELINE,FRONTIA_SOCIAL_SHARE_PLATFORM_QQ,FRONTIA_SOCIAL_SHARE_PLATFORM_WEIXIN_SESSION,FRONTIA_SOCIAL_SHARE_PLATFORM_QQFRIEND,FRONTIA_SOCIAL_SHARE_PLATFORM_EMAIL,FRONTIA_SOCIAL_SHARE_PLATFORM_SMS];
+//    
+//    [share showShareMenuWithShareContent:content displayPlatforms:platforms supportedInterfaceOrientations:UIInterfaceOrientationMaskPortrait isStatusBarHidden:NO targetViewForPad:nil cancelListener:onCancel failureListener:onFailure resultListener:onResult];
+//}
 {
-    FrontiaShare *share = [Frontia getShare];
-    [share registerQQAppId:@"100358052" enableSSO:NO];//QQ
-    [share registerWeixinAppId:@"wx70162e2c344d4c79"];//微信
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = @"中和讯飞--乐现";
+    message.description = @"乐现是由北京中和讯飞开发的一款家居类APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，看你所看。";
+    [message setThumbImage:[UIImage imageNamed:@"res2.png"]];
+    WXAppExtendObject *extedObj = [WXAppExtendObject object];
+    extedObj.url = @"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4";
+    //rtmp://qd.bms.baidu.com:1935/live/cb9bc6fafc3b11e39f58ac853dd1c8c0?deviceid=175932720340992&sign=DTAES-CqnyQSm05YocyMV8Skl5IwA2-EzcBRqx4CWxdLQZZKHIIne0NW44%3D&time=1403839623&expire=1403839643&liveid=140383962301806
+    //    extedObj.extInfo = @"hello ,I come from Joyshow";
+    Byte* pBuffer = (Byte *)malloc(BUFSIZ);
+    memset(pBuffer, 0, BUFSIZ);
+    NSData* data = [NSData dataWithBytes:pBuffer length:BUFSIZ];
+    free(pBuffer);
+    extedObj.fileData = data;
     
-    //授权取消回调函数
-    FrontiaShareCancelCallback onCancel = ^(){
-        NSLog(@"OnCancel: share is cancelled");
-    };
+    //    WXWebpageObject *ext = [WXWebpageObject object];
+    //    ext.webpageUrl = @"Joyshow://http://tech.qq.com/zt2012/tmtdecode/252.htm";
     
-    //授权失败回调函数
-    FrontiaShareFailureCallback onFailure = ^(int errorCode, NSString *errorMessage){
-        NSLog(@"OnFailure: %d  %@", errorCode, errorMessage);
-    };
+    message.mediaObject = extedObj;
     
-    //授权成功回调函数
-    FrontiaMultiShareResultCallback onResult = ^(NSDictionary *respones){
-        NSLog(@"OnResult: %@", [respones description]);
-        [share handleOpenURL:[NSURL URLWithString:@"taobao://"]];
-    };
+    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    //    req.scene = _scene;
     
-    FrontiaShareContent *content=[[FrontiaShareContent alloc] init];
-    content.url = @"taobao://http://m.taobao.com";
-    content.title = @"中和讯飞--乐现";
-    content.description = @"乐现是由北京中和讯飞开发的一款家居类APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，看你所看。";
-    content.imageObj = @"http://apps.bdimg.com/developer/static/04171450/developer/images/icon/terminal_adapter.png";
-    [share handleOpenURL:[NSURL URLWithString:content.url]];
-    
-    NSArray *platforms = @[FRONTIA_SOCIAL_SHARE_PLATFORM_SINAWEIBO,FRONTIA_SOCIAL_SHARE_PLATFORM_WEIXIN_TIMELINE,FRONTIA_SOCIAL_SHARE_PLATFORM_QQ,FRONTIA_SOCIAL_SHARE_PLATFORM_WEIXIN_SESSION,FRONTIA_SOCIAL_SHARE_PLATFORM_QQFRIEND,FRONTIA_SOCIAL_SHARE_PLATFORM_EMAIL,FRONTIA_SOCIAL_SHARE_PLATFORM_SMS];
-    
-    [share showShareMenuWithShareContent:content displayPlatforms:platforms supportedInterfaceOrientations:UIInterfaceOrientationMaskPortrait isStatusBarHidden:NO targetViewForPad:nil cancelListener:onCancel failureListener:onFailure resultListener:onResult];
-    [share handleOpenURL:[NSURL URLWithString:@"taobao://http://m.taobao.com"]];
-    [WXApi handleOpenURL:[NSURL URLWithString:@"taobao://http://m.taobao.com"] delegate:self];
-    if ([WXApi isWXAppInstalled]) {
-        NSLog(@"安装了taobao");
-    }else
-    {
-        NSLog(@"未安装");
-    }
+    [WXApi sendReq:req];
 }
 
 //裁剪头像
