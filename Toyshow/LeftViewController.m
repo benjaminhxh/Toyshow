@@ -419,66 +419,11 @@
 #pragma mark - shareTo
 //分享
 - (void)shareToQQ
-//{
-//    FrontiaShare *share = [Frontia getShare];
-//    [share registerQQAppId:@"100358052" enableSSO:NO];//QQ
-//    [share registerWeixinAppId:@"wx70162e2c344d4c79"];//微信
-//    
-//    //授权取消回调函数
-//    FrontiaShareCancelCallback onCancel = ^(){
-//        NSLog(@"OnCancel: share is cancelled");
-//    };
-//    
-//    //授权失败回调函数
-//    FrontiaShareFailureCallback onFailure = ^(int errorCode, NSString *errorMessage){
-//        NSLog(@"OnFailure: %d  %@", errorCode, errorMessage);
-//    };
-//
-//    //授权成功回调函数
-//    FrontiaMultiShareResultCallback onResult = ^(NSDictionary *respones){
-//        NSLog(@"response:%@OnResult: %@",respones,[respones description]);
-////        [share handleOpenURL:[NSURL URLWithString:@"taobao://"]];
-//    };
-//
-//    
-//    FrontiaShareContent *content=[[FrontiaShareContent alloc] init];
-//    content.url = @"Joyshow://";
-//    content.title = @"中和讯飞--乐现";
-//    content.description = @"乐现是由北京中和讯飞开发的一款家居类APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，看你所看。";
-//    content.imageObj = @"http://apps.bdimg.com/developer/static/04171450/developer/images/icon/terminal_adapter.png";
-//    [share handleOpenURL:[NSURL URLWithString:content.url]];
-//    
-//    NSArray *platforms = @[FRONTIA_SOCIAL_SHARE_PLATFORM_SINAWEIBO,FRONTIA_SOCIAL_SHARE_PLATFORM_WEIXIN_TIMELINE,FRONTIA_SOCIAL_SHARE_PLATFORM_QQ,FRONTIA_SOCIAL_SHARE_PLATFORM_WEIXIN_SESSION,FRONTIA_SOCIAL_SHARE_PLATFORM_QQFRIEND,FRONTIA_SOCIAL_SHARE_PLATFORM_EMAIL,FRONTIA_SOCIAL_SHARE_PLATFORM_SMS];
-//    
-//    [share showShareMenuWithShareContent:content displayPlatforms:platforms supportedInterfaceOrientations:UIInterfaceOrientationMaskPortrait isStatusBarHidden:NO targetViewForPad:nil cancelListener:onCancel failureListener:onFailure resultListener:onResult];
-//}
-//{
-//    WXMediaMessage *message = [WXMediaMessage message];
-//    message.title = @"中和讯飞--乐现";
-//    message.description = @"乐现是由北京中和讯飞开发的一款家居类APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，看你所看。";
-//    [message setThumbImage:[UIImage imageNamed:@"res2.png"]];
-//    WXAppExtendObject *extedObj = [WXAppExtendObject object];
-//    extedObj.url = @"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4";
-//    //rtmp://qd.bms.baidu.com:1935/live/cb9bc6fafc3b11e39f58ac853dd1c8c0?deviceid=175932720340992&sign=DTAES-CqnyQSm05YocyMV8Skl5IwA2-EzcBRqx4CWxdLQZZKHIIne0NW44%3D&time=1403839623&expire=1403839643&liveid=140383962301806
-//    //    extedObj.extInfo = @"hello ,I come from Joyshow";
-//    Byte* pBuffer = (Byte *)malloc(BUFSIZ);
-//    memset(pBuffer, 0, BUFSIZ);
-//    NSData* data = [NSData dataWithBytes:pBuffer length:BUFSIZ];
-//    free(pBuffer);
-//    extedObj.fileData = data;
-//    
-//    message.mediaObject = extedObj;
-//    
-//    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
-//    req.bText = NO;
-//    req.message = message;
-//    //    req.scene = _scene;
-//    
-//    [WXApi sendReq:req];
-//}
 {
+    NSURL *shareURL = [NSURL URLWithString:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=52.93b4c7183a5b297e8c6909ceda48483a.2592000.1406688540.1812238483-2271149&deviceid=175932720340992&share=1"];
+    [NSURL URLWithString:@"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4"];
     activity = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
-    NSArray *shareArr = [NSArray arrayWithObjects:@"中和讯飞-乐现",@"hxh乐现是由北京中和讯飞开发的一款家居类APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，看你所看。", [UIImage imageNamed:@"icon_session"], [NSURL URLWithString:@"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4"],nil];
+    NSArray *shareArr = [NSArray arrayWithObjects:@"中和讯飞-乐现",@"hxh乐现是由北京中和讯飞开发的一款家居类APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，看你所看。", [UIImage imageNamed:@"icon_session"], shareURL,nil];
     UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:shareArr applicationActivities:activity];
     activityView.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypePrint,UIActivityTypeSaveToCameraRoll,UIActivityTypeMail];
     [self presentViewController:activityView animated:YES completion:nil];
@@ -500,15 +445,6 @@
     UIGraphicsEndImageContext();
     return newimg;
 }
-
-//强制不允许转屏
-//- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-//    return (toInterfaceOrientation == UIInterfaceOrientationMaskPortrait);
-//}
-//
-//- (NSUInteger)supportedInterfaceOrientations {
-//    return UIInterfaceOrientationMaskPortrait;
-//}
 
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
