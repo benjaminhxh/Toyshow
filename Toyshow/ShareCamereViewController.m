@@ -56,6 +56,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self isLoadingView];
+
     CGFloat duration = [UIApplication sharedApplication].statusBarOrientationAnimationDuration;
     //设置旋转动画
     [UIView beginAnimations:nil context:nil];
@@ -64,12 +66,13 @@
     self.view.bounds = CGRectMake(0, 0, kWidth,kHeight);
     self.view.transform = CGAffineTransformMakeRotation(M_PI_2);
     [UIView commitAnimations];
-    
+//    [self isLoadingView];
+
     //右滑回到上一个页面
-    UISwipeGestureRecognizer *recognizer;
-    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(backBtn:)];
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [self.view addGestureRecognizer:recognizer];
+//    UISwipeGestureRecognizer *recognizer;
+//    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(backBtn:)];
+//    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+//    [self.view addGestureRecognizer:recognizer];
     cbdPlayerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kHeight, kWidth)];
     //请添加您百度开发者中心应用对应的APIKey和SecretKey。
 //    NSString* msAK=@"ZIAgdlC7Vw7syTjeKG9zS4QP";
@@ -84,7 +87,8 @@
     [self.view addSubview:cbPlayerController.view];
     self.view.userInteractionEnabled = YES;
     self.view.backgroundColor = [UIColor whiteColor];
-    
+    [self isLoadingView];
+
     //注册监听，当播放器完成视频的初始化后会发送CyberPlayerLoadDidPreparedNotification通知，
     //此时naturalSize/videoHeight/videoWidth/duration等属性有效。
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -149,10 +153,10 @@
             [topView addSubview:collectionBtn];
             
             //分享
-            shareBtn.frame = CGRectMake(kHeight*7/8, 11, 37, 22);
+//            shareBtn.frame = CGRectMake(kHeight*7/8, 11, 37, 22);
 //            [shareBtn setImage:[UIImage imageNamed:@"fenxiang_wei@2x"] forState:UIControlStateNormal];
 //            [shareBtn setBackgroundImage:[UIImage imageNamed:@"fenxiang_zhong@2x"] forState:UIControlStateHighlighted];
-            [topView addSubview:shareBtn];
+//            [topView addSubview:shareBtn];
             //开始播放
             [self startPlayback];
             
@@ -266,7 +270,6 @@
     [self.view addSubview:tapView];
     UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenOrNo:)];
     [tapView addGestureRecognizer:tapGest];
-    [self isLoadingView];
 }
 
 //弹出或隐藏设置按钮
@@ -450,6 +453,7 @@
 {
     [self refreshProgress:cbPlayerController.currentPlaybackTime totalDuration:cbPlayerController.duration];
 //    [self refreshCurrentProgress:cbPlayerController.playableDuration totalDuration:cbPlayerController.duration];//当前可播放视频的长度
+    NSLog(@"timeHanler");
 }
 
 //- (void)refreshCurrentProgress:(int)playableDuration totalDuration:(int)allSecond{
@@ -466,12 +470,14 @@
 //}
 
 - (void)refreshProgress:(int) currentTime totalDuration:(int)allSecond{
-    
+    NSLog(@"refreshProgress");
+    [_loadingView hide:YES];
+
     NSDictionary* dict = [[self class] convertSecond2HourMinuteSecond:currentTime];
     NSString* strPlayedTime = [self getTimeString:dict prefix:@""];
     currentProgress.text = strPlayedTime;
 //    NSLog(@"strPlayedTime:%@",strPlayedTime);
-    NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);
+//    NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);
     NSDictionary* dictLeft = [[self class] convertSecond2HourMinuteSecond:allSecond - currentTime];
     NSString* strLeft = [self getTimeString:dictLeft prefix:@"-"];
     remainsProgress.text = strLeft;
@@ -518,14 +524,14 @@
 - (void)startTimer{
     //为了保证UI刷新在主线程中完成。
     [self performSelectorOnMainThread:@selector(startTimeroOnMainThread) withObject:nil waitUntilDone:NO];
-    NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);
-
+//    NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);
+    NSLog(@"startTimer");
 }
 
 - (void)startTimeroOnMainThread{
     timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(timerHandler:) userInfo:nil repeats:YES];
-    NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);
-
+//    NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);
+    NSLog(@"startTimerOnMain");
 }
 
 - (void)stopTimer{
@@ -560,18 +566,19 @@
 - (void)isLoadingView
 {
     _loadingView = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:_loadingView];
-    
     _loadingView.delegate = self;
     _loadingView.labelText = @"loading";
-    _loadingView.detailsLabelText = @"正在加载，请稍后……";
+    _loadingView.detailsLabelText = @"视频加载中，请稍后……";
     _loadingView.square = YES;
-    [_loadingView showWhileExecuting:@selector(isLoadingAnimation) onTarget:self withObject:nil animated:YES];
+    [_loadingView show:YES];
+//    [_loadingView showWhileExecuting:@selector(isLoadingAnimation) onTarget:self withObject:nil animated:YES];
+    [cbPlayerController.view addSubview:_loadingView];
+
 }
 
 - (void)isLoadingAnimation
 {
-    sleep(3);
+    sleep(25);
 }
 
 //定时器实时更新时间

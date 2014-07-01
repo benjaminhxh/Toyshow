@@ -22,8 +22,9 @@
 #import "UIImageView+AFNetworking.h"
 #import "Reachability1.h"
 #import <CommonCrypto/CommonDigest.h> //md5加密需要的头文件
+#import "MBProgressHUD.h"
 
-@interface MainViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface MainViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate>
 {
     NSArray *_shareCameraListArr;
     BOOL _reloading;
@@ -34,9 +35,9 @@
     NSMutableArray *_fakeData;
     NSArray *downloadArr;
     UIActivityIndicatorView *activiView;
-    UILabel *blockLabel,*noDataLoadL;
+    UILabel *noInternetL,*noDataLoadL;
     NSString *realSign,*sign;
-
+    MBProgressHUD *_loadingView;
 }
 @end
 
@@ -111,13 +112,13 @@
     [self addheader];
     [self addFooter];
 
-    blockLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 65, 320, 44)];
-    blockLabel.text = @"当前网络不可用，请检查你的网络设置";
-    blockLabel.backgroundColor = [UIColor grayColor];
-    blockLabel.font = [UIFont systemFontOfSize:14];
-    blockLabel.textAlignment = NSTextAlignmentCenter;
-    blockLabel.hidden = YES;
-    [self.view addSubview:blockLabel];
+    noInternetL = [[UILabel alloc] initWithFrame:CGRectMake(0, 65, 320, 44)];
+    noInternetL.text = @"当前网络不可用，请检查你的网络设置";
+    noInternetL.backgroundColor = [UIColor grayColor];
+    noInternetL.font = [UIFont systemFontOfSize:14];
+    noInternetL.textAlignment = NSTextAlignmentCenter;
+    noInternetL.hidden = YES;
+    [self.view addSubview:noInternetL];
     
     noDataLoadL = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-44, 320, 44)];
     noDataLoadL.text = @"无更多数据加载";
@@ -131,14 +132,14 @@
     reachab.reachableBlock = ^(Reachability1 *reachabil)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
-            blockLabel.hidden = YES;
+            noInternetL.hidden = YES;
         });
     };
     
     reachab.unreachableBlock = ^(Reachability1 *unreachabil)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
-            blockLabel.hidden = NO;
+            noInternetL.hidden = NO;
         });
     };
     [reachab startNotifier];
@@ -181,7 +182,7 @@
             _fakeData = [NSMutableArray array];
             downloadArr = [NSArray array];
             downloadArr = [dict objectForKey:@"device_list"];
-            NSLog(@"downloadArr:%@",downloadArr);
+//            NSLog(@"downloadArr:%@",downloadArr);
             if (downloadArr.count == 0) {
                 UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"无分享的摄像头" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
                 [noDataView show];
@@ -198,9 +199,9 @@
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
 
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            NSLog(@"下载数据失败");
-            NSLog(@"tabsk%@",task);
-            NSLog(@"eror:%@",error);
+//            NSLog(@"下载数据失败");
+//            NSLog(@"tabsk%@",task);
+//            NSLog(@"eror:%@",error);
             UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
             [noDataView show];
         }];
@@ -352,6 +353,7 @@
     NSDictionary *dict = [_fakeData objectAtIndex:indexPath.row];
     int status = [[dict objectForKey:@"status"] intValue];
     if (status) {
+        [self isLoadingView];
         NSString *shareID = [dict objectForKey:@"shareid"];
         NSString *uk = [dict objectForKey:@"uk"];
         ShareCamereViewController *shareVC = [[ShareCamereViewController alloc] init];
@@ -364,17 +366,34 @@
             NSLog(@"公共摄像头url:%@",[dict objectForKey:@"url"]);
             shareVC.url = [dict objectForKey:@"url"];
 //            shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
+            [_loadingView hide:YES];
             [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSLog(@"error++++++++");
+            [_loadingView hide:YES];
+            UIAlertView *badInternetView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+            [badInternetView show];
         }];
     }else
     {
         UIAlertView *offlineView = [[UIAlertView alloc] initWithTitle:@"设备不在线" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
         [offlineView show];
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 //    shareVC.url = @"http://zb.v.qq.com:1863/?progid=1975434150";
 //    shareVC.url = @"http://a.puteasy.com:8800/authorize?chn_id=89&mac=ffffffffffff&mac_code=67a2e0b15d7b1b6ab6ab4e1f6cc516d1";
+}
+
+- (void)isLoadingView
+{
+    _loadingView = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:_loadingView];
+    
+    _loadingView.delegate = self;
+    _loadingView.labelText = @"loading";
+    _loadingView.detailsLabelText = @"正在加载，请稍后……";
+    _loadingView.square = YES;
+    [_loadingView show:YES];
 }
 
 #define mark - 禁止转屏

@@ -176,11 +176,11 @@
 //获取WiFi名称
 - (id)fetchSSIDInfo {
     NSArray *ifs = (__bridge_transfer id)CNCopySupportedInterfaces();
-    NSLog(@"Supported interfaces: %@", ifs);
+//    NSLog(@"Supported interfaces: %@", ifs);
     id info = nil;
     for (NSString *ifnam in ifs) {
         info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifnam);
-        NSLog(@"%@ => %@", ifnam, info);
+//        NSLog(@"%@ => %@", ifnam, info);
         NSString *BSSID = [info objectForKey:@"BSSID"];
 //        NSLog(@"BSSID:%@",BSSID);
         self.wifiBssid = BSSID;
@@ -231,17 +231,19 @@
 
     [[AFHTTPRequestOperationManager manager] POST:URLstr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //--------------------向Baidu注册成功，隐藏loginAlterView-------------------------
-        [loginAlterView dismissWithClickedButtonIndex:0 animated:YES];
+//        [loginAlterView dismissWithClickedButtonIndex:0 animated:YES];
         
         NSDictionary *dict = (NSDictionary *)responseObject;
 //        NSLog(@"dict:%@",dict);
         NSString *stream_id = [dict objectForKey:@"stream_id"];
         NSLog(@"注册stream_id:%@",stream_id);
+        [_loadingView hide:YES];
+
         [self connectToWifi];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"==========注册失败===============");
         //--------------------向Baidu注册成功，隐藏loginAlterView-------------------------
-        [loginAlterView dismissWithClickedButtonIndex:0 animated:YES];
+//        [loginAlterView dismissWithClickedButtonIndex:0 animated:YES];
         NSDictionary *errorDict = [error userInfo];
 //        NSLog(@"dict:%@",errorDict);
         [_loadingView hide:YES];
@@ -266,8 +268,8 @@
         return ;
     }];
     
-    loginAlterView = [[UIAlertView alloc] initWithTitle:nil message:@"载入中\n请稍后……" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-    [loginAlterView show];
+//    loginAlterView = [[UIAlertView alloc] initWithTitle:nil message:@"载入中\n请稍后……" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+//    [loginAlterView show];
 }
 
 - (void)connectToWifi
@@ -321,18 +323,19 @@
     //判断WiFi名是否以joyshow开头
     if ([[self fetchSSIDInfo]hasPrefix:@"Joyshow" ]) {
         [self openUDPServer];
+        _loadingView.hidden = NO;
 //        if (hexOrAscii.hidden) {
 //            self.wepStyle = @"1";
 //        }
         self.security = [securyArr objectAtIndex:securtyIndexPath];
         if (IPIndexPath) {
-            self.dhcp = @"0";
+            self.dhcp    = @"0";
             self.ipaddr  = [ipParameraDict objectForKey:@"ipaddr"];
             self.mask    = [ipParameraDict objectForKey:@"mask"];
             self.gateway = [ipParameraDict objectForKey:@"gateway"];
         }else
         {
-            self.dhcp = @"1";
+            self.dhcp    = @"1";
             self.ipaddr  = @"";
             self.mask    = @"";
             self.gateway = @"";
@@ -372,8 +375,8 @@
         NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:headDict,@"head",dataDict,@"data", nil];
         NSString *sendString = [dict JSONString];
         [self sendMassage:sendString];
-        configurationTipView = [[UIAlertView alloc] initWithTitle:@"配置摄像头" message:@"正在配置，请稍后……" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-        [configurationTipView show];
+//        configurationTipView = [[UIAlertView alloc] initWithTitle:@"配置摄像头" message:@"正在配置，请稍后……" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+//        [configurationTipView show];
         return;
     }
     if (nextAlertview == alertView ) {
@@ -433,7 +436,7 @@
 {
     [self.udpSocket receiveWithTimeout:-1 tag:0];
     NSLog(@"host---->%@",host);
-    
+    _loadingView.hidden = YES;
    	//接收到数据回调，显示出来
 	NSString *info=[[NSString alloc] initWithData:data encoding: NSUTF8StringEncoding];
 	NSLog(@"UDP代理接收到的数据：%@",info);
@@ -445,7 +448,7 @@
 										  otherButtonTitles:nil];
 	[alert show];
     [self backBtn:nil];
-    [configurationTipView dismissWithClickedButtonIndex:0 animated:YES];
+//    [configurationTipView dismissWithClickedButtonIndex:0 animated:YES];
 	return YES;
 }
 

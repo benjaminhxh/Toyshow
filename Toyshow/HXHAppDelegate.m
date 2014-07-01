@@ -64,7 +64,7 @@
 //    statTracker.sessionResumeInterval = 60;//设置应用进入后台再回到前台为同一次session的间隔时间[0~600s],超过600s则设为600s，默认为30s
 //    statTracker.shortAppVersion  = IosAppVersion; //参数为NSString * 类型,自定义app版本信息，如果不设置，默认从CFBundleVersion里取
 //    [statTracker startWithReportId:REPORT_ID];//设置您在mtj网站上添加的app的appkey
-    
+     [UIApplication sharedApplication].idleTimerDisabled = YES;
     [WXApi registerApp:@"wx70162e2c344d4c79" withDescription:nil];
     return YES;
 }

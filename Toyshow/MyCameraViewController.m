@@ -16,6 +16,7 @@
 #import "AFNetworking.h"
 #import "CameraSetViewController.h"
 #import "UIImageView+AFNetworking.h"
+#import "Reachability1.h"
 
 @interface MyCameraViewController ()<UITableViewDelegate,UITableViewDataSource,MJRefreshBaseViewDelegate,MBProgressHUDDelegate,CameraSetViewControllerDelegate>
 {
@@ -93,6 +94,23 @@
     noInternetL.hidden = YES;
     [self.view addSubview:noInternetL];
     
+    //判断是否有网络
+    Reachability1 *reachab = [Reachability1 reachabilityWithHostname:@"www.baidu.com"];
+    reachab.reachableBlock = ^(Reachability1 *reachabil)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            noInternetL.hidden = YES;
+        });
+    };
+    
+    reachab.unreachableBlock = ^(Reachability1 *unreachabil)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            noInternetL.hidden = NO;
+        });
+    };
+    [reachab startNotifier];
+
     noDataLoadL = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-44, 320, 44)];
     noDataLoadL.text = @"无更多数据加载";
     noDataLoadL.backgroundColor = [UIColor grayColor];
@@ -104,7 +122,6 @@
     _fakeData = [NSMutableArray array];
     [self addheader];
     [self addFooter];
-//    [self isLoadingView];//模拟正在加载
 }
 
 - (void)isLoadingView
@@ -117,13 +134,6 @@
     _loadingView.detailsLabelText = @"正在加载，请稍后……";
     _loadingView.square = YES;
     [_loadingView show:YES];
-//    [_loadingView showWhileExecuting:@selector(isLoadingAnimation) onTarget:self withObject:nil animated:YES];
-
-}
-
-- (void)isLoadingAnimation
-{
-    sleep(3);
 }
 
 - (void)leftClick
@@ -342,8 +352,10 @@
 
     //判断是被是否在线，在线则可以看直播
     if (stat) {
+        [self isLoadingView];
         NSString *liveUrl = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&access_token=%@&deviceid=%@",self.accessToken,deviceid];
         [[AFHTTPRequestOperationManager manager] POST:liveUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [_loadingView hide:YES];
             NSDictionary *dict = (NSDictionary *)responseObject;
             //获取直播rtmp地址
             NSString *rtmp = [dict objectForKey:@"url"];
@@ -359,6 +371,9 @@
             [[SliderViewController sharedSliderController].navigationController pushViewController:liveVC animated:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"失败了");
+            [_loadingView hide:YES];
+            UIAlertView *badInternetView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+            [badInternetView show];
         }];
     }else
     {

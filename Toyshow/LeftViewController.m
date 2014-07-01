@@ -36,6 +36,7 @@
     NSTimer * timer;
     BOOL _reloading;
     NSArray *activity;
+    UIAlertView *_loginView;
 }
 @end
 
@@ -187,8 +188,8 @@
 - (BOOL)accessTokenIsExist
 {
     if (!accessToken) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"请登陆" message:@"请先登陆" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-        [view show];
+        _loginView = [[UIAlertView alloc] initWithTitle:@"请登陆" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        [_loginView show];
         return NO;
     }
     return YES;
@@ -392,28 +393,38 @@
 //退出登录
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex) {
-        FrontiaAuthorization *auth = [Frontia getAuthorization];
-        if ([auth clearAllAuthorizationInfo]) {
-            
-            NSLog(@"clear清除成功");
-            self.userImageVIew.image = [UIImage imageNamed:@"touxiang_n@2x"];
-            self.userNameL.text = @"请登录";
-//            self.titleText.text = @"登录";
-            accessToken = nil;
-            accessToken = @"";
-            dispatch_async(dispatch_get_main_queue(), ^{
-//                [self.view setNeedsDisplay];
-                exit(0);
-            });
+    if (_loginView == alertView) {
+        if (buttonIndex) {
+            [self signonButtonClicked];
         }else
         {
-            [auth clearAuthorizationInfoWithPlatform:@"iOS"];
-            [auth clearAllAuthorizationInfo];
-            NSLog(@"fail");
+            
         }
     }else
     {
+        if (buttonIndex) {
+            FrontiaAuthorization *auth = [Frontia getAuthorization];
+            if ([auth clearAllAuthorizationInfo]) {
+                
+                NSLog(@"clear清除成功");
+                self.userImageVIew.image = [UIImage imageNamed:@"touxiang_n@2x"];
+                self.userNameL.text = @"请登录";
+    //            self.titleText.text = @"登录";
+                accessToken = nil;
+                accessToken = @"";
+                dispatch_async(dispatch_get_main_queue(), ^{
+    //                [self.view setNeedsDisplay];
+                    exit(0);
+                });
+            }else
+            {
+                [auth clearAuthorizationInfoWithPlatform:@"iOS"];
+                [auth clearAllAuthorizationInfo];
+                NSLog(@"fail");
+            }
+        }else
+        {
+        }
     }
 }
 #pragma mark - shareTo

@@ -10,10 +10,12 @@
 #import "AFNetworking.h"
 #import "MyCameraViewController.h"
 #import "SliderViewController.h"
+#import "MBProgressHUD.h"
 
-@interface ModifyViewController ()
+@interface ModifyViewController ()<MBProgressHUDDelegate>
 {
     UITextField *modifyText;
+    MBProgressHUD *_loadingView;
 }
 @end
 
@@ -77,6 +79,7 @@
         [view show];
         return;
     }
+    [self isLoadingView];
     //UTF8编码，上传服务器修改设备名
 //    NSString *modifyT = [[NSString alloc] initWithUTF8String:[modifyText.text UTF8String]];
     //    NSLog(@"desc:%@",desc);
@@ -96,11 +99,13 @@
 //            if (self.delegate && [self.delegate respondsToSelector:@selector(modifySuccessWith:)]) {
 //                [self.delegate modifySuccessWith:modifyText.text];
 //            }
+            [_loadingView hide:YES];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"modifySuccess" object:nil];
             [[SliderViewController sharedSliderController].navigationController popToRootViewControllerAnimated:YES];
 
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_loadingView hide:YES];
         NSDictionary *errorDict = [error userInfo];
         NSLog(@"errorDict:%@",errorDict);
         UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备修改失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -112,6 +117,17 @@
     [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
 }
 
+- (void)isLoadingView
+{
+    _loadingView = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:_loadingView];
+    
+    _loadingView.delegate = self;
+    _loadingView.labelText = @"loading";
+    _loadingView.detailsLabelText = @"修改中，请稍后……";
+    _loadingView.square = YES;
+    [_loadingView show:YES];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
