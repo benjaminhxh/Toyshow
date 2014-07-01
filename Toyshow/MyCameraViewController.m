@@ -168,7 +168,11 @@
             downloadArr = [NSMutableArray array];
             downloadArr = [dict objectForKey:@"list"];
             NSLog(@"downloadArr:%@",downloadArr);
-
+            if (downloadArr.count == 0) {
+                UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"无摄像头" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+                [noDataView show];
+                return ;
+            }
             if (downloadArr.count>20) {
                 for (int i = 0; i < 20; i++) {
                     [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
@@ -185,7 +189,6 @@
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
         [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationFail];
-        
         NSLog(@"%@----开始进入刷新状态", refreshView.class);
     };
     header.endStateChangeBlock = ^(MJRefreshBaseView *refreshView) {
@@ -349,7 +352,6 @@
 //        [failView show];
 //    }];
 
-
     //判断是被是否在线，在线则可以看直播
     if (stat) {
         [self isLoadingView];
@@ -381,6 +383,7 @@
         UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备不在线" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
         [view show];
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 #pragma mark - cellAccessory
 ////点击右边附件触发的方法

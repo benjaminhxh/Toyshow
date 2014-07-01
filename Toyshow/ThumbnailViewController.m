@@ -13,16 +13,17 @@
 #import "MJRefreshHeaderView.h"
 #import "SliderViewController.h"
 #import "AFNetworking.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface ThumbnailViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *_tableView;
     NSMutableArray *_fakeData;
-    NSArray *downloadArr;
+    NSArray *downloadArr,*imageURLARR;
     MJRefreshFooterView *_footerView;
     MJRefreshHeaderView *_headerView;
     UILabel *noDataLoadL,*noInternetL;
-
+    long st,et;
 }
 @end
 
@@ -63,7 +64,9 @@
 //    title.text = @"点播列表";
 //    title.textAlignment = NSTextAlignmentCenter;
 //    [self.view addSubview:title];
-    
+    NSDate *datenow = [NSDate dateWithTimeIntervalSinceNow:0];//现在时间
+     et = (long)[datenow timeIntervalSince1970];
+     st = et - 7*24*3600;
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, 320, [UIScreen mainScreen].bounds.size.height-65) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -125,15 +128,23 @@
     header.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView) {
         // 进入刷新状态就会回调这个Block
         //向服务器发起请求
-        NSDate *datenow = [NSDate dateWithTimeIntervalSinceNow:0];//现在时间,你可以输出来看下是什么格式
-//        NSDate *localDate = [self dateFrom:datenow];
-//        NSLog(@"当地时间localDate:%@",localDate);
-//        NSString *nowTimeStr = [[self dateFormateAlltime] stringFromDate:datenow];
-//        NSLog(@"现在时间:%@", nowTimeStr);
-        long et = (long)[datenow timeIntervalSince1970];
-//        NSLog(@"et:%ld",et);
-        int st = et - 7*24*3600;
-        NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=playlist&access_token=%@&deviceid=%@&st=%d&et=%ld",self.accessToken,self.deviceID,st,et];
+//        NSDate *datenow = [NSDate dateWithTimeIntervalSinceNow:0];//现在时间
+//        long et = (long)[datenow timeIntervalSince1970];
+//        long st = et - 7*24*3600;
+        //请求点播缩略图
+        NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
+        [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            NSDictionary *dict = (NSDictionary *)responseObject;
+//            NSLog(@"imageDict:%@",dict);
+            imageURLARR = [NSArray array];
+            imageURLARR = [dict objectForKey:@"list"];
+        
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            NSDictionary *errorDict = [error userInfo];
+            NSLog(@"errorDict:%@",errorDict);
+        }];
+        //请求点播时间
+        NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=playlist&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
         [[AFHTTPSessionManager manager] GET:urlStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
 //            NSLog(@"dict:%@",dict);
@@ -141,8 +152,13 @@
             _fakeData = [NSMutableArray array];
             downloadArr = [NSArray array];
             downloadArr = [dict objectForKey:@"results"];
-            NSLog(@"downloadArr:%@=====%d",downloadArr,downloadArr.count);
+//            NSLog(@"downloadArr:%@=====%d",downloadArr,downloadArr.count);
             
+            if (downloadArr.count == 0) {
+                UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"无录像" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+                [noDataView show];
+                return ;
+            }
             if (downloadArr.count>20) {
                 for (int i = 0; i < 20; i++) {
                     [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
@@ -271,20 +287,21 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:@"thumbCell" owner:self options:nil] lastObject];
             self.thumbTitle.text = self.deviceDesc;
             NSArray *arr = [downloadArr objectAtIndex:indexPath.row];
-            NSNumber *st = [arr objectAtIndex:0];
-            float stf = [st floatValue];
+            NSNumber *stt = [arr objectAtIndex:0];
+            int stf = [stt intValue];
             NSDate *currentTime = [NSDate dateWithTimeIntervalSince1970:stf];
             NSString *startT = [[self dateFormatterMMddHHmm] stringFromDate:currentTime];
             
-            NSNumber *et = [arr objectAtIndex:1];
+            NSNumber *ett = [arr objectAtIndex:1];
 //            NSLog(@"et:%d",[et intValue]);
-            float endtf = [et floatValue];
+            int endtf = [ett intValue];
             NSDate *endfTime = [NSDate dateWithTimeIntervalSince1970:endtf];
             NSString *endT = [[self dateFormatterMMddHHmm] stringFromDate:endfTime];
             NSLog(@"endT:%@",endT);
-           NSLog(@"数组里的元素%@",[downloadArr objectAtIndex:indexPath.row]);
+            NSLog(@"数组里的元素%@",[downloadArr objectAtIndex:indexPath.row]);
             self.thumbDeadlines.text = [NSString stringWithFormat:@"%@  ----%@",startT,[endT substringFromIndex:5]];
-            self.thumbPic.image = [UIImage imageNamed:@"shipinkuang@2x"];
+            NSString *imageURL = [[imageURLARR objectAtIndex:indexPath.row] objectForKey:@"url"];
+            [self.thumbPic setImageWithURL:[NSURL URLWithString:imageURL]];
             //            [self.thumbPic.image setImageWithURL:[(NSURL *)url];    //AFNetWorking
         }
     }
@@ -294,10 +311,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *arr = [downloadArr objectAtIndex:indexPath.row];
-    NSNumber *st = [arr objectAtIndex:0];
-    int stf = [st intValue];
-    NSNumber *et = [arr objectAtIndex:1];
-    int endtf = [et intValue];
+    NSNumber *stt = [arr objectAtIndex:0];
+    int stf = [stt intValue];
+    NSNumber *ett = [arr objectAtIndex:1];
+    int endtf = [ett intValue];
 
     ShareCamereViewController *vodVC = [[ShareCamereViewController alloc] init];
     vodVC.islLve = NO;
