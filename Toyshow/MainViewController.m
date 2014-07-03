@@ -135,7 +135,7 @@
             noInternetL.hidden = YES;
         });
     };
-    
+    //无网络
     reachab.unreachableBlock = ^(Reachability1 *unreachabil)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -290,10 +290,10 @@
     [[SliderViewController sharedSliderController] leftItemClick];
 }
 
-- (void)rightItemClick
-{
-    [[SliderViewController sharedSliderController]rightItemClick];
-}
+//- (void)rightItemClick
+//{
+//    [[SliderViewController sharedSliderController]rightItemClick];
+//}
 
 #pragma mark - Table view data source
 
@@ -342,7 +342,6 @@
 
             }
 //            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
         }
     }
     return cell;

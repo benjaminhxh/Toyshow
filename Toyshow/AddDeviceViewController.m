@@ -87,6 +87,7 @@
     deviceDetailF = [[UITextField alloc] initWithFrame:CGRectMake(100, 110, 180, 30)];
     deviceDetailF.borderStyle = UITextBorderStyleRoundedRect;
     deviceDetailF.returnKeyType = UIReturnKeyNext;
+    deviceDetailF.delegate = self;
     [self.view addSubview:deviceDetailF];
     
     UILabel *SSIDL = [[UILabel alloc] initWithFrame:CGRectMake(10, 150, 100, 30)];
@@ -96,6 +97,7 @@
     SSIDF.borderStyle = UITextBorderStyleRoundedRect;
     SSIDF.text = [self fetchSSIDInfo];
 //    SSIDF.text = @"zhonghexunfei";
+//    SSIDF.delegate = self;
     SSIDF.enabled = NO;
     [self.view addSubview:SSIDF];
     
@@ -106,6 +108,7 @@
     SSIDPWF.borderStyle = UITextBorderStyleRoundedRect;
     SSIDPWF.returnKeyType = UIReturnKeyNext;
     SSIDPWF.text = @"zhxf0602";
+    SSIDPWF.delegate = self;
     [self.view addSubview:SSIDPWF];
     
     UILabel *SSIDPWconfirm = [[UILabel alloc] initWithFrame:CGRectMake(10, 230, 80, 30)];
@@ -115,6 +118,7 @@
     SSIDPWFconfirm.borderStyle = UITextBorderStyleRoundedRect;
     SSIDPWFconfirm.returnKeyType = UIReturnKeyDone;
     SSIDPWFconfirm.text = @"zhxf0602";
+    SSIDPWFconfirm.delegate = self;
     [self.view addSubview:SSIDPWFconfirm];
     
     UILabel  *lineL = [[UILabel alloc] initWithFrame:CGRectMake(2, 265, 320-4, 1)];
@@ -321,7 +325,7 @@
 {
     [self.view setNeedsDisplay];
     //判断WiFi名是否以joyshow开头
-    if ([[self fetchSSIDInfo]hasPrefix:@"Joyshow" ]) {
+    if ([[self fetchSSIDInfo]hasPrefix:@"Joyshow_cam" ]) {
         [self openUDPServer];
         _loadingView.hidden = NO;
 //        if (hexOrAscii.hidden) {
@@ -442,7 +446,7 @@
 	NSLog(@"UDP代理接收到的数据：%@",info);
 	//已经处理完毕
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"配置成功"
-													message:@"1.请切换到“系统设置”>>“无线局域网”\n2.断开Joyshow开头的摄像头热点\n3.连接到可上网的WiFi热点\n4.切换回此页面，再次刷新页面"
+													message:@"1.请切换到“系统设置”>>“无线局域网”\n2.断开Joyshow_cam开头的摄像头热点\n3.连接到可上网的WiFi热点\n4.切换回此页面，再次刷新页面"
 												   delegate:nil
 										  cancelButtonTitle:@"OK"
 										  otherButtonTitles:nil];
@@ -533,12 +537,15 @@
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
+//    [textField resignFirstResponder];
     if (deviceDetailF == textField) {
         [SSIDPWF becomeFirstResponder];
     }else if(SSIDPWF == textField)
     {
         [SSIDPWFconfirm becomeFirstResponder];
+    }else
+    {
+        [self.view endEditing:YES];
     }
     return YES;
 }

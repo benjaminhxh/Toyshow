@@ -302,7 +302,6 @@
             self.thumbDeadlines.text = [NSString stringWithFormat:@"%@  ----%@",startT,[endT substringFromIndex:5]];
             NSString *imageURL = [[imageURLARR objectAtIndex:indexPath.row] objectForKey:@"url"];
             [self.thumbPic setImageWithURL:[NSURL URLWithString:imageURL]];
-            //            [self.thumbPic.image setImageWithURL:[(NSURL *)url];    //AFNetWorking
         }
     }
     return cell;

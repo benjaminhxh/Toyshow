@@ -5,7 +5,7 @@
 //  Created by zhxf on 14-3-24.
 //  Copyright (c) 2014年 zhxf. All rights reserved.
 //
-//分享的摄像头直播
+//摄像头直播
 
 #import "ShareCamereViewController.h"
 #import "JSONKit.h"
@@ -56,8 +56,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self isLoadingView];
-
     CGFloat duration = [UIApplication sharedApplication].statusBarOrientationAnimationDuration;
     //设置旋转动画
     [UIView beginAnimations:nil context:nil];
@@ -66,17 +64,8 @@
     self.view.bounds = CGRectMake(0, 0, kWidth,kHeight);
     self.view.transform = CGAffineTransformMakeRotation(M_PI_2);
     [UIView commitAnimations];
-//    [self isLoadingView];
-
-    //右滑回到上一个页面
-//    UISwipeGestureRecognizer *recognizer;
-//    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(backBtn:)];
-//    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-//    [self.view addGestureRecognizer:recognizer];
     cbdPlayerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kHeight, kWidth)];
-    //请添加您百度开发者中心应用对应的APIKey和SecretKey。
-//    NSString* msAK=@"ZIAgdlC7Vw7syTjeKG9zS4QP";
-//    NSString* msSK=@"pavlqfU4mzYQ1dH0NG3b7LyXNBy5SYk6";
+    //添加百度开发者中心应用对应的APIKey和SecretKey。
     //添加开发者信息
     [[CyberPlayerController class ]setBAEAPIKey:msAK SecretKey:msSK ];
     //当前只支持CyberPlayerController的单实例
@@ -87,7 +76,6 @@
     [self.view addSubview:cbPlayerController.view];
     self.view.userInteractionEnabled = YES;
     self.view.backgroundColor = [UIColor whiteColor];
-    [self isLoadingView];
 
     //注册监听，当播放器完成视频的初始化后会发送CyberPlayerLoadDidPreparedNotification通知，
     //此时naturalSize/videoHeight/videoWidth/duration等属性有效。
@@ -100,6 +88,24 @@
                                              selector:@selector(seekComplete:)
                                                  name:CyberPlayerSeekingDidFinishNotification
                                                object:nil];
+    //注册监听，当播放器开始缓冲时发送通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(startCaching:)
+                                                 name:CyberPlayerStartCachingNotification
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(stateDidChange:)
+                                                 name:CyberPlayerPlaybackStateDidChangeNotification
+                                               object:nil];
+
+    //注册监听，当播放器缓冲视频过程中不断发送该通知。
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(GotCachePercent:)
+//                                                 name:CyberPlayerGotCachePercentNotification
+//                                               object:nil];
+
+    
     
     //系统音量
     volumView = [[MPVolumeView alloc] initWithFrame:CGRectMake(-55, 140, 200, 34)];
@@ -158,7 +164,7 @@
 //            [shareBtn setBackgroundImage:[UIImage imageNamed:@"fenxiang_zhong@2x"] forState:UIControlStateHighlighted];
 //            [topView addSubview:shareBtn];
             //开始播放
-            [self startPlayback];
+//            [self startPlayback];
             
         }else{
             //我的摄像头直播
@@ -198,7 +204,7 @@
                 speakBtn.frame = CGRectMake(kHeight/2+30+150, 11, 37, 22);
             }
             //开始播放
-            [self startPlayback];
+//            [self startPlayback];
         }
         if (self.shareStaue) {
             [shareBtn setBackgroundImage:[UIImage imageNamed:@"lishijilu"] forState:UIControlStateNormal];
@@ -261,10 +267,14 @@
         [slider addTarget:self action:@selector(onDragSlideDone:) forControlEvents:UIControlEventTouchUpInside];
 //        slider.backgroundColor = [UIColor blueColor];
         [bottomView addSubview:slider];
-        [self startPlayback];
+//        [self startPlayback];
 
 
     }
+//    [self isLoadingView];
+
+    [self startPlayback];
+
     tapView = [[UIView alloc] initWithFrame:CGRectMake(70, 50, kHeight-80, kWidth-60-60)];
     tapView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:tapView];
@@ -272,99 +282,12 @@
     [tapView addGestureRecognizer:tapGest];
 }
 
-//弹出或隐藏设置按钮
-- (void)hiddenOrNo:(id)sender
-{
-    if (topViewHidden) {
-        [UIView animateWithDuration:0.15 animations:^{
-            topView.frame = CGRectMake(0, -44, kHeight, 44);
-            bottomView.frame = CGRectMake(0, kWidth+60, kHeight, 60);
-            volumView.hidden = YES;
-        }];
-        topViewHidden = !topViewHidden;
-        return;
-    }else{
-        [UIView animateWithDuration:0.15 animations:^{
-            topView.frame = CGRectMake(0, 0, kHeight, 44);
-            bottomView.frame = CGRectMake(0, kWidth-60, kHeight, 60);
-            volumView.hidden = NO;
-        }];
-        topViewHidden = !topViewHidden;
-        //        NSTimer *timer1 = [NSTimer timerWithTimeInterval:0.8 target:self selector:@selector(hiddenView) userInfo:nil repeats:NO];
-        //        [[NSRunLoop currentRunLoop]addTimer:timer1 forMode:NSDefaultRunLoopMode];
-        //        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(hiddenView) userInfo:NO repeats:NO];
-        return;
-    }
-}
-//返回
-- (void)backBtn:(id)sender
-{
-    [self stopPlayback];
-    [localTimer invalidate];
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
-#define mark - SetMethod
-- (void)collectClick    //收藏
-{
-    
-}
-
-- (void)shareClick  //分享
-{
-//    UIActionSheet *shareTypeSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"公共分享" otherButtonTitles:@"私密分享", nil];
-//    [shareTypeSheet showInView:self.view];
-    if (self.shareStaue) {
-        //取消分享
-        NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=cancelshare&access_token=%@&deviceid=%@",self.accecc_token,self.deviceId];
-        [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            UIAlertView *successView = [[UIAlertView alloc] initWithTitle:@"已成功取消分享" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [successView show];
-            [shareBtn setImage:[UIImage imageNamed:@"fenxiang_wei@2x"] forState:UIControlStateNormal];
-            [shareBtn setImage:[UIImage imageNamed:@"fenxiang_zhong@2x"] forState:UIControlStateHighlighted];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"error:%@",[error userInfo]);
-            UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"取消分享失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [failView show];
-            
-        }];
-    }else
-    {
-        UIActionSheet *shareTypeSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"公共分享" otherButtonTitles:@"私密分享", nil];
-        [shareTypeSheet showInView:self.view];
-    }
-}
-
-- (void)SetClick    //设置
-{
-    
-}
-
-- (void)cutPrint    //截图
-{
-    UIGraphicsBeginImageContext(cbPlayerController.view.bounds.size);
-    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-    //自动保存到图片库
-}
-
-- (void)speakClick  //对讲
-{
-    NSLog(@"speaking");
-}
-
-- (void)lightSliderValue:(UISlider *)sender
-{
-    NSLog(@"亮度调节value:%f",sender.value);
-}
 
 - (void)onDragSlideValueChanged:(id)sender {
     NSLog(@"slide changing, %f", slider.value);
     [self refreshProgress:slider.value totalDuration:cbPlayerController.duration];
-    //    NSLog(@"slider changing :%f",slider.progress);
+    //    NSLog(@"slider changing :%f",slider.progress);11/13
     //    [self refreshProgress:slider.progress totalDuration:cbPlayerController.duration];
 }
 
@@ -372,36 +295,54 @@
     float currentTIme = slider.value;
 //    float currentTIme2 = progressV.progress;
     NSLog(@"seek to %f", currentTIme);
-//    NSLog(@"seek2 to %f", currentTIme2);
-    
+//    NSLog(@"seek2 to %f", currentTIme2);14
+//    _loadingView.hidden = YES;
     //实现视频播放位置切换，
     [cbPlayerController seekTo:currentTIme];
     //两种方式都可以实现seek操作
     [cbPlayerController setCurrentPlaybackTime:currentTIme];
 }
 - (void)onDragSlideStart:(id)sender {
-    [self stopTimer];
+    [self stopTimer];//12
 }
 
 - (void)onpreparedListener: (NSNotification*)aNotification
 {
-    //视频文件完成初始化，开始播放视频并启动刷新timer。
+    //视频文件完成初始化，开始播放视频并启动刷新timer。1
+//    _loadingView.hidden = YES;
+//    [_loadingView show:NO];
+
+    NSLog(@"onpreparedListener");
     [self startTimer];
-//    NSLog(@"prepareeeeeeeeeeeeeeee");
+
 }
 
-- (void)startCatching:(NSNotification*)botif
+- (void)startCaching:(NSNotification*)botif
 {
+//    [self isLoadingView];
     [self startTimer];
-//    NSLog(@"startCatchhhhhhhhhhhhhh");
+    NSLog(@"startCachhhhhhhhhhhhhh");
 }
+
 - (void)seekComplete:(NSNotification*)notification
 {
     //开始启动UI刷新
-    [self startTimer];
-//    NSLog(@"seekCompleteeeeeeeeeeee");
+//    _loadingView.hidden = YES;
+//    [self startTimer];
+    NSLog(@"seekCompleteeeeeeeeeeee");//15
 }
 
+- (void)stateDidChange:(NSNotification*)notif
+{
+    NSLog(@"stateDidChange");
+//    _loadingView.hidden = YES;
+}
+- (void)GotCachePercent:(NSNotification *)notific
+{
+    NSLog(@"GotCachePercent");
+//    _loadingView.hidden = NO;
+    [self startTimer];
+}
 - (void)onClickPlay:(id)sender {
     //当按下播放按钮时，调用startPlayback方法
     [self startPlayback];
@@ -415,8 +356,8 @@
 //    NSURL *url = [NSURL fileURLWithPath:urlStr];
 //    NSURL *url = [NSURL URLWithString:@"rtmp://livertmppc.wasu.cn/live/dfws"];
 //    NSURL *url = [NSURL URLWithString:@"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4"];
+    [self isLoadingView];
     NSURL *url = [NSURL URLWithString:self.url];
-//    AFURLConnectionOperation *urlConnect = [AFURLConnectionOperation];
 //    [progressV setProgressWithDownloadProgressOfOperation:(AFURLConnectionOperation *) animated:<#(BOOL)#>;
     switch (cbPlayerController.playbackState) {
         case CBPMoviePlaybackStateStopped:
@@ -442,36 +383,17 @@
             break;
     }
 }
-- (void)stopPlayback{
-    //停止视频播放
-    [cbPlayerController stop];
-    [startBtn setImage:[UIImage imageNamed:@"zanting_anniu@2x"] forState:UIControlStateNormal];
-    [self stopTimer];
-}
 
 - (void)timerHandler:(NSTimer*)timer
 {
     [self refreshProgress:cbPlayerController.currentPlaybackTime totalDuration:cbPlayerController.duration];
-//    [self refreshCurrentProgress:cbPlayerController.playableDuration totalDuration:cbPlayerController.duration];//当前可播放视频的长度
+//    [self refreshCurrentProgress:cbPlayerController.playableDuration totalDuration:cbPlayerController.duration];//当前可播放视频的长度4/6
     NSLog(@"timeHanler");
 }
 
-//- (void)refreshCurrentProgress:(int)playableDuration totalDuration:(int)allSecond{
-//    
-//    NSDictionary* dict = [[self class] convertSecond2HourMinuteSecond:playableDuration];
-//    NSString* strPlayedTime = [self getTimeString:dict prefix:@""];
-//    currentProgress.text = strPlayedTime;
-////    NSLog(@"可播放的strPlayedTime:%@",strPlayedTime);
-//    NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);
-//    NSDictionary* dictLeft = [[self class] convertSecond2HourMinuteSecond:allSecond - playableDuration];
-//    NSString* strLeft = [self getTimeString:dictLeft prefix:@"-"];
-//    remainsProgress.text = strLeft;
-////    NSLog(@"可播放的strLeft:%@",strLeft);
-//}
-
 - (void)refreshProgress:(int) currentTime totalDuration:(int)allSecond{
-    NSLog(@"refreshProgress");
-    [_loadingView hide:YES];
+    NSLog(@"refreshProgress");//4/7
+//    [_loadingView show:NO];
 
     NSDictionary* dict = [[self class] convertSecond2HourMinuteSecond:currentTime];
     NSString* strPlayedTime = [self getTimeString:dict prefix:@""];
@@ -522,15 +444,16 @@
 }
 
 - (void)startTimer{
-    //为了保证UI刷新在主线程中完成。
+    //为了保证UI刷新在主线程中完成。2
+    NSLog(@"startTimer");
     [self performSelectorOnMainThread:@selector(startTimeroOnMainThread) withObject:nil waitUntilDone:NO];
 //    NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);
-    NSLog(@"startTimer");
 }
 
 - (void)startTimeroOnMainThread{
     timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(timerHandler:) userInfo:nil repeats:YES];
-//    NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);
+    _loadingView.hidden = YES;//============
+//    NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);3
     NSLog(@"startTimerOnMain");
 }
 
@@ -542,18 +465,106 @@
     timer = nil;
 }
 
-//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//    lightSlider.hidden = YES;
-//    UITouch *touch = [touches anyObject];
-//    CGPoint point = [touch locationInView:cbdPlayerView];
-//    if (CGRectContainsPoint(self.view.frame, point)) {
-//        NSLog(@"----------");
-//    }
-//    if (point.y > 80 && point.y < kHeight-80) {
-//
-//    }
-//}
+- (void)stopPlayback{
+    //停止视频播放
+    [cbPlayerController stop];
+    [startBtn setImage:[UIImage imageNamed:@"zanting_anniu@2x"] forState:UIControlStateNormal];
+    [self stopTimer];
+}
+
+//返回
+- (void)backBtn:(id)sender
+{
+    [self stopPlayback];
+    [localTimer invalidate];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+//弹出或隐藏设置按钮
+- (void)hiddenOrNo:(id)sender
+{
+    if (topViewHidden) {
+        [UIView animateWithDuration:0.15 animations:^{
+            topView.frame = CGRectMake(0, -44, kHeight, 44);
+            bottomView.frame = CGRectMake(0, kWidth+60, kHeight, 60);
+            volumView.hidden = YES;
+        }];
+        topViewHidden = !topViewHidden;
+        return;
+    }else{
+        [UIView animateWithDuration:0.15 animations:^{
+            topView.frame = CGRectMake(0, 0, kHeight, 44);
+            bottomView.frame = CGRectMake(0, kWidth-60, kHeight, 60);
+            volumView.hidden = NO;
+        }];
+        topViewHidden = !topViewHidden;
+        //        NSTimer *timer1 = [NSTimer timerWithTimeInterval:0.8 target:self selector:@selector(hiddenView) userInfo:nil repeats:NO];
+        //        [[NSRunLoop currentRunLoop]addTimer:timer1 forMode:NSDefaultRunLoopMode];
+        //        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(hiddenView) userInfo:NO repeats:NO];
+        return;
+    }
+}
+
+
+#define mark - SetMethod
+- (void)collectClick    //收藏
+{
+    
+}
+
+- (void)shareClick  //分享
+{
+    //    UIActionSheet *shareTypeSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"公共分享" otherButtonTitles:@"私密分享", nil];
+    //    [shareTypeSheet showInView:self.view];
+    if (self.shareStaue) {
+        //取消分享
+        NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=cancelshare&access_token=%@&deviceid=%@",self.accecc_token,self.deviceId];
+        [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            UIAlertView *successView = [[UIAlertView alloc] initWithTitle:@"已成功取消分享" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [successView show];
+            [shareBtn setImage:[UIImage imageNamed:@"fenxiang_wei@2x"] forState:UIControlStateNormal];
+            [shareBtn setImage:[UIImage imageNamed:@"fenxiang_zhong@2x"] forState:UIControlStateHighlighted];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"error:%@",[error userInfo]);
+            UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"取消分享失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [failView show];
+            
+        }];
+    }else
+    {
+        UIActionSheet *shareTypeSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"公共分享" otherButtonTitles:@"私密分享", nil];
+        [shareTypeSheet showInView:self.view];
+    }
+}
+
+- (void)SetClick    //设置
+{
+    [self isLoadingView];
+}
+
+- (void)cutPrint    //截图
+{
+    UIGraphicsBeginImageContext(cbPlayerController.view.bounds.size);
+    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    //自动保存到图片库
+}
+
+- (void)speakClick  //对讲
+{
+    NSLog(@"speaking");
+//    _loadingView.hidden = YES;
+    [_loadingView show:NO];
+
+}
+
+- (void)lightSliderValue:(UISlider *)sender
+{
+    NSLog(@"亮度调节value:%f",sender.value);
+}
 
 - (void)hiddenView
 {
@@ -573,12 +584,6 @@
     [_loadingView show:YES];
 //    [_loadingView showWhileExecuting:@selector(isLoadingAnimation) onTarget:self withObject:nil animated:YES];
     [cbPlayerController.view addSubview:_loadingView];
-
-}
-
-- (void)isLoadingAnimation
-{
-    sleep(25);
 }
 
 //定时器实时更新时间

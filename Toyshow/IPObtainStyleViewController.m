@@ -74,7 +74,7 @@
     ipAddress.text = @"IP地址:";
     [staticView addSubview:ipAddress];
     ipAddressF = [[UITextField alloc] initWithFrame:CGRectMake(140, 10, 160, 24)];
-    ipAddressF.keyboardType = UIKeyboardTypeNumberPad;
+    ipAddressF.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     
     ipAddressF.delegate = self;
     [staticView addSubview:ipAddressF];
@@ -85,8 +85,10 @@
     UILabel *subnetMask = [[UILabel alloc] initWithFrame:CGRectMake(20, 46, 100, 24)];
     subnetMask.text = @"子网掩码:";
     [staticView addSubview:subnetMask];
+    
     subnetmaskF = [[UITextField alloc] initWithFrame:CGRectMake(140, 46, 160, 24)];
     subnetmaskF.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    subnetmaskF.delegate = self;
     [staticView addSubview:subnetmaskF];
     
     UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 76, 320, 1)];
@@ -96,8 +98,10 @@
     UILabel *router = [[UILabel alloc] initWithFrame:CGRectMake(20, 82, 100, 24)];
     router.text = @"路由器:";
     [staticView addSubview:router];
+    
     routerF = [[UITextField alloc] initWithFrame:CGRectMake(140, 82, 160, 24)];
-    routerF.keyboardType = UIKeyboardTypePhonePad;
+    routerF.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    routerF.delegate = self;
     [staticView addSubview:routerF];
 
     if (self.selectedIndex) {
@@ -194,11 +198,24 @@
     }
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string   // return NO to not change text
-{
-    return NO;
-}
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string   // return NO to not change text
+//{
+//    return NO;
+//}
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (ipAddressF == textField) {
+        [subnetmaskF becomeFirstResponder];
+    }else if (subnetmaskF == textField)
+    {
+        [routerF becomeFirstResponder];
+    }else
+    {
+        [self.view endEditing:YES];
+    }
+    return YES;
+}
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];

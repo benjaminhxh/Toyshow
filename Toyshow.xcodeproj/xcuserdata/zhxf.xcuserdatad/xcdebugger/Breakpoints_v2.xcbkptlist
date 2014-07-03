@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/AddDeviceViewController.m"
-            timestampString = "425275478.056725"
+            timestampString = "425976128.037176"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "-fetchSSIDInfo"
             landmarkType = "5">
          </BreakpointContent>
@@ -282,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MainViewController.m"
-            timestampString = "425876498.498762"
+            timestampString = "425975503.043237"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "420"
-            endingLineNumber = "420"
+            startingLineNumber = "419"
+            endingLineNumber = "419"
             landmarkName = "-preferredStatusBarStyle"
             landmarkType = "5">
          </BreakpointContent>
@@ -314,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MainViewController.m"
-            timestampString = "425876498.498762"
+            timestampString = "425975503.043237"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "425"
-            endingLineNumber = "425"
+            startingLineNumber = "424"
+            endingLineNumber = "424"
             landmarkName = "-prefersStatusBarHidden"
             landmarkType = "5">
          </BreakpointContent>
@@ -330,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "425817462.363232"
+            timestampString = "426074750.172371"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "365"
-            endingLineNumber = "365"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
             landmarkName = "-onDragSlideValueChanged:"
             landmarkType = "5">
          </BreakpointContent>
@@ -346,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "425817462.363232"
+            timestampString = "426074750.172371"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "372"
-            endingLineNumber = "372"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
             landmarkName = "-onDragSlideDone:"
             landmarkType = "5">
             <Locations>
@@ -361,12 +361,12 @@
                   symbolName = "-[ShareCamereViewController onDragSlideDone:]"
                   moduleName = "Toyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/ShareCamereViewController.m"
-                  timestampString = "425897541.716843"
+                  timestampString = "426073252.749015"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "372"
-                  endingLineNumber = "372"
-                  offsetFromSymbolStart = "74">
+                  startingLineNumber = "293"
+                  endingLineNumber = "293"
+                  offsetFromSymbolStart = "106">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -375,12 +375,12 @@
                   symbolName = "-[ShareCamereViewController onDragSlideDone:]"
                   moduleName = "Toyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/ShareCamereViewController.m"
-                  timestampString = "425897541.717197"
+                  timestampString = "426073252.74916"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "372"
-                  endingLineNumber = "372"
-                  offsetFromSymbolStart = "120">
+                  startingLineNumber = "293"
+                  endingLineNumber = "293"
+                  offsetFromSymbolStart = "124">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -392,11 +392,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "425817462.363232"
+            timestampString = "426075313.45472"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "383"
-            endingLineNumber = "383"
+            startingLineNumber = "447"
+            endingLineNumber = "447"
+            landmarkName = "-startTimer"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/ShareCamereViewController.m"
+            timestampString = "426074750.172371"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
             landmarkName = "-onDragSlideStart:"
             landmarkType = "5">
          </BreakpointContent>
@@ -404,16 +420,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "425819256.177759"
+            timestampString = "426074995.575073"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "538"
-            endingLineNumber = "538"
-            landmarkName = "-stopTimer"
+            startingLineNumber = "322"
+            endingLineNumber = "322"
+            landmarkName = "-startCaching:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -424,59 +440,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "425819256.177759"
+            timestampString = "426074995.575073"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "532"
-            endingLineNumber = "532"
-            landmarkName = "-startTimeroOnMainThread"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "425818952.557435"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "395"
-            endingLineNumber = "395"
-            landmarkName = "-startCatching:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "425818780.795103"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "389"
-            endingLineNumber = "389"
-            landmarkName = "-onpreparedListener:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "425818952.557435"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "401"
-            endingLineNumber = "401"
+            startingLineNumber = "329"
+            endingLineNumber = "329"
             landmarkName = "-seekComplete:"
             landmarkType = "5">
          </BreakpointContent>
@@ -488,28 +456,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "425818952.557435"
+            timestampString = "426074995.575073"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "407"
-            endingLineNumber = "407"
-            landmarkName = "-onClickPlay:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "425818952.557435"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "418"
-            endingLineNumber = "418"
-            landmarkName = "-startPlayback"
+            startingLineNumber = "342"
+            endingLineNumber = "342"
+            landmarkName = "-GotCachePercent:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -535,7 +487,7 @@
                   symbolName = "__32-[LeftViewController onUserInfo]_block_invoke_3"
                   moduleName = "Toyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/LeftViewController.m"
-                  timestampString = "425897541.71946"
+                  timestampString = "426073252.750046"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "386"
@@ -549,7 +501,7 @@
                   symbolName = "__destroy_helper_block_312"
                   moduleName = "Toyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/LeftViewController.m"
-                  timestampString = "425897541.719604"
+                  timestampString = "426073252.750183"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "386"
@@ -566,43 +518,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/AddDeviceViewController.m"
-            timestampString = "425275478.056725"
+            timestampString = "425976128.037176"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
-            landmarkName = "-startConfigure"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "425817462.363232"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Toyshow/AddDeviceViewController.m"
-            timestampString = "425275478.056725"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
+            startingLineNumber = "220"
+            endingLineNumber = "220"
             landmarkName = "-startConfigure"
             landmarkType = "5">
          </BreakpointContent>
@@ -614,11 +534,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/AddDeviceViewController.m"
-            timestampString = "425275478.056725"
+            timestampString = "425976128.037176"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "-startConfigure"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/AddDeviceViewController.m"
+            timestampString = "425976128.037176"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
             landmarkName = "-startConfigure"
             landmarkType = "5">
             <Locations>
@@ -629,11 +565,11 @@
                   symbolName = "-[AddDeviceViewController startConfigure]"
                   moduleName = "Toyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/AddDeviceViewController.m"
-                  timestampString = "425897541.720831"
+                  timestampString = "426073252.750655"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "232"
-                  endingLineNumber = "232"
+                  startingLineNumber = "236"
+                  endingLineNumber = "236"
                   offsetFromSymbolStart = "2204">
                </Location>
                <Location
@@ -643,11 +579,11 @@
                   symbolName = "__41-[AddDeviceViewController startConfigure]_block_invoke"
                   moduleName = "Toyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/AddDeviceViewController.m"
-                  timestampString = "425897541.720984"
+                  timestampString = "426073252.750791"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "232"
-                  endingLineNumber = "232"
+                  startingLineNumber = "236"
+                  endingLineNumber = "236"
                   offsetFromSymbolStart = "48">
                </Location>
             </Locations>
@@ -688,7 +624,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MyCameraViewController.m"
@@ -779,6 +715,36 @@
             endingLineNumber = "170"
             landmarkName = "-addheader"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__36-[ThumbnailViewController addheader]_block_invoke_2157"
+                  moduleName = "Toyshow"
+                  urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/ThumbnailViewController.m"
+                  timestampString = "426073252.751891"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "170"
+                  endingLineNumber = "170"
+                  offsetFromSymbolStart = "862">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__36-[ThumbnailViewController addheader]_block_invoke_2157"
+                  moduleName = "Toyshow"
+                  urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/ThumbnailViewController.m"
+                  timestampString = "426073252.752033"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "170"
+                  endingLineNumber = "170"
+                  offsetFromSymbolStart = "926">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -804,11 +770,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/AddDeviceViewController.m"
-            timestampString = "425890178.545128"
+            timestampString = "425976128.037176"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "372"
-            endingLineNumber = "372"
+            startingLineNumber = "376"
+            endingLineNumber = "376"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -820,11 +786,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/AddDeviceViewController.m"
-            timestampString = "425890178.545128"
+            timestampString = "425976128.037176"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "287"
-            endingLineNumber = "287"
+            startingLineNumber = "291"
+            endingLineNumber = "291"
             landmarkName = "@implementation AddDeviceViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -836,11 +802,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/AddDeviceViewController.m"
-            timestampString = "425890178.545128"
+            timestampString = "425976128.037176"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "510"
-            endingLineNumber = "510"
+            startingLineNumber = "514"
+            endingLineNumber = "514"
             landmarkName = "-ipObtainStyle:withStaticParameter:"
             landmarkType = "5">
          </BreakpointContent>
@@ -852,11 +818,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/AddDeviceViewController.m"
-            timestampString = "425890178.545128"
+            timestampString = "425976128.037176"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "401"
-            endingLineNumber = "401"
+            startingLineNumber = "405"
+            endingLineNumber = "405"
             landmarkName = "-openUDPServer"
             landmarkType = "5">
          </BreakpointContent>
@@ -868,11 +834,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/AddDeviceViewController.m"
-            timestampString = "425890178.545128"
+            timestampString = "425976128.037176"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "422"
-            endingLineNumber = "422"
+            startingLineNumber = "426"
+            endingLineNumber = "426"
             landmarkName = "-sendMassage:"
             landmarkType = "5">
          </BreakpointContent>
@@ -884,11 +850,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/AddDeviceViewController.m"
-            timestampString = "425890178.545128"
+            timestampString = "425976128.037176"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "433"
-            endingLineNumber = "433"
+            startingLineNumber = "437"
+            endingLineNumber = "437"
             landmarkName = "@implementation AddDeviceViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -900,11 +866,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/AddDeviceViewController.m"
-            timestampString = "425890178.545128"
+            timestampString = "425976128.037176"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323"
+            startingLineNumber = "327"
+            endingLineNumber = "327"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -912,16 +878,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "425819256.177759"
+            timestampString = "426075313.45472"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "598"
-            endingLineNumber = "598"
-            landmarkName = "-actionSheet:clickedButtonAtIndex:"
+            startingLineNumber = "592"
+            endingLineNumber = "592"
+            landmarkName = "-updateTime:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -932,11 +898,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/AddDeviceViewController.m"
-            timestampString = "425890178.545128"
+            timestampString = "425976128.037176"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "527"
-            endingLineNumber = "527"
+            startingLineNumber = "531"
+            endingLineNumber = "531"
             landmarkName = "-securtyStyleSelect:withIndex:withpwd:"
             landmarkType = "5">
          </BreakpointContent>
@@ -948,11 +914,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "425819256.177759"
+            timestampString = "426075313.45472"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "611"
-            endingLineNumber = "611"
+            startingLineNumber = "603"
+            endingLineNumber = "603"
             landmarkName = "-actionSheet:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -964,11 +930,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MainViewController.m"
-            timestampString = "425809921.401287"
+            timestampString = "425967490.34324"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
             landmarkName = "-addheader"
             landmarkType = "5">
          </BreakpointContent>
@@ -1072,7 +1038,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/ThumbnailViewController.m"
@@ -1082,38 +1048,6 @@
             startingLineNumber = "282"
             endingLineNumber = "282"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Toyshow/ThumbnailViewController.m"
-            timestampString = "425897243.485193"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "318"
-            endingLineNumber = "318"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "425819628.466807"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "526"
-            endingLineNumber = "526"
-            landmarkName = "-startTimer"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1235,7 +1169,7 @@
                   symbolName = "-[WeixinActivity prepareWithActivityItems:]"
                   moduleName = "Toyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/WX/WeixinActivity.m"
-                  timestampString = "425897541.730697"
+                  timestampString = "426073252.756172"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "38"
@@ -1249,7 +1183,7 @@
                   symbolName = "-[WeixinActivity prepareWithActivityItems:]"
                   moduleName = "Toyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/WX/WeixinActivity.m"
-                  timestampString = "425897541.730978"
+                  timestampString = "426073252.756377"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "38"
@@ -1281,7 +1215,7 @@
                   symbolName = "-[WeixinActivity canPerformWithActivityItems:]"
                   moduleName = "Toyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/WX/WeixinActivity.m"
-                  timestampString = "425897541.731198"
+                  timestampString = "426073252.75673"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "25"
@@ -1295,7 +1229,7 @@
                   symbolName = "-[WeixinActivity canPerformWithActivityItems:]"
                   moduleName = "Toyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/WX/WeixinActivity.m"
-                  timestampString = "425897541.731462"
+                  timestampString = "426073252.756993"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "25"
@@ -1308,80 +1242,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "425819256.177759"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "634"
-            endingLineNumber = "634"
-            landmarkName = "-alertView:clickedButtonAtIndex:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "425819256.177759"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "581"
-            endingLineNumber = "581"
-            landmarkName = "-isLoadingAnimation"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "425818868.246063"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "454"
-            endingLineNumber = "454"
-            landmarkName = "-timerHandler:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "425818871.149694"
+            timestampString = "426075313.45472"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "447"
-            endingLineNumber = "447"
-            landmarkName = "-stopPlayback"
+            startingLineNumber = "626"
+            endingLineNumber = "626"
+            landmarkName = "-actionSheet:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "425819628.466807"
+            timestampString = "426074995.575073"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "473"
-            endingLineNumber = "473"
-            landmarkName = "-refreshProgress:totalDuration:"
+            startingLineNumber = "362"
+            endingLineNumber = "362"
+            landmarkName = "-startPlayback"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1431,50 +1317,6 @@
             endingLineNumber = "140"
             landmarkName = "-addheader"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__36-[ThumbnailViewController addheader]_block_invoke_2"
-                  moduleName = "Toyshow"
-                  urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/ThumbnailViewController.m"
-                  timestampString = "425897543.00075"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "140"
-                  endingLineNumber = "140"
-                  offsetFromSymbolStart = "252">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_"
-                  moduleName = "Toyshow"
-                  urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/ThumbnailViewController.m"
-                  timestampString = "425897543.001051"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "140"
-                  endingLineNumber = "140"
-                  offsetFromSymbolStart = "14">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__36-[ThumbnailViewController addheader]_block_invoke148"
-                  moduleName = "Toyshow"
-                  urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/ThumbnailViewController.m"
-                  timestampString = "425897543.001192"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "140"
-                  endingLineNumber = "140"
-                  offsetFromSymbolStart = "70">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1490,6 +1332,356 @@
             startingLineNumber = "154"
             endingLineNumber = "154"
             landmarkName = "-addheader"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/MainViewController.m"
+            timestampString = "425967483.375871"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
+            landmarkName = "-addheader"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/MainViewController.m"
+            timestampString = "425967485.695165"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "210"
+            endingLineNumber = "210"
+            landmarkName = "-addheader"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/MainViewController.m"
+            timestampString = "425967493.543302"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
+            landmarkName = "-addheader"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__31-[MainViewController addheader]_block_invoke_2"
+                  moduleName = "Toyshow"
+                  urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/MainViewController.m"
+                  timestampString = "426073252.7595"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "199"
+                  endingLineNumber = "199"
+                  offsetFromSymbolStart = "862">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__31-[MainViewController addheader]_block_invoke_2"
+                  moduleName = "Toyshow"
+                  urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/MainViewController.m"
+                  timestampString = "426073252.759919"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "199"
+                  endingLineNumber = "199"
+                  offsetFromSymbolStart = "926">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/MainViewController.m"
+            timestampString = "425967498.79094"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
+            landmarkName = "-addheader"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/MainViewController.m"
+            timestampString = "425967500.361007"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
+            landmarkName = "-addheader"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/MainViewController.m"
+            timestampString = "425967508.119825"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
+            landmarkName = "-addheader"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/MainViewController.m"
+            timestampString = "425967512.06389"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
+            landmarkName = "-addheader"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/MainViewController.m"
+            timestampString = "425967517.05193"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "220"
+            endingLineNumber = "220"
+            landmarkName = "-addheader"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/IPObtainStyleViewController.m"
+            timestampString = "425975686.090467"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
+            landmarkName = "-textFieldShouldReturn:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/AddDeviceViewController.m"
+            timestampString = "425976113.090353"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "541"
+            endingLineNumber = "541"
+            landmarkName = "-textFieldShouldReturn:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/ShareCamereViewController.m"
+            timestampString = "426075313.45472"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "584"
+            endingLineNumber = "584"
+            landmarkName = "-isLoadingView"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/ShareCamereViewController.m"
+            timestampString = "426075313.45472"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "454"
+            endingLineNumber = "454"
+            landmarkName = "-startTimeroOnMainThread"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/ShareCamereViewController.m"
+            timestampString = "426075313.45472"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "395"
+            endingLineNumber = "395"
+            landmarkName = "-refreshProgress:totalDuration:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/ShareCamereViewController.m"
+            timestampString = "426075313.45472"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "389"
+            endingLineNumber = "389"
+            landmarkName = "-timerHandler:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/ShareCamereViewController.m"
+            timestampString = "426074750.172371"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/ShareCamereViewController.m"
+            timestampString = "426075313.45472"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "414"
+            endingLineNumber = "414"
+            landmarkName = "+convertSecond2HourMinuteSecond:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/ShareCamereViewController.m"
+            timestampString = "426075313.45472"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "430"
+            endingLineNumber = "430"
+            landmarkName = "-getTimeString:prefix:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/ShareCamereViewController.m"
+            timestampString = "426074750.172371"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
+            landmarkName = "-onpreparedListener:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/ShareCamereViewController.m"
+            timestampString = "426075313.45472"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "461"
+            endingLineNumber = "461"
+            landmarkName = "-stopTimer"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/ShareCamereViewController.m"
+            timestampString = "426075313.45472"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "470"
+            endingLineNumber = "470"
+            landmarkName = "-stopPlayback"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
