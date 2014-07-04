@@ -365,11 +365,11 @@
             NSLog(@"公共摄像头url:%@",[dict objectForKey:@"url"]);
             shareVC.url = [dict objectForKey:@"url"];
 //            shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
-            [_loadingView hide:YES];
+            [_loadingView removeFromSuperview];
             [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSLog(@"error++++++++");
-            [_loadingView hide:YES];
+            [_loadingView removeFromSuperview];
             UIAlertView *badInternetView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
             [badInternetView show];
         }];
@@ -386,13 +386,12 @@
 - (void)isLoadingView
 {
     _loadingView = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:_loadingView];
-    
     _loadingView.delegate = self;
     _loadingView.labelText = @"loading";
     _loadingView.detailsLabelText = @"正在加载，请稍后……";
     _loadingView.square = YES;
     [_loadingView show:YES];
+    [self.view addSubview:_loadingView];
 }
 
 #define mark - 禁止转屏

@@ -20,7 +20,6 @@
 #import "CameraSetViewController.h"
 #import "HelpViewController.h"
 #import "AboutViewController.h"
-#import "MyphotoViewController.h"
 #import "WXApi.h"
 #import "WeixinSessionActivity.h"
 #import "WeixinTimelineActivity.h"

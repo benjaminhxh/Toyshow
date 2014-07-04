@@ -8,8 +8,6 @@
 
 #import "MyCameraViewController.h"
 #import "SliderViewController.h"
-#import "MyphotoViewController.h"
-#import "EGORefreshTableHeaderView.h"
 #import "MBProgressHUD.h"
 #import "ShareCamereViewController.h"
 #import "MJRefresh.h"

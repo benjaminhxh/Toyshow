@@ -298,7 +298,7 @@
             NSDate *endfTime = [NSDate dateWithTimeIntervalSince1970:endtf];
             NSString *endT = [[self dateFormatterMMddHHmm] stringFromDate:endfTime];
             NSLog(@"endT:%@",endT);
-            NSLog(@"数组里的元素%@",[downloadArr objectAtIndex:indexPath.row]);
+//            NSLog(@"数组里的元素%@",[downloadArr objectAtIndex:indexPath.row]);
             self.thumbDeadlines.text = [NSString stringWithFormat:@"%@  ----%@",startT,[endT substringFromIndex:5]];
             NSString *imageURL = [[imageURLARR objectAtIndex:indexPath.row] objectForKey:@"url"];
             [self.thumbPic setImageWithURL:[NSURL URLWithString:imageURL]];

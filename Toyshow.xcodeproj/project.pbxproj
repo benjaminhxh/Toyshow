@@ -90,7 +90,6 @@
 		2747D232190603F00074E81B /* zanting_anniu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2747D231190603F00074E81B /* zanting_anniu@2x.png */; };
 		2747D238190621C40074E81B /* lishijilu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2747D237190621C40074E81B /* lishijilu@2x.png */; };
 		2747D23C190691E30074E81B /* touxiang_quan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2747D23B190691E30074E81B /* touxiang_quan@2x.png */; };
-		274D009E18D6E32000896C79 /* MyphotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274D009B18D6E32000896C79 /* MyphotoViewController.m */; };
 		274D00A118D6E91C00896C79 /* SiderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 274D00A018D6E91C00896C79 /* SiderCell.xib */; };
 		274D771918E571BF00F352C7 /* ThumbnailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274D771818E571BF00F352C7 /* ThumbnailViewController.m */; };
 		274D771B18E572FA00F352C7 /* thumbCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 274D771A18E572FA00F352C7 /* thumbCell.xib */; };
@@ -345,8 +344,6 @@
 		2747D231190603F00074E81B /* zanting_anniu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zanting_anniu@2x.png"; sourceTree = "<group>"; };
 		2747D237190621C40074E81B /* lishijilu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lishijilu@2x.png"; sourceTree = "<group>"; };
 		2747D23B190691E30074E81B /* touxiang_quan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "touxiang_quan@2x.png"; sourceTree = "<group>"; };
-		274D009A18D6E32000896C79 /* MyphotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyphotoViewController.h; sourceTree = "<group>"; };
-		274D009B18D6E32000896C79 /* MyphotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyphotoViewController.m; sourceTree = "<group>"; };
 		274D00A018D6E91C00896C79 /* SiderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SiderCell.xib; sourceTree = "<group>"; };
 		274D771718E571BF00F352C7 /* ThumbnailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbnailViewController.h; sourceTree = "<group>"; };
 		274D771818E571BF00F352C7 /* ThumbnailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbnailViewController.m; sourceTree = "<group>"; };
@@ -1100,8 +1097,6 @@
 				274D00A018D6E91C00896C79 /* SiderCell.xib */,
 				2751C12518C417A8006173B3 /* ShowImageViewController.h */,
 				2751C12618C417A9006173B3 /* ShowImageViewController.m */,
-				274D009A18D6E32000896C79 /* MyphotoViewController.h */,
-				274D009B18D6E32000896C79 /* MyphotoViewController.m */,
 				2794B6E418E05F09008DCF83 /* ShareCamereViewController.h */,
 				2794B6E518E05F09008DCF83 /* ShareCamereViewController.m */,
 				2751C12F18C41FA7006173B3 /* VideoViewController.h */,
@@ -1377,7 +1372,6 @@
 				2703E51518D97E8C00E31DF0 /* RightViewController.m in Sources */,
 				2777607318FB74BD000A5F83 /* AFSecurityPolicy.m in Sources */,
 				2703E51118D97E8C00E31DF0 /* MainViewController.m in Sources */,
-				274D009E18D6E32000896C79 /* MyphotoViewController.m in Sources */,
 				2777607918FB74BD000A5F83 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				270C941618C732B900BE56C8 /* AddDeviceViewController.m in Sources */,
 				2713684A18BF3659006CF446 /* SiderCell.m in Sources */,
