@@ -309,7 +309,9 @@
 - (void)onpreparedListener: (NSNotification*)aNotification
 {
     //视频文件完成初始化，开始播放视频并启动刷新timer。1
-//    _loadingView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _loadingView.hidden = NO;
+    });
     NSLog(@"onpreparedListener");
     [self startTimer];
     NSLog(@"onpreparedListener--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
@@ -351,12 +353,12 @@
         {
             _loadingView.hidden = YES;
         }
-        if (indicatorView.isAnimating) {
-            [indicatorView stopAnimating];
-        }else
-        {
-            [indicatorView startAnimating];
-        }
+//        if (indicatorView.isAnimating) {
+//            [indicatorView stopAnimating];
+//        }else
+//        {
+//            [indicatorView startAnimating];
+//        }
     });
 }
 //缓冲过程
