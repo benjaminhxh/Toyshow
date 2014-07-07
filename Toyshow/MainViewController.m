@@ -459,6 +459,7 @@
 
 //- (void)viewWillAppear:(BOOL)animated
 //{
+
 //    activiView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(130, 210, 120, 120)];
 //    activiView.backgroundColor = [UIColor grayColor];
 //    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(45, 60, 60, 60)];

@@ -100,6 +100,7 @@
 		274F50EF195D8F9F00114416 /* icon_timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = 274F50EB195D8F9F00114416 /* icon_timeline.png */; };
 		274F50F0195D8F9F00114416 /* icon_timeline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 274F50EC195D8F9F00114416 /* icon_timeline@2x.png */; };
 		274F50F1195D8F9F00114416 /* icon_session@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 274F50ED195D8F9F00114416 /* icon_session@2x.png */; };
+		275031A8196A4CB7006A448D /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 275031A6196A4CB6006A448D /* libMobClickLibrary.a */; };
 		2750BA251904ADFA009AA5C6 /* cehuajiantou18x34@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2750BA241904ADFA009AA5C6 /* cehuajiantou18x34@2x.png */; };
 		2751C12718C417A9006173B3 /* ShowImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2751C12618C417A9006173B3 /* ShowImageViewController.m */; };
 		2751C13118C41FA7006173B3 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2751C13018C41FA7006173B3 /* VideoViewController.m */; };
@@ -358,6 +359,8 @@
 		274F50EB195D8F9F00114416 /* icon_timeline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_timeline.png; sourceTree = "<group>"; };
 		274F50EC195D8F9F00114416 /* icon_timeline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_timeline@2x.png"; sourceTree = "<group>"; };
 		274F50ED195D8F9F00114416 /* icon_session@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_session@2x.png"; sourceTree = "<group>"; };
+		275031A6196A4CB6006A448D /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		275031A7196A4CB7006A448D /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		2750BA241904ADFA009AA5C6 /* cehuajiantou18x34@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cehuajiantou18x34@2x.png"; sourceTree = "<group>"; };
 		2751C12518C417A8006173B3 /* ShowImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowImageViewController.h; sourceTree = "<group>"; };
 		2751C12618C417A9006173B3 /* ShowImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowImageViewController.m; sourceTree = "<group>"; };
@@ -539,6 +542,7 @@
 				2718FCB018D6D0470094583F /* libbz2.dylib in Frameworks */,
 				2718FCAE18D6D0360094583F /* OpenGLES.framework in Frameworks */,
 				2764251118DC244000D7EBB3 /* libReachability.a in Frameworks */,
+				275031A8196A4CB7006A448D /* libMobClickLibrary.a in Frameworks */,
 				2718FCAC18D6D0250094583F /* OpenAL.framework in Frameworks */,
 				270C941A18C7336900BE56C8 /* CoreVideo.framework in Frameworks */,
 				270C941818C7333700BE56C8 /* libiconv.dylib in Frameworks */,
@@ -1007,6 +1011,8 @@
 		27FFE27818BF287B00AE47FF = {
 			isa = PBXGroup;
 			children = (
+				275031A6196A4CB6006A448D /* libMobClickLibrary.a */,
+				275031A7196A4CB7006A448D /* MobClick.h */,
 				2720DEA618FFDDB500DB494A /* Reachability */,
 				2777604918FB74BC000A5F83 /* AFNetworking */,
 				2777605D18FB74BD000A5F83 /* UIKit+AFNetworking */,

@@ -299,9 +299,10 @@
             NSString *endT = [[self dateFormatterMMddHHmm] stringFromDate:endfTime];
             NSLog(@"endT:%@",endT);
 //            NSLog(@"数组里的元素%@",[downloadArr objectAtIndex:indexPath.row]);
-            self.thumbDeadlines.text = [NSString stringWithFormat:@"%@  ----%@",startT,[endT substringFromIndex:5]];
+            self.thumbDeadlines.text = [NSString stringWithFormat:@"%@-—%@",startT,[endT substringFromIndex:5]];
             NSString *imageURL = [[imageURLARR objectAtIndex:indexPath.row] objectForKey:@"url"];
             [self.thumbPic setImageWithURL:[NSURL URLWithString:imageURL]];
+            
         }
     }
     return cell;
@@ -312,6 +313,12 @@
     NSArray *arr = [downloadArr objectAtIndex:indexPath.row];
     NSNumber *stt = [arr objectAtIndex:0];
     int stf = [stt intValue];
+    NSDate *startTimeData = [NSDate dateWithTimeIntervalSince1970:stf];
+    NSString *startTimeStr = [[self dateFormatterMMddHHmm] stringFromDate:startTimeData];
+    NSString *substringTime = [startTimeStr substringFromIndex:5];//截取时间 12：20：20
+    NSArray *timeArr = [substringTime componentsSeparatedByString:@":"];
+    int startT =[[timeArr objectAtIndex:0] intValue]*3600+[[timeArr objectAtIndex:1] intValue]*60+[[timeArr objectAtIndex:2] intValue];
+    
     NSNumber *ett = [arr objectAtIndex:1];
     int endtf = [ett intValue];
 
@@ -324,12 +331,13 @@
     vodVC.playerTitle = [self.deviceDesc stringByAppendingString:@"(录像)"];
     vodVC.deviceId = self.deviceID;
     vodVC.accecc_token = self.accessToken;
+    vodVC.startTimeInt = startT;
     [[SliderViewController sharedSliderController].navigationController pushViewController:vodVC animated:YES];
 }
 
 - (NSDateFormatter *)dateFormatterMMddHHmm {
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"MM-dd HH:mm"];
+    [dateFormat setDateFormat:@"MM-dd HH:mm:ss"];
     return dateFormat;
 }
 

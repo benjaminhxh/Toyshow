@@ -76,6 +76,7 @@
     [self.view addSubview:cbPlayerController.view];
     self.view.userInteractionEnabled = YES;
     self.view.backgroundColor = [UIColor whiteColor];
+    [self isLoadingView];
 
     //注册监听，当播放器完成视频的初始化后会发送CyberPlayerLoadDidPreparedNotification通知，
     //此时naturalSize/videoHeight/videoWidth/duration等属性有效。
@@ -105,7 +106,6 @@
                                                  name:CyberPlayerGotCachePercentNotification
                                                object:nil];
 
-    
     
     //系统音量
     volumView = [[MPVolumeView alloc] initWithFrame:CGRectMake(-55, 140, 200, 34)];
@@ -312,40 +312,63 @@
 //    _loadingView.hidden = YES;
     NSLog(@"onpreparedListener");
     [self startTimer];
+    NSLog(@"onpreparedListener--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
 
 }
 //开始缓冲
 - (void)startCaching:(NSNotification*)botif
 {
-//    _loadingView.hidden = NO;
+    NSLog(@"startCaching--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _loadingView.hidden = NO;
+    });
     [self startTimer];
     NSLog(@"startCachhhhhhhhhhhhhh");
 }
 
 - (void)seekComplete:(NSNotification*)notification
 {
+    NSLog(@"seekComplete--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
+
     //开始启动UI刷新
-//    _loadingView.hidden = YES;
-//    [self startTimer];
+    dispatch_async(dispatch_get_main_queue(), ^{
+    _loadingView.hidden = YES;
+    });
+    [self startTimer];
     NSLog(@"seekCompleteeeeeeeeeeee");//15
 }
 //状态改变
 - (void)stateDidChange:(NSNotification*)notif
 {
+    NSLog(@"stateDidChange--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
+
     NSLog(@"stateDidChange");//4
-//    _loadingView.hidden = YES;
-    if (indicatorView.isAnimating) {
-        [indicatorView stopAnimating];
-    }else
-    {
-        [indicatorView startAnimating];
-    }
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        if (_loadingView.hidden) {
+//            _loadingView.hidden = NO;
+//        }else
+//        {
+//            _loadingView.hidden = YES;
+//        }
+//        if (indicatorView.isAnimating) {
+//            [indicatorView stopAnimating];
+//        }else
+//        {
+//            [indicatorView startAnimating];
+//        }
+//    });
 }
 //缓冲过程
 - (void)GotCachePercent:(NSNotification *)notific
 {
+    NSLog(@"GotCachePercent--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
+
     NSLog(@"GotCachePercent");
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//
 //    _loadingView.hidden = NO;
+//    });
 //    [self startTimer];
 }
 - (void)onClickPlay:(id)sender {
@@ -361,8 +384,6 @@
 //    NSURL *url = [NSURL fileURLWithPath:urlStr];
 //    NSURL *url = [NSURL URLWithString:@"rtmp://livertmppc.wasu.cn/live/dfws"];
 //    NSURL *url = [NSURL URLWithString:@"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4"];
-    [self isLoadingView];
-
     NSURL *url = [NSURL URLWithString:self.url];
 //    [progressV setProgressWithDownloadProgressOfOperation:(AFURLConnectionOperation *) animated:<#(BOOL)#>;
     switch (cbPlayerController.playbackState) {
@@ -392,8 +413,6 @@
 
 - (void)timerHandler:(NSTimer*)timer
 {
-//    [_loadingView removeFromSuperview];
-
     [self refreshProgress:cbPlayerController.currentPlaybackTime totalDuration:cbPlayerController.duration];
 //    [self refreshCurrentProgress:cbPlayerController.playableDuration totalDuration:cbPlayerController.duration];//当前可播放视频的长度4/6
 //    NSLog(@"timeHanler");
@@ -401,10 +420,8 @@
 
 - (void)refreshProgress:(int) currentTime totalDuration:(int)allSecond{
 //    NSLog(@"refreshProgress");//4/7
-//    _loadingView.hidden = YES;
-//    [_loadingView removeFromSuperview];
-
-    NSDictionary* dict = [[self class] convertSecond2HourMinuteSecond:currentTime];
+    NSInteger startT = self.startTimeInt + currentTime;//得到起始时间戳
+    NSDictionary* dict = [[self class] convertSecond2HourMinuteSecond:startT];
     NSString* strPlayedTime = [self getTimeString:dict prefix:@""];
     currentProgress.text = strPlayedTime;
 //    NSLog(@"strPlayedTime:%@",strPlayedTime);
@@ -412,10 +429,8 @@
     NSDictionary* dictLeft = [[self class] convertSecond2HourMinuteSecond:allSecond - currentTime];
     NSString* strLeft = [self getTimeString:dictLeft prefix:@"-"];
     remainsProgress.text = strLeft;
-//    NSLog(@"strLeft:%@",strLeft);
     slider.value = currentTime;
     slider.maximumValue = allSecond;
-//    progressV.progress = currentTime;
 }
 
 + (NSDictionary*)convertSecond2HourMinuteSecond:(int)second
@@ -455,18 +470,15 @@
 - (void)startTimer{
     //为了保证UI刷新在主线程中完成。2
     NSLog(@"startTimer");
-//    [_loadingView removeFromSuperview];
-
     [self performSelectorOnMainThread:@selector(startTimeroOnMainThread) withObject:nil waitUntilDone:NO];
 //    NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);
 }
 
 //缓冲完也会进这个函数
-//只有这里可以停掉loading
+//只有这里主线程可以停掉loading
 - (void)startTimeroOnMainThread{
     _loadingView.hidden = YES;//============3
 //    [_loadingView removeFromSuperview];
-//    [indicatorView stopAnimating];
 
     timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(timerHandler:) userInfo:nil repeats:YES];
 //    NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);3
@@ -573,9 +585,9 @@
 - (void)speakClick  //对讲
 {
     NSLog(@"speaking");
-//    _loadingView.hidden = YES;
+    _loadingView.hidden = YES;
     [indicatorView stopAnimating];
-    [_loadingView removeFromSuperview];
+//    [_loadingView removeFromSuperview];
 }
 
 - (void)lightSliderValue:(UISlider *)sender
@@ -595,7 +607,6 @@
 {
     _loadingView = [[MBProgressHUD alloc] initWithView:self.view];
     _loadingView.delegate = self;
-    
     _loadingView.labelText = @"loading";
     _loadingView.detailsLabelText = @"视频加载中，请稍后……";
     _loadingView.square = YES;

@@ -18,4 +18,6 @@
 @property (nonatomic,copy) NSString *stream_id;
 @property (nonatomic,copy) NSString *accecc_token;
 @property (nonatomic,copy) NSString *deviceId;
+@property (nonatomic,assign) int startTimeInt;
+
 @end

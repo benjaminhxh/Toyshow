@@ -8,6 +8,7 @@
 
 #import "HXHAppDelegate.h"
 #import <Frontia/Frontia.h>
+#import "MobClick.h"
 
 #define APP_KEY @"ZIAgdlC7Vw7syTjeKG9zS4QP"
 #define REPORT_ID @"2271149"
@@ -66,6 +67,8 @@
 //    [statTracker startWithReportId:REPORT_ID];//设置您在mtj网站上添加的app的appkey
      [UIApplication sharedApplication].idleTimerDisabled = YES;
     [WXApi registerApp:@"wx70162e2c344d4c79" withDescription:nil];
+    //友盟错误信息统计
+    [MobClick startWithAppkey:@"53ba18ff56240b830200cdab" reportPolicy:SEND_INTERVAL channelId:nil];
     return YES;
 }
 
@@ -166,4 +169,5 @@
 {
 	return (HXHAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
+
 @end
