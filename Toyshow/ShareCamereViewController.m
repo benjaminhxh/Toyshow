@@ -344,20 +344,20 @@
     NSLog(@"stateDidChange--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
 
     NSLog(@"stateDidChange");//4
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        if (_loadingView.hidden) {
-//            _loadingView.hidden = NO;
-//        }else
-//        {
-//            _loadingView.hidden = YES;
-//        }
-//        if (indicatorView.isAnimating) {
-//            [indicatorView stopAnimating];
-//        }else
-//        {
-//            [indicatorView startAnimating];
-//        }
-//    });
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (_loadingView.hidden) {
+            _loadingView.hidden = NO;
+        }else
+        {
+            _loadingView.hidden = YES;
+        }
+        if (indicatorView.isAnimating) {
+            [indicatorView stopAnimating];
+        }else
+        {
+            [indicatorView startAnimating];
+        }
+    });
 }
 //缓冲过程
 - (void)GotCachePercent:(NSNotification *)notific
@@ -365,10 +365,10 @@
     NSLog(@"GotCachePercent--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
 
     NSLog(@"GotCachePercent");
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//
-//    _loadingView.hidden = NO;
-//    });
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+    _loadingView.hidden = NO;
+    });
 //    [self startTimer];
 }
 - (void)onClickPlay:(id)sender {
@@ -477,7 +477,7 @@
 //缓冲完也会进这个函数
 //只有这里主线程可以停掉loading
 - (void)startTimeroOnMainThread{
-    _loadingView.hidden = YES;//============3
+//    _loadingView.hidden = YES;//============3
 //    [_loadingView removeFromSuperview];
 
     timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(timerHandler:) userInfo:nil repeats:YES];
