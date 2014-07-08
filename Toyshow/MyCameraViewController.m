@@ -318,7 +318,7 @@
             [self.cameraPic setImageWithURL:[NSURL URLWithString:urlImage]];
             UIImage *image= [ UIImage imageNamed:@"setanniuhei@2x"];
             UIButton *button = [ UIButton buttonWithType:UIButtonTypeCustom ];
-            CGRect frame = CGRectMake( 0.0 , 0.0 , 30 , 24 );
+            CGRect frame = CGRectMake( 0.0 , 0.0 , 40 , 34 );
             button.frame = frame;
             [button setImage:image forState:UIControlStateNormal ];
 //            button.backgroundColor = [UIColor clearColor ];

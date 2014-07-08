@@ -73,7 +73,7 @@
     self.lightFilterModeIndex = 1;
     self.imageResolutionIndex = 1;
 
-    cameraInfoArr = [NSArray arrayWithObjects:@"事件通知",@"音频开关",@"视频开关",@"画面旋转",@"户外模式",@"拍摄模式",@"状态指示灯",@"码流设置",@"NTSC或PAL制式",@"分辨率",@"设备控制",@"灵敏度",@"设备ID",@"修改设备名称",@"",@"", nil];
+    cameraInfoArr = [NSArray arrayWithObjects:@"事件通知",@"音频开关",@"视频开关",@"画面旋转",@"户外模式",@"拍摄模式",@"状态指示灯",@"码流设置",@"NTSC或PAL制式",@"分辨率",@"设备控制",@"灵敏度",@"时间显示",@"设备ID",@"修改设备名称",@"",@"", nil];
 
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, 320, [UIScreen mainScreen].bounds.size.height-64) style:UITableViewStylePlain];
     tableView.delegate = self;
@@ -253,6 +253,14 @@
             break;
         case 12:
         {
+            UISwitch *timeHidden = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
+            [cell addSubview:timeHidden];
+            [timeHidden addTarget:self action:@selector(timeHiddenEventAction:) forControlEvents:UIControlEventTouchUpInside];
+        }
+            break;
+
+        case 13:
+        {
             cell.selectionStyle = UITableViewCellSelectionStyleBlue;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             deviceIDL = [[UILabel alloc] initWithFrame:CGRectMake(130, 10, 160, 24)];
@@ -262,7 +270,7 @@
             [cell addSubview:deviceIDL];
         }
             break;
-        case 13:
+        case 14:
         {
             //修改设备名称
             cell.selectionStyle = UITableViewCellSelectionStyleBlue;
@@ -274,7 +282,7 @@
             [cell addSubview:deviceNameL];
         }
             break;
-        case 14:
+        case 15:
         {
             UIButton *setFinish = [UIButton buttonWithType:UIButtonTypeCustom];
             [setFinish setTitle:@"完成设置" forState:UIControlStateNormal];
@@ -286,7 +294,7 @@
             //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
             break;
-        case 15:
+        case 16:
         {
             UIButton *loggout = [UIButton buttonWithType:UIButtonTypeCustom];
             [loggout setTitle:@"注销设备" forState:UIControlStateNormal];
@@ -363,7 +371,7 @@
             [[SliderViewController sharedSliderController].navigationController pushViewController:sensitivityVC animated:YES];
         }
             break;
-        case 13:
+        case 14:
         {
             ModifyViewController *modifyVC = [[ModifyViewController alloc] init];
             modifyVC.deviceId = self.deviceid;
@@ -457,11 +465,11 @@
     NSLog(@"状态指示灯");
     UISwitch *offswitch = (UISwitch *)sender;
     if (offswitch.on) {
-        self.lightStatueIndex = 1;
+        self.lightShowIndex = 1;
     }
     else
     {
-        self.lightStatueIndex = 0;
+        self.lightShowIndex = 0;
     }
 }
 
@@ -473,11 +481,24 @@
     [codeStreamView show];
 }
 
+- (void)timeHiddenEventAction:(id)sender
+{
+    NSLog(@"时间是否显示");
+    UISwitch *timeStaueSwitch = (UISwitch *)sender;
+    if (timeStaueSwitch.on) {
+        self.timeShowIndex = 1;
+    }
+    else
+    {
+        self.timeShowIndex = 0;
+    }
+
+}
 //完成设置
 - (void)setFinishAction:(id)sender
 {
     NSLog(@"setFinishAction");
-    NSString *str = [NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",self.EnableEventIndex,self.audioIndex,self.videoRecordIndex,self.flipImageIndex,self.screneIndex,self.lightFilterModeIndex,self.lightStatueIndex,self.streamBitrateIndex,self.ntscOrpalIndex,self.imageResolutionIndex,self.controlONOrOFFIndex,self.controlONOrOFFIndex];
+    NSString *str = [NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",self.EnableEventIndex,self.audioIndex,self.videoRecordIndex,self.flipImageIndex,self.screneIndex,self.lightFilterModeIndex,self.lightStatueIndex,self.streamBitrateIndex,self.ntscOrpalIndex,self.imageResolutionIndex,self.controlONOrOFFIndex,self.sensitivityIndex],self.timeShowIndex;
     NSLog(@"str:%@",str);
     if (self.delegate && [self.delegate respondsToSelector:@selector(logoutCameraAtindex:)]) {
         [self.delegate logoutCameraAtindex:self.index];
