@@ -118,7 +118,7 @@
 		2759157F18EEAF9A00E3DDC2 /* bofang_anniuzhong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2759156818EEAF9A00E3DDC2 /* bofang_anniuzhong@2x.png */; };
 		2759158018EEAF9A00E3DDC2 /* duijiang_wei@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2759156918EEAF9A00E3DDC2 /* duijiang_wei@2x.png */; };
 		2759158118EEAF9A00E3DDC2 /* duijiang_zhong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2759156A18EEAF9A00E3DDC2 /* duijiang_zhong@2x.png */; };
-		2759158318EEAF9A00E3DDC2 /* fenxiang_wei@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2759156C18EEAF9A00E3DDC2 /* fenxiang_wei@2x.png */; };
+		2759158318EEAF9A00E3DDC2 /* fenxiang_wei1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2759156C18EEAF9A00E3DDC2 /* fenxiang_wei1@2x.png */; };
 		2759158418EEAF9A00E3DDC2 /* fenxiang_zhong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2759156D18EEAF9A00E3DDC2 /* fenxiang_zhong@2x.png */; };
 		2759158518EEAF9A00E3DDC2 /* jietu_wei@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2759156E18EEAF9A00E3DDC2 /* jietu_wei@2x.png */; };
 		2759158618EEAF9A00E3DDC2 /* jietu_zhong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2759156F18EEAF9A00E3DDC2 /* jietu_zhong@2x.png */; };
@@ -185,6 +185,10 @@
 		2799684D1950440E00D9C6DD /* ImageResolutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279968461950440E00D9C6DD /* ImageResolutionViewController.m */; };
 		2799684E1950440E00D9C6DD /* DeviceControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279968481950440E00D9C6DD /* DeviceControlViewController.m */; };
 		2799684F1950440E00D9C6DD /* SensitivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2799684A1950440E00D9C6DD /* SensitivityViewController.m */; };
+		27BDCE4D196E6D3C00486FCC /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BDCE4C196E6D3C00486FCC /* Icon@2x.png */; };
+		27BDCE51196E743A00486FCC /* fenxiang_wei2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BDCE50196E743A00486FCC /* fenxiang_wei2@2x.png */; };
+		27BDCE53196E76AA00486FCC /* fenxiang_wei3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BDCE52196E76AA00486FCC /* fenxiang_wei3@2x.png */; };
+		27BDCE55196E780500486FCC /* fenxiang_wei@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BDCE54196E780500486FCC /* fenxiang_wei@2x.png */; };
 		27C5F8391905342B0078BBBE /* fanhui_jiantou@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27C5F8381905342B0078BBBE /* fanhui_jiantou@2x.png */; };
 		27C5F83F19053E4E0078BBBE /* bofang_anniu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27C5F83E19053E4E0078BBBE /* bofang_anniu@2x.png */; };
 		27F0A43E192C984400D02A79 /* HowToUseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F0A43D192C984400D02A79 /* HowToUseViewController.m */; };
@@ -386,7 +390,7 @@
 		2759156818EEAF9A00E3DDC2 /* bofang_anniuzhong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bofang_anniuzhong@2x.png"; sourceTree = "<group>"; };
 		2759156918EEAF9A00E3DDC2 /* duijiang_wei@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "duijiang_wei@2x.png"; sourceTree = "<group>"; };
 		2759156A18EEAF9A00E3DDC2 /* duijiang_zhong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "duijiang_zhong@2x.png"; sourceTree = "<group>"; };
-		2759156C18EEAF9A00E3DDC2 /* fenxiang_wei@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fenxiang_wei@2x.png"; sourceTree = "<group>"; };
+		2759156C18EEAF9A00E3DDC2 /* fenxiang_wei1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fenxiang_wei1@2x.png"; sourceTree = "<group>"; };
 		2759156D18EEAF9A00E3DDC2 /* fenxiang_zhong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fenxiang_zhong@2x.png"; sourceTree = "<group>"; };
 		2759156E18EEAF9A00E3DDC2 /* jietu_wei@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "jietu_wei@2x.png"; sourceTree = "<group>"; };
 		2759156F18EEAF9A00E3DDC2 /* jietu_zhong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "jietu_zhong@2x.png"; sourceTree = "<group>"; };
@@ -487,6 +491,10 @@
 		279968481950440E00D9C6DD /* DeviceControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceControlViewController.m; sourceTree = "<group>"; };
 		279968491950440E00D9C6DD /* SensitivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensitivityViewController.h; sourceTree = "<group>"; };
 		2799684A1950440E00D9C6DD /* SensitivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensitivityViewController.m; sourceTree = "<group>"; };
+		27BDCE4C196E6D3C00486FCC /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		27BDCE50196E743A00486FCC /* fenxiang_wei2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fenxiang_wei2@2x.png"; sourceTree = "<group>"; };
+		27BDCE52196E76AA00486FCC /* fenxiang_wei3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fenxiang_wei3@2x.png"; sourceTree = "<group>"; };
+		27BDCE54196E780500486FCC /* fenxiang_wei@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fenxiang_wei@2x.png"; sourceTree = "<group>"; };
 		27C5F8381905342B0078BBBE /* fanhui_jiantou@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fanhui_jiantou@2x.png"; sourceTree = "<group>"; };
 		27C5F83E19053E4E0078BBBE /* bofang_anniu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bofang_anniu@2x.png"; sourceTree = "<group>"; };
 		27F0A43C192C984400D02A79 /* HowToUseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HowToUseViewController.h; sourceTree = "<group>"; };
@@ -510,20 +518,20 @@
 		27F4D8C618D83B3900538393 /* libWeChatSDK */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK; sourceTree = "<group>"; };
 		27F4D8C718D83B3900538393 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		27F4D8C818D83B3900538393 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
-		27FFE28118BF287B00AE47FF /* Toyshow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Toyshow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		27FFE28118BF287B00AE47FF /* Joyshow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Joyshow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27FFE28418BF287B00AE47FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		27FFE28618BF287B00AE47FF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		27FFE28818BF287B00AE47FF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		27FFE28C18BF287B00AE47FF /* Toyshow-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Toyshow-Info.plist"; sourceTree = "<group>"; };
+		27FFE28C18BF287B00AE47FF /* Joyshow-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Joyshow-Info.plist"; sourceTree = "<group>"; };
 		27FFE28E18BF287B00AE47FF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		27FFE29018BF287B00AE47FF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		27FFE29218BF287B00AE47FF /* Toyshow-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Toyshow-Prefix.pch"; sourceTree = "<group>"; };
+		27FFE29218BF287B00AE47FF /* Joyshow-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Joyshow-Prefix.pch"; sourceTree = "<group>"; };
 		27FFE29318BF287B00AE47FF /* HXHAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXHAppDelegate.h; sourceTree = "<group>"; };
 		27FFE29418BF287B00AE47FF /* HXHAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXHAppDelegate.m; sourceTree = "<group>"; };
 		27FFE29618BF287B00AE47FF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		27FFE29C18BF287B00AE47FF /* ToyshowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToyshowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		27FFE29C18BF287B00AE47FF /* JoyshowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JoyshowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27FFE29D18BF287B00AE47FF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		27FFE2A518BF287B00AE47FF /* ToyshowTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ToyshowTests-Info.plist"; sourceTree = "<group>"; };
+		27FFE2A518BF287B00AE47FF /* JoyshowTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JoyshowTests-Info.plist"; sourceTree = "<group>"; };
 		27FFE2A718BF287B00AE47FF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		27FFE2A918BF287B00AE47FF /* ToyshowTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToyshowTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -771,6 +779,7 @@
 				271BB87918CD95A7000DFC4A /* xiang_jiantou.png */,
 				271BB87A18CD95A7000DFC4A /* xiangjiantou_bai.png */,
 				271BB87B18CD95A7000DFC4A /* xiangjiantou_hei.png */,
+				27BDCE4C196E6D3C00486FCC /* Icon@2x.png */,
 			);
 			name = image;
 			sourceTree = "<group>";
@@ -813,7 +822,10 @@
 				2759157B18EEAF9A00E3DDC2 /* zanting_anniuzhong@2x.png */,
 				2759156918EEAF9A00E3DDC2 /* duijiang_wei@2x.png */,
 				2759156A18EEAF9A00E3DDC2 /* duijiang_zhong@2x.png */,
-				2759156C18EEAF9A00E3DDC2 /* fenxiang_wei@2x.png */,
+				27BDCE54196E780500486FCC /* fenxiang_wei@2x.png */,
+				27BDCE52196E76AA00486FCC /* fenxiang_wei3@2x.png */,
+				27BDCE50196E743A00486FCC /* fenxiang_wei2@2x.png */,
+				2759156C18EEAF9A00E3DDC2 /* fenxiang_wei1@2x.png */,
 				2759156D18EEAF9A00E3DDC2 /* fenxiang_zhong@2x.png */,
 				2759156E18EEAF9A00E3DDC2 /* jietu_wei@2x.png */,
 				2759156F18EEAF9A00E3DDC2 /* jietu_zhong@2x.png */,
@@ -1037,8 +1049,8 @@
 		27FFE28218BF287B00AE47FF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				27FFE28118BF287B00AE47FF /* Toyshow.app */,
-				27FFE29C18BF287B00AE47FF /* ToyshowTests.xctest */,
+				27FFE28118BF287B00AE47FF /* Joyshow.app */,
+				27FFE29C18BF287B00AE47FF /* JoyshowTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1128,10 +1140,10 @@
 		27FFE28B18BF287B00AE47FF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				27FFE28C18BF287B00AE47FF /* Toyshow-Info.plist */,
+				27FFE28C18BF287B00AE47FF /* Joyshow-Info.plist */,
 				27FFE28D18BF287B00AE47FF /* InfoPlist.strings */,
 				27FFE29018BF287B00AE47FF /* main.m */,
-				27FFE29218BF287B00AE47FF /* Toyshow-Prefix.pch */,
+				27FFE29218BF287B00AE47FF /* Joyshow-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1148,7 +1160,7 @@
 		27FFE2A418BF287B00AE47FF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				27FFE2A518BF287B00AE47FF /* ToyshowTests-Info.plist */,
+				27FFE2A518BF287B00AE47FF /* JoyshowTests-Info.plist */,
 				27FFE2A618BF287B00AE47FF /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -1157,9 +1169,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		27FFE28018BF287B00AE47FF /* Toyshow */ = {
+		27FFE28018BF287B00AE47FF /* Joyshow */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 27FFE2AD18BF287B00AE47FF /* Build configuration list for PBXNativeTarget "Toyshow" */;
+			buildConfigurationList = 27FFE2AD18BF287B00AE47FF /* Build configuration list for PBXNativeTarget "Joyshow" */;
 			buildPhases = (
 				27FFE27D18BF287B00AE47FF /* Sources */,
 				27FFE27E18BF287B00AE47FF /* Frameworks */,
@@ -1169,14 +1181,14 @@
 			);
 			dependencies = (
 			);
-			name = Toyshow;
+			name = Joyshow;
 			productName = Toyshow;
-			productReference = 27FFE28118BF287B00AE47FF /* Toyshow.app */;
+			productReference = 27FFE28118BF287B00AE47FF /* Joyshow.app */;
 			productType = "com.apple.product-type.application";
 		};
-		27FFE29B18BF287B00AE47FF /* ToyshowTests */ = {
+		27FFE29B18BF287B00AE47FF /* JoyshowTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 27FFE2B018BF287B00AE47FF /* Build configuration list for PBXNativeTarget "ToyshowTests" */;
+			buildConfigurationList = 27FFE2B018BF287B00AE47FF /* Build configuration list for PBXNativeTarget "JoyshowTests" */;
 			buildPhases = (
 				27FFE29818BF287B00AE47FF /* Sources */,
 				27FFE29918BF287B00AE47FF /* Frameworks */,
@@ -1187,9 +1199,9 @@
 			dependencies = (
 				27FFE2A218BF287B00AE47FF /* PBXTargetDependency */,
 			);
-			name = ToyshowTests;
+			name = JoyshowTests;
 			productName = ToyshowTests;
-			productReference = 27FFE29C18BF287B00AE47FF /* ToyshowTests.xctest */;
+			productReference = 27FFE29C18BF287B00AE47FF /* JoyshowTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -1207,7 +1219,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 27FFE27C18BF287B00AE47FF /* Build configuration list for PBXProject "Toyshow" */;
+			buildConfigurationList = 27FFE27C18BF287B00AE47FF /* Build configuration list for PBXProject "Joyshow" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1219,8 +1231,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				27FFE28018BF287B00AE47FF /* Toyshow */,
-				27FFE29B18BF287B00AE47FF /* ToyshowTests */,
+				27FFE28018BF287B00AE47FF /* Joyshow */,
+				27FFE29B18BF287B00AE47FF /* JoyshowTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1236,6 +1248,7 @@
 				270C0BE018EBB85200EBD83B /* bangzhu@2x.png in Resources */,
 				270C0C0418EBBF0300EBD83B /* shuaxinbeijing@2x.png in Resources */,
 				2758509018D6999000CCB075 /* ShareCameraCell.xib in Resources */,
+				27BDCE55196E780500486FCC /* fenxiang_wei@2x.png in Resources */,
 				27642A2A18FD304F00198E29 /* qunaer_da@2x.png in Resources */,
 				27C5F8391905342B0078BBBE /* fanhui_jiantou@2x.png in Resources */,
 				2759158518EEAF9A00E3DDC2 /* jietu_wei@2x.png in Resources */,
@@ -1264,6 +1277,7 @@
 				270C0BE818EBB85200EBD83B /* touxiang_n@2x.png in Resources */,
 				271BB8BC18CD95A7000DFC4A /* weixuanzhong.png in Resources */,
 				270C0BFF18EBBF0300EBD83B /* dabeijing@2x.png in Resources */,
+				27BDCE4D196E6D3C00486FCC /* Icon@2x.png in Resources */,
 				270C0BFB18EBBF0300EBD83B /* baijiantou@2x.png in Resources */,
 				2759158018EEAF9A00E3DDC2 /* duijiang_wei@2x.png in Resources */,
 				271BB8C018CD95A7000DFC4A /* xiangjiantou_bai.png in Resources */,
@@ -1287,6 +1301,8 @@
 				271BB89B18CD95A7000DFC4A /* shezhi_anniu.png in Resources */,
 				2759158C18EEAF9A00E3DDC2 /* shijian_beijing@2x.png in Resources */,
 				2720DEA518FFD01000DB494A /* kaishipeizhi_anniu@2x.png in Resources */,
+				27BDCE51196E743A00486FCC /* fenxiang_wei2@2x.png in Resources */,
+				27BDCE53196E76AA00486FCC /* fenxiang_wei3@2x.png in Resources */,
 				271BB8BE18CD95A7000DFC4A /* xiala_beijing.png in Resources */,
 				27642A2618FD304F00198E29 /* fenshen_da@2x.png in Resources */,
 				2759158418EEAF9A00E3DDC2 /* fenxiang_zhong@2x.png in Resources */,
@@ -1311,7 +1327,7 @@
 				270C0BE318EBB85200EBD83B /* fenxiang@2x.png in Resources */,
 				278AC61B18F6948C00902363 /* xuanzhongtiao1@2x.png in Resources */,
 				2745B2E918FE89D6009B3543 /* setanniuhei@2x.png in Resources */,
-				2759158318EEAF9A00E3DDC2 /* fenxiang_wei@2x.png in Resources */,
+				2759158318EEAF9A00E3DDC2 /* fenxiang_wei1@2x.png in Resources */,
 				274D771B18E572FA00F352C7 /* thumbCell.xib in Resources */,
 				278AC61D18F69E4600902363 /* anniu@2x.png in Resources */,
 				271BB8BB18CD95A7000DFC4A /* weitianchong.png in Resources */,
@@ -1425,7 +1441,7 @@
 /* Begin PBXTargetDependency section */
 		27FFE2A218BF287B00AE47FF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 27FFE28018BF287B00AE47FF /* Toyshow */;
+			target = 27FFE28018BF287B00AE47FF /* Joyshow */;
 			targetProxy = 27FFE2A118BF287B00AE47FF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1547,8 +1563,8 @@
 					"/Users/zhxf/Desktop/Baidu-Frontia-iOS-2.0.2/libs",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Toyshow/Toyshow-Prefix.pch";
-				INFOPLIST_FILE = "Toyshow/Toyshow-Info.plist";
+				GCC_PREFIX_HEADER = "Toyshow/Joyshow-Prefix.pch";
+				INFOPLIST_FILE = "Toyshow/Joyshow-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1563,7 +1579,7 @@
 					/Users/zhxf/project/Toyshow,
 				);
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Joyshow;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -1581,8 +1597,8 @@
 					"/Users/zhxf/Desktop/Baidu-Frontia-iOS-2.0.2/libs",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Toyshow/Toyshow-Prefix.pch";
-				INFOPLIST_FILE = "Toyshow/Toyshow-Info.plist";
+				GCC_PREFIX_HEADER = "Toyshow/Joyshow-Prefix.pch";
+				INFOPLIST_FILE = "Toyshow/Joyshow-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1597,7 +1613,7 @@
 					/Users/zhxf/project/Toyshow,
 				);
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Joyshow;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -1620,8 +1636,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "ToyshowTests/ToyshowTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "ToyshowTests/JoyshowTests-Info.plist";
+				PRODUCT_NAME = JoyshowTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1639,8 +1655,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Toyshow/Toyshow-Prefix.pch";
-				INFOPLIST_FILE = "ToyshowTests/ToyshowTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "ToyshowTests/JoyshowTests-Info.plist";
+				PRODUCT_NAME = JoyshowTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1649,7 +1665,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		27FFE27C18BF287B00AE47FF /* Build configuration list for PBXProject "Toyshow" */ = {
+		27FFE27C18BF287B00AE47FF /* Build configuration list for PBXProject "Joyshow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				27FFE2AB18BF287B00AE47FF /* Debug */,
@@ -1658,7 +1674,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		27FFE2AD18BF287B00AE47FF /* Build configuration list for PBXNativeTarget "Toyshow" */ = {
+		27FFE2AD18BF287B00AE47FF /* Build configuration list for PBXNativeTarget "Joyshow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				27FFE2AE18BF287B00AE47FF /* Debug */,
@@ -1667,7 +1683,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		27FFE2B018BF287B00AE47FF /* Build configuration list for PBXNativeTarget "ToyshowTests" */ = {
+		27FFE2B018BF287B00AE47FF /* Build configuration list for PBXNativeTarget "JoyshowTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				27FFE2B118BF287B00AE47FF /* Debug */,

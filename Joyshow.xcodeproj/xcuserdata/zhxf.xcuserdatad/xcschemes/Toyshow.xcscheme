@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "27FFE28018BF287B00AE47FF"
                BuildableName = "Toyshow.app"
-               BlueprintName = "Toyshow"
-               ReferencedContainer = "container:Toyshow.xcodeproj">
+               BlueprintName = "Joyshow"
+               ReferencedContainer = "container:Joyshow.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "27FFE29B18BF287B00AE47FF"
                BuildableName = "ToyshowTests.xctest"
-               BlueprintName = "ToyshowTests"
-               ReferencedContainer = "container:Toyshow.xcodeproj">
+               BlueprintName = "JoyshowTests"
+               ReferencedContainer = "container:Joyshow.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,8 +44,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "27FFE28018BF287B00AE47FF"
             BuildableName = "Toyshow.app"
-            BlueprintName = "Toyshow"
-            ReferencedContainer = "container:Toyshow.xcodeproj">
+            BlueprintName = "Joyshow"
+            ReferencedContainer = "container:Joyshow.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -63,8 +63,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "27FFE28018BF287B00AE47FF"
             BuildableName = "Toyshow.app"
-            BlueprintName = "Toyshow"
-            ReferencedContainer = "container:Toyshow.xcodeproj">
+            BlueprintName = "Joyshow"
+            ReferencedContainer = "container:Joyshow.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -81,8 +81,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "27FFE28018BF287B00AE47FF"
             BuildableName = "Toyshow.app"
-            BlueprintName = "Toyshow"
-            ReferencedContainer = "container:Toyshow.xcodeproj">
+            BlueprintName = "Joyshow"
+            ReferencedContainer = "container:Joyshow.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

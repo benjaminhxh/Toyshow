@@ -55,7 +55,7 @@
     [backBtn addTarget:self action:@selector(backBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backBtn];
 //    NSString *path = [[NSBundle mainBundle] pathForResource:@"zsxdr" ofType:@"mp3"];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"wwmxd" ofType:@"mp4"];
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"wwmxd" ofType:@"mp4"];
 //    NSURL *url = [NSURL fileURLWithPath:path];
 //    NSURL *url = [NSURL URLWithString:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=vod&access_token= b778fb598c717c0ad7ea8c97c8f3a46f&deviceid=12345&st=1234454&et=1234512"];
     

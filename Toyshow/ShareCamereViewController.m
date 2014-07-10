@@ -122,7 +122,7 @@
     topView.userInteractionEnabled = YES;
     [self.view addSubview:topView];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(22, 12, 30, 20);
+    backBtn.frame = CGRectMake(22, 12, 36, 20);
 //    backBtn.frame = CGRectMake(10, [UIApplication sharedApplication].statusBarFrame.size.height+5, 12, 22);
     [backBtn setImage:[UIImage imageNamed:@"fanhui_jiantou@2x"] forState:UIControlStateNormal];
 
@@ -191,14 +191,14 @@
             [speakBtn addTarget:self action:@selector(speakClick) forControlEvents:UIControlEventTouchUpInside];
             [topView addSubview:speakBtn];
             if (iphone5) {
-                shareBtn.frame = CGRectMake(kHeight*5/8, 11, 37, 22);
+                shareBtn.frame = CGRectMake(kHeight*5/8, 11, 46, 24);
                 setBtn.frame = CGRectMake(kHeight*23/32, 11, 37, 22);
                 cutBtn.frame = CGRectMake(kHeight*26/32, 11, 37, 22);
                 speakBtn.frame = CGRectMake(kHeight*29/32, 11, 37, 22);
 
             }else
             {
-                shareBtn.frame = CGRectMake(kHeight/2+30, 11, 37, 22);
+                shareBtn.frame = CGRectMake(kHeight/2+30, 11, 46, 24);
                 setBtn.frame = CGRectMake(kHeight/2+30+50, 11, 37, 22);
                 cutBtn.frame = CGRectMake(kHeight/2+30+100, 11, 37, 22);
                 speakBtn.frame = CGRectMake(kHeight/2+30+150, 11, 37, 22);
@@ -268,8 +268,6 @@
 //        slider.backgroundColor = [UIColor blueColor];
         [bottomView addSubview:slider];
 //        [self startPlayback];
-
-
     }
     [self startPlayback];
     
