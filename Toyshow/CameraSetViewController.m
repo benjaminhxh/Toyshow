@@ -74,7 +74,7 @@
     self.lightFilterModeIndex = 1;
     self.imageResolutionIndex = 1;
 
-    [self getDeviceInfo];
+//    [self getDeviceInfo];
     cameraInfoArr = [NSArray arrayWithObjects:@"事件通知",@"音频开关",@"视频开关",@"画面旋转",@"户外模式",@"拍摄模式",@"状态指示灯",@"码流设置",@"NTSC或PAL制式",@"分辨率",@"设备控制",@"灵敏度",@"时间显示",@"设备ID",@"修改设备名称",@"",@"", nil];
 
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, 320, [UIScreen mainScreen].bounds.size.height-64) style:UITableViewStylePlain];

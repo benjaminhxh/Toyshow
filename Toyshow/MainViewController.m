@@ -23,6 +23,7 @@
 #import "Reachability1.h"
 #import <CommonCrypto/CommonDigest.h> //md5加密需要的头文件
 #import "MBProgressHUD.h"
+#import "JSONKit.h"
 
 @interface MainViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate>
 {
@@ -75,6 +76,11 @@
 {
     
     [super viewDidLoad];
+    NSArray *arr = [NSArray arrayWithObjects:@"hello",@"hi",@"iOS", nil];
+    NSLog(@"arr:%@",arr);
+    NSString *arrString = [arr JSONString];
+    NSLog(@"arrString:%@",arrString);
+    
     //先拼接再MD5加密
     NSString *string = [NSString stringWithFormat:@"%@%@%@%@",APP_ID,expire,APP_KEY,APP_SecrectKey];
     realSign = [self getMd5_32Bit_String:string];
@@ -186,18 +192,18 @@
             if (downloadArr.count == 0) {
                 UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"无分享的摄像头" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
                 [noDataView show];
-                return ;
-            }
-            if (downloadArr.count>20) {
-                for (int i = 0; i < 20; i++) {
-                    [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
-                }
             }else
             {
-                vc->_fakeData = (NSMutableArray *)downloadArr;
+                if (downloadArr.count>20) {
+                    for (int i = 0; i < 20; i++) {
+                        [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
+                    }
+                }else
+                {
+                    vc->_fakeData = (NSMutableArray *)downloadArr;
+                }
             }
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
-
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
 //            NSLog(@"下载数据失败");
 //            NSLog(@"tabsk%@",task);

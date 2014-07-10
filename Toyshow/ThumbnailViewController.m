@@ -157,15 +157,16 @@
             if (downloadArr.count == 0) {
                 UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"无录像" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
                 [noDataView show];
-                return ;
-            }
-            if (downloadArr.count>20) {
-                for (int i = 0; i < 20; i++) {
-                    [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
-                }
             }else
             {
-                vc->_fakeData = (NSMutableArray *)downloadArr;
+                if (downloadArr.count>20) {
+                    for (int i = 0; i < 20; i++) {
+                        [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
+                    }
+                }else
+                {
+                    vc->_fakeData = (NSMutableArray *)downloadArr;
+                }
             }
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
