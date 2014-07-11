@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "27FFE28018BF287B00AE47FF"
-               BuildableName = "Toyshow.app"
+               BuildableName = "Joyshow.app"
                BlueprintName = "Joyshow"
                ReferencedContainer = "container:Joyshow.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "27FFE29B18BF287B00AE47FF"
-               BuildableName = "ToyshowTests.xctest"
+               BuildableName = "JoyshowTests.xctest"
                BlueprintName = "JoyshowTests"
                ReferencedContainer = "container:Joyshow.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "27FFE28018BF287B00AE47FF"
-            BuildableName = "Toyshow.app"
+            BuildableName = "Joyshow.app"
             BlueprintName = "Joyshow"
             ReferencedContainer = "container:Joyshow.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "27FFE28018BF287B00AE47FF"
-            BuildableName = "Toyshow.app"
+            BuildableName = "Joyshow.app"
             BlueprintName = "Joyshow"
             ReferencedContainer = "container:Joyshow.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "27FFE28018BF287B00AE47FF"
-            BuildableName = "Toyshow.app"
+            BuildableName = "Joyshow.app"
             BlueprintName = "Joyshow"
             ReferencedContainer = "container:Joyshow.xcodeproj">
          </BuildableReference>

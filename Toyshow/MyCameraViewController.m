@@ -331,10 +331,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *dict = [_fakeData objectAtIndex:indexPath.row];
+    NSDictionary *cameraDict = [_fakeData objectAtIndex:indexPath.row];
 //    NSString *stream_id = [dict objectForKey:@"stream_id"];
-    NSString *deviceid = [dict objectForKey:@"deviceid"];
-    NSString *status = [dict objectForKey:@"status"];
+    NSString *deviceid = [cameraDict objectForKey:@"deviceid"];
+    NSString *status = [cameraDict objectForKey:@"status"];
+    NSString *share = [cameraDict objectForKey:@"share"];
     int stat = [status intValue];
 //分享
 //    NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=%@&deviceid=%@&share=1",self.accessToken,deviceid];//share=1为公共分享
@@ -363,7 +364,8 @@
             ShareCamereViewController *liveVC = [[ShareCamereViewController alloc] init];
             liveVC.islLve = YES;
             liveVC.isShare = NO;
-            liveVC.shareStaue = [[dict objectForKey:@"share"] intValue];
+            liveVC.shareStaue = [share intValue];
+            NSLog(@"shareStaue:%d",liveVC.shareStaue);
             //        liveVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
             liveVC.url = rtmp;
             liveVC.accecc_token = self.accessToken;//
