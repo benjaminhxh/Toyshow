@@ -31,7 +31,7 @@
     BOOL _reloading;
 //    EGORefreshTableHeaderView *_refreshView;
     UITableView *_tableView;
-    MJRefreshHeaderView *_headerView;
+    MJRefreshHeaderView *header;
     MJRefreshFooterView *_footerView;
     NSMutableArray *_fakeData;
     NSArray *downloadArr;
@@ -39,6 +39,7 @@
     UILabel *noInternetL,*noDataLoadL;
     NSString *realSign,*sign;
     MBProgressHUD *_loadingView;
+    
 }
 @end
 
@@ -151,13 +152,11 @@
     [reachab startNotifier];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivesComeFromWeixin:) name:@"shareToWeixinNotif" object:nil];
-
 }
 
 - (void)addheader{
     __unsafe_unretained MainViewController *vc = self;
-    
-    MJRefreshHeaderView *header = [MJRefreshHeaderView header];
+    header = [MJRefreshHeaderView header];
     header.scrollView = _tableView;
     header.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView) {
         // 进入刷新状态就会回调这个Block
@@ -210,37 +209,40 @@
 //            NSLog(@"eror:%@",error);
             UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
             [noDataView show];
+            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+
         }];
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
-        [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationFail];
-        
-        NSLog(@"%@----开始进入刷新状态", refreshView.class);
+//        [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationFail];
+        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+//        NSLog(@"%@----开始进入刷新状态", refreshView.class);
     };
     header.endStateChangeBlock = ^(MJRefreshBaseView *refreshView) {
         // 刷新完毕就会回调这个Block
-        NSLog(@"%@----刷新完毕", refreshView.class);
+//        NSLog(@"%@----刷新完毕", refreshView.class);
+        [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
     };
-    header.refreshStateChangeBlock = ^(MJRefreshBaseView *refreshView, MJRefreshState state) {
+//    header.refreshStateChangeBlock = ^(MJRefreshBaseView *refreshView, MJRefreshState state) {
         // 控件的刷新状态切换了就会调用这个block
-        switch (state) {
-            case MJRefreshStateNormal:
-                NSLog(@"%@----切换到：普通状态", refreshView.class);
-                break;
-                
-            case MJRefreshStatePulling:
-                NSLog(@"%@----切换到：松开即可刷新的状态", refreshView.class);
-                break;
-                
-            case MJRefreshStateRefreshing:
-                NSLog(@"%@----切换到：正在刷新状态", refreshView.class);
-                break;
-            default:
-                break;
-        }
-    };
+//        switch (state) {
+//            case MJRefreshStateNormal:
+//                NSLog(@"%@----切换到：普通状态", refreshView.class);
+//                break;
+//                
+//            case MJRefreshStatePulling:
+//                NSLog(@"%@----切换到：松开即可刷新的状态", refreshView.class);
+//                break;
+//                
+//            case MJRefreshStateRefreshing:
+//                NSLog(@"%@----切换到：正在刷新状态", refreshView.class);
+//                break;
+//            default:
+//                break;
+//        }
+//    };
     [header beginRefreshing];
-    _headerView = header;
+//    _headerView = header;
 }
 
 - (void)addFooter
@@ -463,9 +465,9 @@
     NSLog(@"info title come from weixin:%@",[dictFromWeixin objectForKey:@"weixinTitle"]);
 }
 
-//- (void)viewWillAppear:(BOOL)animated
-//{
-
+- (void)viewWillAppear:(BOOL)animated
+{
+//    [self addheader];
 //    activiView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(130, 210, 120, 120)];
 //    activiView.backgroundColor = [UIColor grayColor];
 //    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(45, 60, 60, 60)];
@@ -482,5 +484,5 @@
 //    cell = (UITableViewCell *)[button superview];
 //    int row = [_tableView indexPathForCell:cell].row;
 //    NSLog(@"row:%d",row);
-//}
+}
 @end

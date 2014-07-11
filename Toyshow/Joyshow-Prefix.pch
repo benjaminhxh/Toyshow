@@ -16,8 +16,8 @@
 
 #define iOS7 [[UIDevice currentDevice].systemVersion integerValue]>=7
 #define iphone5     [UIScreen mainScreen].bounds.size.height > 480
-#define KdurationFail 3.0
-#define KdurationSuccess 0.5
+#define KdurationFail 8.0
+#define KdurationSuccess 1.0
 
 #define kHeight [UIScreen mainScreen].bounds.size.height
 #define kWidth [UIScreen mainScreen].bounds.size.width

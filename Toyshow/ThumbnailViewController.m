@@ -174,6 +174,8 @@
             NSLog(@"errorDict:%@",errorDict);
             UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
             [noDataView show];
+            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+
         }];
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
@@ -184,6 +186,7 @@
     header.endStateChangeBlock = ^(MJRefreshBaseView *refreshView) {
         // 刷新完毕就会回调这个Block
         NSLog(@"%@----刷新完毕", refreshView.class);
+
     };
     header.refreshStateChangeBlock = ^(MJRefreshBaseView *refreshView, MJRefreshState state) {
         // 控件的刷新状态切换了就会调用这个block
@@ -298,7 +301,7 @@
             int endtf = [ett intValue];
             NSDate *endfTime = [NSDate dateWithTimeIntervalSince1970:endtf];
             NSString *endT = [[self dateFormatterMMddHHmm] stringFromDate:endfTime];
-            NSLog(@"endT:%@",endT);
+//            NSLog(@"endT:%@",endT);
 //            NSLog(@"数组里的元素%@",[downloadArr objectAtIndex:indexPath.row]);
             self.thumbDeadlines.text = [NSString stringWithFormat:@"%@-—%@",startT,[endT substringFromIndex:5]];
             NSString *imageURL = [[imageURLARR objectAtIndex:indexPath.row] objectForKey:@"url"];
