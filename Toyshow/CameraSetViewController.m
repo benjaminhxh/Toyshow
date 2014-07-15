@@ -583,12 +583,6 @@
     [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *dict = (NSDictionary*)responseObject;
         NSLog(@"dict:%@",dict);
-//        UIAlertView *setSuccess = [[UIAlertView alloc] initWithTitle:@"设置成功"
-//                                                             message:nil
-//                                                            delegate:nil
-//                                                   cancelButtonTitle:@"Cancel"
-//                                                   otherButtonTitles:nil, nil];
-//        [setSuccess show];
         [self alertViewShowWithTitle:@"设置成功" andMessage:nil];
         if (self.delegate && [self.delegate respondsToSelector:@selector(logoutCameraAtindex:)]) {
             [self.delegate logoutCameraAtindex:self.index];
@@ -596,12 +590,6 @@
         [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//        UIAlertView *setError = [[UIAlertView alloc] initWithTitle:@"设置失败"
-//                                                       message:nil
-//                                                      delegate:nil
-//                                             cancelButtonTitle:@"Cancel"
-//                                             otherButtonTitles:nil, nil];
-//        [setError show];
         [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
     }];
 }
@@ -662,35 +650,9 @@
 {
     if (logOutView == alertView) {
         //注销
-        if (buttonIndex) {
-//            NSLog(@"注销设备了");
-            [self isLoadingView];
-            NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=drop&deviceid=%@&access_token=%@",self.deviceid,self.access_token];
-            NSLog(@"urlStr:%@",urlStr);
-            [[AFHTTPRequestOperationManager manager] POST:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSDictionary *dict = (NSDictionary *)responseObject;
-                NSString *deviceID = [dict objectForKey:@"deviceid"];
-                NSLog(@"deviceid:%@",deviceID);
-                if (self.delegate && [self.delegate respondsToSelector:@selector(logoutCameraAtindex:)]) {
-                    [self.delegate logoutCameraAtindex:self.index];
-                }
-                [_loginoutView hide:YES];
-
-                [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
-//                UIAlertView *tipView = [[UIAlertView alloc] initWithTitle:@"注销成功" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//                [tipView show];
-                [self alertViewShowWithTitle:@"注销成功" andMessage:nil];
-                
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSDictionary *errorDict = [error userInfo];
-                NSString *errorMSG = [errorDict objectForKey:@"error_msg"];
-                NSLog(@"erroeMSG:%@",errorMSG);
-                [_loginoutView hide:YES];
-
-//                UIAlertView *tipView = [[UIAlertView alloc] initWithTitle:@"注销失败" message:[NSString stringWithFormat:@"%@",errorMSG] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//                [tipView show];
-                [self alertViewShowWithTitle:@"注销失败" andMessage:errorMSG];
-            }];
+        if (buttonIndex)
+        {
+            [self logoutMyCamera];
         }
     }else if (codeStreamView == alertView)
     {
@@ -705,6 +667,35 @@
     }
     
 }
+
+#pragma mark - logoutMyCamera
+- (void)logoutMyCamera
+{
+    //注销设备了
+    [self isLoadingView];
+    NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=drop&deviceid=%@&access_token=%@",self.deviceid,self.access_token];
+    NSLog(@"urlStr:%@",urlStr);
+    [[AFHTTPRequestOperationManager manager] POST:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        NSString *deviceID = [dict objectForKey:@"deviceid"];
+        NSLog(@"deviceid:%@",deviceID);
+        if (self.delegate && [self.delegate respondsToSelector:@selector(logoutCameraAtindex:)]) {
+            [self.delegate logoutCameraAtindex:self.index];
+        }
+        [_loginoutView hide:YES];
+        
+        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
+        [self alertViewShowWithTitle:@"注销成功" andMessage:nil];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSDictionary *errorDict = [error userInfo];
+        NSString *errorMSG = [errorDict objectForKey:@"error_msg"];
+        NSLog(@"erroeMSG:%@",errorMSG);
+        [_loginoutView hide:YES];
+        [self alertViewShowWithTitle:@"注销失败" andMessage:errorMSG];
+    }];
+}
+
 //判断输入的值是否介于两者之间
 - (BOOL)isLegalNum:(int)startNum to:(int)endNum withNumString:(NSString *)numString
 {
@@ -784,8 +775,8 @@
                                              cancelButtonTitle:@"Cancel"
                                              otherButtonTitles:nil, nil];
     [setError show];
-
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

@@ -41,11 +41,6 @@
     return self;
 }
 
-//-(void)loadView
-//{
-//    [super loadView];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userInfoNotification:) name:kUserInfoNotification object:nil];
-//}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -60,15 +55,6 @@
     //    navBar.alpha=0.8;
     navBar.userInteractionEnabled = YES;
     [self.view addSubview:navBar];
-//    UIImage *image1 = [UIImage imageNamed:@"wo_shejingtou"];
-//    UIImage *image2 = [UIImage imageNamed:@"tianjia"];
-//    UIImage *image3 = [UIImage imageNamed:@"fxsjt"];
-//    UIImage *image4 = [UIImage imageNamed:@"shejingtou_shezhi"];
-//    UIImage *image5 = [UIImage imageNamed:@"tuichu"];
-//    UIImage *image6 = [UIImage imageNamed:@"bangzhu_tubiao"];
-//    UIImage *image7 = [UIImage imageNamed:@"guanyu"];
-//    _imageArr = [NSArray arrayWithObjects:image1,image2,image3,image4,image5,image6,image7,image3, nil];
-//    _titleArr = @[@"北京",@"上海",@"广州",@"深圳",@"天津",@"南京",@"重庆",@"成都"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modifySuccess:) name:@"modifySuccess" object:nil];
 
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -136,16 +122,9 @@
 
 - (void)leftClick
 {
-    NSLog(@"------");
     [[SliderViewController sharedSliderController] leftItemClick];
-//    [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
 }
 
-- (void)rightClick
-{
-    NSLog(@"right=====");
-    [[SliderViewController sharedSliderController]rightItemClick];
-}
 -(void)btnNextClick:(id)sender{
     //    [[SliderViewController sharedSliderController].navigationController pushViewController:[[ViewController1 alloc] init] animated:YES];
 }
@@ -184,6 +163,7 @@
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
             [noDataView show];
+            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
         }];
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header

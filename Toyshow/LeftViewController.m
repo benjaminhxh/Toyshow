@@ -30,7 +30,6 @@
     NSArray *_listArr,*_imageArr;
     UILabel *_titleTextL,*loginOrOutL;
     UITableView *tableView1,*tableView2;
-//    NSString *userID;
     int num;
     BOOL upOrdown,_flag;
     NSTimer *timer;
@@ -82,7 +81,6 @@
     cirleView.image = [UIImage imageNamed:@"touxiang_quan@2x"];
     [self.view addSubview:cirleView];
 
-//    userID = nil;
     //用户名
     self.userNameL = [[UILabel alloc] initWithFrame:CGRectMake(20, 105, 180, 20)];
     self.userNameL.textColor = [UIColor whiteColor];
@@ -371,7 +369,6 @@
             NSLog(@"授权成功的accessToken：%@",result.accessToken);//有
             //设置授权成功的账户为当前使用者账户
             self.userNameL.text = result.accountName;
-//            userID = result.accountName;
             [Frontia setCurrentAccount:result];
             [self onUserInfo];
         };
@@ -408,7 +405,6 @@
             self.userImageVIew.layer.cornerRadius = self.userImageVIew.bounds.size.width/2;
             loginOrOutL.text = @"退出";
 //            self.userNameL.text = result.accountName;
-//            userID = result.accountName;
 //            self.titleText.text = @"退出登录";
             //            accessToken = result.accessToken;
 //            NSLog(@"用户信息的accessToken:%@",result.accessToken);//null
