@@ -30,7 +30,7 @@
     NSArray *_listArr,*_imageArr;
     UILabel *_titleTextL,*loginOrOutL;
     UITableView *tableView1,*tableView2;
-    NSString *userID;
+//    NSString *userID;
     int num;
     BOOL upOrdown,_flag;
     NSTimer *timer;
@@ -82,7 +82,7 @@
     cirleView.image = [UIImage imageNamed:@"touxiang_quan@2x"];
     [self.view addSubview:cirleView];
 
-    userID = nil;
+//    userID = nil;
     //用户名
     self.userNameL = [[UILabel alloc] initWithFrame:CGRectMake(20, 105, 180, 20)];
     self.userNameL.textColor = [UIColor whiteColor];
@@ -158,7 +158,9 @@
         case 0://我的摄像头
         {
             if ([self accessTokenIsExist]) {
-                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:userID,@"userID",self.accessToken,@"accessToken",nil];
+                
+                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] stringForKey:kUserName],@"userID",self.accessToken,@"accessToken",nil];
+                NSLog(@"my camera dict:%@",dict);
 //                [[NSNotificationCenter defaultCenter] postNotificationName:kUserInfoNotification object:nil userInfo:dict];
                 [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MyCameraViewController" withDictionary:dict];
             }
@@ -330,7 +332,7 @@
             AddDeviceViewController *addDeviceVC = [[AddDeviceViewController alloc] init];
             addDeviceVC.deviceID = result;
             addDeviceVC.access_token = self.accessToken;
-            addDeviceVC.userID = userID;
+            addDeviceVC.userID = [[NSUserDefaults standardUserDefaults] stringForKey:kUserName];
             [self.navigationController pushViewController:addDeviceVC animated:YES];
         }
         else
@@ -369,7 +371,7 @@
             NSLog(@"授权成功的accessToken：%@",result.accessToken);//有
             //设置授权成功的账户为当前使用者账户
             self.userNameL.text = result.accountName;
-            userID = result.accountName;
+//            userID = result.accountName;
             [Frontia setCurrentAccount:result];
             [self onUserInfo];
         };
