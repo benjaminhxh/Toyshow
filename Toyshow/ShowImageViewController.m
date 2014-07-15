@@ -9,12 +9,15 @@
 #import "ShowImageViewController.h"
 #import "iCarousel.h"
 #import "SliderViewController.h"
+#import "HXHAppDelegate.h"
+#import "MainViewController.h"
 
-@interface ShowImageViewController ()<iCarouselDataSource,iCarouselDelegate>
+@interface ShowImageViewController ()<iCarouselDataSource,iCarouselDelegate,UIScrollViewDelegate>
 {
     NSArray *_imageArray;
     iCarousel *icaView;
     UIView *backgroundView;
+    BOOL loginFlag;
 }
 @end
 
@@ -32,6 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationController.navigationBarHidden = YES;
 	// Do any additional setup after loading the view.
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     backBtn.frame = CGRectMake(5, 20, 40, 20);
@@ -63,7 +67,7 @@
 //    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
 //    [self.view addGestureRecognizer:recognizer];
     
-    BOOL isFirst = [[NSUserDefaults standardUserDefaults] boolForKey:@"isFirst"];
+//    BOOL isFirst = [[NSUserDefaults standardUserDefaults] boolForKey:@"isFirst"];
 //    if (isFirst) {
         icaView = [[iCarousel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
         icaView.delegate = self;
@@ -73,21 +77,22 @@
         icaView.pagingEnabled = YES;
         [backgroundView addSubview:icaView];
         //        [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"firstLanuch"];
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isFirst"];
+//        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isFirst"];
         //进去看看
-        UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        nextBtn.frame = CGRectMake(240, 20, 60, 20);
-        [nextBtn setTitle:@"进去看看" forState:UIControlStateNormal];
-        [nextBtn addTarget:self action:@selector(nextMainView) forControlEvents:UIControlEventTouchUpInside];
-        [icaView addSubview:nextBtn];
+//        UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//        nextBtn.frame = CGRectMake(240, 20, 60, 20);
+//        [nextBtn setTitle:@"进去看看" forState:UIControlStateNormal];
+//        [nextBtn addTarget:self action:@selector(nextMainView) forControlEvents:UIControlEventTouchUpInside];
+//        [icaView addSubview:nextBtn];
 //    }
 }
 
+//进去看看
 - (void)nextMainView
 {
     [UIView animateWithDuration:0.3 animations:^{
-        icaView.hidden = YES;
-        backgroundView.hidden = YES;
+//        icaView.hidden = YES;
+//        backgroundView.hidden = YES;
     }];
 }
 - (void)backBtn:(id)sender
@@ -151,16 +156,19 @@
 - (void)lookAroundClick
 {
     NSLog(@"随便看看");
-    icaView.hidden = YES;
-    backgroundView.hidden = YES;
+    [self showTabBarController];
+    
+//    icaView.hidden = YES;
+//    backgroundView.hidden = YES;
 }
 
 - (void)loginClick
 {
     NSLog(@"登录按钮");
-    icaView.hidden = YES;
-    backgroundView.hidden = YES;
-
+//    icaView.hidden = YES;
+//    backgroundView.hidden = YES;
+    loginFlag = YES;
+    [self showTabBarController];
 }
 
 - (void)buyClick
@@ -173,6 +181,36 @@
     {
         NSLog(@"没安装客户端");
     }
+}
+
+//显示TabBarController
+- (void)showTabBarController
+{
+    
+    //记住已经不是第一次启动了
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:YES forKey:@"first"];
+    [userDefaults synchronize];
+    
+    HXHAppDelegate *delegate = [HXHAppDelegate instance];
+    
+    [SliderViewController sharedSliderController].LeftVC=[[LeftViewController alloc] init];
+    [SliderViewController sharedSliderController].RightVC=[[RightViewController alloc] init];
+    [SliderViewController sharedSliderController].RightSContentOffset=260;
+    [SliderViewController sharedSliderController].RightSContentScale=0.6;
+    [SliderViewController sharedSliderController].RightSOpenDuration=0.8;
+    [SliderViewController sharedSliderController].RightSCloseDuration=0.8;
+    [SliderViewController sharedSliderController].RightSJudgeOffset=160;
+    if (loginFlag) {
+        LeftViewController *left = (LeftViewController *)[SliderViewController sharedSliderController].LeftVC;
+        [left signonButtonClicked];
+    }
+   
+    
+    delegate.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[SliderViewController sharedSliderController]];
+    delegate.window.backgroundColor = [UIColor whiteColor];
+    //显示状态栏
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
 }
 
 - (void)didReceiveMemoryWarning

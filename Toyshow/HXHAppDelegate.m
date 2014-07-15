@@ -9,6 +9,7 @@
 #import "HXHAppDelegate.h"
 #import <Frontia/Frontia.h>
 #import "MobClick.h"
+#import "ShowImageViewController.h"
 
 #define APP_KEY @"ZIAgdlC7Vw7syTjeKG9zS4QP"
 #define REPORT_ID @"2271149"
@@ -20,6 +21,12 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"first"]) {
+        ShowImageViewController *firstVC = [[ShowImageViewController alloc] init];
+        self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:firstVC];
+    }else{
     [SliderViewController sharedSliderController].LeftVC=[[LeftViewController alloc] init];
     [SliderViewController sharedSliderController].RightVC=[[RightViewController alloc] init];
     [SliderViewController sharedSliderController].RightSContentOffset=260;
@@ -31,6 +38,7 @@
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isFirst"];
     
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[SliderViewController sharedSliderController]];
+    }
     self.window.backgroundColor = [UIColor whiteColor];
 //    UINavigationController *nav;
 //    if (flag) {

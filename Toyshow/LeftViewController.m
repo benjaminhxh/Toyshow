@@ -23,16 +23,17 @@
 #import "WXApi.h"
 #import "WeixinSessionActivity.h"
 #import "WeixinTimelineActivity.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface LeftViewController ()<UITableViewDataSource,UITableViewDelegate,ZBarReaderDelegate,UIAlertViewDelegate,WXApiDelegate>
 {
     NSArray *_listArr,*_imageArr;
-    UILabel *_titleTextL;
+    UILabel *_titleTextL,*loginOrOutL;
     UITableView *tableView1,*tableView2;
-    NSString *accessToken,*userID;
+    NSString *userID;
     int num;
     BOOL upOrdown,_flag;
-    NSTimer * timer;
+    NSTimer *timer;
     BOOL _reloading;
     NSArray *activity;
     UIAlertView *_loginView;
@@ -58,7 +59,7 @@
     [imgV setImage:[UIImage imageNamed:backGroundImage]];
     [self.view addSubview:imgV];
     _listArr = [NSArray array];
-    _listArr = [NSArray arrayWithObjects:@"我的摄像头",@"添加新设备",@"分享的摄像头",@"登录/退出",@"帮助",@"关于",@"分享", nil];
+    _listArr = [NSArray arrayWithObjects:@"我的摄像头",@"添加新设备",@"分享的摄像头",@"",@"帮助",@"关于",@"分享", nil];
     UIImage *image1 = [UIImage imageNamed:@"shejingtou@2x"];
     UIImage *image2 = [UIImage imageNamed:@"tianjia@2x"];
     UIImage *image3 = [UIImage imageNamed:@"fenxiang@2x"];
@@ -75,7 +76,6 @@
     //用户头像
     self.userImageVIew = [[UIImageView alloc] initWithFrame:CGRectMake(75, 30, 70, 70)];
     self.userImageVIew.layer.cornerRadius = self.userImageVIew.bounds.size.width/2;
-    self.userImageVIew.image = [UIImage imageNamed:@"touxiang_n@2x"];
     [self.view addSubview:self.userImageVIew];
     
     UIImageView *cirleView = [[UIImageView alloc] initWithFrame:CGRectMake(70, 25, 80, 80)];
@@ -85,7 +85,6 @@
     userID = nil;
     //用户名
     self.userNameL = [[UILabel alloc] initWithFrame:CGRectMake(20, 105, 180, 20)];
-    self.userNameL.text = @"请登录";
     self.userNameL.textColor = [UIColor whiteColor];
     self.userNameL.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.userNameL];
@@ -94,8 +93,18 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    
-
+    if (![self checkAccessTokenIsExist]) {
+        self.userNameL.text = @"请登录";
+        self.userImageVIew.image = [UIImage imageNamed:@"touxiang_n@2x"];
+    }else
+    {
+        self.userNameL.text = [[NSUserDefaults standardUserDefaults] stringForKey:kUserName];
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] stringForKey:kUserHeadURL]]];
+        UIImage *userImage = [UIImage imageWithData:data];
+        self.userImageVIew.clipsToBounds = YES;
+        self.userImageVIew.image = [self scaleToSize:userImage size:self.userImageVIew.frame.size];
+        self.accessToken = [[NSUserDefaults standardUserDefaults]stringForKey:kUserAccessToken];
+    }
 	// Do any additional setup after loading the view.
 }
 
@@ -129,6 +138,15 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"SiderCell" owner:self options:nil] firstObject];
         self.titleText.text = [_listArr objectAtIndex:indexPath.row];
         self.imageIcon.image = [_imageArr objectAtIndex:indexPath.row];
+        if (3 == indexPath.row) {
+            loginOrOutL = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 123, 50)];
+            loginOrOutL.textColor = [UIColor whiteColor];
+            [self.titleText addSubview:loginOrOutL];
+            if ([self checkAccessTokenIsExist]) {
+                loginOrOutL.text = @"退出";
+            }
+            loginOrOutL.text = @"登陆";
+        }
     }
     return cell;
 }
@@ -138,7 +156,7 @@
         case 0://我的摄像头
         {
             if ([self accessTokenIsExist]) {
-                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:userID,@"userID",accessToken,@"accessToken",nil];
+                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:userID,@"userID",self.accessToken,@"accessToken",nil];
 //                [[NSNotificationCenter defaultCenter] postNotificationName:kUserInfoNotification object:nil userInfo:dict];
                 [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MyCameraViewController" withDictionary:dict];
             }
@@ -157,9 +175,9 @@
 //            break;
         case 3://登录or退出
         {
-            if (!accessToken) {
+            if (![self accessTokenIsExist]) {
                 //------------------------登录
-                [self signonButtonClicked];
+//                [self signonButtonClicked];
                 //5
             }else
             {
@@ -184,9 +202,18 @@
 //    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (BOOL)checkAccessTokenIsExist
+{
+    NSString *userAccessToken = [[NSUserDefaults standardUserDefaults]stringForKey:kUserAccessToken];
+    if (userAccessToken == nil) {
+        return NO;
+    }
+    return YES;
+}
+
 - (BOOL)accessTokenIsExist
 {
-    if (!accessToken) {
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:kUserAccessToken]==nil) {
         _loginView = [[UIAlertView alloc] initWithTitle:@"请登陆" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
         [_loginView show];
         return NO;
@@ -300,7 +327,7 @@
             //扫描成功获得设备二维码--->跳转到WiFi设置页面
             AddDeviceViewController *addDeviceVC = [[AddDeviceViewController alloc] init];
             addDeviceVC.deviceID = result;
-            addDeviceVC.access_token = accessToken;
+            addDeviceVC.access_token = self.accessToken;
             addDeviceVC.userID = userID;
             [self.navigationController pushViewController:addDeviceVC animated:YES];
         }
@@ -331,15 +358,17 @@
         
         //授权成功回调函数 登录之后 2（授权中……） 输入密码之后
         FrontiaAuthorizationResultCallback onResult = ^(FrontiaUser *result){
-            NSLog(@"OnResult account name: %@ account id: %@", result.accountName, result.experidDate);
-            accessToken = result.accessToken;
+            NSLog(@"OnResult account name: %@ account experidDate: %@  account.accessToken:%@", result.accountName, result.experidDate,result.accessToken);
+            [[NSUserDefaults standardUserDefaults] setObject:result.accountName forKey:kUserName];
+            [[NSUserDefaults standardUserDefaults] setObject:result.accessToken forKey:kUserAccessToken];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            self.accessToken = result.accessToken;
 //            self.titleText.text = @"退出登录";
             NSLog(@"授权成功的accessToken：%@",result.accessToken);//有
             //设置授权成功的账户为当前使用者账户
             self.userNameL.text = result.accountName;
             userID = result.accountName;
             [Frontia setCurrentAccount:result];
-
             [self onUserInfo];
         };
         //---------------------------------------------------------
@@ -367,19 +396,18 @@
             NSLog(@"get user detail info success with userName: %@ ----headURL：%@", result.accountName,result.headUrl);
             NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:result.headUrl]];
             UIImage *userImage = [UIImage imageWithData:data];
-            self.userImageVIew.image = [self circleImage:userImage withParam:2];
+            [[NSUserDefaults standardUserDefaults] setValue:result.headUrl forKey:kUserHeadURL];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+//            [self.userImageVIew setImageWithURL:[NSURL URLWithString:result.headUrl]];
+            self.userImageVIew.clipsToBounds = YES;
+            self.userImageVIew.image = [self scaleToSize:userImage size:self.userImageVIew.frame.size];
             self.userImageVIew.layer.cornerRadius = self.userImageVIew.bounds.size.width/2;
+            loginOrOutL.text = @"退出";
 //            self.userNameL.text = result.accountName;
 //            userID = result.accountName;
 //            self.titleText.text = @"退出登录";
             //            accessToken = result.accessToken;
 //            NSLog(@"用户信息的accessToken:%@",result.accessToken);//null
-//            FrontiaUserQuery *frontia;
-//            [FrontiaUser findUser:frontia  resultListener:^(NSArray *result) {
-////                NSLog(@"resultArray:%@",result);
-//            } failureListener:^(int errorCode, NSString *errorMessage) {
-//                NSLog(@"erroeMessage:%@",errorMessage);
-//            }];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.view setNeedsDisplay]; //7
             });
@@ -397,34 +425,41 @@
             [self signonButtonClicked];
         }else
         {
-            
         }
     }else
     {
         if (buttonIndex) {
-            FrontiaAuthorization *auth = [Frontia getAuthorization];
-            if ([auth clearAllAuthorizationInfo]) {
-                
-                NSLog(@"clear清除成功");
-                self.userImageVIew.image = [UIImage imageNamed:@"touxiang_n@2x"];
-                self.userNameL.text = @"请登录";
-    //            self.titleText.text = @"登录";
-                accessToken = nil;
-                accessToken = @"";
-                dispatch_async(dispatch_get_main_queue(), ^{
-    //                [self.view setNeedsDisplay];
-                    exit(0);
-                });
-            }else
-            {
-                [auth clearAuthorizationInfoWithPlatform:@"iOS"];
-                [auth clearAllAuthorizationInfo];
-                NSLog(@"fail");
-            }
+            [self logout];
         }else
         {
         }
     }
+}
+
+- (void)logout
+{
+    FrontiaAuthorization *auth = [Frontia getAuthorization];
+    if ([auth clearAllAuthorizationInfo]) {
+        self.userImageVIew.image = [UIImage imageNamed:@"touxiang_n@2x"];
+        self.userNameL.text = @"请登录";
+        self.titleText.text = @"登录";
+        loginOrOutL.text = @"登陆";
+
+        NSHTTPCookie *cookie;
+        NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+        for (cookie in [storage cookies])
+        {
+            [storage deleteCookie:cookie];
+        }
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserAccessToken];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserHeadURL];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserName];
+        [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MainViewController" withDictionary:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.view setNeedsDisplay];
+        });
+    }
+ 
 }
 #pragma mark - shareTo
 //分享
@@ -439,21 +474,23 @@
     [self presentViewController:activityView animated:YES completion:nil];
 }
 //裁剪头像
-- (UIImage*) circleImage:(UIImage*) image withParam:(CGFloat) inset {
-    UIGraphicsBeginImageContext(image.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetLineWidth(context, 2);
-    CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
-    CGRect rect = CGRectMake(inset, inset, image.size.width - inset * 2.0f, image.size.height - inset * 2.0f);
-    CGContextAddEllipseInRect(context, rect);
-    CGContextClip(context);
+-(UIImage*)scaleToSize:(UIImage*)img size:(CGSize)size
+{
+    // 创建一个bitmap的context
+    // 并把它设置成为当前正在使用的context
+    UIGraphicsBeginImageContext(size);
     
-    [image drawInRect:rect];
-    CGContextAddEllipseInRect(context, rect);
-    CGContextStrokePath(context);
-    UIImage *newimg = UIGraphicsGetImageFromCurrentImageContext();
+    // 绘制改变大小的图片
+    [img drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    
+    // 从当前context中创建一个改变大小后的图片
+    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    // 使当前的context出堆栈
     UIGraphicsEndImageContext();
-    return newimg;
+    
+    // 返回新的改变大小后的图片
+    return scaledImage;
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle

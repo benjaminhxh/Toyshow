@@ -72,7 +72,6 @@
     self.index = imageRerolut.selectedSegmentIndex+1;
 }
 
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

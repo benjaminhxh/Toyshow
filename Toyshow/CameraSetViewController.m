@@ -74,7 +74,7 @@
 //    [seeVideoBtn setImage:[UIImage imageNamed:@"lishijilu@2x"] forState:UIControlStateNormal];
     [seeVideoBtn addTarget:self action:@selector(didSeeVideoClick) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:seeVideoBtn];
-//    self.controlONOrOFFIndex = 3;
+    self.controlONOrOFFIndex = 3;
 //    self.lightFilterModeIndex = 1;
 //    self.imageResolutionIndex = 1;
     
@@ -126,224 +126,225 @@
     if (cell==nil) {
         cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
         cell.textLabel.text = [cameraInfoArr objectAtIndex:indexPath.row];
-        switch (indexPath.row) {
-            case 0:
-            {
-                //事件通知
-                UISwitch *offON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
-                [cell addSubview:offON];
-                [offON addTarget:self action:@selector(enaleEventAction:) forControlEvents:UIControlEventTouchUpInside];
-                self.EnableEventIndex = [[cameraInfoDict objectForKey:@"iEnableEvent"] integerValue];
-                offON.on = self.EnableEventIndex;
-            }
-                break;
-            case 1:
-            {
-                //音频开关
-                UISwitch *AudiooffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
-                [cell addSubview:AudiooffON];
-                self.audioIndex = [[cameraInfoDict objectForKey:@"iEnableAudioIn"] integerValue];
-                AudiooffON.on = self.audioIndex;
-                [AudiooffON addTarget:self action:@selector(AudioEventAction:) forControlEvents:UIControlEventTouchUpInside];
-            }
-                break;
-            case 2:
-            {
-                //视频开关
-                UISwitch *videooffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
-                [cell addSubview:videooffON];
-                //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                self.videoRecordIndex = [[cameraInfoDict objectForKey:@"iEnableRecord"] integerValue];
-                videooffON.on = self.videoRecordIndex;
-                [videooffON addTarget:self action:@selector(VideoEventAction:) forControlEvents:UIControlEventTouchUpInside];
-            }
-                break;
-            case 3:
-            {
-                //画面是否旋转
-                UISwitch *flipImageoffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
-                [cell addSubview:flipImageoffON];
-                self.flipImageIndex = [[cameraInfoDict objectForKey:@"iFlipImage"] integerValue];
-                flipImageoffON.on = self.flipImageIndex;
-                [flipImageoffON addTarget:self action:@selector(flipImageoffONEventAction:) forControlEvents:UIControlEventTouchUpInside];
-                
-            }
-                break;
-            case 4:
-            {
-                //户外室内
-                UISwitch *outdoorOrindoor = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
-                [cell addSubview:outdoorOrindoor];
-                self.screneIndex = [[cameraInfoDict objectForKey:@"iScene"] integerValue];
-                
-                outdoorOrindoor.on = self.screneIndex;
-                [outdoorOrindoor addTarget:self action:@selector(outdoorOrindoorEventAction:) forControlEvents:UIControlEventTouchUpInside];
-            }
-                break;
-            case 5:
-            {
-                //拍摄模式
-                //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                NSArray *arr = [NSArray arrayWithObjects:@"自动",@"白天",@"夜间", nil];
-                scenceModeL = [[UILabel alloc] init];
-                scenceModeL.frame = CGRectMake(250, 7, 40, 30);
-                [cell addSubview:scenceModeL];
-                self.lightFilterModeIndex = [[cameraInfoDict objectForKey:@"iLightFilterMode"] integerValue];
-                scenceModeL.text = [arr objectAtIndex:self.lightFilterModeIndex];
-                scenceModeL.textColor = [UIColor grayColor];
-            }
-                break;
-            case 6:
-            {
-                //状态指示灯
-                UISwitch *stateLightoffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
-                [cell addSubview:stateLightoffON];
-                self.lightStatueIndex = [[cameraInfoDict objectForKey:@"iEnableDeviceStatusLed"] integerValue];
-                
-                stateLightoffON.on = self.lightStatueIndex;
-                [stateLightoffON addTarget:self action:@selector(stateLightEventAction:) forControlEvents:UIControlEventTouchUpInside];
-            }
-                break;
-            case 7:
-            {
-                //码流
-                codeStream = [UIButton buttonWithType:UIButtonTypeCustom];
-                self.streamBitrateIndex = [[cameraInfoDict objectForKey:@"iStreamBitrate"] integerValue];
-                
-                [codeStream setTitle:[NSString stringWithFormat:@"%dkb/s",self.streamBitrateIndex] forState:UIControlStateNormal];
-                codeStream.frame = CGRectMake(220, 5, 100, 34);
-                [codeStream setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-                [cell addSubview:codeStream];
-                [codeStream addTarget:self action:@selector(codeStreamAction:) forControlEvents:UIControlEventTouchUpInside];
-            }
-                break;
-            case 8:
-            {
-                cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                
-                NSArray *arr = [NSArray arrayWithObjects:@"NTSC",@"PAL", nil];
-                ntscOrpalL = [[UILabel alloc] init];
-                ntscOrpalL.frame = CGRectMake(240, 7, 50, 30);
-                self.ntscOrpalIndex = [[cameraInfoDict objectForKey:@"iNTSCPAL"] integerValue];
-                
-                ntscOrpalL.text = [arr objectAtIndex:self.ntscOrpalIndex];
-                ntscOrpalL.textColor = [UIColor grayColor];
-                [cell addSubview:ntscOrpalL];
-            }
-                break;
-            case 9:
-            {
-                cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                
-                NSArray *arr = [NSArray arrayWithObjects:@"1080",@"720",@"4CIF",@"640*480",@"352*288", nil];
-                imageResolutionL = [[UILabel alloc] init];
-                imageResolutionL.frame = CGRectMake(200, 7, 80, 30);
-                [cell addSubview:imageResolutionL];
-                self.imageResolutionIndex = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
-                
-                imageResolutionL.text = [arr objectAtIndex:self.imageResolutionIndex-1];
-                imageResolutionL.textAlignment = NSTextAlignmentRight;
-                imageResolutionL.textColor = [UIColor grayColor];
-            }
-                break;
-                
-            case 10:
-            {
-                cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                
-                NSArray *arr = [NSArray arrayWithObjects:@"睡眠",@"唤醒",@"关闭", nil];
-                cameraControlL = [[UILabel alloc] init];
-                cameraControlL.frame = CGRectMake(240, 7, 50, 30);
-                [cell addSubview:cameraControlL];
-                self.controlONOrOFFIndex = [[cameraInfoDict objectForKey:@"iDeviceControl"] integerValue];
-                
-                cameraControlL.text = [arr objectAtIndex:self.controlONOrOFFIndex];
-                cameraControlL.textColor = [UIColor grayColor];
-            }
-                break;
-            case 11:
-            {
-                cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                NSArray *arr = [NSArray arrayWithObjects:@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",nil];
-                sensitivityL = [[UILabel alloc] init];
-                sensitivityL.frame = CGRectMake(260, 7, 20, 30);
-                self.sensitivityIndex = [[cameraInfoDict objectForKey:@"iObjDetectLevel"] integerValue];
-                
-                sensitivityL.text = [arr objectAtIndex:self.sensitivityIndex];
-                sensitivityL.textColor = [UIColor grayColor];
-                [cell addSubview:sensitivityL];
-                
-            }
-                break;
-            case 12:
-            {
-                UISwitch *timeHidden = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
-                [cell addSubview:timeHidden];
-                self.timeShowIndex = [[cameraInfoDict objectForKey:@"iEnableOSDTime"] integerValue];
-                timeHidden.on = self.timeShowIndex;
-                [timeHidden addTarget:self action:@selector(timeHiddenEventAction:) forControlEvents:UIControlEventTouchUpInside];
-            }
-                break;
-                
-            case 13:
-            {
-                cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                deviceIDL = [[UILabel alloc] initWithFrame:CGRectMake(130, 10, 160, 24)];
-                //            self.deviceid = [[cameraInfoDict objectForKey:@"i64DeviceId"] integerValue];
-                
-                deviceIDL.text = self.deviceid;
-                deviceIDL.textAlignment = NSTextAlignmentRight;
-                deviceIDL.textColor = [UIColor grayColor];
-                [cell addSubview:deviceIDL];
-            }
-                break;
-            case 14:
-            {
-                //修改设备名称
-                cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                deviceNameL = [[UILabel alloc] initWithFrame:CGRectMake(160, 10, 130, 24)];
-                deviceNameL.text = self.deviceDesc;
-                deviceNameL.textAlignment = NSTextAlignmentRight;
-                deviceNameL.textColor = [UIColor grayColor];
-                [cell addSubview:deviceNameL];
-            }
-                break;
-            case 15:
-            {
-                UIButton *setFinish = [UIButton buttonWithType:UIButtonTypeCustom];
-                [setFinish setTitle:@"完成设置" forState:UIControlStateNormal];
-                setFinish.frame = CGRectMake(80, 3, 160, 40);
-                [setFinish setBackgroundImage:[UIImage imageNamed:@"kaishipeizhi_anniu@2x"] forState:UIControlStateNormal];
-                //            setFinish.backgroundColor = [UIColor blueColor];
-                [cell addSubview:setFinish];
-                [setFinish addTarget:self action:@selector(setFinishAction:) forControlEvents:UIControlEventTouchUpInside];
-                //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            }
-                break;
-            case 16:
-            {
-                UIButton *loggout = [UIButton buttonWithType:UIButtonTypeCustom];
-                [loggout setTitle:@"注销设备" forState:UIControlStateNormal];
-                loggout.frame = CGRectMake(80, 3, 160, 40);
-                [loggout setBackgroundImage:[UIImage imageNamed:@"kaishipeizhi_anniu@2x"] forState:UIControlStateNormal];
-                //            loggout.backgroundColor = [UIColor blueColor];
-                [cell addSubview:loggout];
-                [loggout addTarget:self action:@selector(LoginOutAction:) forControlEvents:UIControlEventTouchUpInside];
-                //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                
-            }
-                break;
-            default:
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                break;
+
+    }
+    switch (indexPath.row) {
+        case 0:
+        {
+            //事件通知
+            UISwitch *offON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
+            [cell addSubview:offON];
+            [offON addTarget:self action:@selector(enaleEventAction:) forControlEvents:UIControlEventTouchUpInside];
+            self.EnableEventIndex = [[cameraInfoDict objectForKey:@"iEnableEvent"] integerValue];
+            offON.on = self.EnableEventIndex;
         }
+            break;
+        case 1:
+        {
+            //音频开关
+            UISwitch *AudiooffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
+            [cell addSubview:AudiooffON];
+            self.audioIndex = [[cameraInfoDict objectForKey:@"iEnableAudioIn"] integerValue];
+            AudiooffON.on = self.audioIndex;
+            [AudiooffON addTarget:self action:@selector(AudioEventAction:) forControlEvents:UIControlEventTouchUpInside];
+        }
+            break;
+        case 2:
+        {
+            //视频开关
+            UISwitch *videooffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
+            [cell addSubview:videooffON];
+            //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            self.videoRecordIndex = [[cameraInfoDict objectForKey:@"iEnableRecord"] integerValue];
+            videooffON.on = self.videoRecordIndex;
+            [videooffON addTarget:self action:@selector(VideoEventAction:) forControlEvents:UIControlEventTouchUpInside];
+        }
+            break;
+        case 3:
+        {
+            //画面是否旋转
+            UISwitch *flipImageoffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
+            [cell addSubview:flipImageoffON];
+            self.flipImageIndex = [[cameraInfoDict objectForKey:@"iFlipImage"] integerValue];
+            flipImageoffON.on = self.flipImageIndex;
+            [flipImageoffON addTarget:self action:@selector(flipImageoffONEventAction:) forControlEvents:UIControlEventTouchUpInside];
+            
+        }
+            break;
+        case 4:
+        {
+            //户外室内
+            UISwitch *outdoorOrindoor = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
+            [cell addSubview:outdoorOrindoor];
+            self.screneIndex = [[cameraInfoDict objectForKey:@"iScene"] integerValue];
+            
+            outdoorOrindoor.on = self.screneIndex;
+            [outdoorOrindoor addTarget:self action:@selector(outdoorOrindoorEventAction:) forControlEvents:UIControlEventTouchUpInside];
+        }
+            break;
+        case 5:
+        {
+            //拍摄模式
+            //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            NSArray *arr = [NSArray arrayWithObjects:@"自动",@"白天",@"夜间", nil];
+            scenceModeL = [[UILabel alloc] init];
+            scenceModeL.frame = CGRectMake(250, 7, 40, 30);
+            [cell addSubview:scenceModeL];
+            self.lightFilterModeIndex = [[cameraInfoDict objectForKey:@"iLightFilterMode"] integerValue];
+            scenceModeL.text = [arr objectAtIndex:self.lightFilterModeIndex];
+            scenceModeL.textColor = [UIColor grayColor];
+        }
+            break;
+        case 6:
+        {
+            //状态指示灯
+            UISwitch *stateLightoffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
+            [cell addSubview:stateLightoffON];
+            self.lightStatueIndex = [[cameraInfoDict objectForKey:@"iEnableDeviceStatusLed"] integerValue];
+            
+            stateLightoffON.on = self.lightStatueIndex;
+            [stateLightoffON addTarget:self action:@selector(stateLightEventAction:) forControlEvents:UIControlEventTouchUpInside];
+        }
+            break;
+        case 7:
+        {
+            //码流
+            codeStream = [UIButton buttonWithType:UIButtonTypeCustom];
+            self.streamBitrateIndex = [[cameraInfoDict objectForKey:@"iStreamBitrate"] integerValue];
+            
+            [codeStream setTitle:[NSString stringWithFormat:@"%dkb/s",self.streamBitrateIndex] forState:UIControlStateNormal];
+            codeStream.frame = CGRectMake(220, 5, 100, 34);
+            [codeStream setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [cell addSubview:codeStream];
+            [codeStream addTarget:self action:@selector(codeStreamAction:) forControlEvents:UIControlEventTouchUpInside];
+        }
+            break;
+        case 8:
+        {
+            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            NSArray *arr = [NSArray arrayWithObjects:@"NTSC",@"PAL", nil];
+            ntscOrpalL = [[UILabel alloc] init];
+            ntscOrpalL.frame = CGRectMake(240, 7, 50, 30);
+            self.ntscOrpalIndex = [[cameraInfoDict objectForKey:@"iNTSCPAL"] integerValue];
+            
+            ntscOrpalL.text = [arr objectAtIndex:self.ntscOrpalIndex-1];
+            ntscOrpalL.textColor = [UIColor grayColor];
+            [cell addSubview:ntscOrpalL];
+        }
+            break;
+        case 9:
+        {
+            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            NSArray *arr = [NSArray arrayWithObjects:@"1080",@"720",@"4CIF",@"640*480",@"352*288", nil];
+            imageResolutionL = [[UILabel alloc] init];
+            imageResolutionL.frame = CGRectMake(200, 7, 80, 30);
+            [cell addSubview:imageResolutionL];
+            self.imageResolutionIndex = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
+            
+            imageResolutionL.text = [arr objectAtIndex:self.imageResolutionIndex-1];
+            imageResolutionL.textAlignment = NSTextAlignmentRight;
+            imageResolutionL.textColor = [UIColor grayColor];
+        }
+            break;
+            
+        case 10:
+        {
+            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            NSArray *arr = [NSArray arrayWithObjects:@"睡眠",@"唤醒",@"关闭", nil];
+            cameraControlL = [[UILabel alloc] init];
+            cameraControlL.frame = CGRectMake(240, 7, 50, 30);
+            [cell addSubview:cameraControlL];
+            //                self.controlONOrOFFIndex = [[cameraInfoDict objectForKey:@"iDeviceControl"] integerValue];
+            //这里未收到信息
+            cameraControlL.text = [arr objectAtIndex:self.controlONOrOFFIndex-1];
+            cameraControlL.textColor = [UIColor grayColor];
+        }
+            break;
+        case 11:
+        {
+            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            NSArray *arr = [NSArray arrayWithObjects:@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",nil];
+            sensitivityL = [[UILabel alloc] init];
+            sensitivityL.frame = CGRectMake(260, 7, 20, 30);
+            self.sensitivityIndex = [[cameraInfoDict objectForKey:@"iObjDetectLevel"] integerValue];
+            
+            sensitivityL.text = [arr objectAtIndex:self.sensitivityIndex];
+            sensitivityL.textColor = [UIColor grayColor];
+            [cell addSubview:sensitivityL];
+            
+        }
+            break;
+        case 12:
+        {
+            UISwitch *timeHidden = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
+            [cell addSubview:timeHidden];
+            self.timeShowIndex = [[cameraInfoDict objectForKey:@"iEnableOSDTime"] integerValue];
+            timeHidden.on = self.timeShowIndex;
+            [timeHidden addTarget:self action:@selector(timeHiddenEventAction:) forControlEvents:UIControlEventTouchUpInside];
+        }
+            break;
+            
+        case 13:
+        {
+            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            deviceIDL = [[UILabel alloc] initWithFrame:CGRectMake(130, 10, 160, 24)];
+            //            self.deviceid = [[cameraInfoDict objectForKey:@"i64DeviceId"] integerValue];
+            
+            deviceIDL.text = self.deviceid;
+            deviceIDL.textAlignment = NSTextAlignmentRight;
+            deviceIDL.textColor = [UIColor grayColor];
+            [cell addSubview:deviceIDL];
+        }
+            break;
+        case 14:
+        {
+            //修改设备名称
+            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            deviceNameL = [[UILabel alloc] initWithFrame:CGRectMake(160, 10, 130, 24)];
+            deviceNameL.text = self.deviceDesc;
+            deviceNameL.textAlignment = NSTextAlignmentRight;
+            deviceNameL.textColor = [UIColor grayColor];
+            [cell addSubview:deviceNameL];
+        }
+            break;
+        case 15:
+        {
+            UIButton *setFinish = [UIButton buttonWithType:UIButtonTypeCustom];
+            [setFinish setTitle:@"完成设置" forState:UIControlStateNormal];
+            setFinish.frame = CGRectMake(80, 3, 160, 40);
+            [setFinish setBackgroundImage:[UIImage imageNamed:@"kaishipeizhi_anniu@2x"] forState:UIControlStateNormal];
+            //            setFinish.backgroundColor = [UIColor blueColor];
+            [cell addSubview:setFinish];
+            [setFinish addTarget:self action:@selector(setFinishAction:) forControlEvents:UIControlEventTouchUpInside];
+            //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+            break;
+        case 16:
+        {
+            UIButton *loggout = [UIButton buttonWithType:UIButtonTypeCustom];
+            [loggout setTitle:@"注销设备" forState:UIControlStateNormal];
+            loggout.frame = CGRectMake(80, 3, 160, 40);
+            [loggout setBackgroundImage:[UIImage imageNamed:@"kaishipeizhi_anniu@2x"] forState:UIControlStateNormal];
+            //            loggout.backgroundColor = [UIColor blueColor];
+            [cell addSubview:loggout];
+            [loggout addTarget:self action:@selector(LoginOutAction:) forControlEvents:UIControlEventTouchUpInside];
+            //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+        }
+            break;
+        default:
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            break;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
