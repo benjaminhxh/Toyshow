@@ -144,8 +144,10 @@
             [self.titleText addSubview:loginOrOutL];
             if ([self checkAccessTokenIsExist]) {
                 loginOrOutL.text = @"退出";
+            }else
+            {
+                loginOrOutL.text = @"登陆";
             }
-            loginOrOutL.text = @"登陆";
         }
     }
     return cell;

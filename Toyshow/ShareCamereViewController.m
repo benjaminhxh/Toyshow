@@ -644,36 +644,36 @@
 }
 
 #pragma mark - ActionsheetDelegate
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch (buttonIndex) {
-        case 0:
-        {
-            NSLog(@"公共分享");//
-            publicView = [[UIAlertView alloc] initWithTitle:@"确定要将该摄像头公共分享吗？" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-            [publicView show];
-        }
-            break;
-        case 1:
-        {
-//            NSLog(@"私密分享");
-            NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=%@&deviceid=%@&share=2",self.accecc_token,self.deviceId];//share=2为加密分享
-            NSURL *shareURL = [NSURL URLWithString:url];
-            //            [NSURL URLWithString:@"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4"];
-            activity = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
-            NSArray *shareArr = [NSArray arrayWithObjects:@"中和讯飞-乐现",@"hxh乐现是由北京中和讯飞开发的一款家居类APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，看你所看。", [UIImage imageNamed:@"icon_session"], shareURL,nil];
-            UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:shareArr applicationActivities:activity];
-            activityView.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypePrint,UIActivityTypeSaveToCameraRoll,UIActivityTypeMail];
-            [self presentViewController:activityView animated:YES completion:nil];
-        }
-            break;
-        case 2:
-            
-            break;
-        default:
-            break;
-    }
-}
+//- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    switch (buttonIndex) {
+//        case 0:
+//        {
+//            NSLog(@"公共分享");//
+//            publicView = [[UIAlertView alloc] initWithTitle:@"确定要将该摄像头公共分享吗？" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+//            [publicView show];
+//        }
+//            break;
+//        case 1:
+//        {
+////            NSLog(@"私密分享");
+//            NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=%@&deviceid=%@&share=2",self.accecc_token,self.deviceId];//share=2为加密分享
+//            NSURL *shareURL = [NSURL URLWithString:url];
+//            //            [NSURL URLWithString:@"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4"];
+//            activity = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
+//            NSArray *shareArr = [NSArray arrayWithObjects:@"中和讯飞-乐现",@"hxh乐现是由北京中和讯飞开发的一款家居类APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，看你所看。", [UIImage imageNamed:@"icon_session"], shareURL,nil];
+//            UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:shareArr applicationActivities:activity];
+//            activityView.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypePrint,UIActivityTypeSaveToCameraRoll,UIActivityTypeMail];
+//            [self presentViewController:activityView animated:YES completion:nil];
+//        }
+//            break;
+//        case 2:
+//            
+//            break;
+//        default:
+//            break;
+//    }
+//}
 
 #pragma mark - alertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -682,48 +682,61 @@
         if (buttonIndex) {
             NSLog(@"公共分享alertView");
             //https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=123456&access_token=52.68c5177d0382475c0162e3aa5b3d5a22.2592000.1403763927.1812238483-2271149&device_type=1&desc=hello
-            NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=%@&deviceid=%@&share=1",self.accecc_token,self.deviceId];//share=1为公共分享
-            
-            [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSDictionary *dict = (NSDictionary *)responseObject;
-                NSLog(@"dict:%@",dict);
-                NSString *shareid = [dict objectForKey:@"shareid"];
-                NSLog(@"shareid:%@",shareid);
-                self.shareStaue = YES;
-                [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelwei@2x"] forState:UIControlStateNormal];
-                [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelzhong@2x"] forState:UIControlStateHighlighted];
-                UIAlertView *successView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [successView show];
-                //{“shareid”:SHARE_ID, “uk”:UK, “request_id”:12345678}
-                /*
-                 {
-                 "request_id" = 2869117991;
-                 share = 1;
-                 shareid = 39337debf90f3edfc3374ccfca12fbcb;
-                 2 = 474433575;
-                 }
-                 */
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"error:%@",[error userInfo]);
-                UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"分享失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [failView show];
-            }];
+            [self publicShareCamera];
         }
     }else{
-            NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=cancelshare&access_token=%@&deviceid=%@",self.accecc_token,self.deviceId];
-            [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                UIAlertView *successView = [[UIAlertView alloc] initWithTitle:@"已成功取消分享" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [successView show];
-                [shareBtn setImage:[UIImage imageNamed:@"fenxiang_wei@2x"] forState:UIControlStateNormal];
-                [shareBtn setImage:[UIImage imageNamed:@"fenxiang_zhong@2x"] forState:UIControlStateHighlighted];
-                
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"error:%@",[error userInfo]);
-                UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"取消分享失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [failView show];
-                
-            }];
+        //取消分享
+            [self cancelShareCamera];
         }
+}
+
+#pragma mark - 公共分享
+- (void)publicShareCamera
+{
+    NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=%@&deviceid=%@&share=1",self.accecc_token,self.deviceId];//share=1为公共分享
+    
+    [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        NSLog(@"dict:%@",dict);
+        NSString *shareid = [dict objectForKey:@"shareid"];
+        NSLog(@"shareid:%@",shareid);
+        self.shareStaue = YES;
+        [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelwei@2x"] forState:UIControlStateNormal];
+        [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelzhong@2x"] forState:UIControlStateHighlighted];
+        UIAlertView *successView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [successView show];
+        //{“shareid”:SHARE_ID, “uk”:UK, “request_id”:12345678}
+        /*
+         {
+         "request_id" = 2869117991;
+         share = 1;
+         shareid = 39337debf90f3edfc3374ccfca12fbcb;
+         2 = 474433575;
+         }
+         */
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error:%@",[error userInfo]);
+        UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"分享失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [failView show];
+    }];
+}
+
+#pragma mark - 取消分享
+- (void)cancelShareCamera
+{
+    NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=cancelshare&access_token=%@&deviceid=%@",self.accecc_token,self.deviceId];
+    [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        UIAlertView *successView = [[UIAlertView alloc] initWithTitle:@"已成功取消分享" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [successView show];
+        [shareBtn setImage:[UIImage imageNamed:@"fenxiang_wei@2x"] forState:UIControlStateNormal];
+        [shareBtn setImage:[UIImage imageNamed:@"fenxiang_zhong@2x"] forState:UIControlStateHighlighted];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error:%@",[error userInfo]);
+        UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"取消分享失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [failView show];
+        
+    }];
 }
 - (void)didReceiveMemoryWarning
 {
