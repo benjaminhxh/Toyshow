@@ -141,6 +141,11 @@
 		27642A2D18FD355B00198E29 /* setanniu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27642A2C18FD355B00198E29 /* setanniu@2x.png */; };
 		27642A2F18FD35F500198E29 /* setanniuzhong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27642A2E18FD35F500198E29 /* setanniuzhong@2x.png */; };
 		2769146C18C81F4300B24469 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2769146B18C81F4300B24469 /* CFNetwork.framework */; };
+		276CCD9F197625B900D970D2 /* DeviceInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276CCD9E197625B900D970D2 /* DeviceInfoViewController.m */; };
+		276CCDA21976305E00D970D2 /* DeviceStatueControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276CCDA11976305E00D970D2 /* DeviceStatueControlViewController.m */; };
+		276CCDA51976545300D970D2 /* EventNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276CCDA41976545300D970D2 /* EventNotificationViewController.m */; };
+		276CCDA81976572900D970D2 /* AudioVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276CCDA71976572900D970D2 /* AudioVideoViewController.m */; };
+		276CCDAB1976573E00D970D2 /* NightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276CCDAA1976573E00D970D2 /* NightViewController.m */; };
 		2777606F18FB74BD000A5F83 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777604B18FB74BD000A5F83 /* AFHTTPRequestOperation.m */; };
 		2777607018FB74BD000A5F83 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777604D18FB74BD000A5F83 /* AFHTTPRequestOperationManager.m */; };
 		2777607118FB74BD000A5F83 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777604F18FB74BD000A5F83 /* AFHTTPSessionManager.m */; };
@@ -415,6 +420,16 @@
 		27642A2C18FD355B00198E29 /* setanniu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setanniu@2x.png"; sourceTree = "<group>"; };
 		27642A2E18FD35F500198E29 /* setanniuzhong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setanniuzhong@2x.png"; sourceTree = "<group>"; };
 		2769146B18C81F4300B24469 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		276CCD9D197625B800D970D2 /* DeviceInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceInfoViewController.h; sourceTree = "<group>"; };
+		276CCD9E197625B900D970D2 /* DeviceInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceInfoViewController.m; sourceTree = "<group>"; };
+		276CCDA01976305E00D970D2 /* DeviceStatueControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceStatueControlViewController.h; sourceTree = "<group>"; };
+		276CCDA11976305E00D970D2 /* DeviceStatueControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceStatueControlViewController.m; sourceTree = "<group>"; };
+		276CCDA31976545300D970D2 /* EventNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventNotificationViewController.h; sourceTree = "<group>"; };
+		276CCDA41976545300D970D2 /* EventNotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventNotificationViewController.m; sourceTree = "<group>"; };
+		276CCDA61976572900D970D2 /* AudioVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioVideoViewController.h; sourceTree = "<group>"; };
+		276CCDA71976572900D970D2 /* AudioVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioVideoViewController.m; sourceTree = "<group>"; };
+		276CCDA91976573E00D970D2 /* NightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NightViewController.h; sourceTree = "<group>"; };
+		276CCDAA1976573E00D970D2 /* NightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NightViewController.m; sourceTree = "<group>"; };
 		2777604A18FB74BD000A5F83 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		2777604B18FB74BD000A5F83 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		2777604C18FB74BD000A5F83 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -930,8 +945,18 @@
 				279968481950440E00D9C6DD /* DeviceControlViewController.m */,
 				279968491950440E00D9C6DD /* SensitivityViewController.h */,
 				2799684A1950440E00D9C6DD /* SensitivityViewController.m */,
+				276CCDA61976572900D970D2 /* AudioVideoViewController.h */,
+				276CCDA71976572900D970D2 /* AudioVideoViewController.m */,
+				276CCDA91976573E00D970D2 /* NightViewController.h */,
+				276CCDAA1976573E00D970D2 /* NightViewController.m */,
+				276CCDA31976545300D970D2 /* EventNotificationViewController.h */,
+				276CCDA41976545300D970D2 /* EventNotificationViewController.m */,
+				276CCDA01976305E00D970D2 /* DeviceStatueControlViewController.h */,
+				276CCDA11976305E00D970D2 /* DeviceStatueControlViewController.m */,
 				27642A1D18FCD0C000198E29 /* ModifyViewController.h */,
 				27642A1E18FCD0C000198E29 /* ModifyViewController.m */,
+				276CCD9D197625B800D970D2 /* DeviceInfoViewController.h */,
+				276CCD9E197625B900D970D2 /* DeviceInfoViewController.m */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -1358,6 +1383,7 @@
 			files = (
 				271BB90318CDDED9000DFC4A /* qrencode.c in Sources */,
 				272C415918ED07AD00432D5D /* AsyncUdpSocket.m in Sources */,
+				276CCDA21976305E00D970D2 /* DeviceStatueControlViewController.m in Sources */,
 				2799684B1950440E00D9C6DD /* SceneModeViewController.m in Sources */,
 				27F0A43E192C984400D02A79 /* HowToUseViewController.m in Sources */,
 				271BB90218CDDED9000DFC4A /* QRCodeGenerator.m in Sources */,
@@ -1375,6 +1401,7 @@
 				2777607718FB74BD000A5F83 /* AFURLSessionManager.m in Sources */,
 				271BB90018CDDED9000DFC4A /* bitstream.c in Sources */,
 				2777607018FB74BD000A5F83 /* AFHTTPRequestOperationManager.m in Sources */,
+				276CCDA51976545300D970D2 /* EventNotificationViewController.m in Sources */,
 				27966A0E18E2EB1A0076423C /* MJRefreshBaseView.m in Sources */,
 				2799684F1950440E00D9C6DD /* SensitivityViewController.m in Sources */,
 				271BB90118CDDED9000DFC4A /* mask.c in Sources */,
@@ -1388,12 +1415,14 @@
 				2777607D18FB74BD000A5F83 /* UIProgressView+AFNetworking.m in Sources */,
 				2720DEAC18FFE33200DB494A /* Reachability1.m in Sources */,
 				271BB90718CDDED9000DFC4A /* split.c in Sources */,
+				276CCD9F197625B900D970D2 /* DeviceInfoViewController.m in Sources */,
 				2703E51818D97EA500E31DF0 /* SliderViewController.m in Sources */,
 				2703E51518D97E8C00E31DF0 /* RightViewController.m in Sources */,
 				2777607318FB74BD000A5F83 /* AFSecurityPolicy.m in Sources */,
 				2703E51118D97E8C00E31DF0 /* MainViewController.m in Sources */,
 				2777607918FB74BD000A5F83 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				270C941618C732B900BE56C8 /* AddDeviceViewController.m in Sources */,
+				276CCDAB1976573E00D970D2 /* NightViewController.m in Sources */,
 				2713684A18BF3659006CF446 /* SiderCell.m in Sources */,
 				271BB90618CDDED9000DFC4A /* rscode.c in Sources */,
 				27FFE29518BF287B00AE47FF /* HXHAppDelegate.m in Sources */,
@@ -1408,6 +1437,7 @@
 				271BB91218CDDFC3000DFC4A /* iCarousel.m in Sources */,
 				274F50E8195D8AE500114416 /* WeixinTimelineActivity.m in Sources */,
 				271BB90418CDDED9000DFC4A /* qrinput.c in Sources */,
+				276CCDA81976572900D970D2 /* AudioVideoViewController.m in Sources */,
 				274662D018C03F0A004C8DD4 /* JSONKit.m in Sources */,
 				2777607118FB74BD000A5F83 /* AFHTTPSessionManager.m in Sources */,
 				27966A1018E2EB1A0076423C /* MJRefreshFooterView.m in Sources */,

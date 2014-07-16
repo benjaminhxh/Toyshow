@@ -59,7 +59,6 @@
 
     UIButton *modifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     modifyBtn.frame = CGRectMake(90, 160, 140, 40);
-//    modifyBtn.enabled = NO;//按钮不可点击
     [modifyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [modifyBtn setTitle:@"修改设备名称" forState:UIControlStateNormal];
     [modifyBtn setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
@@ -79,6 +78,7 @@
         [view show];
         return;
     }
+    [self.view endEditing:YES];
     [self isLoadingView];
     //UTF8编码，上传服务器修改设备名
 //    NSString *modifyT = [[NSString alloc] initWithUTF8String:[modifyText.text UTF8String]];

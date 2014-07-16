@@ -77,18 +77,13 @@
 {
     
     [super viewDidLoad];
-    NSArray *arr = [NSArray arrayWithObjects:@"hello",@"hi",@"iOS", nil];
-    NSLog(@"arr:%@",arr);
-    NSString *arrString = [arr JSONString];
-    NSLog(@"arrString:%@",arrString);
-    
     //先拼接再MD5加密
     NSString *string = [NSString stringWithFormat:@"%@%@%@%@",APP_ID,expire,APP_KEY,APP_SecrectKey];
     realSign = [self getMd5_32Bit_String:string];
     NSLog(@"md5String:%@",realSign);
     //再拼接
     sign = [NSString stringWithFormat:@"%@-%@-%@",APP_ID,APP_KEY,realSign];
-    NSLog(@"sign:%@",sign);
+//    NSLog(@"sign:%@",sign);
     //       ([UIScreen currentScreenSizeWithInterfaceOrientation:UIInterfaceOrientationPortrait].height > 480)
     [self shouldAutorotate];
     UIImageView *imgV=[[UIImageView alloc] initWithFrame:self.view.bounds];

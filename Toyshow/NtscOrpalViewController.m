@@ -7,7 +7,6 @@
 //
 
 #import "NtscOrpalViewController.h"
-#import "SliderViewController.h"
 
 @interface NtscOrpalViewController ()
 {

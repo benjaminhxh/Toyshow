@@ -100,13 +100,6 @@
     [self addFooter];
 }
 
-- (NSDateFormatter *)dateFormateAlltime
-{
-    NSDateFormatter *dateFormate = [[NSDateFormatter alloc] init];
-    [dateFormate setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    return dateFormate;
-}
-
 - (NSDate *)dateFrom:(NSDate *)datenow
 {
     NSTimeZone *zone = [NSTimeZone localTimeZone];

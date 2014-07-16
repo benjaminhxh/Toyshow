@@ -14,5 +14,9 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import "VarHeader.h"
+    #import "SliderViewController.h"
+    #import "AFNetworking.h"
+    #import "MBProgressHUD.h"
+    #import "JSONKit.h"
 
 #endif
