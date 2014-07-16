@@ -97,10 +97,12 @@
     }else
     {
         self.userNameL.text = [[NSUserDefaults standardUserDefaults] stringForKey:kUserName];
-        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] stringForKey:kUserHeadURL]]];
-        UIImage *userImage = [UIImage imageWithData:data];
+//        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] stringForKey:kUserHeadURL]]];
+//        UIImage *userImage = [UIImage imageWithData:data];
         self.userImageVIew.clipsToBounds = YES;
-        self.userImageVIew.image = [self scaleToSize:userImage size:self.userImageVIew.frame.size];
+        NSData *imageData = [[NSUserDefaults standardUserDefaults] objectForKey:kUserHeadImage];
+        self.userImageVIew.image = [UIImage imageWithData:imageData];
+        self.userImageVIew.image = [self scaleToSize:self.userImageVIew.image size:self.userImageVIew.frame.size];
         self.accessToken = [[NSUserDefaults standardUserDefaults]stringForKey:kUserAccessToken];
     }
 	// Do any additional setup after loading the view.
@@ -365,7 +367,6 @@
             [[NSUserDefaults standardUserDefaults] setObject:result.accessToken forKey:kUserAccessToken];
             [[NSUserDefaults standardUserDefaults] synchronize];
             self.accessToken = result.accessToken;
-//            self.titleText.text = @"退出登录";
             NSLog(@"授权成功的accessToken：%@",result.accessToken);//有
             //设置授权成功的账户为当前使用者账户
             self.userNameL.text = result.accountName;
@@ -397,12 +398,15 @@
             NSLog(@"get user detail info success with userName: %@ ----headURL：%@", result.accountName,result.headUrl);
             NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:result.headUrl]];
             UIImage *userImage = [UIImage imageWithData:data];
-            [[NSUserDefaults standardUserDefaults] setValue:result.headUrl forKey:kUserHeadURL];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+//            [[NSUserDefaults standardUserDefaults] setValue:result.headUrl forKey:kUserHeadURL];
 //            [self.userImageVIew setImageWithURL:[NSURL URLWithString:result.headUrl]];
             self.userImageVIew.clipsToBounds = YES;
             self.userImageVIew.image = [self scaleToSize:userImage size:self.userImageVIew.frame.size];
             self.userImageVIew.layer.cornerRadius = self.userImageVIew.bounds.size.width/2;
+            [[NSUserDefaults standardUserDefaults] setObject:data forKey:kUserHeadImage];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+
             loginOrOutL.text = @"退出";
 //            self.userNameL.text = result.accountName;
 //            self.titleText.text = @"退出登录";

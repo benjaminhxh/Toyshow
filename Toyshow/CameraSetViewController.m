@@ -32,7 +32,7 @@
     NSDictionary *cameraInfoDict;
     int count;
     UITableView *_tableView;
-    
+    UISwitch *videooffON,*stateLightoffON,*timeHidden;
 }
 @end
 
@@ -143,7 +143,7 @@
 //            offON.on = self.EnableEventIndex;
             
             //录像开关
-            UISwitch *videooffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
+            videooffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
             [cell addSubview:videooffON];
             //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             self.videoRecordIndex = [[cameraInfoDict objectForKey:@"iEnableRecord"] integerValue];
@@ -161,7 +161,7 @@
 //            AudiooffON.on = self.audioIndex;
 //            [AudiooffON addTarget:self action:@selector(AudioEventAction:) forControlEvents:UIControlEventTouchUpInside];
             //状态指示灯
-            UISwitch *stateLightoffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
+            stateLightoffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
             [cell addSubview:stateLightoffON];
             self.lightStatueIndex = [[cameraInfoDict objectForKey:@"iEnableDeviceStatusLed"] integerValue];
             
@@ -174,7 +174,7 @@
         case 5:
         {
             
-            UISwitch *timeHidden = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
+            timeHidden = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
             [cell addSubview:timeHidden];
             self.timeShowIndex = [[cameraInfoDict objectForKey:@"iEnableOSDTime"] integerValue];
             timeHidden.on = self.timeShowIndex;
@@ -488,162 +488,217 @@
 }
 
 #pragma mark - setMethod
-- (void)enaleEventAction:(id)sender
-{
-    UISwitch *offswitch = (UISwitch *)sender;
-    NSLog(@"offswtich.on:%d",offswitch.on);
-    if (offswitch.on) {
-        NSLog(@"打开的");
-        self.EnableEventIndex = 1;
-    }
-    else
-    {
-        self.EnableEventIndex = 0;
-        NSLog(@"关闭的");
-    }
-}
+//- (void)enaleEventAction:(id)sender
+//{
+//    UISwitch *offswitch = (UISwitch *)sender;
+//    NSLog(@"offswtich.on:%d",offswitch.on);
+//    if (offswitch.on) {
+//        NSLog(@"打开的");
+//        self.EnableEventIndex = 1;
+//    }
+//    else
+//    {
+//        self.EnableEventIndex = 0;
+//        NSLog(@"关闭的");
+//    }
+//}
 //音频是否打开
-- (void)AudioEventAction:(id)sender
-{
-    UISwitch *offswitch = (UISwitch *)sender;
-    NSLog(@"offswtich.on:%d",offswitch.on);
-    if (offswitch.on) {
-        NSLog(@"打开的音频");
-        self.audioIndex = 1;
-    }
-    else
-    {
-        NSLog(@"关闭的");
-        self.audioIndex = 0;
-    }
-}
+//- (void)AudioEventAction:(id)sender
+//{
+//    UISwitch *offswitch = (UISwitch *)sender;
+//    NSLog(@"offswtich.on:%d",offswitch.on);
+//    if (offswitch.on) {
+//        NSLog(@"打开的音频");
+//        self.audioIndex = 1;
+//    }
+//    else
+//    {
+//        NSLog(@"关闭的");
+//        self.audioIndex = 0;
+//    }
+//}
 //视频录制是否打开
 - (void)VideoEventAction:(id)sender
 {
-    UISwitch *offswitch = (UISwitch *)sender;
-    if (offswitch.on) {
-        NSLog(@"打开的视频");
-        self.videoRecordIndex = 1;
-    }
-    else
-    {
-        NSLog(@"关闭的");
-        self.videoRecordIndex = 0;
-    }
-}
-//画面是否旋转
-- (void)flipImageoffONEventAction:(id)sender
-{
-    UISwitch *offswitch = (UISwitch *)sender;
-    if (offswitch.on) {
-        NSLog(@"打开的");
-        self.flipImageIndex = 1;
-    }
-    else
-    {
-        NSLog(@"关闭的");
-        self.flipImageIndex = 0;
-    }
-}
+//    UISwitch *offswitch = (UISwitch *)sender;
+//    if (offswitch.on) {
+//        NSLog(@"打开的视频");
+//        self.videoRecordIndex = 1;
+//    }
+//    else
+//    {
+//        NSLog(@"关闭的");
+//        self.videoRecordIndex = 0;
+//    }
+    self.videoRecordIndex = videooffON.on;
 
-//室内室外
-- (void)outdoorOrindoorEventAction:(id)sender
-{
-    UISwitch *outdoorOrindoor = (UISwitch *)sender;
-    if (outdoorOrindoor.on) {
-        self.screneIndex = 1;
+    NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                       [NSNumber numberWithInteger:self.videoRecordIndex],@"iEnableRecord",nil];
+    NSString *setCameraDataString = [setCameraDataDict JSONString];
+    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+    NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
+    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSDictionary *dict = (NSDictionary*)responseObject;
+        NSLog(@"dict:%@",dict);
+        videooffON.on = self.videoRecordIndex;
+        _loginoutView.hidden = YES;
+        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
         
-    }else
-    {
-        self.screneIndex = 0;
-    }
-    NSLog(@"室内室外");
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        videooffON.on = !self.videoRecordIndex;
+        _loginoutView.hidden = YES;
+        [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
+    }];
 }
+////画面是否旋转
+//- (void)flipImageoffONEventAction:(id)sender
+//{
+//    UISwitch *offswitch = (UISwitch *)sender;
+//    if (offswitch.on) {
+//        NSLog(@"打开的");
+//        self.flipImageIndex = 1;
+//    }
+//    else
+//    {
+//        NSLog(@"关闭的");
+//        self.flipImageIndex = 0;
+//    }
+//}
 
-//状态指示灯
+////室内室外
+//- (void)outdoorOrindoorEventAction:(id)sender
+//{
+//    UISwitch *outdoorOrindoor = (UISwitch *)sender;
+//    if (outdoorOrindoor.on) {
+//        self.screneIndex = 1;
+//        
+//    }else
+//    {
+//        self.screneIndex = 0;
+//    }
+//    NSLog(@"室内室外");
+//}
+
+//设备状态指示灯
 - (void)stateLightEventAction:(id)sender
 {
     NSLog(@"状态指示灯");
-    UISwitch *offswitch = (UISwitch *)sender;
-    if (offswitch.on) {
-        self.lightStatueIndex = 1;
-    }
-    else
-    {
-        self.lightStatueIndex = 0;
-    }
+//    UISwitch *offswitch = (UISwitch *)sender;
+//    if (offswitch.on) {
+//        self.lightStatueIndex = 1;
+//    }
+//    else
+//    {
+//        self.lightStatueIndex = 0;
+//    }
+    self.lightStatueIndex = stateLightoffON.on;
+    NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                       [NSNumber numberWithInteger:self.lightStatueIndex],@"iEnableDeviceStatusLed",nil];
+    NSString *setCameraDataString = [setCameraDataDict JSONString];
+    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+    NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
+    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSDictionary *dict = (NSDictionary*)responseObject;
+        NSLog(@"dict:%@",dict);
+        stateLightoffON.on = self.lightStatueIndex;
+        _loginoutView.hidden = YES;
+        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        stateLightoffON.on = !self.lightStatueIndex;
+        _loginoutView.hidden = YES;
+        [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
+    }];
+
 }
 
 //码流设置
-- (void)codeStreamAction:(id)sender
-{
-    codeStreamView = [[UIAlertView alloc] initWithTitle:@"带宽控制" message:@"带宽值应该设为60-3000kb/s" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-    codeStreamView.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [codeStreamView show];
-}
+//- (void)codeStreamAction:(id)sender
+//{
+//    codeStreamView = [[UIAlertView alloc] initWithTitle:@"带宽控制" message:@"带宽值应该设为60-3000kb/s" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+//    codeStreamView.alertViewStyle = UIAlertViewStylePlainTextInput;
+//    [codeStreamView show];
+//}
 
 //是否在界面上显示时间
 - (void)timeHiddenEventAction:(id)sender
 {
     NSLog(@"时间是否显示");
-    UISwitch *timeStaueSwitch = (UISwitch *)sender;
-    if (timeStaueSwitch.on) {
-        self.timeShowIndex = 1;
-    }
-    else
-    {
-        self.timeShowIndex = 0;
-    }
+//    UISwitch *timeStaueSwitch = (UISwitch *)sender;
+//    if (timeStaueSwitch.on) {
+//        self.timeShowIndex = 1;
+//    }
+//    else
+//    {
+//        self.timeShowIndex = 0;
+//    }
 
-}
-
-//完成设置
-- (void)setFinishAction:(id)sender
-{
-    NSLog(@"setFinishAction");
-    _loginoutView.hidden = NO;
-    NSString *str = [NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",self.EnableEventIndex,self.audioIndex,self.videoRecordIndex,self.flipImageIndex,self.screneIndex,self.lightFilterModeIndex,self.lightStatueIndex,self.streamBitrateIndex,self.ntscOrpalIndex,self.imageResolutionIndex,self.controlONOrOFFIndex,self.sensitivityIndex,self.timeShowIndex];
-    NSLog(@"str:%@",str);
+    self.timeShowIndex = timeHidden.on;
     NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   [NSNumber numberWithInteger:self.EnableEventIndex],@"iEnableEvent",
-                                   [NSNumber numberWithInteger:self.audioIndex],@"iEnableAudioIn",
-                                   [NSNumber numberWithInteger:self.videoRecordIndex],@"iEnableRecord",
-                                   [NSNumber numberWithInteger:self.flipImageIndex],@"iFlipImage",
-                                   [NSNumber numberWithInteger:self.screneIndex],@"iScene",
-                                   [NSNumber numberWithInteger:self.lightFilterModeIndex],@"iLightFilterMode",
-                                   [NSNumber numberWithInteger:self.lightStatueIndex],@"iEnableDeviceStatusLed",
-                                   [NSNumber numberWithInteger:self.streamBitrateIndex],@"iStreamBitrate",
-                                   [NSNumber numberWithInteger:self.ntscOrpalIndex],@"iNTSCPAL",
-                                   [NSNumber numberWithInteger:self.imageResolutionIndex],@"iEnableAudioIn",
-                                   [NSNumber numberWithInteger:self.controlONOrOFFIndex],@"iEnableAudioIn",
-                                   [NSNumber numberWithInteger:self.sensitivityIndex],@"iObjDetectLevel",
-                                   [NSNumber numberWithInteger:self.timeShowIndex],@"iEnableOSDTime",
-                                   nil];
-    NSLog(@"setCameraDataDict:%@",setCameraDataDict);
-//    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"iNTSCPAL", nil];
+                                       [NSNumber numberWithInteger:self.timeShowIndex],@"iEnableOSDTime",nil];
     NSString *setCameraDataString = [setCameraDataDict JSONString];
     NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
-//
     NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
-////    NSString *setURL = @"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4";
-    NSDictionary *paramDict = [NSDictionary dictionaryWithObjectsAndKeys:@"control",@"method",self.access_token,@"access_token",self.deviceid,@"deviceid",setCameraDataDict,@"command", nil];
-    NSLog(@"paramDict:%@",paramDict);
     [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *dict = (NSDictionary*)responseObject;
         NSLog(@"dict:%@",dict);
-        [self alertViewShowWithTitle:@"设置成功" andMessage:nil];
-        if (self.delegate && [self.delegate respondsToSelector:@selector(logoutCameraAtindex:)]) {
-            [self.delegate logoutCameraAtindex:self.index];
-        }
+        timeHidden.on = self.timeShowIndex;
         _loginoutView.hidden = YES;
         [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
-
+        
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        timeHidden.on = !self.timeShowIndex;
         _loginoutView.hidden = YES;
         [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
-        
     }];
 }
+
+//完成设置
+//- (void)setFinishAction:(id)sender
+//{
+//    NSLog(@"setFinishAction");
+//    _loginoutView.hidden = NO;
+//    NSString *str = [NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",self.EnableEventIndex,self.audioIndex,self.videoRecordIndex,self.flipImageIndex,self.screneIndex,self.lightFilterModeIndex,self.lightStatueIndex,self.streamBitrateIndex,self.ntscOrpalIndex,self.imageResolutionIndex,self.controlONOrOFFIndex,self.sensitivityIndex,self.timeShowIndex];
+//    NSLog(@"str:%@",str);
+//    NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                   [NSNumber numberWithInteger:self.EnableEventIndex],@"iEnableEvent",
+//                                   [NSNumber numberWithInteger:self.audioIndex],@"iEnableAudioIn",
+//                                   [NSNumber numberWithInteger:self.videoRecordIndex],@"iEnableRecord",
+//                                   [NSNumber numberWithInteger:self.flipImageIndex],@"iFlipImage",
+//                                   [NSNumber numberWithInteger:self.screneIndex],@"iScene",
+//                                   [NSNumber numberWithInteger:self.lightFilterModeIndex],@"iLightFilterMode",
+//                                   [NSNumber numberWithInteger:self.lightStatueIndex],@"iEnableDeviceStatusLed",
+//                                   [NSNumber numberWithInteger:self.streamBitrateIndex],@"iStreamBitrate",
+//                                   [NSNumber numberWithInteger:self.ntscOrpalIndex],@"iNTSCPAL",
+//                                   [NSNumber numberWithInteger:self.imageResolutionIndex],@"iEnableAudioIn",
+//                                   [NSNumber numberWithInteger:self.controlONOrOFFIndex],@"iEnableAudioIn",
+//                                   [NSNumber numberWithInteger:self.sensitivityIndex],@"iObjDetectLevel",
+//                                   [NSNumber numberWithInteger:self.timeShowIndex],@"iEnableOSDTime",
+//                                   nil];
+//    NSLog(@"setCameraDataDict:%@",setCameraDataDict);
+////    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"iNTSCPAL", nil];
+//    NSString *setCameraDataString = [setCameraDataDict JSONString];
+//    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+//    NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
+//////    NSString *setURL = @"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4";
+//    NSDictionary *paramDict = [NSDictionary dictionaryWithObjectsAndKeys:@"control",@"method",self.access_token,@"access_token",self.deviceid,@"deviceid",setCameraDataDict,@"command", nil];
+//    NSLog(@"paramDict:%@",paramDict);
+//    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//        NSDictionary *dict = (NSDictionary*)responseObject;
+//        NSLog(@"dict:%@",dict);
+//        [self alertViewShowWithTitle:@"设置成功" andMessage:nil];
+//        if (self.delegate && [self.delegate respondsToSelector:@selector(logoutCameraAtindex:)]) {
+//            [self.delegate logoutCameraAtindex:self.index];
+//        }
+//        _loginoutView.hidden = YES;
+//        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
+//
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        _loginoutView.hidden = YES;
+//        [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
+//        
+//    }];
+//}
 
 //注销设备
 - (void)LoginOutAction:(id)sender

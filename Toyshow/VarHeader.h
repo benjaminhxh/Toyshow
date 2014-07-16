@@ -22,6 +22,7 @@
 #define kUserPwd                @"userPwd"
 #define kUserHeadURL            @"userHeadURL"
 #define kUserAccessToken        @"userAccessToken"
+#define kUserHeadImage          @"userHeadImage"
 
 #define iOS7 [[UIDevice currentDevice].systemVersion integerValue]>=7
 #define iphone5     [UIScreen mainScreen].bounds.size.height > 480
