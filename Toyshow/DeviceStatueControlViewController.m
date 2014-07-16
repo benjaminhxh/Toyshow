@@ -66,7 +66,7 @@
 //    [statueSw addTarget:self action:@selector(openOrClose:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:statueSw];
     
-    UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(15, 54, kWidth-30, 1)];
+    UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(15, 54, kWidth-30, 0.5)];
     lineV.backgroundColor = [UIColor grayColor];
     [scrollView addSubview:lineV];
     
@@ -117,7 +117,7 @@
     
     [self isLoadingView];
     NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                       [NSNumber numberWithInteger:statueSw.selected ],@"iDeviceControl",nil];
+                                       [NSNumber numberWithInteger:statueSw.on ],@"iDeviceControl",nil];
     NSString *setCameraDataString = [setCameraDataDict JSONString];
     NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
     NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];

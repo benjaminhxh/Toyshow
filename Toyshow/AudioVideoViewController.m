@@ -58,7 +58,7 @@
     [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
     [saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [saveBtn setBackgroundImage:[UIImage imageNamed:@"lishijilu@2x"] forState:UIControlStateNormal];
-    [saveBtn addTarget:self action:@selector(finishBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [saveBtn addTarget:self action:@selector(finishAction:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:saveBtn];
     
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
@@ -74,7 +74,7 @@
     //    [statueSw addTarget:self action:@selector(openOrClose:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:audioSw];
     
-    UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(15, 54, kWidth-30, 1)];
+    UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(15, 54, kWidth-30, 0.5)];
     lineV.backgroundColor = [UIColor grayColor];
     [scrollView addSubview:lineV];
     
@@ -84,7 +84,7 @@
     [scrollView addSubview:streamL];
     
     streamF = [[UITextField alloc] initWithFrame:CGRectMake(kWidth/3, 65, 160, 31)];
-    streamF.text = [NSString stringWithFormat:@"%d",self.streamIndex];
+    streamF.text = self.streamIndex;
     streamF.keyboardType = UIKeyboardTypeNumberPad;
 //    streamF.borderStyle = UITextBorderStyleBezel;
     streamF.textAlignment = NSTextAlignmentRight;
@@ -93,7 +93,7 @@
     streamUnitL.text = @"kb/s";
     [scrollView addSubview:streamUnitL];
     
-    UIView *lineV2 = [[UIView alloc] initWithFrame:CGRectMake(15, 108, kWidth-30, 1)];
+    UIView *lineV2 = [[UIView alloc] initWithFrame:CGRectMake(15, 108, kWidth-30, 0.5)];
     lineV2.backgroundColor = [UIColor grayColor];
     [scrollView addSubview:lineV2];
     
@@ -107,7 +107,7 @@
     flipImageSeg.selectedSegmentIndex = self.flipImageIndex;
     [scrollView addSubview:flipImageSeg];
     
-    UIView *lineV3 = [[UIView alloc] initWithFrame:CGRectMake(15, 161, kWidth-30, 1)];
+    UIView *lineV3 = [[UIView alloc] initWithFrame:CGRectMake(15, 161, kWidth-30, 0.5)];
     lineV3.backgroundColor = [UIColor grayColor];
     [scrollView addSubview:lineV3];
 
@@ -118,11 +118,11 @@
     NSArray *ntscArr = [NSArray arrayWithObjects:@"NTSC",@"PAL", nil];
     ntscOrPalSeg = [[UISegmentedControl alloc] initWithItems:ntscArr];
     ntscOrPalSeg.frame = CGRectMake(160, 172, 150, 31);
-    ntscOrPalSeg.selectedSegmentIndex = self.ntscOrPalIndex;
+    ntscOrPalSeg.selectedSegmentIndex = self.ntscOrPalIndex-1;
     [scrollView addSubview:ntscOrPalSeg];
 
     
-    UIView *lineV4 = [[UIView alloc] initWithFrame:CGRectMake(15, 214, kWidth-30, 1)];
+    UIView *lineV4 = [[UIView alloc] initWithFrame:CGRectMake(15, 214, kWidth-30, 0.5)];
     lineV4.backgroundColor = [UIColor grayColor];
     [scrollView addSubview:lineV4];
 
@@ -133,26 +133,44 @@
     NSArray *imageResolutionArr = [NSArray arrayWithObjects:@"1080P",@"720P",@"4CIF",@"640*480",@"352*288", nil];
     imageResolutionSeg = [[UISegmentedControl alloc] initWithItems:imageResolutionArr];
     imageResolutionSeg.frame = CGRectMake(5, 260, 310, 41);
-    imageResolutionSeg.selectedSegmentIndex = self.imageResolutionIndex;
+    imageResolutionSeg.selectedSegmentIndex = self.imageResolutionIndex-1;
     [scrollView addSubview:imageResolutionSeg];
     
     
-    UIView *lineV5 = [[UIView alloc] initWithFrame:CGRectMake(15, 305, kWidth-30, 1)];
+    UIView *lineV5 = [[UIView alloc] initWithFrame:CGRectMake(15, 310, kWidth-30, 0.5)];
     lineV5.backgroundColor = [UIColor grayColor];
     [scrollView addSubview:lineV5];
 
 
 }
 
+//判断输入的值是否介于两者之间
+- (BOOL)isLegalNum:(int)startNum to:(int)endNum withNumString:(NSString *)numString
+{
+    int bandw = [numString intValue];
+    if (bandw >= startNum && bandw <= endNum) {
+        return YES;
+    }else{
+        UIAlertView *errorV = [[UIAlertView alloc] initWithTitle:@"错误" message:[NSString stringWithFormat:@"带宽值应该设为%d-%dkb/s",startNum,endNum] delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [errorV show];
+        return NO;
+    }
+}
+
 - (void)finishAction:(id)sender
 {
+    BOOL flagg = [self isLegalNum:60 to:3600 withNumString:streamF.text];
+    if (!flagg) {
+        return;
+    }
+    [self.view endEditing:YES];
     [self isLoadingView];
     NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                       [NSNumber numberWithInteger:audioSw.selected ],@"iEnableAudioIn",
+                                       [NSNumber numberWithInteger:audioSw.on ],@"iEnableAudioIn",
                                        streamF.text,@"iStreamBitrate",
                                        [NSNumber numberWithInteger:flipImageSeg.selectedSegmentIndex],@"iFlipImage",
-                                       [NSNumber numberWithInteger:ntscOrPalSeg.selectedSegmentIndex],@"iNTSCPAL",
-                                       [NSNumber numberWithInteger:imageResolutionSeg.selectedSegmentIndex],@"iImageResolution",nil];
+                                       [NSNumber numberWithInteger:ntscOrPalSeg.selectedSegmentIndex+1],@"iNTSCPAL",
+                                       [NSNumber numberWithInteger:imageResolutionSeg.selectedSegmentIndex+1],@"iImageResolution",nil];
     NSString *setCameraDataString = [setCameraDataDict JSONString];
     NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
     //

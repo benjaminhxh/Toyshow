@@ -75,14 +75,13 @@
     [seeVideoBtn addTarget:self action:@selector(didSeeVideoClick) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:seeVideoBtn];
     self.controlONOrOFFIndex = 3;
-//    [self getDeviceInfo];
     cameraInfoArr = [NSArray arrayWithObjects:@"音视频设置",@"夜视功能设置",@"事件通知",@"录像控制",@"状态指示灯",@"时间显示",@"设备状态控制",@"修改设备名称",@"设备信息",@"", nil];
 
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, 320, [UIScreen mainScreen].bounds.size.height-64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
-//    [self isLoadingView];
+    [self getDeviceInfo];
 
     //右滑回到上一个页面
     UISwipeGestureRecognizer *recognizer;
@@ -371,7 +370,7 @@
 //    {
 //        return 0;
 //    }
-    return 10;
+    return count;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -430,6 +429,11 @@
             AudioVideoViewController *avideoVC = [[AudioVideoViewController alloc] init];
             avideoVC.access_token = self.access_token;
             avideoVC.deviceid = self.deviceid;
+            avideoVC.audioIndex = [[cameraInfoDict objectForKey:@"iEnableAudioIn"] integerValue];
+            avideoVC.streamIndex = [cameraInfoDict objectForKey:@"iStreamBitrate"];
+            avideoVC.flipImageIndex = [[cameraInfoDict objectForKey:@"iFlipImage"] integerValue];
+            avideoVC.ntscOrPalIndex = [[cameraInfoDict objectForKey:@"iNTSCPAL"] integerValue];
+            avideoVC.imageResolutionIndex = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
             [[SliderViewController sharedSliderController].navigationController pushViewController:avideoVC animated:YES];
         }
             break;
@@ -438,6 +442,8 @@
             NightViewController *nightVC = [[NightViewController alloc] init];
             nightVC.access_token = self.access_token;
             nightVC.deviceid = self.deviceid;
+            nightVC.isenceIndex = [[cameraInfoDict objectForKey:@"iScene"] integerValue];
+            nightVC.filterIndex = [[cameraInfoDict objectForKey:@"iLightFilterMode"] integerValue];
             [[SliderViewController sharedSliderController].navigationController pushViewController:nightVC animated:YES];
         }
             break;
@@ -446,6 +452,8 @@
             EventNotificationViewController *eventNotifVC = [[EventNotificationViewController alloc] init];
             eventNotifVC.access_token = self.access_token;
             eventNotifVC.deviceid = self.deviceid;
+            eventNotifVC.eventNotifIndex = [[cameraInfoDict objectForKey:@"iEnableEvent"] integerValue];
+            eventNotifVC.sensityIndex = [[cameraInfoDict objectForKey:@"iObjDetectLevel"] integerValue];
             [[SliderViewController sharedSliderController].navigationController pushViewController:eventNotifVC animated:YES];
         }
             break;
@@ -678,8 +686,8 @@
 
 - (void)isLoadingView
 {
-    _loginoutView = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:_loginoutView];
+    _loginoutView = [[MBProgressHUD alloc] initWithView:_tableView];
+    [_tableView addSubview:_loginoutView];
     
     _loginoutView.delegate = self;
     _loginoutView.labelText = @"loading";
@@ -765,8 +773,8 @@
 //首次进来获取设备的详细信息
 - (void)getDeviceInfo
 {
+    [self isLoadingView];
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"iGetDeviceConfig", nil];
-//    NSLog(@"dict:%@",dict);
 //    NSDictionary *getInfoparamDict = [NSDictionary dictionaryWithObjectsAndKeys:dict,@"command", nil];
     NSString *requestStr = [dict JSONString];
 //    NSLog(@"requestStr:%@",requestStr);
@@ -774,15 +782,8 @@
 
     NSString *getInfoURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
     NSLog(@"getInfoURL:%@",getInfoURL);
-//    NSString *URLWithUTF8 = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)getInfoURL, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
-//    NSLog(@"URLWithUTF8:%@",URLWithUTF8);
-//    NSString *getInfoURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device"];
-//    NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"iGetDeviceConfig", nil];
-//    NSDictionary *paramDict = [NSDictionary dictionaryWithObjectsAndKeys:@"control",@"method",self.access_token,@"access_token",self.deviceid,@"deviceid",setCameraDataDict,@"command", nil];
-//    NSLog(@"paramDict:%@",paramDict);
     [[AFHTTPSessionManager manager] POST:getInfoURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *dict = (NSDictionary*)responseObject;
-        NSLog(@"设备信息：%@",dict);
         NSArray *arr = [dict objectForKey:@"data"];
         NSDictionary *userData = [arr lastObject];
 //        NSLog(@"userData:%@",userData);
@@ -793,23 +794,16 @@
         cameraInfoDict = [NSDictionary dictionary];
         cameraInfoDict = [NSJSONSerialization JSONObjectWithData:resData options:NSJSONReadingMutableLeaves error:nil];
         count = 10;
+        _loginoutView.hidden = YES;
         dispatch_async(dispatch_get_main_queue(), ^{
             [_tableView reloadData];
 //            [self.view setNeedsDisplay]; //7
         });
-        _loginoutView.hidden = YES;
-//        [self alertViewShowWithTitle:@"设备信息获取成功" andMessage:nil];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         _loginoutView.hidden = YES;
         [self alertViewShowWithTitle:@"获取设备信息失败" andMessage:[error localizedDescription]];
         NSLog(@"errorInfo:%@",[error userInfo]);
     }];
-//    [[AFHTTPSessionManager manager] GET:getInfoURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//        NSDictionary *dict = (NSDictionary *)responseObject;
-//        NSLog(@"设备信息：%@",dict);
-//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//        [self alertViewShowWithTitle:@"获取设备信息失败" andMessage:nil];
-//    }];
 }
 
 - (void)alertViewShowWithTitle:(NSString*)string andMessage:(NSString*)message
@@ -822,10 +816,9 @@
     [setError show];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-//    [self getDeviceInfo];
-}
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

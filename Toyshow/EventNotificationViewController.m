@@ -74,7 +74,7 @@
     [EventNotifSw addTarget:self action:@selector(EventNotifOpenOrClose:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:EventNotifSw];
     
-    UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(5, 54, kWidth-10, 1)];
+    UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(5, 54, kWidth-10, 0.5)];
     lineV.backgroundColor = [UIColor grayColor];
     [scrollView addSubview:lineV];
     
@@ -106,13 +106,13 @@
 
 - (void)EventNotifOpenOrClose:(id)sender
 {
-   NSLog(@"EventNotifSw:%d",EventNotifSw.selected);
+   NSLog(@"EventNotifSw:%d",EventNotifSw.on);
 }
 
 //灵敏度检测
 - (void)sensitivityAction:(id)sender
 {
-    self.sensityIndex = sensitySeg.selectedSegmentIndex;
+//    self.sensityIndex = sensitySeg.selectedSegmentIndex;
     NSLog(@"sensitySeg:%d",sensitySeg.selectedSegmentIndex);
 }
 
@@ -120,7 +120,7 @@
 {
     [self isLoadingView];
     NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [NSNumber numberWithInteger:EventNotifSw.selected ],@"iEnableEvent",
+                          [NSNumber numberWithInteger:EventNotifSw.on ],@"iEnableEvent",
                           [NSNumber numberWithInteger:sensitySeg.selectedSegmentIndex ],@"iObjDetectLevel", nil];
     NSString *setCameraDataString = [setCameraDataDict JSONString];
     NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));

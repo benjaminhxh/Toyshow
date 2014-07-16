@@ -74,7 +74,7 @@
     [isenceSeg addTarget:self action:@selector(isenceAction:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:isenceSeg];
     
-    UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(5, 94, kWidth-10, 1)];
+    UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(5, 94, kWidth-10, 0.5)];
     lineV.backgroundColor = [UIColor grayColor];
     [scrollView addSubview:lineV];
     

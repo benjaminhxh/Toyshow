@@ -82,7 +82,7 @@
         cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, kWidth, 44)];
         cell.textLabel.text = [deviceInfoArr objectAtIndex:indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        UILabel *infoL = [[UILabel alloc] initWithFrame:CGRectMake(160, 10, 130, 24)];
+        UILabel *infoL = [[UILabel alloc] initWithFrame:CGRectMake(110, 10, 190, 24)];
 //        infoL.text = [deviceInfoArr objectAtIndex:indexPath.row];
         switch (indexPath.row) {
             case 0:
