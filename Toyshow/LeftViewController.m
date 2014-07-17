@@ -97,8 +97,6 @@
     }else
     {
         self.userNameL.text = [[NSUserDefaults standardUserDefaults] stringForKey:kUserName];
-//        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] stringForKey:kUserHeadURL]]];
-//        UIImage *userImage = [UIImage imageWithData:data];
         self.userImageVIew.clipsToBounds = YES;
         NSData *imageData = [[NSUserDefaults standardUserDefaults] objectForKey:kUserHeadImage];
         self.userImageVIew.image = [UIImage imageWithData:imageData];
