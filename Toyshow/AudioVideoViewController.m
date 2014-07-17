@@ -70,7 +70,7 @@
     [scrollView addSubview:audioL];
     
     audioSw = [[UISwitch alloc] initWithFrame:CGRectMake(240, 11, 51, 31)];
-    audioSw.on = YES;
+    audioSw.on = self.audioIndex;
     //    [statueSw addTarget:self action:@selector(openOrClose:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:audioSw];
     
@@ -164,7 +164,9 @@
         return;
     }
     [self.view endEditing:YES];
-    [self isLoadingView];
+    if (nil == _progressView) {
+        [self isLoadingView];
+    }
     NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                        [NSNumber numberWithInteger:audioSw.on ],@"iEnableAudioIn",
                                        streamF.text,@"iStreamBitrate",
@@ -206,7 +208,6 @@
     
     _progressView.delegate = self;
     _progressView.labelText = @"loading";
-    //    _loginoutView.detailsLabelText = @"正在注销，请稍后……";
     _progressView.square = YES;
     _progressView.color = [UIColor grayColor];
     [_progressView show:YES];

@@ -15,6 +15,7 @@
 #import "CameraSetViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import "Reachability1.h"
+#import "ThumbnailViewController.h"
 
 @interface MyCameraViewController ()<UITableViewDelegate,UITableViewDataSource,MJRefreshBaseViewDelegate,MBProgressHUDDelegate,CameraSetViewControllerDelegate>
 {
@@ -360,9 +361,15 @@
         }];
     }else
     {
-        //设备不在线
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备不在线" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-        [view show];
+        //设备不在线,跳到录像列表
+        ThumbnailViewController *thumbVC = [[ThumbnailViewController alloc] init];
+        thumbVC.deviceID = deviceid;
+        thumbVC.accessToken = self.accessToken;
+        thumbVC.deviceDesc = [cameraDict objectForKey:@"description"];
+        [[SliderViewController sharedSliderController].navigationController pushViewController:thumbVC animated:YES];
+
+//        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备不在线" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+//        [view show];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -379,14 +386,28 @@
         cell = (UITableViewCell *)button.superview;
     }
     int row = [_tableView indexPathForCell:cell].row;
-    CameraSetViewController *setVC = [[CameraSetViewController alloc] init];
     NSDictionary *dict = [_fakeData objectAtIndex:row];
-    setVC.deviceDesc = [dict objectForKey:@"description"];
-    setVC.access_token = self.accessToken;
-    setVC.deviceid = [dict objectForKey:@"deviceid"];
-    setVC.index = row;
-    setVC.delegate = self;
-    [[SliderViewController sharedSliderController].navigationController pushViewController:setVC animated:YES];
+
+   BOOL status = [[dict objectForKey:@"status"] intValue];
+    if (status) {
+        CameraSetViewController *setVC = [[CameraSetViewController alloc] init];
+        setVC.deviceDesc = [dict objectForKey:@"description"];
+        setVC.access_token = self.accessToken;
+        setVC.deviceid = [dict objectForKey:@"deviceid"];
+        setVC.index = row;
+//        setVC.statue = [[dict objectForKey:@"status"] intValue];
+        setVC.delegate = self;
+        [[SliderViewController sharedSliderController].navigationController pushViewController:setVC animated:YES];
+    }else
+    {
+        ThumbnailViewController *thumbVC = [[ThumbnailViewController alloc] init];
+        thumbVC.deviceID = [dict objectForKey:@"deviceid"];
+        thumbVC.accessToken = self.accessToken;
+        thumbVC.deviceDesc = [dict objectForKey:@"description"];
+        [[SliderViewController sharedSliderController].navigationController pushViewController:thumbVC animated:YES];
+
+    }
+   
 }
 
 #pragma mark - cameraSetDelegate

@@ -454,12 +454,12 @@
             [storage deleteCookie:cookie];
         }
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserAccessToken];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserHeadURL];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserHeadImage];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserName];
         [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MainViewController" withDictionary:nil];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.view setNeedsDisplay];
-        });
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.view setNeedsDisplay];
+//        });
     }
  
 }

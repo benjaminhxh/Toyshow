@@ -209,6 +209,36 @@
             endingLineNumber = "392"
             landmarkName = "-onUserInfo"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LeftViewController onUserInfo]"
+                  moduleName = "Joyshow"
+                  urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/LeftViewController.m"
+                  timestampString = "427259860.61572"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "392"
+                  endingLineNumber = "392"
+                  offsetFromSymbolStart = "80">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__32-[LeftViewController onUserInfo]_block_invoke"
+                  moduleName = "Joyshow"
+                  urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/LeftViewController.m"
+                  timestampString = "427259860.615865"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "392"
+                  endingLineNumber = "392"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -361,7 +391,7 @@
                   symbolName = "-[ShareCamereViewController onDragSlideDone:]"
                   moduleName = "Joyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/ShareCamereViewController.m"
-                  timestampString = "427211816.421023"
+                  timestampString = "427259860.617166"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "299"
@@ -375,7 +405,7 @@
                   symbolName = "-[ShareCamereViewController onDragSlideDone:]"
                   moduleName = "Joyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/ShareCamereViewController.m"
-                  timestampString = "427211816.421169"
+                  timestampString = "427259860.617303"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "299"
@@ -447,6 +477,64 @@
             endingLineNumber = "416"
             landmarkName = "-onUserInfo"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LeftViewController onUserInfo]"
+                  moduleName = "Joyshow"
+                  urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/LeftViewController.m"
+                  timestampString = "427259860.617734"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "416"
+                  endingLineNumber = "416"
+                  offsetFromSymbolStart = "138">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__32-[LeftViewController onUserInfo]_block_invoke_2"
+                  moduleName = "Joyshow"
+                  urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/LeftViewController.m"
+                  timestampString = "427259860.617874"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "416"
+                  endingLineNumber = "416"
+                  offsetFromSymbolStart = "1482">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__copy_helper_block_341"
+                  moduleName = "Joyshow"
+                  urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/LeftViewController.m"
+                  timestampString = "427259860.617995"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "416"
+                  endingLineNumber = "416"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_342"
+                  moduleName = "Joyshow"
+                  urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/LeftViewController.m"
+                  timestampString = "427259860.618125"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "416"
+                  endingLineNumber = "416"
+                  offsetFromSymbolStart = "14">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -503,7 +591,7 @@
                   symbolName = "-[AddDeviceViewController startConfigure]"
                   moduleName = "Joyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/AddDeviceViewController.m"
-                  timestampString = "427211816.4221"
+                  timestampString = "427259860.618577"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "236"
@@ -517,7 +605,7 @@
                   symbolName = "__41-[AddDeviceViewController startConfigure]_block_invoke"
                   moduleName = "Joyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/AddDeviceViewController.m"
-                  timestampString = "427211816.422219"
+                  timestampString = "427259860.618712"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "236"
@@ -534,11 +622,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MyCameraViewController.m"
-            timestampString = "427104429.91281"
+            timestampString = "427258797.988854"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
             landmarkName = "-addheader"
             landmarkType = "5">
          </BreakpointContent>
@@ -550,11 +638,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MyCameraViewController.m"
-            timestampString = "427104429.91281"
+            timestampString = "427258797.988854"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "356"
-            endingLineNumber = "356"
+            startingLineNumber = "357"
+            endingLineNumber = "357"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -566,11 +654,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MyCameraViewController.m"
-            timestampString = "427104429.91281"
+            timestampString = "427258797.988854"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "342"
-            endingLineNumber = "342"
+            startingLineNumber = "343"
+            endingLineNumber = "343"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -662,11 +750,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MyCameraViewController.m"
-            timestampString = "427104429.91281"
+            timestampString = "427258797.988854"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -790,11 +878,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "426680914.188043"
+            timestampString = "427259860.52993"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "638"
-            endingLineNumber = "638"
+            startingLineNumber = "637"
+            endingLineNumber = "637"
             landmarkName = "-updateTime:"
             landmarkType = "5">
          </BreakpointContent>
@@ -838,11 +926,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MyCameraViewController.m"
-            timestampString = "427104429.91281"
+            timestampString = "427259578.935435"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "457"
-            endingLineNumber = "457"
+            startingLineNumber = "478"
+            endingLineNumber = "478"
             landmarkName = "-viewWillAppear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -854,11 +942,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MyCameraViewController.m"
-            timestampString = "427104429.91281"
+            timestampString = "427259578.935435"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "397"
-            endingLineNumber = "397"
+            startingLineNumber = "418"
+            endingLineNumber = "418"
             landmarkName = "-logoutCameraAtindex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -870,11 +958,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MyCameraViewController.m"
-            timestampString = "427104429.91281"
+            timestampString = "427259578.935435"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "409"
-            endingLineNumber = "409"
+            startingLineNumber = "430"
+            endingLineNumber = "430"
             landmarkName = "-logoutCameraAtindex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -886,11 +974,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MyCameraViewController.m"
-            timestampString = "427104429.91281"
+            timestampString = "427259578.935435"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "462"
-            endingLineNumber = "462"
+            startingLineNumber = "483"
+            endingLineNumber = "483"
             landmarkName = "-modifySuccess:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1045,7 +1133,7 @@
                   symbolName = "-[WeixinActivity prepareWithActivityItems:]"
                   moduleName = "Joyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/WX/WeixinActivity.m"
-                  timestampString = "427211816.426583"
+                  timestampString = "427259860.623312"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "38"
@@ -1059,7 +1147,7 @@
                   symbolName = "-[WeixinActivity prepareWithActivityItems:]"
                   moduleName = "Joyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/WX/WeixinActivity.m"
-                  timestampString = "427211816.426811"
+                  timestampString = "427259860.623575"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "38"
@@ -1091,7 +1179,7 @@
                   symbolName = "-[WeixinActivity canPerformWithActivityItems:]"
                   moduleName = "Joyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/WX/WeixinActivity.m"
-                  timestampString = "427211816.427038"
+                  timestampString = "427259860.623802"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "25"
@@ -1105,7 +1193,7 @@
                   symbolName = "-[WeixinActivity canPerformWithActivityItems:]"
                   moduleName = "Joyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/WX/WeixinActivity.m"
-                  timestampString = "427211816.427184"
+                  timestampString = "427259860.624039"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "25"
@@ -1138,11 +1226,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MyCameraViewController.m"
-            timestampString = "427104429.91281"
+            timestampString = "427258797.988854"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
             landmarkName = "-addheader"
             landmarkType = "5">
          </BreakpointContent>
@@ -1154,11 +1242,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MyCameraViewController.m"
-            timestampString = "427104429.91281"
+            timestampString = "427258797.988854"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "-addheader"
             landmarkType = "5">
          </BreakpointContent>
@@ -1650,11 +1738,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/CameraSetViewController.m"
-            timestampString = "427211816.335659"
+            timestampString = "427258323.620449"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "601"
-            endingLineNumber = "601"
+            startingLineNumber = "605"
+            endingLineNumber = "605"
             landmarkName = "-stateLightEventAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1666,11 +1754,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/CameraSetViewController.m"
-            timestampString = "427211816.335659"
+            timestampString = "427258323.620449"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "773"
-            endingLineNumber = "773"
+            startingLineNumber = "778"
+            endingLineNumber = "778"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1682,11 +1770,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/CameraSetViewController.m"
-            timestampString = "427211816.335659"
+            timestampString = "427258323.620449"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "641"
-            endingLineNumber = "641"
+            startingLineNumber = "646"
+            endingLineNumber = "646"
             landmarkName = "-timeHiddenEventAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1698,11 +1786,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/CameraSetViewController.m"
-            timestampString = "427211816.335659"
+            timestampString = "427258323.620449"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "782"
-            endingLineNumber = "782"
+            startingLineNumber = "787"
+            endingLineNumber = "787"
             landmarkName = "-logoutMyCamera"
             landmarkType = "5">
          </BreakpointContent>
@@ -1714,11 +1802,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/CameraSetViewController.m"
-            timestampString = "427211816.335659"
+            timestampString = "427258323.620449"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "800"
-            endingLineNumber = "800"
+            startingLineNumber = "805"
+            endingLineNumber = "805"
             landmarkName = "-logoutMyCamera"
             landmarkType = "5">
          </BreakpointContent>
@@ -1730,11 +1818,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/CameraSetViewController.m"
-            timestampString = "427211816.335659"
+            timestampString = "427258323.620449"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "788"
-            endingLineNumber = "788"
+            startingLineNumber = "793"
+            endingLineNumber = "793"
             landmarkName = "-logoutMyCamera"
             landmarkType = "5">
          </BreakpointContent>
@@ -1746,11 +1834,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MyCameraViewController.m"
-            timestampString = "427104429.91281"
+            timestampString = "427258797.988854"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "348"
-            endingLineNumber = "348"
+            startingLineNumber = "349"
+            endingLineNumber = "349"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1762,11 +1850,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "426682154.24558"
+            timestampString = "427259860.52993"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "548"
-            endingLineNumber = "548"
+            startingLineNumber = "549"
+            endingLineNumber = "549"
             landmarkName = "-shareClick"
             landmarkType = "5">
          </BreakpointContent>
@@ -1778,11 +1866,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/ShareCamereViewController.m"
-            timestampString = "426682167.478671"
+            timestampString = "427259860.52993"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "681"
-            endingLineNumber = "681"
+            startingLineNumber = "680"
+            endingLineNumber = "680"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1810,11 +1898,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MyCameraViewController.m"
-            timestampString = "427104429.91281"
+            timestampString = "427258797.988854"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "170"
-            endingLineNumber = "170"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
             landmarkName = "-addheader"
             landmarkType = "5">
          </BreakpointContent>
@@ -1826,11 +1914,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MyCameraViewController.m"
-            timestampString = "427104429.91281"
+            timestampString = "427258797.988854"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
             landmarkName = "-addheader"
             landmarkType = "5">
          </BreakpointContent>
@@ -1842,11 +1930,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MyCameraViewController.m"
-            timestampString = "427104429.91281"
+            timestampString = "427258797.988854"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
             landmarkName = "-addheader"
             landmarkType = "5">
          </BreakpointContent>
@@ -1922,11 +2010,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/CameraSetViewController.m"
-            timestampString = "427211816.335659"
+            timestampString = "427258323.620449"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "781"
-            endingLineNumber = "781"
+            startingLineNumber = "786"
+            endingLineNumber = "786"
             landmarkName = "-logoutMyCamera"
             landmarkType = "5">
          </BreakpointContent>
@@ -1938,11 +2026,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/CameraSetViewController.m"
-            timestampString = "427211816.335659"
+            timestampString = "427258323.620449"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "796"
-            endingLineNumber = "796"
+            startingLineNumber = "801"
+            endingLineNumber = "801"
             landmarkName = "-logoutMyCamera"
             landmarkType = "5">
             <Locations>
@@ -1953,11 +2041,11 @@
                   symbolName = "__41-[CameraSetViewController logoutMyCamera]_block_invoke"
                   moduleName = "Joyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/CameraSetViewController.m"
-                  timestampString = "427211816.437486"
+                  timestampString = "427259860.633745"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "796"
-                  endingLineNumber = "796"
+                  startingLineNumber = "801"
+                  endingLineNumber = "801"
                   offsetFromSymbolStart = "820">
                </Location>
                <Location
@@ -1967,11 +2055,11 @@
                   symbolName = "__destroy_helper_block_372"
                   moduleName = "Joyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/CameraSetViewController.m"
-                  timestampString = "427211816.437648"
+                  timestampString = "427259860.633936"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "796"
-                  endingLineNumber = "796"
+                  startingLineNumber = "801"
+                  endingLineNumber = "801"
                   offsetFromSymbolStart = "14">
                </Location>
                <Location
@@ -1981,11 +2069,11 @@
                   symbolName = "__41-[CameraSetViewController logoutMyCamera]_block_invoke375"
                   moduleName = "Joyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/CameraSetViewController.m"
-                  timestampString = "427211816.437898"
+                  timestampString = "427259860.634135"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "796"
-                  endingLineNumber = "796"
+                  startingLineNumber = "801"
+                  endingLineNumber = "801"
                   offsetFromSymbolStart = "74">
                </Location>
             </Locations>
@@ -1998,11 +2086,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/CameraSetViewController.m"
-            timestampString = "427197506.40529"
+            timestampString = "427258323.620449"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
             landmarkName = "-numberOfSectionsInTableView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2142,11 +2230,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/CameraSetViewController.m"
-            timestampString = "427197506.40529"
+            timestampString = "427258323.620449"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "427"
-            endingLineNumber = "427"
+            startingLineNumber = "429"
+            endingLineNumber = "429"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2206,11 +2294,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/CameraSetViewController.m"
-            timestampString = "427211816.335659"
+            timestampString = "427258323.620449"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "772"
-            endingLineNumber = "772"
+            startingLineNumber = "777"
+            endingLineNumber = "777"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2238,11 +2326,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/CameraSetViewController.m"
-            timestampString = "427211816.335659"
+            timestampString = "427258323.620449"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "643"
-            endingLineNumber = "643"
+            startingLineNumber = "648"
+            endingLineNumber = "648"
             landmarkName = "-timeHiddenEventAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2254,12 +2342,92 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/CameraSetViewController.m"
-            timestampString = "427211816.335659"
+            timestampString = "427258323.620449"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "650"
-            endingLineNumber = "650"
+            startingLineNumber = "655"
+            endingLineNumber = "655"
             landmarkName = "-timeHiddenEventAction:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/AudioVideoViewController.m"
+            timestampString = "427257500.011884"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
+            landmarkName = "-finishAction:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/AudioVideoViewController.m"
+            timestampString = "427257706.4966"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "-finishAction:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/MyCameraViewController.m"
+            timestampString = "427258916.814204"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "337"
+            endingLineNumber = "337"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/MyCameraViewController.m"
+            timestampString = "427258958.676563"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "380"
+            endingLineNumber = "380"
+            landmarkName = "-accessoryButtonTappedAction:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/ShareCamereViewController.m"
+            timestampString = "427259769.161565"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "517"
+            endingLineNumber = "517"
+            landmarkName = "-hiddenOrNo:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

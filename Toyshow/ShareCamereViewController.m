@@ -109,7 +109,7 @@
     
     //系统音量
     volumView = [[MPVolumeView alloc] initWithFrame:CGRectMake(-55, 140, 200, 34)];
-    [volumView setVolumeThumbImage:[UIImage imageNamed:@"anniu_huagan16x16@2x"] forState:UIControlStateNormal];
+//    [volumView setVolumeThumbImage:[UIImage imageNamed:@"anniu_huagan16x16@2x"] forState:UIControlStateNormal];
     volumView.transform = CGAffineTransformMakeRotation(3*M_PI_2);
 //    volumView.backgroundColor = [UIColor blueColor];
     [self.view addSubview:volumView];
@@ -518,6 +518,7 @@
         [UIView animateWithDuration:0.15 animations:^{
             topView.frame = CGRectMake(0, -44, kHeight, 44);
             bottomView.frame = CGRectMake(0, kWidth+60, kHeight, 60);
+            volumView.hidden = YES;
         }];
         topViewHidden = !topViewHidden;
         return;
@@ -597,14 +598,12 @@
 
 - (void)volumeBtnClick  //音量
 {
-    NSLog(@"speaking");
     if (volumView.hidden) {
         volumView.hidden = NO;
     }else
     {
         volumView.hidden = YES;
     }
-//    [_loadingView removeFromSuperview];
 }
 
 - (void)lightSliderValue:(UISlider *)sender

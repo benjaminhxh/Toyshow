@@ -81,7 +81,9 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
-    [self getDeviceInfo];
+//    if (self.statue) {
+        [self getDeviceInfo];
+//    }
 
     //右滑回到上一个页面
     UISwipeGestureRecognizer *recognizer;
@@ -530,6 +532,7 @@
 //        NSLog(@"关闭的");
 //        self.videoRecordIndex = 0;
 //    }
+    _loginoutView.hidden = NO;
     self.videoRecordIndex = videooffON.on;
 
     NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -583,6 +586,7 @@
 - (void)stateLightEventAction:(id)sender
 {
     NSLog(@"状态指示灯");
+    _loginoutView.hidden = NO;
 //    UISwitch *offswitch = (UISwitch *)sender;
 //    if (offswitch.on) {
 //        self.lightStatueIndex = 1;
@@ -624,6 +628,7 @@
 - (void)timeHiddenEventAction:(id)sender
 {
     NSLog(@"时间是否显示");
+    _loginoutView.hidden = NO;
 //    UISwitch *timeStaueSwitch = (UISwitch *)sender;
 //    if (timeStaueSwitch.on) {
 //        self.timeShowIndex = 1;
