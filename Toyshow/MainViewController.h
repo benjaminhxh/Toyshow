@@ -12,7 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *cameraHead;
 @property (weak, nonatomic) IBOutlet UILabel *cameraName;
-@property (weak, nonatomic) IBOutlet UILabel *cameraId;
+//@property (weak, nonatomic) IBOutlet UILabel *cameraId;
 @property (weak, nonatomic) IBOutlet UILabel *cameraStatus;
 @property (nonatomic,assign) NSInteger index;
 //@property (weak, nonatomic) IBOutlet UIButton *moreBtn;

@@ -436,6 +436,7 @@
             avideoVC.flipImageIndex = [[cameraInfoDict objectForKey:@"iFlipImage"] integerValue];
             avideoVC.ntscOrPalIndex = [[cameraInfoDict objectForKey:@"iNTSCPAL"] integerValue];
             avideoVC.imageResolutionIndex = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
+            NSLog(@"分辨率：%@",[cameraInfoDict objectForKey:@"iImageResolution"]);
             [[SliderViewController sharedSliderController].navigationController pushViewController:avideoVC animated:YES];
         }
             break;

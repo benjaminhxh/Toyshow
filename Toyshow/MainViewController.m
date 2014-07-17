@@ -331,7 +331,7 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:@"ShareCameraCell" owner:self options:nil] lastObject];
             NSDictionary *dict = [_fakeData objectAtIndex:indexPath.row];
             self.cameraName.text = [dict objectForKey:@"description"];
-            self.cameraId.text = [dict objectForKey:@"deviceid"];
+//            self.cameraId.text = [dict objectForKey:@"deviceid"];
             NSString *imageURL = [dict objectForKey:@"thumbnail"];
             [self.cameraHead setImageWithURL:[NSURL URLWithString:imageURL]];
             int status = [[dict objectForKey:@"status"] intValue];

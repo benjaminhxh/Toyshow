@@ -13,6 +13,7 @@
     UIView *staticView;
     UILabel *dhcpLab;
     UITextField *ipAddressF,*subnetmaskF,*routerF;
+    UIScrollView *scrollView;
 }
 @end
 
@@ -51,22 +52,25 @@
     [finishBtn addTarget:self action:@selector(finishBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:finishBtn];
     
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
+    scrollView.contentSize = CGSizeMake(kWidth, kHeight);
+    [self.view addSubview:scrollView];
     
     NSArray *ipArr = [NSArray arrayWithObjects:@"自动获取",@"手动设置", nil];
     UISegmentedControl *IPControl = [[UISegmentedControl alloc] initWithItems:ipArr];
-    IPControl.frame = CGRectMake(20, 80, 280, 40);
+    IPControl.frame = CGRectMake(20, 16, 280, 40);
     IPControl.selectedSegmentIndex = self.selectedIndex;
     [IPControl addTarget:self action:@selector(ipstyleAction:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:IPControl];
+    [scrollView addSubview:IPControl];
 
-    dhcpLab = [[UILabel alloc] initWithFrame:CGRectMake(20, 130, 280, 114)];
+    dhcpLab = [[UILabel alloc] initWithFrame:CGRectMake(20, 66, 280, 114)];
     dhcpLab.numberOfLines = 3;
     dhcpLab.textColor = [UIColor grayColor];
     dhcpLab.text = @"默认为\"自动获取\"，如您更改为\"手动设置\"，可能出现配置不成功的情况，请谨慎选择！";
-    [self.view addSubview:dhcpLab];
+    [scrollView addSubview:dhcpLab];
     
-    staticView = [[UIView alloc] initWithFrame:CGRectMake(0, 130, 320, 114)];
-    [self.view addSubview:staticView];
+    staticView = [[UIView alloc] initWithFrame:CGRectMake(0, 66, 320, 114)];
+    [scrollView addSubview:staticView];
     staticView.layer.cornerRadius = 1;
     staticView.layer.borderWidth = 1;
     staticView.layer.borderColor = [UIColor grayColor].CGColor;
@@ -218,7 +222,7 @@
 }
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self.view endEditing:YES];
+    [scrollView endEditing:YES];
 }
 
 - (void)didReceiveMemoryWarning

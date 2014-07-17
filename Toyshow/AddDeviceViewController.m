@@ -29,8 +29,8 @@
     UITextField *deviceDetailF,*SSIDPWF,*SSIDF,*SSIDPWFconfirm;
     UIAlertView *nextAlertview,*loginAlterView,*configurationTipView;
     NSArray *securyArr;
-//    UIView *userView;
-//    UITextField *userField;
+    UIScrollView *scrollView;
+    //    UITextField *userField;
     MBProgressHUD *_loadingView;
 
     UIButton *ipStyleBtn,*securtyBtn,*shareBtn;
@@ -71,84 +71,88 @@
     [backBtn addTarget:self action:@selector(backBtn:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backBtn];
     
-    UILabel *deviceL = [[UILabel alloc] initWithFrame:CGRectMake(10, 70, 100, 30)];
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
+    scrollView.contentSize = CGSizeMake(kWidth, kHeight);
+    [self.view addSubview:scrollView];
+
+    UILabel *deviceL = [[UILabel alloc] initWithFrame:CGRectMake(10, 6, 100, 30)];
     deviceL.text = @"设备ID:";
-    [self.view addSubview:deviceL];
-    UITextField *deviceF = [[UITextField alloc] initWithFrame:CGRectMake(100, 70, 180, 30)];
+    [scrollView addSubview:deviceL];
+    UITextField *deviceF = [[UITextField alloc] initWithFrame:CGRectMake(100, 6, 180, 30)];
     deviceF.text = self.deviceID;
     deviceF.enabled = NO;
     deviceF.allowsEditingTextAttributes = YES;
     deviceF.borderStyle = UITextBorderStyleRoundedRect;
-    [self.view addSubview:deviceF];
+    [scrollView addSubview:deviceF];
     
-    UILabel *deviceDetail = [[UILabel alloc] initWithFrame:CGRectMake(10, 110, 100, 30)];
+    UILabel *deviceDetail = [[UILabel alloc] initWithFrame:CGRectMake(10, 46, 100, 30)];
     deviceDetail.text = @"设备描述:";
-    [self.view addSubview:deviceDetail];
-    deviceDetailF = [[UITextField alloc] initWithFrame:CGRectMake(100, 110, 180, 30)];
+    [scrollView addSubview:deviceDetail];
+    deviceDetailF = [[UITextField alloc] initWithFrame:CGRectMake(100, 46, 180, 30)];
     deviceDetailF.borderStyle = UITextBorderStyleRoundedRect;
     deviceDetailF.returnKeyType = UIReturnKeyNext;
     deviceDetailF.delegate = self;
-    [self.view addSubview:deviceDetailF];
+    [scrollView addSubview:deviceDetailF];
     
-    UILabel *SSIDL = [[UILabel alloc] initWithFrame:CGRectMake(10, 150, 100, 30)];
+    UILabel *SSIDL = [[UILabel alloc] initWithFrame:CGRectMake(10, 86, 100, 30)];
     SSIDL.text = @"WiFi名称:";
-    [self.view addSubview:SSIDL];
-    SSIDF = [[UITextField alloc] initWithFrame:CGRectMake(100, 150, 180, 30)];
+    [scrollView addSubview:SSIDL];
+    SSIDF = [[UITextField alloc] initWithFrame:CGRectMake(100, 86, 180, 30)];
     SSIDF.borderStyle = UITextBorderStyleRoundedRect;
     SSIDF.text = [self fetchSSIDInfo];
 //    SSIDF.text = @"zhonghexunfei";
 //    SSIDF.delegate = self;
     SSIDF.enabled = NO;
-    [self.view addSubview:SSIDF];
+    [scrollView addSubview:SSIDF];
     
-    UILabel *SSIDPW = [[UILabel alloc] initWithFrame:CGRectMake(10, 190, 100, 30)];
+    UILabel *SSIDPW = [[UILabel alloc] initWithFrame:CGRectMake(10, 126, 100, 30)];
     SSIDPW.text = @"WiFi密码:";
-    [self.view addSubview:SSIDPW];
-    SSIDPWF = [[UITextField alloc] initWithFrame:CGRectMake(100, 190, 180, 30)];
+    [scrollView addSubview:SSIDPW];
+    SSIDPWF = [[UITextField alloc] initWithFrame:CGRectMake(100, 126, 180, 30)];
     SSIDPWF.borderStyle = UITextBorderStyleRoundedRect;
     SSIDPWF.returnKeyType = UIReturnKeyNext;
-    SSIDPWF.text = @"zhxf0602";
+//    SSIDPWF.text = @"zhxf0602";
     SSIDPWF.delegate = self;
-    [self.view addSubview:SSIDPWF];
+    [scrollView addSubview:SSIDPWF];
     
-    UILabel *SSIDPWconfirm = [[UILabel alloc] initWithFrame:CGRectMake(10, 230, 80, 30)];
+    UILabel *SSIDPWconfirm = [[UILabel alloc] initWithFrame:CGRectMake(10, 166, 80, 30)];
     SSIDPWconfirm.text = @"确认密码:";
-    [self.view addSubview:SSIDPWconfirm];
-    SSIDPWFconfirm = [[UITextField alloc] initWithFrame:CGRectMake(100, 230, 180, 30)];
+    [scrollView addSubview:SSIDPWconfirm];
+    SSIDPWFconfirm = [[UITextField alloc] initWithFrame:CGRectMake(100, 166, 180, 30)];
     SSIDPWFconfirm.borderStyle = UITextBorderStyleRoundedRect;
     SSIDPWFconfirm.returnKeyType = UIReturnKeyDone;
-    SSIDPWFconfirm.text = @"zhxf0602";
+//    SSIDPWFconfirm.text = @"zhxf0602";
     SSIDPWFconfirm.delegate = self;
-    [self.view addSubview:SSIDPWFconfirm];
+    [scrollView addSubview:SSIDPWFconfirm];
     
-    UILabel  *lineL = [[UILabel alloc] initWithFrame:CGRectMake(2, 265, 320-4, 1)];
+    UILabel  *lineL = [[UILabel alloc] initWithFrame:CGRectMake(2, 201, 320-4, 1)];
     lineL.backgroundColor = [UIColor grayColor];
-    [self.view addSubview:lineL];
-    UILabel *securtyStyleLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 275, 145, 24)];
+    [scrollView addSubview:lineL];
+    UILabel *securtyStyleLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 211, 145, 24)];
     securtyStyleLab.text = @"高级设置";
     securtyStyleLab.font = [UIFont systemFontOfSize:24];
-    [self.view addSubview:securtyStyleLab];
+    [scrollView addSubview:securtyStyleLab];
     
-    UILabel *ipStyleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 310, 140, 34)];
+    UILabel *ipStyleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 246, 140, 34)];
     ipStyleLabel.text = @"IP地址获取方式:";
-    [self.view addSubview:ipStyleLabel];
+    [scrollView addSubview:ipStyleLabel];
     ipStyleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    ipStyleBtn.frame = CGRectMake(220, 310, 80, 34);
+    ipStyleBtn.frame = CGRectMake(220, 246, 80, 34);
 //    [ipStyleBtn setBackgroundColor:[UIColor grayColor]];
     [ipStyleBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [ipStyleBtn setTitle:@"自动获取" forState:UIControlStateNormal];
     [ipStyleBtn addTarget:self action:@selector(ipSelectAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:ipStyleBtn];
+    [scrollView addSubview:ipStyleBtn];
     
-    UILabel *securtyLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 350, 200, 34)];
+    UILabel *securtyLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 286, 200, 34)];
     securtyLabel.text = @"路由器无线认证安全类型:";
-    [self.view addSubview:securtyLabel];
+    [scrollView addSubview:securtyLabel];
     securtyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    securtyBtn.frame = CGRectMake(220, 350, 80, 34);
+    securtyBtn.frame = CGRectMake(220, 286, 80, 34);
     [securtyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [securtyBtn setTitle:@"WPA*" forState:UIControlStateNormal];
     [securtyBtn addTarget:self action:@selector(securtySelectAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:securtyBtn];
+    [scrollView addSubview:securtyBtn];
     self.identifify = @"";
 
 //    securyArr = [NSArray arrayWithObjects:@"[WPA2-PSK-TKIP+CCMP]",@"[WPA-PSK-TKIP+CCMP]",@"[WPA2-EAP-TKIP+CCMP]",@"[WPA-EAP-TKIP+CCMP]",@"[WEP]",@"[ESS]", nil];
@@ -165,11 +169,11 @@
 //    [self.view addSubview:hexOrAscii];
     
     UIButton *startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    startBtn.frame = CGRectMake(80, 420, 160, 40);
+    startBtn.frame = CGRectMake(80, 356, 160, 40);
     [startBtn setBackgroundImage:[UIImage imageNamed:@"kaishipeizhi_anniu@2x"] forState:UIControlStateNormal];
     [startBtn setTitle:@"开始配置" forState:UIControlStateNormal];
     [startBtn addTarget:self action:@selector(startConfigure) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:startBtn];
+    [scrollView addSubview:startBtn];
 }
 
 - (void)backBtn:(id)sender
@@ -480,7 +484,7 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self.view endEditing:YES];
+    [scrollView endEditing:YES];
 }
 
 

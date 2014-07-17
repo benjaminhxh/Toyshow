@@ -283,8 +283,7 @@
         if (nil == cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"MyCameraCell" owner:self options:nil] lastObject];
             NSDictionary *cameraUserInfoDict = [_fakeData objectAtIndex:indexPath.row];
-            self.cameraId.text = [cameraUserInfoDict objectForKey:@"deviceid"];
-//            self.cameraPic.image = [_imageArr objectAtIndex:indexPath.row];
+//            self.cameraId.text = [cameraUserInfoDict objectForKey:@"deviceid"];
             self.cameraTitle.text = [cameraUserInfoDict objectForKey:@"description"];
             NSString *status = [cameraUserInfoDict objectForKey:@"status"];
             int stat = [status intValue];

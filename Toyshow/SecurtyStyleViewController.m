@@ -53,17 +53,20 @@
     [finishBtn addTarget:self action:@selector(finishBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:finishBtn];
 
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
+    scrollView.contentSize = CGSizeMake(kWidth, kHeight);
+    [self.view addSubview:scrollView];
+    
     explainArr = [NSArray arrayWithObjects:@"WPA/WPA2、WPA-PSk/WPA2-PSK是当前路由器无线认证常用的安全类型，安全性相对较高。",@"802.1x(EAP)常用于需要二次认证的无线路由器",@"WEP是比较老的路由器无线认证安全类型，安全性较低。",@"ESS是不需要认证的方式", nil];
     securtyStyleArr = [NSArray arrayWithObjects:@"WPA*",@"EAP",@"WEP",@"ESS", nil];
     UISegmentedControl *wepControl = [[UISegmentedControl alloc] initWithItems:securtyStyleArr];
-    wepControl.frame = CGRectMake(10, 80, 300, 40);
-    
+    wepControl.frame = CGRectMake(10, 16, 300, 40);
     [wepControl addTarget:self action:@selector(selectWEBstyle:) forControlEvents:UIControlEventValueChanged];
     wepControl.selectedSegmentIndex = self.selectIndex;
-    [self.view addSubview:wepControl];
+    [scrollView addSubview:wepControl];
     
-    userView = [[UIView alloc] initWithFrame:CGRectMake(20, 120, 280, 40)];
-    [self.view addSubview:userView];
+    userView = [[UIView alloc] initWithFrame:CGRectMake(20, 56, 280, 40)];
+    [scrollView addSubview:userView];
     UILabel *userL = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 68, 30)];
     userL.text = @"用户名:";
     [userView addSubview:userL];
@@ -78,12 +81,12 @@
     {
         userView.hidden = YES;
     }
-    explainLab = [[UILabel alloc] initWithFrame:CGRectMake(20, 160, 280, 72)];
+    explainLab = [[UILabel alloc] initWithFrame:CGRectMake(20, 96, 280, 72)];
     explainLab.text = [explainArr objectAtIndex:self.selectIndex];
     explainLab.textColor = [UIColor grayColor];
     explainLab.numberOfLines = 3;
 //    explainLab.backgroundColor = [UIColor grayColor];
-    [self.view addSubview:explainLab];
+    [scrollView addSubview:explainLab];
 }
 
 - (void)selectWEBstyle:(id)sender

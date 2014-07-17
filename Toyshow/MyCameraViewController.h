@@ -12,7 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *cameraPic;
 @property (weak, nonatomic) IBOutlet UILabel *cameraTitle;
-@property (weak, nonatomic) IBOutlet UILabel *cameraId;
+//@property (weak, nonatomic) IBOutlet UILabel *cameraId;
 @property (weak, nonatomic) IBOutlet UILabel *cameraStatus;
 @property (weak, nonatomic) NSString *userId;
 @property (weak, nonatomic) NSString *accessToken;

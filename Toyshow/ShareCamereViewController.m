@@ -70,6 +70,8 @@
     [[CyberPlayerController class ]setBAEAPIKey:msAK SecretKey:msSK ];
     //当前只支持CyberPlayerController的单实例
     cbPlayerController = [[CyberPlayerController alloc] init];
+    NSString *SDKVerion = [cbPlayerController getSDKVersion];
+    NSLog(@"SDKVersion:%@",SDKVerion);
     //设置视频显示的位置
     [cbPlayerController.view setFrame: cbdPlayerView.frame];
     //将视频显示view添加到当前view中
@@ -109,7 +111,8 @@
     
     //系统音量
     volumView = [[MPVolumeView alloc] initWithFrame:CGRectMake(-55, 140, 200, 34)];
-//    [volumView setVolumeThumbImage:[UIImage imageNamed:@"anniu_huagan16x16@2x"] forState:UIControlStateNormal];
+//    volumView.showsRouteButton=NO;
+    [volumView setVolumeThumbImage:[UIImage imageNamed:@"anniu_huagan16x16@2x"] forState:UIControlStateNormal];
     volumView.transform = CGAffineTransformMakeRotation(3*M_PI_2);
 //    volumView.backgroundColor = [UIColor blueColor];
     [self.view addSubview:volumView];
@@ -729,12 +732,14 @@
         [successView show];
         [shareBtn setImage:[UIImage imageNamed:@"fenxiang_wei@2x"] forState:UIControlStateNormal];
         [shareBtn setImage:[UIImage imageNamed:@"fenxiang_zhong@2x"] forState:UIControlStateHighlighted];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.view setNeedsDisplay];
+        });
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error:%@",[error userInfo]);
         UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"取消分享失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [failView show];
-        
     }];
 }
 - (void)didReceiveMemoryWarning
