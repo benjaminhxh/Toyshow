@@ -19,14 +19,14 @@
 {
     UITableView *_tableView;
     NSMutableArray *_fakeData;
-    NSArray *downloadArr,*imageURLARR;
+    NSArray *downloadArr;
     MJRefreshFooterView *_footerView;
     MJRefreshHeaderView *_headerView;
     UILabel *noDataLoadL,*noInternetL;
     long st,et;
     UIPickerView *pickView;
     UIView *dateView;
-    NSMutableArray *timeStrArr,*timeIntArr;
+    NSMutableArray *timeStrArr,*timeIntArr,*imageURLARR;
     NSInteger pickRow;
 }
 @end
@@ -118,14 +118,11 @@
     NSString *nowTime = [[self dateFormatterHHmmss] stringFromDate:datenow];
     NSArray *timeArrary = [nowTime componentsSeparatedByString:@":"];
     int startT =[[timeArrary objectAtIndex:0] intValue]*3600+[[timeArrary objectAtIndex:1] intValue]*60+[[timeArrary objectAtIndex:2] intValue];
-//    NSLog(@"startT:%d",startT);
     
     [timeIntArr addObject:[NSNumber numberWithLong:et]];
     //昨天一天的时间
     long yesterday = et-startT;
     [timeIntArr addObject:[NSNumber numberWithLong:yesterday]];
-    
-    NSLog(@"et:%ld",et);
     
     for (int i = 1; i<7; i++) {
         NSDate *date = [NSDate dateWithTimeIntervalSinceNow:-i*24*3600];
@@ -198,17 +195,7 @@
 //        NSDate *datenow = [NSDate dateWithTimeIntervalSinceNow:0];//现在时间
 //        long et = (long)[datenow timeIntervalSince1970];
 //        long st = et - 7*24*3600;
-        //请求点播缩略图
-        NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
-        [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-            NSDictionary *dict = (NSDictionary *)responseObject;
-            imageURLARR = [NSArray array];
-            imageURLARR = [dict objectForKey:@"list"];
-        
-        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            NSDictionary *errorDict = [error userInfo];
-            NSLog(@"errorDict:%@",errorDict);
-        }];
+      
         //请求点播时间
         NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=playlist&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
         [[AFHTTPSessionManager manager] GET:urlStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -226,12 +213,17 @@
             }else
             {
                 if (downloadArr.count>20) {
-                    for (int i = 0; i < 20; i++) {
-                        [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
+                    //从尾到头遍历选出最后那20条数据
+                    for (int i = downloadArr.count; i > (downloadArr.count-20); i--) {
+                        NSLog(@"downLoadArr:------i--------%d",i);
+                        [vc->_fakeData addObject:[downloadArr objectAtIndex:i-1]];
                     }
-                }else
+                }
+                else
                 {
-                    vc->_fakeData = (NSMutableArray *)downloadArr;
+                    for (int i = downloadArr.count; i > 0; i--) {
+                        [vc->_fakeData addObject:[downloadArr objectAtIndex:i-1]];
+                    }
                 }
             }
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
@@ -242,6 +234,21 @@
             [noDataView show];
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
 
+        }];
+        //请求点播缩略图
+        NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
+        [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            imageURLARR = [NSMutableArray array];
+            NSArray *imageArr = [NSArray array];
+            imageArr = [dict objectForKey:@"list"];
+            for (int i=imageArr.count; i>0; i--) {
+                [imageURLARR addObject:[imageArr objectAtIndex:i-1]];
+            }
+            
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            NSDictionary *errorDict = [error userInfo];
+            NSLog(@"errorDict:%@",errorDict);
         }];
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
@@ -284,11 +291,17 @@
     footer.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView) {
         if(_fakeData.count < downloadArr.count)
         {
-            if (_fakeData.count+20 > downloadArr.count) {
-                _fakeData = (NSMutableArray *)downloadArr;
-            }else{
-                for (int i = 0; i < 20; i++) {
-                    [_fakeData addObject:[downloadArr objectAtIndex:_fakeData.count]];
+            if (_fakeData.count+20 > downloadArr.count)
+            {
+                for (int i = (downloadArr.count-_fakeData.count); i > 0; i--) {
+                    [vc->_fakeData addObject:[downloadArr objectAtIndex:i-1]];
+                }
+            }
+            else
+            {
+               int a = (downloadArr.count-_fakeData.count-20);
+                for (int i = (downloadArr.count-_fakeData.count); i > a; i--) {
+                    [_fakeData addObject:[downloadArr objectAtIndex:i-1]];
                 }
             }
             // 模拟延迟加载数据，因此2秒后才调用）
@@ -336,6 +349,7 @@
 {
     // Return the number of rows in the section.
     if (_fakeData.count) {
+        NSLog(@"tableView.count:%d",_fakeData.count);
         return _fakeData.count;
     }
     return 0;
@@ -356,7 +370,7 @@
             //            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             cell = [[[NSBundle mainBundle] loadNibNamed:@"thumbCell" owner:self options:nil] lastObject];
             self.thumbTitle.text = self.deviceDesc;
-            NSArray *arr = [downloadArr objectAtIndex:indexPath.row];
+            NSArray *arr = [_fakeData objectAtIndex:indexPath.row];
             NSNumber *stt = [arr objectAtIndex:0];
             int stf = [stt intValue];
             NSDate *currentTime = [NSDate dateWithTimeIntervalSince1970:stf];
@@ -380,7 +394,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *arr = [downloadArr objectAtIndex:indexPath.row];
+    NSArray *arr = [_fakeData objectAtIndex:indexPath.row];
     NSNumber *stt = [arr objectAtIndex:0];
     int stf = [stt intValue];
     NSDate *startTimeData = [NSDate dateWithTimeIntervalSince1970:stf];
@@ -483,20 +497,27 @@
         }else
         {
             if (downloadArr.count>20) {
-                for (int i = 0; i < 20; i++) {
-                    [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
+                //从尾到头遍历选出最后那20条数据
+                for (int i = downloadArr.count; i > (downloadArr.count-20); i--) {
+                    [vc->_fakeData addObject:[downloadArr objectAtIndex:i-1]];
                 }
             }else
             {
-                vc->_fakeData = (NSMutableArray *)downloadArr;
+                for (int i = downloadArr.count; i > 0; i--) {
+                    [vc->_fakeData addObject:[downloadArr objectAtIndex:i-1]];
+                }
             }
         }
         //请求点播缩略图
         NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
         [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
-            imageURLARR = [NSArray array];
-            imageURLARR = [dict objectForKey:@"list"];
+            imageURLARR = [NSMutableArray array];
+            NSArray *imageArr = [NSArray array];
+            imageArr = [dict objectForKey:@"list"];
+            for (int i=imageArr.count; i>0; i--) {
+                [imageURLARR addObject:[imageArr objectAtIndex:i-1]];
+            }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [_tableView reloadData];
             });
