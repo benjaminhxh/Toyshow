@@ -15,7 +15,7 @@
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
 
-@interface ThumbnailViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface ThumbnailViewController ()<UITableViewDataSource,UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
 {
     UITableView *_tableView;
     NSMutableArray *_fakeData;
@@ -24,6 +24,10 @@
     MJRefreshHeaderView *_headerView;
     UILabel *noDataLoadL,*noInternetL;
     long st,et;
+    UIPickerView *pickView;
+    UIView *dateView;
+    NSMutableArray *timeStrArr,*timeIntArr;
+    NSInteger pickRow;
 }
 @end
 
@@ -59,19 +63,77 @@
     [backBtn addTarget:self action:@selector(backBtn) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backBtn];
 
+    UIButton *timeSelectBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    timeSelectBtn.frame = CGRectMake(kWidth-75, [UIApplication sharedApplication].statusBarFrame.size.height+2, 65, 35);
+    [timeSelectBtn setTitle:@"时间选择" forState:UIControlStateNormal];
+    [timeSelectBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [timeSelectBtn setBackgroundImage:[UIImage imageNamed:@"lishijilu@2x"] forState:UIControlStateNormal];
+    [timeSelectBtn addTarget:self action:@selector(timeSelectAction:) forControlEvents:UIControlEventTouchUpInside];
+    [topView addSubview:timeSelectBtn];
+
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, 320, [UIScreen mainScreen].bounds.size.height-65) style:UITableViewStylePlain];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:_tableView];
+    
 //    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(100, 25, 120, 24)];
 //    title.textColor = [UIColor whiteColor];
 //    title.text = @"点播列表";
 //    title.textAlignment = NSTextAlignmentCenter;
 //    [self.view addSubview:title];
     NSDate *datenow = [NSDate dateWithTimeIntervalSinceNow:0];//现在时间
-     et = (long)[datenow timeIntervalSince1970];
-     st = et - 7*24*3600;
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, 320, [UIScreen mainScreen].bounds.size.height-65) style:UITableViewStylePlain];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:_tableView];
+    et = (long)[datenow timeIntervalSince1970];
+    st = et - 7*24*3600;
+    
+    dateView = [[UIView alloc] initWithFrame:CGRectMake(0, 480, 320, 202)];
+    dateView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:dateView];
+    
+    pickView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 20, 320, 162)];
+    pickView.delegate = self;
+    pickView.dataSource = self;
+    [dateView addSubview:pickView];
+    
+    UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    cancelBtn.frame = CGRectMake(10, 2, 60, 30);
+    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [cancelBtn setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
+    [cancelBtn addTarget:self action:@selector(cancelDatePickSelectAction:) forControlEvents:UIControlEventTouchUpInside];
+    [dateView addSubview:cancelBtn];
+    
+    UIButton *OKBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    OKBtn.frame = CGRectMake(250, 2, 60, 30);
+    [OKBtn setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
+    [OKBtn setTitle:@"确定" forState:UIControlStateNormal];
+    
+    [OKBtn addTarget:self action:@selector(OKBtnDatePickSelectAction:) forControlEvents:UIControlEventTouchUpInside];
+    [dateView addSubview:OKBtn];
+    timeStrArr = [NSMutableArray array];
+    timeIntArr = [NSMutableArray array];
+    [timeStrArr addObject:@"全部"];
+    [timeStrArr addObject:@"今天"];
+    
+    //现在时间、以及对于的int值
+    NSString *nowTime = [[self dateFormatterHHmmss] stringFromDate:datenow];
+    NSArray *timeArrary = [nowTime componentsSeparatedByString:@":"];
+    int startT =[[timeArrary objectAtIndex:0] intValue]*3600+[[timeArrary objectAtIndex:1] intValue]*60+[[timeArrary objectAtIndex:2] intValue];
+//    NSLog(@"startT:%d",startT);
+    
+    [timeIntArr addObject:[NSNumber numberWithLong:et]];
+    //昨天一天的时间
+    long yesterday = et-startT;
+    [timeIntArr addObject:[NSNumber numberWithLong:yesterday]];
+    
+    NSLog(@"et:%ld",et);
+    
+    for (int i = 1; i<7; i++) {
+        NSDate *date = [NSDate dateWithTimeIntervalSinceNow:-i*24*3600];
+        NSString *timeTitle = [[self dateFormatterYYYYMMdd] stringFromDate:date];
+        [timeStrArr addObject:timeTitle];
+        long qiantian = et-startT-24*3600*i;
+        [timeIntArr addObject:[NSNumber numberWithLong:qiantian]];
+    }
     
     //右滑回到上一个页面
     UISwipeGestureRecognizer *recognizer;
@@ -108,6 +170,18 @@
     return localeDate;
 }
 
+- (NSDateFormatter *)dateFormatterYYYYMMdd {
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"YYYY-MM-dd"];
+    return dateFormat;
+}
+
+- (NSDateFormatter *)dateFormatterHHmmss {
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"HH:mm:ss"];
+    return dateFormat;
+}
+
 - (void)backBtn
 {
     [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
@@ -128,7 +202,6 @@
         NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
         [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
-//            NSLog(@"imageDict:%@",dict);
             imageURLARR = [NSArray array];
             imageURLARR = [dict objectForKey:@"list"];
         
@@ -332,12 +405,117 @@
     [[SliderViewController sharedSliderController].navigationController pushViewController:vodVC animated:YES];
 }
 
+#pragma mark - pickViewDelegate
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return timeStrArr.count;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [timeStrArr objectAtIndex:row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    pickRow = row;
+}
+
+#pragma mark - TimeSelectMethod
+- (void)timeSelectAction:(id)sender
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        dateView.frame = CGRectMake(0, kHeight-202, 320, 202);
+    }];
+}
+
+- (void)cancelDatePickSelectAction:(id)sender
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        dateView.frame = CGRectMake(0, kHeight, 320, 202);
+    }];
+}
+
+- (void)OKBtnDatePickSelectAction:(id)sender
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        dateView.frame = CGRectMake(0, kHeight, 320, 202);
+    }];
+    st = [[timeIntArr objectAtIndex:pickRow] longValue];
+    if (pickRow==0) {
+//        NSLog(@"起始时间：%@------%@",[timeIntArr objectAtIndex:pickRow],[timeIntArr objectAtIndex:7]);
+        et = [[timeIntArr objectAtIndex:7] longValue];
+    }else
+    {
+//        NSLog(@"起始时间：%@------%@",[timeIntArr objectAtIndex:pickRow],[timeIntArr objectAtIndex:pickRow-1]);
+        et = [[timeIntArr objectAtIndex:pickRow-1] longValue];
+    }
+    [self requestDataWithSelectTime];
+}
+
 - (NSDateFormatter *)dateFormatterMMddHHmm {
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"MM-dd HH:mm:ss"];
     return dateFormat;
 }
 
+- (void)requestDataWithSelectTime
+{
+    __unsafe_unretained ThumbnailViewController *vc = self;
+
+    //请求点播时间
+    NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=playlist&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
+    [[AFHTTPSessionManager manager] GET:urlStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        //            NSLog(@"dict:%@",dict);
+        //2、初始化数据
+        _fakeData = [NSMutableArray array];
+        downloadArr = [NSArray array];
+        downloadArr = [dict objectForKey:@"results"];
+        if (downloadArr.count == 0) {
+            UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"无录像" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+            [noDataView show];
+        }else
+        {
+            if (downloadArr.count>20) {
+                for (int i = 0; i < 20; i++) {
+                    [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
+                }
+            }else
+            {
+                vc->_fakeData = (NSMutableArray *)downloadArr;
+            }
+        }
+        //请求点播缩略图
+        NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
+        [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            imageURLARR = [NSArray array];
+            imageURLARR = [dict objectForKey:@"list"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_tableView reloadData];
+            });
+            
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            NSDictionary *errorDict = [error userInfo];
+            NSLog(@"errorDict:%@",errorDict);
+        }];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_tableView reloadData];
+        });
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSDictionary *errorDict = [error userInfo];
+        NSLog(@"errorDict:%@",errorDict);
+        UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        [noDataView show];
+    }];
+}
 //强制不允许转屏
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
     return (toInterfaceOrientation == UIInterfaceOrientationMaskPortrait);
@@ -347,6 +525,13 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [UIView animateWithDuration:0.3 animations:^{
+        dateView.frame = CGRectMake(0, kHeight, 320, 202);
+    }];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

@@ -54,12 +54,12 @@
     return self;
 }
 
-- (NSDateFormatter *)dateFormate
-{
-    NSDateFormatter *dateFormate = [[NSDateFormatter alloc] init];
-    [dateFormate setDateFormat:@"MM-dd HH:mm"];
-    return dateFormate;
-}
+//- (NSDateFormatter *)dateFormate
+//{
+//    NSDateFormatter *dateFormate = [[NSDateFormatter alloc] init];
+//    [dateFormate setDateFormat:@"MM-dd HH:mm"];
+//    return dateFormate;
+//}
 
 //32位MD5加密方式
 - (NSString *)getMd5_32Bit_String:(NSString *)srcString{
