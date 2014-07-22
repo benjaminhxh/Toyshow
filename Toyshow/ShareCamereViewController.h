@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShareCamereViewController : UIViewController
+@interface ShareCamereViewController : UIViewController<UIScrollViewDelegate>
+
+@property (strong, nonatomic) UIScrollView *scrollv;
+@property (strong, nonatomic) UIImageView *imagev;
 
 @property (nonatomic,assign) BOOL islLve;
 @property (nonatomic,assign) BOOL isShare;

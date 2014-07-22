@@ -22,7 +22,7 @@
 //6227 0000 1616 0056 890
 @interface ShareCamereViewController ()<MBProgressHUDDelegate,UIAlertViewDelegate,UIActionSheetDelegate>
 {
-    UIView *cbdPlayerView;
+//    UIView *cbdPlayerView;
     CyberPlayerController *cbPlayerController;
     UIButton *startBtn, *shareBtn;
     UISlider *lightSlider;
@@ -64,7 +64,18 @@
     self.view.bounds = CGRectMake(0, 0, kWidth,kHeight);
     self.view.transform = CGAffineTransformMakeRotation(M_PI_2);
     [UIView commitAnimations];
-    cbdPlayerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kHeight, kWidth)];
+    self.view.backgroundColor = [UIColor blackColor];
+
+    self.scrollv = [[UIScrollView alloc] init];
+    self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
+    self.scrollv.delegate = self;
+//    self.scrollv.backgroundColor = [UIColor grayColor];
+    [self.view addSubview: self.scrollv ];
+    self.imagev = [[UIImageView alloc] initWithFrame:self.scrollv.frame];
+    self.imagev.userInteractionEnabled = YES;
+    [self.scrollv addSubview: self.imagev];
+    [self loadScaleImage];
+//    cbdPlayerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kHeight, kWidth)];
     //添加百度开发者中心应用对应的APIKey和SecretKey。
     //添加开发者信息
     [[CyberPlayerController class ]setBAEAPIKey:msAK SecretKey:msSK ];
@@ -73,11 +84,10 @@
     NSString *SDKVerion = [cbPlayerController getSDKVersion];
     NSLog(@"SDKVersion:%@",SDKVerion);
     //设置视频显示的位置
-    [cbPlayerController.view setFrame: cbdPlayerView.frame];
+    [cbPlayerController.view setFrame: self.imagev.frame];
     //将视频显示view添加到当前view中
-    [self.view addSubview:cbPlayerController.view];
+    [self.imagev addSubview:cbPlayerController.view];
     self.view.userInteractionEnabled = YES;
-    self.view.backgroundColor = [UIColor whiteColor];
     [self isLoadingView];
 
     //注册监听，当播放器完成视频的初始化后会发送CyberPlayerLoadDidPreparedNotification通知，
@@ -128,8 +138,6 @@
     backBtn.frame = CGRectMake(22, 12, 36, 20);
 //    backBtn.frame = CGRectMake(10, [UIApplication sharedApplication].statusBarFrame.size.height+5, 12, 22);
     [backBtn setImage:[UIImage imageNamed:@"fanhui_jiantou@2x"] forState:UIControlStateNormal];
-
-//    [backBtn setImage:[UIImage imageNamed:@"cehuajiantou@2x"] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtn:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backBtn];
     
@@ -281,11 +289,12 @@
 //    indicatorView.backgroundColor = [UIColor lightGrayColor];
 //    [indicatorView startAnimating];
 
-    tapView = [[UIView alloc] initWithFrame:CGRectMake(70, 50, kHeight-80, kWidth-60-60)];
-    tapView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:tapView];
+//    tapView = [[UIView alloc] initWithFrame:CGRectMake(70, 50, kHeight-80, kWidth-60-60)];
+//    tapView.backgroundColor = [UIColor redColor];
+//    [cbPlayerController.view addSubview:tapView];
     UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenOrNo:)];
-    [tapView addGestureRecognizer:tapGest];
+    [cbPlayerController.view addGestureRecognizer:tapGest];
+
 }
 
 
@@ -586,7 +595,6 @@
     UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:shareArr applicationActivities:activity];
     activityView.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypePrint,UIActivityTypeSaveToCameraRoll,UIActivityTypeMail];
     [self presentViewController:activityView animated:YES completion:nil];
-
 }
 
 - (void)cutPrint    //截图
@@ -597,8 +605,37 @@
     UIGraphicsEndImageContext();
     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
     //自动保存到图片库
+//    UIImage *image2 = [self screenshot:UIDeviceOrientationPortrait
+//            isOpaque:YES
+//usePresentationLayer:YES];
+//    UIGraphicsBeginImageContext(cbPlayerController.view.bounds.size);
+//    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+////    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    UIImageWriteToSavedPhotosAlbum(image2, nil, nil, nil);
 }
 
+////新增截屏代码
+//- (UIImage *)screenshot:(UIDeviceOrientation)orientation isOpaque:(BOOL)isOpaque usePresentationLayer:(BOOL)usePresentationLayer
+//{
+//    CGSize size;
+//    
+//    if (orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown) {
+//        size = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
+//    } else {
+//        size = CGSizeMake(self.view.frame.size.height, self.view.frame.size.width);
+//    }
+//    
+//    UIGraphicsBeginImageContextWithOptions(size, isOpaque, 0.0);
+//    if (usePresentationLayer) {
+//        [self.view.layer.presentationLayer renderInContext:UIGraphicsGetCurrentContext()];
+//    } else {
+//        [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+//    }
+//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    return image;
+//}
 - (void)volumeBtnClick  //音量
 {
     if (volumView.hidden) {
@@ -741,6 +778,53 @@
         UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"取消分享失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [failView show];
     }];
+}
+
+#pragma mark - scaleView
+// 加载图片
+- (void)loadScaleImage
+{
+    CGFloat origin_x = abs(self.scrollv.frame.size.width - self.imagev.frame.size.width)/2.0;
+    CGFloat origin_y = abs(self.scrollv.frame.size.height - self.imagev.frame.size.height)/2.0;
+    self.imagev.frame = CGRectMake(origin_x, origin_y, self.imagev.frame.size.width,self.imagev.frame.size.height);
+    
+    CGSize maxSize = self.scrollv.frame.size;
+    CGFloat widthRatio = maxSize.width/self.imagev.frame.size.width;
+    CGFloat heightRatio = maxSize.height/self.imagev.frame.size.height;
+    CGFloat initialZoom = (widthRatio > heightRatio) ? heightRatio : widthRatio;
+    /*
+     */
+    [self.scrollv setMinimumZoomScale:initialZoom];
+    [self.scrollv setMaximumZoomScale:5];
+    // 设置UIScrollView初始化缩放级别
+    [self.scrollv setZoomScale:initialZoom];
+}
+
+// 设置UIScrollView中要缩放的视图
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.imagev;
+}
+
+// 让UIImageView在UIScrollView缩放后居中显示
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView
+{
+    CGFloat offsetX = (scrollView.bounds.size.width > scrollView.contentSize.width)?
+    (scrollView.bounds.size.width - scrollView.contentSize.width) * 0.5 : 0.0;
+    CGFloat offsetY = (scrollView.bounds.size.height > scrollView.contentSize.height)?
+    (scrollView.bounds.size.height - scrollView.contentSize.height) * 0.5 : 0.0;
+    self.imagev.center = CGPointMake(scrollView.contentSize.width * 0.5 + offsetX,
+                                     scrollView.contentSize.height * 0.5 + offsetY);
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self hiddenOrNo:nil];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self hiddenOrNo:nil];
 }
 - (void)didReceiveMemoryWarning
 {
