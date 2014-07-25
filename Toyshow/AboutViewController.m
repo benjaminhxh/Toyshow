@@ -8,8 +8,6 @@
 
 #import "AboutViewController.h"
 #import "ShowImageViewController.h"
-#import "SliderViewController.h"
-#import "AFNetworking.h"
 
 @interface AboutViewController ()
 

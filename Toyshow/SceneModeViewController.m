@@ -7,7 +7,6 @@
 //
 
 #import "SceneModeViewController.h"
-#import "SliderViewController.h"
 
 @interface SceneModeViewController ()
 {

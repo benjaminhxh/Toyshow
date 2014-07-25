@@ -11,15 +11,10 @@
 #import <CFNetwork/CFNetwork.h>
 #import <arpa/inet.h>
 #import <netdb.h>
-#import "JSONKit.h"
 #import "NetworkRequest.h"
-#import "NetworkRequest.h"
-#import "AFNetworking.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "SecurtyStyleViewController.h"
 #import "IPObtainStyleViewController.h"
-#import "SliderViewController.h"
-#import "MBProgressHUD.h"
 
 #define kTestHost @"telnet://towel.blinkenlights.nl"
 #define kTestPort 23

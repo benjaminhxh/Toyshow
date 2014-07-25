@@ -7,7 +7,6 @@
 //
 
 #import "SecurtyStyleViewController.h"
-#import "JSONKit.h"
 
 @interface SecurtyStyleViewController ()
 {

@@ -11,8 +11,6 @@
 #import "ShareCamereViewController.h"
 #import "MJRefreshFooterView.h"
 #import "MJRefreshHeaderView.h"
-#import "SliderViewController.h"
-#import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
 
 @interface ThumbnailViewController ()<UITableViewDataSource,UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate>

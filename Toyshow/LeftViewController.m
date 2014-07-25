@@ -7,7 +7,6 @@
 //
 
 #import "LeftViewController.h"
-#import "SliderViewController.h"
 #import "ZBarSDK.h"
 #import <Frontia/Frontia.h>
 #import <Frontia/FrontiaShare.h>

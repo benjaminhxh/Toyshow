@@ -7,10 +7,7 @@
 //
 
 #import "ModifyViewController.h"
-#import "AFNetworking.h"
 #import "MyCameraViewController.h"
-#import "SliderViewController.h"
-#import "MBProgressHUD.h"
 
 @interface ModifyViewController ()<MBProgressHUDDelegate>
 {

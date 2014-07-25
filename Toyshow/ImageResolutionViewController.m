@@ -7,7 +7,6 @@
 //
 
 #import "ImageResolutionViewController.h"
-#import "SliderViewController.h"
 
 @interface ImageResolutionViewController ()
 {

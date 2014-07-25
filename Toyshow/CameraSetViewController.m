@@ -7,7 +7,6 @@
 //
 
 #import "CameraSetViewController.h"
-#import "SliderViewController.h"
 #import "ModifyViewController.h"
 #import "ThumbnailViewController.h"
 #import "SceneModeViewController.h"
@@ -106,13 +105,12 @@
     thumbVC.accessToken = self.access_token;
     thumbVC.deviceDesc = self.deviceDesc;
     [[SliderViewController sharedSliderController].navigationController pushViewController:thumbVC animated:YES];
-
 }
 
 #pragma mark - tableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 //- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -128,6 +126,7 @@
 {
     static NSString *cellIdent = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdent];
+    if (0 == indexPath.section) {
     if (cell==nil) {
 //        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdent];
         cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
@@ -342,8 +341,24 @@
 //            //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //        }
 //            break;
-        case 9:
-        {
+//        case 9:
+//        {
+//            
+//            //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//            
+//        }
+//            break;
+        default:
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            break;
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }else
+    {
+        if (cell==nil) {
+            //        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdent];
+            cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+            
             UIButton *loggout = [UIButton buttonWithType:UIButtonTypeCustom];
             [loggout setTitle:@"注销设备" forState:UIControlStateNormal];
             loggout.frame = CGRectMake(80, 3, 160, 40);
@@ -351,16 +366,8 @@
             //            loggout.backgroundColor = [UIColor blueColor];
             [cell addSubview:loggout];
             [loggout addTarget:self action:@selector(LoginOutAction:) forControlEvents:UIControlEventTouchUpInside];
-            //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
         }
-            break;
-        default:
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            break;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
     return cell;
 }
 
@@ -372,121 +379,132 @@
 //    {
 //        return 0;
 //    }
-    return count;
+    if (0 == section) {
+        return count;
+    }else
+    {
+        return 1;
+    }
+//    return count;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.row) {
-//        case 5:
-//        {
-//            SceneModeViewController *modeVC = [[SceneModeViewController alloc] init];
-//            modeVC.delegate = self;
-//            modeVC.lightFilterIndex = self.lightFilterModeIndex;
-//            modeVC.scenceMode = scenceModeL.text;
-//            [[SliderViewController sharedSliderController].navigationController pushViewController:modeVC animated:YES];
-//        }
-//            break;
-//          case 7:
-//        {
-//            [self codeStreamAction:nil];
-//        }
-//            break;
-//        case 8:
-//        {
-//            NtscOrpalViewController *ntscOrpalVC = [[NtscOrpalViewController alloc] init];
-//            ntscOrpalVC.delegate = self;
-//            ntscOrpalVC.ntscOrpalIndex = self.ntscOrpalIndex;
-//            ntscOrpalVC.ntscOrpalMode = ntscOrpalL.text;
-//            [[SliderViewController sharedSliderController].navigationController pushViewController:ntscOrpalVC animated:YES];
-//        }
-//            break;
-//        case 9:
-//        {
-//            ImageResolutionViewController *resolutionlVC = [[ImageResolutionViewController alloc] init];
-//            resolutionlVC.delegate = self;
-//            resolutionlVC.imageResolutionIndex = self.imageResolutionIndex;
-//            resolutionlVC.resolution = imageResolutionL.text;
-//            [[SliderViewController sharedSliderController].navigationController pushViewController:resolutionlVC animated:YES];
-//        }
-//            break;
-//        case 10:
-//        {
-//            DeviceControlViewController *deviceControlVC = [[DeviceControlViewController alloc] init];
-//            deviceControlVC.delegate = self;
-//            deviceControlVC.index = self.controlONOrOFFIndex;
-//            [[SliderViewController sharedSliderController].navigationController pushViewController:deviceControlVC animated:YES];
-//        }
-//            break;
-//        case 11:
-//        {
-//            SensitivityViewController *sensitivityVC = [[SensitivityViewController alloc] init];
-//            sensitivityVC.delegate = self;
-//            sensitivityVC.index = self.sensitivityIndex;
-//            [[SliderViewController sharedSliderController].navigationController pushViewController:sensitivityVC animated:YES];
-//        }
-//            break;
-        case 0:
-        {
-            AudioVideoViewController *avideoVC = [[AudioVideoViewController alloc] init];
-            avideoVC.access_token = self.access_token;
-            avideoVC.deviceid = self.deviceid;
-            avideoVC.audioIndex = [[cameraInfoDict objectForKey:@"iEnableAudioIn"] integerValue];
-            avideoVC.streamIndex = [cameraInfoDict objectForKey:@"iStreamBitrate"];
-            avideoVC.flipImageIndex = [[cameraInfoDict objectForKey:@"iFlipImage"] integerValue];
-            avideoVC.ntscOrPalIndex = [[cameraInfoDict objectForKey:@"iNTSCPAL"] integerValue];
-            avideoVC.imageResolutionIndex = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
-            NSLog(@"分辨率：%@",[cameraInfoDict objectForKey:@"iImageResolution"]);
-            [[SliderViewController sharedSliderController].navigationController pushViewController:avideoVC animated:YES];
+    if (0 == indexPath.section) {
+            switch (indexPath.row) {
+    //        case 5:
+    //        {
+    //            SceneModeViewController *modeVC = [[SceneModeViewController alloc] init];
+    //            modeVC.delegate = self;
+    //            modeVC.lightFilterIndex = self.lightFilterModeIndex;
+    //            modeVC.scenceMode = scenceModeL.text;
+    //            [[SliderViewController sharedSliderController].navigationController pushViewController:modeVC animated:YES];
+    //        }
+    //            break;
+    //          case 7:
+    //        {
+    //            [self codeStreamAction:nil];
+    //        }
+    //            break;
+    //        case 8:
+    //        {
+    //            NtscOrpalViewController *ntscOrpalVC = [[NtscOrpalViewController alloc] init];
+    //            ntscOrpalVC.delegate = self;
+    //            ntscOrpalVC.ntscOrpalIndex = self.ntscOrpalIndex;
+    //            ntscOrpalVC.ntscOrpalMode = ntscOrpalL.text;
+    //            [[SliderViewController sharedSliderController].navigationController pushViewController:ntscOrpalVC animated:YES];
+    //        }
+    //            break;
+    //        case 9:
+    //        {
+    //            ImageResolutionViewController *resolutionlVC = [[ImageResolutionViewController alloc] init];
+    //            resolutionlVC.delegate = self;
+    //            resolutionlVC.imageResolutionIndex = self.imageResolutionIndex;
+    //            resolutionlVC.resolution = imageResolutionL.text;
+    //            [[SliderViewController sharedSliderController].navigationController pushViewController:resolutionlVC animated:YES];
+    //        }
+    //            break;
+    //        case 10:
+    //        {
+    //            DeviceControlViewController *deviceControlVC = [[DeviceControlViewController alloc] init];
+    //            deviceControlVC.delegate = self;
+    //            deviceControlVC.index = self.controlONOrOFFIndex;
+    //            [[SliderViewController sharedSliderController].navigationController pushViewController:deviceControlVC animated:YES];
+    //        }
+    //            break;
+    //        case 11:
+    //        {
+    //            SensitivityViewController *sensitivityVC = [[SensitivityViewController alloc] init];
+    //            sensitivityVC.delegate = self;
+    //            sensitivityVC.index = self.sensitivityIndex;
+    //            [[SliderViewController sharedSliderController].navigationController pushViewController:sensitivityVC animated:YES];
+    //        }
+    //            break;
+            case 0:
+            {
+                AudioVideoViewController *avideoVC = [[AudioVideoViewController alloc] init];
+                avideoVC.access_token = self.access_token;
+                avideoVC.deviceid = self.deviceid;
+                avideoVC.audioIndex = [[cameraInfoDict objectForKey:@"iEnableAudioIn"] integerValue];
+                avideoVC.streamIndex = [cameraInfoDict objectForKey:@"iStreamBitrate"];
+                avideoVC.flipImageIndex = [[cameraInfoDict objectForKey:@"iFlipImage"] integerValue];
+                avideoVC.ntscOrPalIndex = [[cameraInfoDict objectForKey:@"iNTSCPAL"] integerValue];
+                avideoVC.imageResolutionIndex = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
+                NSLog(@"分辨率：%@",[cameraInfoDict objectForKey:@"iImageResolution"]);
+                [[SliderViewController sharedSliderController].navigationController pushViewController:avideoVC animated:YES];
+            }
+                break;
+            case 1:
+            {
+                NightViewController *nightVC = [[NightViewController alloc] init];
+                nightVC.access_token = self.access_token;
+                nightVC.deviceid = self.deviceid;
+                nightVC.isenceIndex = [[cameraInfoDict objectForKey:@"iScene"] integerValue];
+                nightVC.filterIndex = [[cameraInfoDict objectForKey:@"iLightFilterMode"] integerValue];
+                [[SliderViewController sharedSliderController].navigationController pushViewController:nightVC animated:YES];
+            }
+                break;
+            case 2:
+            {
+                EventNotificationViewController *eventNotifVC = [[EventNotificationViewController alloc] init];
+                eventNotifVC.access_token = self.access_token;
+                eventNotifVC.deviceid = self.deviceid;
+                eventNotifVC.eventNotifIndex = [[cameraInfoDict objectForKey:@"iEnableEvent"] integerValue];
+                eventNotifVC.sensityIndex = [[cameraInfoDict objectForKey:@"iObjDetectLevel"] integerValue];
+                [[SliderViewController sharedSliderController].navigationController pushViewController:eventNotifVC animated:YES];
+            }
+                break;
+            case 6:
+            {
+                DeviceStatueControlViewController *statueControlVC = [[DeviceStatueControlViewController alloc] init];
+                statueControlVC.access_token = self.access_token;
+                statueControlVC.deviceid = self.deviceid;
+                [[SliderViewController sharedSliderController].navigationController pushViewController:statueControlVC animated:YES];
+            }
+                break;
+            case 7:
+            {
+                ModifyViewController *modifyVC = [[ModifyViewController alloc] init];
+                modifyVC.deviceId = self.deviceid;
+                modifyVC.deviceName = self.deviceDesc;
+                modifyVC.accessToken = self.access_token;
+    //            modifyVC.delegate = self;
+                [[SliderViewController sharedSliderController].navigationController pushViewController:modifyVC animated:YES];
+            }
+                break;
+            case 8:
+            {
+                DeviceInfoViewController *deviceInfoVC = [[DeviceInfoViewController alloc] init];
+                deviceInfoVC.deviceInfoDict = cameraInfoDict;
+                [[SliderViewController sharedSliderController].navigationController pushViewController:deviceInfoVC animated:YES];
+            }
+                break;
+            default:
+                break;
         }
-            break;
-        case 1:
-        {
-            NightViewController *nightVC = [[NightViewController alloc] init];
-            nightVC.access_token = self.access_token;
-            nightVC.deviceid = self.deviceid;
-            nightVC.isenceIndex = [[cameraInfoDict objectForKey:@"iScene"] integerValue];
-            nightVC.filterIndex = [[cameraInfoDict objectForKey:@"iLightFilterMode"] integerValue];
-            [[SliderViewController sharedSliderController].navigationController pushViewController:nightVC animated:YES];
-        }
-            break;
-        case 2:
-        {
-            EventNotificationViewController *eventNotifVC = [[EventNotificationViewController alloc] init];
-            eventNotifVC.access_token = self.access_token;
-            eventNotifVC.deviceid = self.deviceid;
-            eventNotifVC.eventNotifIndex = [[cameraInfoDict objectForKey:@"iEnableEvent"] integerValue];
-            eventNotifVC.sensityIndex = [[cameraInfoDict objectForKey:@"iObjDetectLevel"] integerValue];
-            [[SliderViewController sharedSliderController].navigationController pushViewController:eventNotifVC animated:YES];
-        }
-            break;
-        case 6:
-        {
-            DeviceStatueControlViewController *statueControlVC = [[DeviceStatueControlViewController alloc] init];
-            statueControlVC.access_token = self.access_token;
-            statueControlVC.deviceid = self.deviceid;
-            [[SliderViewController sharedSliderController].navigationController pushViewController:statueControlVC animated:YES];
-        }
-            break;
-        case 7:
-        {
-            ModifyViewController *modifyVC = [[ModifyViewController alloc] init];
-            modifyVC.deviceId = self.deviceid;
-            modifyVC.deviceName = self.deviceDesc;
-            modifyVC.accessToken = self.access_token;
-//            modifyVC.delegate = self;
-            [[SliderViewController sharedSliderController].navigationController pushViewController:modifyVC animated:YES];
-        }
-            break;
-        case 8:
-        {
-            DeviceInfoViewController *deviceInfoVC = [[DeviceInfoViewController alloc] init];
-            deviceInfoVC.deviceInfoDict = cameraInfoDict;
-            [[SliderViewController sharedSliderController].navigationController pushViewController:deviceInfoVC animated:YES];
-        }
-            break;
-        default:
-            break;
+    }else
+    {
+        
     }
 }
 
@@ -747,9 +765,12 @@
 
 - (void)isLoadingView
 {
+    if (_loginoutView) {
+        [_loginoutView show:YES];
+        return;
+    }
     _loginoutView = [[MBProgressHUD alloc] initWithView:_tableView];
     [_tableView addSubview:_loginoutView];
-    
     _loginoutView.delegate = self;
     _loginoutView.labelText = @"loading";
 //    _loginoutView.detailsLabelText = @"正在注销，请稍后……";
@@ -854,7 +875,7 @@
         //系统自带JSON解析
         cameraInfoDict = [NSDictionary dictionary];
         cameraInfoDict = [NSJSONSerialization JSONObjectWithData:resData options:NSJSONReadingMutableLeaves error:nil];
-        count = 10;
+        count = 9;
         _loginoutView.hidden = YES;
         dispatch_async(dispatch_get_main_queue(), ^{
             [_tableView reloadData];
@@ -863,7 +884,7 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         _loginoutView.hidden = YES;
         [self alertViewShowWithTitle:@"获取设备信息失败" andMessage:[error localizedDescription]];
-        NSLog(@"errorInfo:%@",[error userInfo]);
+//        NSLog(@"errorInfo:%@",[error userInfo]);
     }];
 }
 

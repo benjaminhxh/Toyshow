@@ -8,13 +8,10 @@
 //摄像头直播
 
 #import "ShareCamereViewController.h"
-#import "JSONKit.h"
 #import "CyberPlayerController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <QuartzCore/QuartzCore.h>
-#import "MBProgressHUD.h"
 #import "UIProgressView+AFNetworking.h"
-#import "AFNetworking.h"
 #import "WXApi.h"
 #import "WeixinSessionActivity.h"
 #import "WeixinTimelineActivity.h"
@@ -67,11 +64,17 @@
     self.view.backgroundColor = [UIColor blackColor];
 
     self.scrollv = [[UIScrollView alloc] init];
-    self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
+    if (iOS7) {
+        self.scrollv.frame = CGRectMake( 0, -20, kHeight, kWidth );
+    }else
+    {
+        self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
+    }
     self.scrollv.delegate = self;
-//    self.scrollv.backgroundColor = [UIColor grayColor];
+    self.scrollv.backgroundColor = [UIColor grayColor];
     [self.view addSubview: self.scrollv ];
     self.imagev = [[UIImageView alloc] initWithFrame:self.scrollv.frame];
+//    self.imagev.backgroundColor = [UIColor redColor];
     self.imagev.userInteractionEnabled = YES;
     [self.scrollv addSubview: self.imagev];
     [self loadScaleImage];
@@ -81,13 +84,12 @@
     [[CyberPlayerController class ]setBAEAPIKey:msAK SecretKey:msSK ];
     //当前只支持CyberPlayerController的单实例
     cbPlayerController = [[CyberPlayerController alloc] init];
-    NSString *SDKVerion = [cbPlayerController getSDKVersion];
-    NSLog(@"SDKVersion:%@",SDKVerion);
+//    NSString *SDKVerion = [cbPlayerController getSDKVersion];
+//    NSLog(@"SDKVersion:%@",SDKVerion);
     //设置视频显示的位置
     [cbPlayerController.view setFrame: self.imagev.frame];
     //将视频显示view添加到当前view中
     [self.imagev addSubview:cbPlayerController.view];
-    self.view.userInteractionEnabled = YES;
     [self isLoadingView];
 
     //注册监听，当播放器完成视频的初始化后会发送CyberPlayerLoadDidPreparedNotification通知，
@@ -215,7 +217,7 @@
                 volumeBtn.frame = CGRectMake(kHeight/2+30+150, 11, 46, 24);
             }
             NSLog(@"-----------------self.shareStaue:%d",self.shareStaue);
-            if (self.shareStaue) {
+            if (1 == self.shareStaue) {
                 [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelwei@2x"] forState:UIControlStateNormal];
                 [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelzhong@2x"] forState:UIControlStateHighlighted];
                 
@@ -294,7 +296,10 @@
 //    [cbPlayerController.view addSubview:tapView];
     UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenOrNo:)];
     [cbPlayerController.view addGestureRecognizer:tapGest];
-
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)];
+    doubleTap.numberOfTapsRequired = 2;
+//    [cbPlayerController.view addGestureRecognizer:doubleTap];
+//    [tapGest requireGestureRecognizerToFail:doubleTap];
 }
 
 
@@ -800,6 +805,12 @@
     [self.scrollv setZoomScale:initialZoom];
 }
 
+- (void)doubleTapAction:(UITapGestureRecognizer *)tapGest
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.imagev.frame = CGRectMake(0,0,kHeight,kWidth);
+    }];
+}
 // 设置UIScrollView中要缩放的视图
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
@@ -817,15 +828,15 @@
                                      scrollView.contentSize.height * 0.5 + offsetY);
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [self hiddenOrNo:nil];
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [self hiddenOrNo:nil];
-}
+//- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    [self hiddenOrNo:nil];
+//}
+//
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    [self hiddenOrNo:nil];
+//}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SliderViewController.h"
 #import "LeftViewController.h"
 #import "RightViewController.h"
 #import "WXApi.h"

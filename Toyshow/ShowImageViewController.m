@@ -8,7 +8,6 @@
 
 #import "ShowImageViewController.h"
 #import "iCarousel.h"
-#import "SliderViewController.h"
 #import "HXHAppDelegate.h"
 #import "MainViewController.h"
 

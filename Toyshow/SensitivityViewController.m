@@ -7,7 +7,6 @@
 //
 
 #import "SensitivityViewController.h"
-#import "SliderViewController.h"
 
 @interface SensitivityViewController ()
 {

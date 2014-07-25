@@ -13,17 +13,13 @@
 #define start 100
 
 #import "MainViewController.h"
-#import "SliderViewController.h"
 #import "ShareCamereViewController.h"
 #import "MJRefreshHeaderView.h"
 #import "MJRefreshFooterView.h"
 //#import "NetworkRequest.h"
-#import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
 #import "Reachability1.h"
 #import <CommonCrypto/CommonDigest.h> //md5加密需要的头文件
-#import "MBProgressHUD.h"
-#import "JSONKit.h"
 
 @interface MainViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate>
 {

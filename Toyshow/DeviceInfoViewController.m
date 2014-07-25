@@ -42,10 +42,10 @@
     backBtn.frame = CGRectMake(5, [UIApplication sharedApplication].statusBarFrame.size.height+5, 95, 22);
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
-    [backBtn setTitle:@"设备信息" forState:UIControlStateNormal];
+//    [backBtn setTitle:@"设备信息" forState:UIControlStateNormal];
     [topView addSubview:backBtn];
 
-    deviceInfoArr = [NSArray arrayWithObjects:@"设备ID",@"设备类型",@"管理软件",@"采集软件",@"传输软件",@"MAC地址",@"WiFi IP地址",@"AP IP地址",@"发布日期",@"视频频道",@"音频频道",@"报警输入",@"报警输出",@"WiFi通道数", nil];
+    deviceInfoArr = [NSArray arrayWithObjects:@"设备序列号",@"设备类型",@"管理软件",@"采集软件",@"传输软件",@"MAC地址",@"WiFi IP地址",@"AP IP地址",@"发布日期",@"视频频道",@"音频频道",@"报警输入",@"报警输出",@"WiFi通道数", nil];
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -86,7 +86,7 @@
 //        infoL.text = [deviceInfoArr objectAtIndex:indexPath.row];
         switch (indexPath.row) {
             case 0:
-                infoL.text = [self.deviceInfoDict objectForKey:@"i64DeviceId"];
+                infoL.text = [self.deviceInfoDict objectForKey:@"strDeviceSn"];//strDeviceSn/i64DeviceId
                 break;
             case 1:
                 infoL.text = [self.deviceInfoDict objectForKey:@"strDeviceType"];

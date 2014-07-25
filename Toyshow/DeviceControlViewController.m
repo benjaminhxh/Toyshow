@@ -7,7 +7,6 @@
 //
 
 #import "DeviceControlViewController.h"
-#import "SliderViewController.h"
 
 @interface DeviceControlViewController ()
 {

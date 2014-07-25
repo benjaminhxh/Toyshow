@@ -35,7 +35,7 @@
     topView.userInteractionEnabled = YES;
     [self.view addSubview:topView];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(5, [UIApplication sharedApplication].statusBarFrame.size.height+5, 82, 22);
+    backBtn.frame = CGRectMake(5, [UIApplication sharedApplication].statusBarFrame.size.height+5, 102, 22);
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtn) forControlEvents:UIControlEventTouchUpInside];
     [backBtn setTitle:@"如何使用" forState:UIControlStateNormal];
@@ -44,7 +44,8 @@
 
 - (void)backBtn
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+    [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning

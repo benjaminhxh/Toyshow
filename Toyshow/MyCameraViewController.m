@@ -7,11 +7,8 @@
 //
 
 #import "MyCameraViewController.h"
-#import "SliderViewController.h"
-#import "MBProgressHUD.h"
 #import "ShareCamereViewController.h"
 #import "MJRefresh.h"
-#import "AFNetworking.h"
 #import "CameraSetViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import "Reachability1.h"
@@ -315,7 +312,6 @@
 //    NSString *stream_id = [dict objectForKey:@"stream_id"];
     NSString *deviceid = [cameraDict objectForKey:@"deviceid"];
     NSString *status = [cameraDict objectForKey:@"status"];
-    NSString *share = [cameraDict objectForKey:@"share"];
     int stat = [status intValue];
 //分享
 //    NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=%@&deviceid=%@&share=1",self.accessToken,deviceid];//share=1为公共分享
@@ -341,6 +337,7 @@
             NSDictionary *dict = (NSDictionary *)responseObject;
             //获取直播rtmp地址
             NSString *rtmp = [dict objectForKey:@"url"];
+            NSString *share = [cameraDict objectForKey:@"share"];
             ShareCamereViewController *liveVC = [[ShareCamereViewController alloc] init];
             liveVC.islLve = YES;
             liveVC.isShare = NO;
@@ -388,7 +385,7 @@
     NSDictionary *dict = [_fakeData objectAtIndex:row];
 
    BOOL status = [[dict objectForKey:@"status"] intValue];
-    if (status) {
+//    if (status) {
         CameraSetViewController *setVC = [[CameraSetViewController alloc] init];
         setVC.deviceDesc = [dict objectForKey:@"description"];
         setVC.access_token = self.accessToken;
@@ -397,16 +394,15 @@
 //        setVC.statue = [[dict objectForKey:@"status"] intValue];
         setVC.delegate = self;
         [[SliderViewController sharedSliderController].navigationController pushViewController:setVC animated:YES];
-    }else
-    {
-        ThumbnailViewController *thumbVC = [[ThumbnailViewController alloc] init];
-        thumbVC.deviceID = [dict objectForKey:@"deviceid"];
-        thumbVC.accessToken = self.accessToken;
-        thumbVC.deviceDesc = [dict objectForKey:@"description"];
-        [[SliderViewController sharedSliderController].navigationController pushViewController:thumbVC animated:YES];
-
-    }
-   
+//    }else
+//    {
+//        ThumbnailViewController *thumbVC = [[ThumbnailViewController alloc] init];
+//        thumbVC.deviceID = [dict objectForKey:@"deviceid"];
+//        thumbVC.accessToken = self.accessToken;
+//        thumbVC.deviceDesc = [dict objectForKey:@"description"];
+//        [[SliderViewController sharedSliderController].navigationController pushViewController:thumbVC animated:YES];
+//
+//    }
 }
 
 #pragma mark - cameraSetDelegate
