@@ -14,7 +14,7 @@
 #import "Reachability1.h"
 #import "ThumbnailViewController.h"
 
-@interface MyCameraViewController ()<UITableViewDelegate,UITableViewDataSource,MJRefreshBaseViewDelegate,MBProgressHUDDelegate,CameraSetViewControllerDelegate>
+@interface MyCameraViewController ()<UITableViewDelegate,UITableViewDataSource,MJRefreshBaseViewDelegate,MBProgressHUDDelegate,CameraSetViewControllerDelegate,ShareCamereViewControllerDelegate>
 {
     BOOL _reloading;
     UITableView *_tableView;
@@ -335,10 +335,12 @@
         [[AFHTTPRequestOperationManager manager] POST:liveUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [_loadingView hide:YES];
             NSDictionary *dict = (NSDictionary *)responseObject;
+            NSLog(@"播放摄像头的dict:%@",dict);
             //获取直播rtmp地址
             NSString *rtmp = [dict objectForKey:@"url"];
             NSString *share = [cameraDict objectForKey:@"share"];
             ShareCamereViewController *liveVC = [[ShareCamereViewController alloc] init];
+            liveVC.delegate = self;
             liveVC.islLve = YES;
             liveVC.isShare = NO;
             liveVC.shareStaue = [share intValue];
@@ -409,9 +411,24 @@
 - (void)logoutCameraAtindex:(int)index
 {
 //    [self isLoadingView];
+    [self reloadMyCameraListView];
+}
+
+#pragma mark - PlayerViewDelegate
+- (void)playerViewBack:(NSString *)str
+{
+    NSLog(@"str:%@",str);
+    [self reloadMyCameraListView];
+}
+
+- (void)reloadMyCameraListView
+{
+    [self isLoadingView];
+    _loadingView.detailsLabelText = @"";
+
     NSLog(@"=============_fakeData：%@",_fakeData);
     __unsafe_unretained MyCameraViewController *vc = self;
-        //向服务器发起请求
+    //向服务器发起请求
     NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=list&access_token=%@&device_type=1",self.accessToken];
     [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
@@ -421,7 +438,7 @@
         downloadArr = [dict objectForKey:@"list"];
         NSLog(@"downloadArr:%@",downloadArr);
         [_loadingView hide:YES];
-
+        
         if (downloadArr.count>20) {
             for (int i = 0; i < 20; i++) {
                 [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
@@ -430,16 +447,15 @@
         {
             vc->_fakeData = (NSMutableArray *)downloadArr;
         }
-
-        [_tableView reloadData];//刷新界面
-
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
+        [_tableView reloadData];//刷新界面
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [_loadingView hide:YES];
     }];
-
+    
     //Url示例:https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=46192376&access_token=52.458ff6f376002020f442208e094ca7b7.2592000.1405677428.906252268-2271149&device_type=1&desc=都是测试数据
 }
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

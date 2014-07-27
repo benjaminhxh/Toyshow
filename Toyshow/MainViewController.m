@@ -27,7 +27,6 @@
     BOOL _reloading;
 //    EGORefreshTableHeaderView *_refreshView;
     UITableView *_tableView;
-    MJRefreshHeaderView *header;
     MJRefreshFooterView *_footerView;
     NSMutableArray *_fakeData;
     NSArray *downloadArr;
@@ -147,30 +146,13 @@
 
 - (void)addheader{
     __unsafe_unretained MainViewController *vc = self;
+    __block MJRefreshHeaderView *header;
+
     header = [MJRefreshHeaderView header];
     header.scrollView = _tableView;
     header.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView) {
         // 进入刷新状态就会回调这个Block
         //向服务器发起请求
-//        [[AFHTTPRequestOperationManager manager]GET:@"http://www.douban.com/j/app/radio/channels" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            NSDictionary *dict = (NSDictionary *)responseObject;
-//            //2、初始化数据
-//            _fakeData = [NSMutableArray array];
-//            downloadArr = [NSArray array];
-//            downloadArr = [dict objectForKey:@"channels"];
-//            NSLog(@"downloadArr:%@",downloadArr);
-//            if (downloadArr.count>20) {
-//                for (int i = 0; i < 20; i++) {
-//                    [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
-//                }
-//            }else
-//            {
-//                vc->_fakeData = (NSMutableArray *)downloadArr;
-//            }
-//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            
-//        }];
-//       __weak NSString *signn = sign;
         NSString *sharelistURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listshare&sign=%@&expire=%@&start=%d&num=100",sign,expire,0];
         NSLog(@"shareListUrl:%@",sharelistURL);
         [[AFHTTPSessionManager manager] GET:sharelistURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -216,7 +198,7 @@
         [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
     };
 //    header.refreshStateChangeBlock = ^(MJRefreshBaseView *refreshView, MJRefreshState state) {
-        // 控件的刷新状态切换了就会调用这个block
+//        // 控件的刷新状态切换了就会调用这个block
 //        switch (state) {
 //            case MJRefreshStateNormal:
 //                NSLog(@"%@----切换到：普通状态", refreshView.class);
@@ -234,7 +216,6 @@
 //        }
 //    };
     [header beginRefreshing];
-//    _headerView = header;
 }
 
 - (void)addFooter
@@ -274,14 +255,14 @@
 - (void)doneWithView:(MJRefreshBaseView*)sender
 {
     //刷新表格
-    [_tableView reloadData];
+//    [_tableView reloadData];
     [sender endRefreshing];
 }
 
 - (void)doneWithViewWithNoInterNet:(MJRefreshBaseView*)sender
 {
     //刷新表格
-//    [_tableView reloadData];
+    [_tableView reloadData];
     [sender endRefreshing];
 }
 

@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class ShareCamereViewController;
+@protocol  ShareCamereViewControllerDelegate<NSObject>
+
+- (void)playerViewBack:(NSString *)str;
+
+@end
+
 @interface ShareCamereViewController : UIViewController<UIScrollViewDelegate>
 
 @property (strong, nonatomic) UIScrollView *scrollv;
@@ -23,4 +30,5 @@
 @property (nonatomic,copy) NSString *deviceId;
 @property (nonatomic,assign) int startTimeInt;
 
+@property (nonatomic,assign) id <ShareCamereViewControllerDelegate> delegate;
 @end

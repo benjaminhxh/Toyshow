@@ -525,7 +525,10 @@
 {
     [self stopPlayback];
     [localTimer invalidate];
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(playerViewBack:)]) {
+        [self.delegate playerViewBack:@"hello"];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 //弹出或隐藏设置按钮
