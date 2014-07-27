@@ -651,11 +651,6 @@
     }
 }
 
-- (void)lightSliderValue:(UISlider *)sender
-{
-    NSLog(@"亮度调节value:%f",sender.value);
-}
-
 - (void)hiddenView
 {
     [UIView animateWithDuration:0.3 animations:^{

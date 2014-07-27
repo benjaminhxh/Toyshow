@@ -15,6 +15,7 @@
 //@property (weak, nonatomic) IBOutlet UILabel *cameraId;
 @property (weak, nonatomic) IBOutlet UILabel *cameraStatus;
 @property (nonatomic,assign) NSInteger index;
+//@property (nonatomic, weak) NSString *sign;
 //@property (weak, nonatomic) IBOutlet UIButton *moreBtn;
 //- (void)reloadTableViewDataSource;
 //- (void)doneLoadingTableViewData;

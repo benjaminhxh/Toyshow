@@ -33,7 +33,7 @@
     NSArray *downloadArr;
     UIActivityIndicatorView *activiView;
     UILabel *noInternetL,*noDataLoadL;
-    NSString *realSign,*sign;
+    NSString *realSign, __block *sign;
     MBProgressHUD *_loadingView;
     
 }
@@ -170,6 +170,7 @@
 //        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //            
 //        }];
+//       __weak NSString *signn = sign;
         NSString *sharelistURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listshare&sign=%@&expire=%@&start=%d&num=100",sign,expire,0];
         NSLog(@"shareListUrl:%@",sharelistURL);
         [[AFHTTPSessionManager manager] GET:sharelistURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {

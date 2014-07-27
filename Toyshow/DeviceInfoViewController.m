@@ -42,7 +42,7 @@
     backBtn.frame = CGRectMake(5, [UIApplication sharedApplication].statusBarFrame.size.height+5, 95, 22);
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
-//    [backBtn setTitle:@"设备信息" forState:UIControlStateNormal];
+    [backBtn setTitle:@"设备信息" forState:UIControlStateNormal];
     [topView addSubview:backBtn];
 
     deviceInfoArr = [NSArray arrayWithObjects:@"设备序列号",@"设备类型",@"管理软件",@"采集软件",@"传输软件",@"MAC地址",@"WiFi IP地址",@"AP IP地址",@"发布日期",@"视频频道",@"音频频道",@"报警输入",@"报警输出",@"WiFi通道数", nil];

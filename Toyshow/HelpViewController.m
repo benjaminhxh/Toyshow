@@ -15,6 +15,7 @@
 {
     MBProgressHUD *progressView;
     UITableView *_tabView;
+    NSDictionary *versionDict;
 }
 @end
 
@@ -99,7 +100,7 @@
         cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
         cell.textLabel.text = @"如何使用乐现";
         if (1 == indexPath.row) {
-            cell.textLabel.text = @"打开系统设置";
+            cell.textLabel.text = @"前往下载新版本";
         }else if (2 == indexPath.row)
         {
             cell.textLabel.text = @"检测新版本";
@@ -121,7 +122,7 @@
         return;
     }else if (1 == indexPath.row)
     {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=LOCATION_SERVICES"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/cn/app/qq/id444934666?mt=8"]];
         return;
     }
     HowToUseViewController *howUseVC = [[HowToUseViewController alloc] init];
@@ -137,15 +138,13 @@
     NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
     NSString *Sysversion = [infoDict objectForKey:@"CFBundleShortVersionString"];
     [[AFHTTPRequestOperationManager manager]POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *dict = (NSDictionary *)responseObject;
-//        NSLog(@"dict:%@",dict);
-        NSString *version = [dict objectForKey:@"version"];
+        versionDict = [NSDictionary dictionary];
+        versionDict = (NSDictionary *)responseObject;
+        NSLog(@"dict:%@",versionDict);
+        NSString *version = [versionDict objectForKey:@"version"];
         if ([Sysversion floatValue]<[version floatValue]) {
-            NSLog(@"有新版本可更新");
-//            UIAlertView *versionView = [[UIAlertView alloc] initWithTitle:@"检测到新版本" message:[dict objectForKey:@"description"] delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"前往下载", nil];
-//            [versionView show];
             [progressView hide:YES];
-            [self alertViewShowWithTitle:@"检测到新版本" andMessage:[dict objectForKey:@"description"] withDelegate:self andCancelButton:@"Cancel" andOtherButton:@"前往下载"];
+            [self alertViewShowWithTitle:@"检测到新版本" andMessage:[versionDict objectForKey:@"description"] withDelegate:self andCancelButton:@"Cancel" andOtherButton:@"前往下载"];
         }else
         {
             [progressView hide:YES];
@@ -179,7 +178,9 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex) {
-        NSLog(@"前往下载");
+//        NSLog(@"前往下载");
+        NSString *url = [versionDict objectForKey:@"apkurl"];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
     }
 }
 

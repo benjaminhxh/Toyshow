@@ -508,6 +508,21 @@
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section) {
+        return 24;
+    }else
+    return 0;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section) {
+        return @"注销设置";
+    }else
+        return nil;
+}
 #pragma mark - setMethod
 //- (void)enaleEventAction:(id)sender
 //{
