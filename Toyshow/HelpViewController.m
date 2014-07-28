@@ -122,7 +122,9 @@
         return;
     }else if (1 == indexPath.row)
     {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/cn/app/qq/id444934666?mt=8"]];
+        NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/cn/app/tao-bao/id387682726?mt=8"];
+        //[NSURL URLWithString:@"https://itunes.apple.com/cn/app/qq/id444934666?mt=8"]
+        [[UIApplication sharedApplication] openURL:url];
         return;
     }
     HowToUseViewController *howUseVC = [[HowToUseViewController alloc] init];
@@ -134,6 +136,7 @@
 - (void)checkVersion
 {
     [self progressViewLoading];
+    //检测新版本地址
     NSString *url = @"http://www.51joyshow.com/index.php?m=content&c=banben&type=2";
     NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
     NSString *Sysversion = [infoDict objectForKey:@"CFBundleShortVersionString"];

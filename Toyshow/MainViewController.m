@@ -195,7 +195,7 @@
     header.endStateChangeBlock = ^(MJRefreshBaseView *refreshView) {
         // 刷新完毕就会回调这个Block
 //        NSLog(@"%@----刷新完毕", refreshView.class);
-        [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
+        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
     };
 //    header.refreshStateChangeBlock = ^(MJRefreshBaseView *refreshView, MJRefreshState state) {
 //        // 控件的刷新状态切换了就会调用这个block
@@ -255,14 +255,14 @@
 - (void)doneWithView:(MJRefreshBaseView*)sender
 {
     //刷新表格
-//    [_tableView reloadData];
+    [_tableView reloadData];
     [sender endRefreshing];
 }
 
 - (void)doneWithViewWithNoInterNet:(MJRefreshBaseView*)sender
 {
     //刷新表格
-    [_tableView reloadData];
+//    [_tableView reloadData];
     [sender endRefreshing];
 }
 

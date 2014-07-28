@@ -300,6 +300,7 @@
     doubleTap.numberOfTapsRequired = 2;
 //    [cbPlayerController.view addGestureRecognizer:doubleTap];
 //    [tapGest requireGestureRecognizerToFail:doubleTap];
+    self.request_id = @"";
 }
 
 
@@ -525,10 +526,12 @@
 {
     [self stopPlayback];
     [localTimer invalidate];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(playerViewBack:)]) {
-        [self.delegate playerViewBack:@"hello"];
-        [self.navigationController popViewControllerAnimated:YES];
+    if (![self.request_id isEqualToString:@""]) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(playerViewBack:)]) {
+            [self.delegate playerViewBack:@"hello"];
+        }
     }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 //弹出或隐藏设置按钮
@@ -566,9 +569,9 @@
 {
     //    UIActionSheet *shareTypeSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"公共分享" otherButtonTitles:@"私密分享", nil];
     //    [shareTypeSheet showInView:self.view];
-    if (self.shareStaue) {
+    if (1 == self.shareStaue) {
         //取消分享
-        cancelShareView = [[UIAlertView alloc] initWithTitle:@"确定取消该摄像头分享" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        cancelShareView = [[UIAlertView alloc] initWithTitle:@"取消该摄像头分享" message:@"取消分享之后，摄像头将不在公共摄像头列表中，当前直播也会中段一会，请回到上一级页面重新加载" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
         [cancelShareView show];
 //        NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=cancelshare&access_token=%@&deviceid=%@",self.accecc_token,self.deviceId];
 //        [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -587,7 +590,7 @@
     {
 //        UIActionSheet *shareTypeSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"公共分享" otherButtonTitles:@"私密分享", nil];
 //        [shareTypeSheet showInView:self.view];
-        publicView = [[UIAlertView alloc] initWithTitle:@"确定要将该摄像头公共分享吗？分享之后所有人都可见" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        publicView = [[UIAlertView alloc] initWithTitle:@"分享摄像头" message:@"分享之后所有人都可见,直到您取消分享" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
         [publicView show];
     }
 }
@@ -613,37 +616,37 @@
     UIGraphicsEndImageContext();
     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
     //自动保存到图片库
-//    UIImage *image2 = [self screenshot:UIDeviceOrientationPortrait
-//            isOpaque:YES
-//usePresentationLayer:YES];
+    UIImage *image2 = [self screenshot:UIDeviceOrientationPortrait
+            isOpaque:YES
+usePresentationLayer:YES];
 //    UIGraphicsBeginImageContext(cbPlayerController.view.bounds.size);
 //    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
 ////    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
 //    UIGraphicsEndImageContext();
-//    UIImageWriteToSavedPhotosAlbum(image2, nil, nil, nil);
+    UIImageWriteToSavedPhotosAlbum(image2, nil, nil, nil);
 }
 
 ////新增截屏代码
-//- (UIImage *)screenshot:(UIDeviceOrientation)orientation isOpaque:(BOOL)isOpaque usePresentationLayer:(BOOL)usePresentationLayer
-//{
-//    CGSize size;
-//    
-//    if (orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown) {
-//        size = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
-//    } else {
-//        size = CGSizeMake(self.view.frame.size.height, self.view.frame.size.width);
-//    }
-//    
-//    UIGraphicsBeginImageContextWithOptions(size, isOpaque, 0.0);
-//    if (usePresentationLayer) {
-//        [self.view.layer.presentationLayer renderInContext:UIGraphicsGetCurrentContext()];
-//    } else {
-//        [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
-//    }
-//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    return image;
-//}
+- (UIImage *)screenshot:(UIDeviceOrientation)orientation isOpaque:(BOOL)isOpaque usePresentationLayer:(BOOL)usePresentationLayer
+{
+    CGSize size;
+    
+    if (orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown) {
+        size = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
+    } else {
+        size = CGSizeMake(self.view.frame.size.height, self.view.frame.size.width);
+    }
+    
+    UIGraphicsBeginImageContextWithOptions(size, isOpaque, 0.0);
+    if (usePresentationLayer) {
+        [self.view.layer.presentationLayer renderInContext:UIGraphicsGetCurrentContext()];
+    } else {
+        [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    }
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
 - (void)volumeBtnClick  //音量
 {
     if (volumView.hidden) {
@@ -671,7 +674,6 @@
     _loadingView.square = YES;
     [_loadingView show:YES];
     [cbPlayerController.view addSubview:_loadingView];
-    NSLog(@"调用了Loading");
 }
 
 //定时器实时更新时间
@@ -739,10 +741,11 @@
     
     [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
-        NSLog(@"dict:%@",dict);
+        NSLog(@"公共分享的dict:%@",dict);
         NSString *shareid = [dict objectForKey:@"shareid"];
         NSLog(@"shareid:%@",shareid);
-        self.shareStaue = YES;
+        self.request_id =[NSString stringWithFormat:@"%@",[dict objectForKey:@"request_id"]];
+        self.shareStaue = 1;
         [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelwei@2x"] forState:UIControlStateNormal];
         [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelzhong@2x"] forState:UIControlStateHighlighted];
         UIAlertView *successView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -768,6 +771,9 @@
 {
     NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=cancelshare&access_token=%@&deviceid=%@",self.accecc_token,self.deviceId];
     [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"取消分享之后:%@",responseObject);
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        self.request_id =[NSString stringWithFormat:@"%@",[dict objectForKey:@"request_id"]];
         UIAlertView *successView = [[UIAlertView alloc] initWithTitle:@"已成功取消分享" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [successView show];
         [shareBtn setImage:[UIImage imageNamed:@"fenxiang_wei@2x"] forState:UIControlStateNormal];

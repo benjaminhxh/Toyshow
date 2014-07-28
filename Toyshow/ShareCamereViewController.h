@@ -29,6 +29,7 @@
 @property (nonatomic,copy) NSString *accecc_token;
 @property (nonatomic,copy) NSString *deviceId;
 @property (nonatomic,assign) int startTimeInt;
+@property (nonatomic,copy) NSString *request_id;
 
 @property (nonatomic,assign) id <ShareCamereViewControllerDelegate> delegate;
 @end
