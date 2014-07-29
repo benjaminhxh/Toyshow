@@ -34,7 +34,7 @@
     UILabel *noInternetL,*noDataLoadL;
     NSString *realSign, __block *sign;
     MBProgressHUD *_loadingView;
-    
+    MBProgressHUD *badInternetHub;
 }
 @end
 
@@ -79,7 +79,6 @@
     //再拼接
     sign = [NSString stringWithFormat:@"%@-%@-%@",APP_ID,APP_KEY,realSign];
 //    NSLog(@"sign:%@",sign);
-    //       ([UIScreen currentScreenSizeWithInterfaceOrientation:UIInterfaceOrientationPortrait].height > 480)
     [self shouldAutorotate];
     UIImageView *imgV=[[UIImageView alloc] initWithFrame:self.view.bounds];
     [imgV setImage:[UIImage imageNamed:@"dabeijing@2x"]];
@@ -163,8 +162,8 @@
             downloadArr = [dict objectForKey:@"device_list"];
 //            NSLog(@"downloadArr:%@",downloadArr);
             if (downloadArr.count == 0) {
-                UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"无分享的摄像头" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-                [noDataView show];
+                [self MBprogressViewHubLoading:@"无分享的摄像头"];
+                [badInternetHub hide:YES afterDelay:1];
             }else
             {
                 if (downloadArr.count>20) {
@@ -181,8 +180,9 @@
 //            NSLog(@"下载数据失败");
 //            NSLog(@"tabsk%@",task);
 //            NSLog(@"eror:%@",error);
-            UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-            [noDataView show];
+//            UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil
+            [self MBprogressViewHubLoading:@"网络延时"];
+            [badInternetHub hide:YES afterDelay:1];
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
 
         }];
@@ -308,6 +308,7 @@
             //            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             cell = [[[NSBundle mainBundle] loadNibNamed:@"ShareCameraCell" owner:self options:nil] lastObject];
             NSDictionary *dict = [_fakeData objectAtIndex:indexPath.row];
+            NSLog(@"公共摄像头列表的dict:%@",dict);
             self.cameraName.text = [dict objectForKey:@"description"];
 //            self.cameraId.text = [dict objectForKey:@"deviceid"];
             NSString *imageURL = [dict objectForKey:@"thumbnail"];
@@ -339,11 +340,14 @@
         ShareCamereViewController *shareVC = [[ShareCamereViewController alloc] init];
         shareVC.islLve = YES;
         shareVC.isShare = YES;
+        shareVC.shareId = shareID;
+        shareVC.uk = uk;
+        shareVC.deviceId = [dict objectForKey:@"deviceid"];
         shareVC.playerTitle = [[dict objectForKey:@"description"] stringByAppendingString:@"(分享)"];
         NSString *liveURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareID,uk];
         [[AFHTTPSessionManager manager] GET:liveURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
-            NSLog(@"公共摄像头url:%@",[dict objectForKey:@"url"]);
+            NSLog(@"公共摄像头:%@",dict);
             shareVC.url = [dict objectForKey:@"url"];
 //            shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
             [_loadingView removeFromSuperview];
@@ -351,13 +355,13 @@
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSLog(@"error++++++++");
             [_loadingView removeFromSuperview];
-            UIAlertView *badInternetView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-            [badInternetView show];
+            [self MBprogressViewHubLoading:@"网络延时"];
+            [badInternetHub hide:YES afterDelay:1];
         }];
     }else
     {
-        UIAlertView *offlineView = [[UIAlertView alloc] initWithTitle:@"设备不在线" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-        [offlineView show];
+        [self MBprogressViewHubLoading:@"设备不在线"];
+        [badInternetHub hide:YES afterDelay:1];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 //    shareVC.url = @"http://zb.v.qq.com:1863/?progid=1975434150";
@@ -438,6 +442,34 @@
     NSLog(@"info title come from weixin:%@",[dictFromWeixin objectForKey:@"weixinTitle"]);
 }
 
+//- (void)MBprogressViewHubLoading:(NSString *)labtext
+//{
+//    if (badInternetHub) {
+//        badInternetHub.labelText = labtext;
+//        [badInternetHub show:YES];
+//        [badInternetHub hide:YES afterDelay:1];
+//        return;
+//    }
+//    badInternetHub = [[MBProgressHUD alloc] initWithView:_tableView];
+//    badInternetHub.mode = MBProgressHUDModeCustomView;
+//    badInternetHub.labelText = labtext;
+//    [_tableView addSubview:badInternetHub];
+//    [badInternetHub show:YES];
+//}
+- (void)MBprogressViewHubLoading:(NSString *)labtext
+{
+    if (badInternetHub) {
+        badInternetHub.labelText = labtext;
+        [badInternetHub show:YES];
+        return;
+    }
+    badInternetHub = [[MBProgressHUD alloc] initWithView:_tableView];
+    badInternetHub.labelText = labtext;
+    badInternetHub.mode = 4;
+    badInternetHub.square = YES;
+    [_tableView addSubview:badInternetHub];
+    [badInternetHub show:YES];
+}
 - (void)viewWillAppear:(BOOL)animated
 {
 //    [self addheader];

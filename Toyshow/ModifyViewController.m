@@ -12,7 +12,7 @@
 @interface ModifyViewController ()<MBProgressHUDDelegate>
 {
     UITextField *modifyText;
-    MBProgressHUD *_loadingView;
+    MBProgressHUD *modifyHub;
 }
 @end
 
@@ -76,7 +76,7 @@
         return;
     }
     [self.view endEditing:YES];
-    [self isLoadingView];
+    [self MBprogressViewHubLoading:@"设备修改……" withMode:0];
     //UTF8编码，上传服务器修改设备名
 //    NSString *modifyT = [[NSString alloc] initWithUTF8String:[modifyText.text UTF8String]];
     //    NSLog(@"desc:%@",desc);
@@ -96,17 +96,20 @@
 //            if (self.delegate && [self.delegate respondsToSelector:@selector(modifySuccessWith:)]) {
 //                [self.delegate modifySuccessWith:modifyText.text];
 //            }
-            [_loadingView hide:YES];
+//            [_loadingView hide:YES];
+            [self MBprogressViewHubLoading:@"设备修改成功" withMode:4];
+
             [[NSNotificationCenter defaultCenter] postNotificationName:@"modifySuccess" object:nil];
             [[SliderViewController sharedSliderController].navigationController popToRootViewControllerAnimated:YES];
 
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_loadingView hide:YES];
+//        [_loadingView hide:YES];
+        [self MBprogressViewHubLoading:@"设备修改失败" withMode:4];
         NSDictionary *errorDict = [error userInfo];
         NSLog(@"errorDict:%@",errorDict);
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备修改失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [view show];
+//        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备修改失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//        [view show];
         [self backBtn];
     }];
 }
@@ -114,17 +117,35 @@
     [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
 }
 
-- (void)isLoadingView
+//- (void)isLoadingView
+//{
+//    _loadingView = [[MBProgressHUD alloc] initWithView:self.view];
+//    [self.view addSubview:_loadingView];
+//    
+//    _loadingView.delegate = self;
+//    _loadingView.labelText = @"loading";
+//    _loadingView.detailsLabelText = @"修改中，请稍后……";
+//    _loadingView.square = YES;
+//    [_loadingView show:YES];
+//}
+
+- (void)MBprogressViewHubLoading:(NSString *)labtext withMode:(int)mode
 {
-    _loadingView = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:_loadingView];
-    
-    _loadingView.delegate = self;
-    _loadingView.labelText = @"loading";
-    _loadingView.detailsLabelText = @"修改中，请稍后……";
-    _loadingView.square = YES;
-    [_loadingView show:YES];
+    if (modifyHub) {
+        modifyHub.mode = mode;
+        modifyHub.detailsLabelText = labtext;
+//        [modifyHub show:YES];
+        [modifyHub hide:YES afterDelay:1];
+        return;
+    }
+    modifyHub = [[MBProgressHUD alloc] initWithView:self.view];
+    modifyHub.detailsLabelText = labtext;
+    [self.view addSubview:modifyHub];
+    modifyHub.square = YES;
+    [modifyHub show:YES];
+//    [modifyHub hide:YES afterDelay:2];
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

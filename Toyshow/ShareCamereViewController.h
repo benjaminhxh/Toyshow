@@ -22,6 +22,7 @@
 
 @property (nonatomic,assign) BOOL islLve;
 @property (nonatomic,assign) BOOL isShare;
+@property (nonatomic,assign) BOOL isCollect;
 @property (nonatomic,assign) int shareStaue;
 @property (nonatomic,copy) NSString *url;
 @property (nonatomic,copy) NSString *playerTitle;
@@ -30,6 +31,7 @@
 @property (nonatomic,copy) NSString *deviceId;
 @property (nonatomic,assign) int startTimeInt;
 @property (nonatomic,copy) NSString *request_id;
-
+@property (nonatomic,copy) NSString *shareId;
+@property (nonatomic,copy) NSString *uk;
 @property (nonatomic,assign) id <ShareCamereViewControllerDelegate> delegate;
 @end

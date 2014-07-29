@@ -19,8 +19,8 @@
 #define kUserInfoNotification   @"userInfoNotification"
 
 #define kUserName               @"userName"
-#define kUserPwd                @"userPwd"
-#define kUserHeadURL            @"userHeadURL"
+//#define kUserPwd                @"userPwd"
+//#define kUserHeadURL            @"userHeadURL"
 #define kUserAccessToken        @"userAccessToken"
 #define kUserHeadImage          @"userHeadImage"
 

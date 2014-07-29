@@ -16,6 +16,7 @@
     MBProgressHUD *progressView;
     UITableView *_tabView;
     NSDictionary *versionDict;
+    MBProgressHUD *progrView;
 }
 @end
 
@@ -127,12 +128,30 @@
         [[UIApplication sharedApplication] openURL:url];
         return;
     }
+    progrView = [[MBProgressHUD alloc] initWithView:_tabView];
+//    progrView.detailsLabelText = @"收藏中";
+    progrView.labelText = @"收藏中";
+    [_tabView addSubview:progrView];
+    [progrView showWhileExecuting:@selector(showOrDismissProgressView) onTarget:self withObject:nil animated:YES];
+    
     HowToUseViewController *howUseVC = [[HowToUseViewController alloc] init];
-    [[SliderViewController sharedSliderController].navigationController pushViewController:howUseVC animated:YES];
+//    [[SliderViewController sharedSliderController].navigationController pushViewController:howUseVC animated:YES];
 //    [self presentViewController:howUseVC animated:YES completion:nil];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (void)showOrDismissProgressView{
+    sleep(3);
+    __block UIImageView *imageView;
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		UIImage *image = [UIImage imageNamed:@"37x-Checkmark.png"];
+		imageView = [[UIImageView alloc] initWithImage:image];
+	});
+    progrView.mode = MBProgressHUDModeCustomView;
+    progrView.labelText = @"收藏成功";
+    progrView.customView = imageView;
+//    progrView.detailsLabelText = @"收藏成功";
+}
 - (void)checkVersion
 {
     [self progressViewLoading];

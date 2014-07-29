@@ -819,7 +819,9 @@
 #pragma mark - logoutMyCamera
 - (void)logoutMyCamera
 {
-    //注销设备了
+    //注销设备
+    _loginoutView.mode = 0;
+    _loginoutView.labelText = @"注销中……";
     _loginoutView.hidden = NO;
     NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=drop&deviceid=%@&access_token=%@",self.deviceid,self.access_token];
     NSLog(@"urlStr:%@",urlStr);
@@ -830,17 +832,21 @@
         if (self.delegate && [self.delegate respondsToSelector:@selector(logoutCameraAtindex:)]) {
             [self.delegate logoutCameraAtindex:self.index];
         }
+        _loginoutView.mode = 4;
+        _loginoutView.labelText = @"注销成功";
         [_loginoutView hide:YES];
         
         [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
-        [self alertViewShowWithTitle:@"注销成功" andMessage:nil];
+//        [self alertViewShowWithTitle:@"注销成功" andMessage:nil];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSDictionary *errorDict = [error userInfo];
         NSString *errorMSG = [errorDict objectForKey:@"error_msg"];
         NSLog(@"erroeMSG:%@",errorMSG);
+        _loginoutView.mode = 4;
+        _loginoutView.labelText = @"注销失败";
         [_loginoutView hide:YES];
-        [self alertViewShowWithTitle:@"注销失败" andMessage:errorMSG];
+//        [self alertViewShowWithTitle:@"注销失败" andMessage:errorMSG];
     }];
 }
 

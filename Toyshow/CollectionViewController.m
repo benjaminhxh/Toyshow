@@ -1,34 +1,29 @@
 //
-//  MyCameraViewController.m
-//  Toyshow
+//  CollectionViewController.m
+//  Joyshow
 //
-//  Created by zhxf on 14-3-19.
+//  Created by zhxf on 14-7-29.
 //  Copyright (c) 2014年 zhxf. All rights reserved.
 //
 
-#import "MyCameraViewController.h"
-#import "ShareCamereViewController.h"
-#import "MJRefresh.h"
-#import "CameraSetViewController.h"
-#import "UIImageView+AFNetworking.h"
+#import "CollectionViewController.h"
+#import "MJRefreshFooterView.h"
+#import "MJRefreshHeaderView.h"
 #import "Reachability1.h"
-#import "ThumbnailViewController.h"
+#import "UIImageView+AFNetworking.h"
+#import "ShareCamereViewController.h"
 
-@interface MyCameraViewController ()<UITableViewDelegate,UITableViewDataSource,MJRefreshBaseViewDelegate,MBProgressHUDDelegate,CameraSetViewControllerDelegate,ShareCamereViewControllerDelegate>
+@interface CollectionViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate>
 {
-    BOOL _reloading;
     UITableView *_tableView;
-    MJRefreshHeaderView *_headerView;
-    MJRefreshFooterView *_footerView;
-    NSMutableArray *_fakeData;
-    NSMutableArray *downloadArr;
+    UILabel *noInternetL,*noDataLoadL;
     MBProgressHUD *_loadingView,*badInternetHub;
-    UILabel *noDataLoadL,*noInternetL;
+    NSMutableArray *_fakeData,*downloadArr;
+    NSString *accessToken;
 }
-
 @end
 
-@implementation MyCameraViewController
+@implementation CollectionViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,7 +37,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.accessToken = [[SliderViewController sharedSliderController].dict objectForKey:@"accessToken"];
+	// Do any additional setup after loading the view.
     UIImageView *imgV=[[UIImageView alloc] initWithFrame:self.view.bounds];
     [imgV setImage:[UIImage imageNamed:@"dabeijing@2x"]];
     [self.view addSubview:imgV];
@@ -52,11 +47,9 @@
     //    navBar.alpha=0.8;
     navBar.userInteractionEnabled = YES;
     [self.view addSubview:navBar];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modifySuccess:) name:@"modifySuccess" object:nil];
-
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(5, [UIApplication sharedApplication].statusBarFrame.size.height+5, 120, 22);
-    [backBtn setTitle:@"我的摄像头" forState:UIControlStateNormal];
+    backBtn.frame = CGRectMake(5, [UIApplication sharedApplication].statusBarFrame.size.height+5, 90, 22);
+    [backBtn setTitle:@"我的收藏" forState:UIControlStateNormal];
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(leftClick) forControlEvents:UIControlEventTouchUpInside];
     [navBar addSubview:backBtn];
@@ -91,7 +84,7 @@
         });
     };
     [reachab startNotifier];
-
+    
     noDataLoadL = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-44, 320, 44)];
     noDataLoadL.text = @"无更多数据加载";
     noDataLoadL.backgroundColor = [UIColor grayColor];
@@ -127,24 +120,24 @@
 }
 
 - (void)addheader{
-    __unsafe_unretained MyCameraViewController *vc = self;
+    __unsafe_unretained CollectionViewController *vc = self;
     
     MJRefreshHeaderView *header = [MJRefreshHeaderView header];
     header.scrollView = _tableView;
     header.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView) {
         // 进入刷新状态就会回调这个Block
         //向服务器发起请求
-        NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=list&access_token=%@&device_type=1",self.accessToken];
+        accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:kUserAccessToken];
+        NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listsubscribe&access_token=%@",accessToken];
         [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
+            NSLog(@"收藏的dict:%@",dict);
             //2、初始化数据
             _fakeData = [NSMutableArray array];
             downloadArr = [NSMutableArray array];
-            downloadArr = [dict objectForKey:@"list"];
+            downloadArr = [dict objectForKey:@"device_list"];
             NSLog(@"downloadArr:%@",downloadArr);
             if (downloadArr.count == 0) {
-//                UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"无摄像头" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-//                [noDataView show];
                 [self MBprogressViewHubLoading:@"无摄像头"];
                 [badInternetHub hide:YES afterDelay:1];
             }else
@@ -158,10 +151,9 @@
                     vc->_fakeData = (NSMutableArray *)downloadArr;
                 }
             }
-        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//            UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-//            [noDataView show];
+
             [self MBprogressViewHubLoading:@"网络延时"];
             [badInternetHub hide:YES afterDelay:1];
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
@@ -194,12 +186,11 @@
         }
     };
     [header beginRefreshing];
-    _headerView = header;
 }
 
 - (void)addFooter
 {
-    __unsafe_unretained MyCameraViewController *vc = self;
+    __unsafe_unretained CollectionViewController *vc = self;
     MJRefreshFooterView *footer = [MJRefreshFooterView footer];
     footer.scrollView = _tableView;
     footer.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView) {
@@ -224,7 +215,6 @@
             [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
         }
     };
-    _footerView = footer;
 }
 
 - (void)didDismissNoDataload
@@ -278,63 +268,42 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     // Configure the cell...
-        if (nil == cell) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"MyCameraCell" owner:self options:nil] lastObject];
-            NSDictionary *cameraUserInfoDict = [_fakeData objectAtIndex:indexPath.row];
-//            self.cameraId.text = [cameraUserInfoDict objectForKey:@"deviceid"];
-            self.cameraTitle.text = [cameraUserInfoDict objectForKey:@"description"];
-            NSString *status = [cameraUserInfoDict objectForKey:@"status"];
-            int stat = [status intValue];
-            if (stat) {
-                self.cameraStatus.text = @"在线";
-                self.cameraStatus.textColor = [UIColor blueColor];
-            }else
-            {
-                self.cameraStatus.text = @"离线";
-                self.cameraStatus.textColor = [UIColor grayColor];
-            }
-            NSString *urlImage = [cameraUserInfoDict objectForKey:@"thumbnail"];
-            [self.cameraPic setImageWithURL:[NSURL URLWithString:urlImage]];
-            UIImage *image= [ UIImage imageNamed:@"setanniuhei@2x"];
-            UIButton *button = [ UIButton buttonWithType:UIButtonTypeCustom ];
-            CGRect frame = CGRectMake( 0.0 , 0.0 , 40 , 34 );
-            button.frame = frame;
-            [button setImage:image forState:UIControlStateNormal ];
-//            button.backgroundColor = [UIColor clearColor ];
-            [button addTarget:self action:@selector(accessoryButtonTappedAction:) forControlEvents:UIControlEventTouchUpInside];
-            cell. accessoryView = button;
+    if (nil == cell) {
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"collectionCell" owner:self options:nil] lastObject];
+        NSDictionary *cameraUserInfoDict = [_fakeData objectAtIndex:indexPath.row];
+        //            self.cameraId.text = [cameraUserInfoDict objectForKey:@"deviceid"];
+        self.collectTitle.text = [cameraUserInfoDict objectForKey:@"description"];
+        NSString *status = [cameraUserInfoDict objectForKey:@"status"];
+        int stat = [status intValue];
+        if (stat) {
+            self.collectStatue.text = @"在线";
+            self.collectStatue.textColor = [UIColor blueColor];
+        }else
+        {
+            self.collectTitle.text = @"离线";
+            self.collectStatue.textColor = [UIColor grayColor];
         }
+        NSString *urlImage = [cameraUserInfoDict objectForKey:@"thumbnail"];
+        [self.collectImageView setImageWithURL:[NSURL URLWithString:urlImage]];
+    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *cameraDict = [_fakeData objectAtIndex:indexPath.row];
-//    NSString *stream_id = [dict objectForKey:@"stream_id"];
-    NSString *deviceid = [cameraDict objectForKey:@"deviceid"];
+    NSString *deviceId = [cameraDict objectForKey:@"deviceid"];
+    NSString *shareid = [cameraDict objectForKey:@"shareid"];
     NSString *status = [cameraDict objectForKey:@"status"];
+    NSString *uk = [cameraDict objectForKey:@"uk"];
     int stat = [status intValue];
-//分享
-//    NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=%@&deviceid=%@&share=1",self.accessToken,deviceid];//share=1为公共分享
-//取消分享
-//    NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=cancelshare&access_token=52.458ff6f376002020f442208e094ca7b7.2592000.1405677428.906252268-2271149&deviceid=%@",deviceid];
-//    [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSDictionary *dict = (NSDictionary *)responseObject;
-//        NSLog(@"dict:%@",dict);
-//        NSString *shareid = [dict objectForKey:@"shareid"];
-//        NSLog(@"shareid:%@",shareid);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"error:%@",[error userInfo]);
-//        UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"分享失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//        [failView show];
-//    }];
-
     //判断是被是否在线，在线则可以看直播
     if (stat) {
         [self isLoadingView];
-        NSString *liveUrl = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&access_token=%@&deviceid=%@",self.accessToken,deviceid];
+        NSString *liveUrl = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareid,uk];
+        NSLog(@"collectURL:%@",liveUrl);
         [[AFHTTPRequestOperationManager manager] POST:liveUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [_loadingView hide:YES];
             NSDictionary *dict = (NSDictionary *)responseObject;
@@ -343,160 +312,30 @@
             NSString *rtmp = [dict objectForKey:@"url"];
             NSString *share = [cameraDict objectForKey:@"share"];
             ShareCamereViewController *liveVC = [[ShareCamereViewController alloc] init];
-            liveVC.delegate = self;
             liveVC.islLve = YES;
-            liveVC.isShare = NO;
+            liveVC.isShare = YES;
+            liveVC.shareId = shareid;
+            liveVC.uk = uk;
             liveVC.shareStaue = [share intValue];
             NSLog(@"shareStaue:%d",liveVC.shareStaue);
-            //        liveVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
             liveVC.url = rtmp;
-            liveVC.accecc_token = self.accessToken;//
-            liveVC.deviceId = deviceid;//设备ID
-            liveVC.playerTitle = [[dict objectForKey:@"description"] stringByAppendingString:@"(直播)"];
+            liveVC.isCollect = YES;
+            liveVC.accecc_token = accessToken;//
+            liveVC.deviceId = deviceId;//设备ID
+            liveVC.playerTitle = [[dict objectForKey:@"description"] stringByAppendingString:@"(收藏)"];
             [[SliderViewController sharedSliderController].navigationController pushViewController:liveVC animated:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"失败了");
             [_loadingView hide:YES];
-//            UIAlertView *badInternetView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-//            [badInternetView show];
             [self MBprogressViewHubLoading:@"网络延时"];
             [badInternetHub hide:YES afterDelay:1];
         }];
     }else
     {
-        //设备不在线,跳到录像列表
-        ThumbnailViewController *thumbVC = [[ThumbnailViewController alloc] init];
-        thumbVC.deviceID = deviceid;
-        thumbVC.accessToken = self.accessToken;
-        thumbVC.deviceDesc = [cameraDict objectForKey:@"description"];
-        [[SliderViewController sharedSliderController].navigationController pushViewController:thumbVC animated:YES];
-
-//        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备不在线" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-//        [view show];
+        [self MBprogressViewHubLoading:@"设备不在线"];
+        [badInternetHub hide:YES afterDelay:1];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-#pragma mark - cellAccessory
-////点击右边附件触发的方法
-- (void)accessoryButtonTappedAction:(id)sender
-{
-    UIButton *button = (UIButton *)sender;
-    UITableViewCell  *cell;
-    if (iOS7) {
-        cell = (UITableViewCell *)button.superview.superview;
-    }else
-    {
-        cell = (UITableViewCell *)button.superview;
-    }
-    int row = [_tableView indexPathForCell:cell].row;
-    NSDictionary *dict = [_fakeData objectAtIndex:row];
-
-   BOOL status = [[dict objectForKey:@"status"] intValue];
-//    if (status) {
-        CameraSetViewController *setVC = [[CameraSetViewController alloc] init];
-        setVC.deviceDesc = [dict objectForKey:@"description"];
-        setVC.access_token = self.accessToken;
-        setVC.deviceid = [dict objectForKey:@"deviceid"];
-        setVC.index = row;
-//        setVC.statue = [[dict objectForKey:@"status"] intValue];
-        setVC.delegate = self;
-        [[SliderViewController sharedSliderController].navigationController pushViewController:setVC animated:YES];
-//    }else
-//    {
-//        ThumbnailViewController *thumbVC = [[ThumbnailViewController alloc] init];
-//        thumbVC.deviceID = [dict objectForKey:@"deviceid"];
-//        thumbVC.accessToken = self.accessToken;
-//        thumbVC.deviceDesc = [dict objectForKey:@"description"];
-//        [[SliderViewController sharedSliderController].navigationController pushViewController:thumbVC animated:YES];
-//
-//    }
-}
-
-#pragma mark - cameraSetDelegate
-- (void)logoutCameraAtindex:(int)index
-{
-//    [self isLoadingView];
-    [self reloadMyCameraListView];
-}
-
-#pragma mark - PlayerViewDelegate
-- (void)playerViewBack:(NSString *)str
-{
-    NSLog(@"str:%@",str);
-    [self reloadMyCameraListView];
-}
-
-- (void)reloadMyCameraListView
-{
-    [self isLoadingView];
-    _loadingView.detailsLabelText = @"";
-
-    NSLog(@"=============_fakeData：%@",_fakeData);
-    __unsafe_unretained MyCameraViewController *vc = self;
-    //向服务器发起请求
-    NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=list&access_token=%@&device_type=1",self.accessToken];
-    [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSDictionary *dict = (NSDictionary *)responseObject;
-        //2、初始化数据
-        _fakeData = [NSMutableArray array];
-        downloadArr = [NSMutableArray array];
-        downloadArr = [dict objectForKey:@"list"];
-        NSLog(@"downloadArr:%@",downloadArr);
-        [_loadingView hide:YES];
-        
-        if (downloadArr.count>20) {
-            for (int i = 0; i < 20; i++) {
-                [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
-            }
-        }else
-        {
-            vc->_fakeData = (NSMutableArray *)downloadArr;
-        }
-        
-        [_tableView reloadData];//刷新界面
-        
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        [_loadingView hide:YES];
-    }];
-    
-    //Url示例:https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=46192376&access_token=52.458ff6f376002020f442208e094ca7b7.2592000.1405677428.906252268-2271149&device_type=1&desc=都是测试数据
-}
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-//- (void)userInfoNotification:(NSNotification *)notif
-//{
-//    NSDictionary *userinfoDict = [notif userInfo];
-//    NSLog(@"userInfoDict:%@",userinfoDict);
-//    self.accessToken = [userinfoDict objectForKey:@"accessToken"];
-//}
-
-//强制不允许转屏
-- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-    return (toInterfaceOrientation == UIInterfaceOrientationMaskPortrait);
-}
-
-- (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-//- (void)dealloc
-//{
-//    //移除观察者
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
-//}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-//    [[MJRefreshHeaderView header] beginRefreshing];
-}
-
-- (void)modifySuccess:(NSNotification *)notif
-{
-    [self logoutCameraAtindex:0];
 }
 
 - (void)MBprogressViewHubLoading:(NSString *)labtext
@@ -514,9 +353,10 @@
     [badInternetHub show:YES];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)didReceiveMemoryWarning
 {
-    NSLog(@"viewDidAppear");
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 @end

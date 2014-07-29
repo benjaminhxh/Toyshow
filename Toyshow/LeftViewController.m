@@ -16,6 +16,7 @@
 #import "MyCameraViewController.h"
 #import "AddDeviceViewController.h"
 #import "MainViewController.h"
+#import "CollectionViewController.h"
 #import "CameraSetViewController.h"
 #import "HelpViewController.h"
 #import "AboutViewController.h"
@@ -57,16 +58,16 @@
     [imgV setImage:[UIImage imageNamed:backGroundImage]];
     [self.view addSubview:imgV];
     _listArr = [NSArray array];
-    _listArr = [NSArray arrayWithObjects:@"我的摄像头",@"添加新设备",@"分享的摄像头",@"",@"帮助",@"关于",@"分享", nil];
+    _listArr = [NSArray arrayWithObjects:@"我的摄像头",@"我的收藏",@"分享的摄像头",@"添加新设备",@"",@"帮助",@"关于",@"分享", nil];
     UIImage *image1 = [UIImage imageNamed:@"shejingtou@2x"];
-    UIImage *image2 = [UIImage imageNamed:@"tianjia@2x"];
+    UIImage *image2 = [UIImage imageNamed:@"collection@2x"];
     UIImage *image3 = [UIImage imageNamed:@"fenxiang@2x"];
-//    UIImage *image4 = [UIImage imageNamed:@"shejingtou_shezhi@2x"];
+    UIImage *image4 = [UIImage imageNamed:@"tianjia@2x"];
     UIImage *image5 = [UIImage imageNamed:@"tuichudenglu@2x"];
     UIImage *image6 = [UIImage imageNamed:@"bangzhu@2x"];
     UIImage *image7 = [UIImage imageNamed:@"guanyu@2x"];
     UIImage *image8 = [UIImage imageNamed:@"fenxiang@2x"];
-    _imageArr = [NSArray arrayWithObjects:image1,image2,image3,image5,image6,image7,image8, nil];
+    _imageArr = [NSArray arrayWithObjects:image1,image2,image3,image4,image5,image6,image7,image8, nil];
 
     self.navigationController.navigationBarHidden = YES;
 //    self.cameraThumb.layer.cornerRadius = self.cameraThumb.bounds.size.height/2;
@@ -135,7 +136,7 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"SiderCell" owner:self options:nil] firstObject];
         self.titleText.text = [_listArr objectAtIndex:indexPath.row];
         self.imageIcon.image = [_imageArr objectAtIndex:indexPath.row];
-        if (3 == indexPath.row) {
+        if (4 == indexPath.row) {
             loginOrOutL = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 123, 50)];
             loginOrOutL.textColor = [UIColor whiteColor];
             [self.titleText addSubview:loginOrOutL];
@@ -163,18 +164,21 @@
             }
         }
             break;
-        case 1://添加设备、扫描二维码
+        case 1://我的收藏
             if ([self accessTokenIsExist]) {
-                [self scanBtnAction];
+            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"CollectionViewController" withDictionary:nil];
             }
+            break;
             break;
         case 2://分享的设备
             [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MainViewController" withDictionary:nil];
             break;
-//        case 3://摄像头设置
-//            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"CameraSetViewController"];
-//            break;
-        case 3://登录or退出
+        case 3://添加设备、扫描二维码
+            if ([self accessTokenIsExist]) {
+                [self scanBtnAction];
+            }
+            break;
+        case 4://登录or退出
         {
             if (![self accessTokenIsExist]) {
                 //------------------------登录
@@ -188,13 +192,13 @@
             }
         }
             break;
-        case 4://帮助
+        case 5://帮助
             [[SliderViewController sharedSliderController] showContentControllerWithModel:@"HelpViewController" withDictionary:nil];
             break;
-        case 5://关于
-            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"AboutViewController" withDictionary:nil];
+        case 6://关于
+            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"CollectionViewController" withDictionary:nil];
             break;
-        case 6://分享到……
+        case 7://分享到……
             [self shareToQQ];
             break;
         default:
