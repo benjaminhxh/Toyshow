@@ -26,6 +26,7 @@
     UIView *dateView;
     NSMutableArray *timeStrArr,*timeIntArr,*imageURLARR;
     NSInteger pickRow;
+    NSString *downloadImageURL;
     MBProgressHUD *badInternetHub;
 }
 @end
@@ -199,8 +200,9 @@
             _fakeData = [NSMutableArray array];
             downloadArr = [NSMutableArray array];
             downloadArr = [dict objectForKey:@"results"];
+//            NSLog(@"downloadArr:%@=====%d",downloadArr,downloadArr.count);
+            
             if (downloadArr.count == 0) {
-
                 [self MBprogressViewHubLoading:@"无录像"];
                 [badInternetHub hide:YES afterDelay:1];
             }else
@@ -218,33 +220,29 @@
                         [vc->_fakeData addObject:[downloadArr objectAtIndex:i-1]];
                     }
                 }
+                //请求点播缩略图
+                NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&latest=%d",self.accessToken,self.deviceID,1];
+                [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+                    NSDictionary *dict = (NSDictionary *)responseObject;
+                    NSArray *imageArr = [NSArray array];
+                    imageArr = [dict objectForKey:@"list"];
+                    NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
+                    downloadImageURL = [imageURLDict objectForKey:@"url"];
+                } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                    NSDictionary *errorDict = [error userInfo];
+                    NSLog(@"errorDict:%@",errorDict);
+                }];
             }
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
             NSDictionary *errorDict = [error userInfo];
             NSLog(@"errorDict:%@",errorDict);
-//            UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-//            [noDataView show];
             [self MBprogressViewHubLoading:@"网络延时"];
             [badInternetHub hide:YES afterDelay:1];
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
 
         }];
-        //请求点播缩略图
-        NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
-//        [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//            NSDictionary *dict = (NSDictionary *)responseObject;
-//            imageURLARR = [NSMutableArray array];
-//            NSArray *imageArr = [NSArray array];
-//            imageArr = [dict objectForKey:@"list"];
-//            for (int i=imageArr.count; i>0; i--) {
-//                [imageURLARR addObject:[imageArr objectAtIndex:i-1]];
-//            }
-//            
-//        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//            NSDictionary *errorDict = [error userInfo];
-//            NSLog(@"errorDict:%@",errorDict);
-//        }];
+
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
         [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationFail];
@@ -360,26 +358,27 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     // Configure the cell...
-    {
-        if (nil == cell) {
-            //            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"thumbCell" owner:self options:nil] lastObject];
-            self.thumbTitle.text = self.deviceDesc;
-            NSArray *arr = [_fakeData objectAtIndex:indexPath.row];
-            NSNumber *stt = [arr objectAtIndex:0];
-            int stf = [stt intValue];
-            NSDate *currentTime = [NSDate dateWithTimeIntervalSince1970:stf];
-            NSString *startT = [[self dateFormatterMMddHHmm] stringFromDate:currentTime];
-            
-            NSNumber *ett = [arr objectAtIndex:1];
-            int endtf = [ett intValue];
-            NSDate *endfTime = [NSDate dateWithTimeIntervalSince1970:endtf];
-            NSString *endT = [[self dateFormatterMMddHHmm] stringFromDate:endfTime];
-            self.thumbDeadlines.text = [NSString stringWithFormat:@"%@-—%@",startT,[endT substringFromIndex:5]];
+    if (nil == cell) {
+        //            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"thumbCell" owner:self options:nil] lastObject];
+        self.thumbTitle.text = self.deviceDesc;
+        NSArray *arr = [_fakeData objectAtIndex:indexPath.row];
+        NSNumber *stt = [arr objectAtIndex:0];
+        int stf = [stt intValue];
+        NSDate *currentTime = [NSDate dateWithTimeIntervalSince1970:stf];
+        NSString *startT = [[self dateFormatterMMddHHmm] stringFromDate:currentTime];
+        
+        NSNumber *ett = [arr objectAtIndex:1];
+        int endtf = [ett intValue];
+        NSDate *endfTime = [NSDate dateWithTimeIntervalSince1970:endtf];
+        NSString *endT = [[self dateFormatterMMddHHmm] stringFromDate:endfTime];
+        self.thumbDeadlines.text = [NSString stringWithFormat:@"%@-—%@",startT,[endT substringFromIndex:5]];
+        [self.thumbPic setImageWithURL:[NSURL URLWithString:downloadImageURL]];
+
 //            NSString *imageURL = [[imageURLARR objectAtIndex:indexPath.row] objectForKey:@"url"];
-//            [self.thumbPic setImageWithURL:[NSURL URLWithString:imageURL]];
-        }
+//        NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&latest=1",self.accessToken,self.deviceID];
     }
+    
     return cell;
 }
 
@@ -478,9 +477,7 @@
         NSDictionary *dict = (NSDictionary *)responseObject;
         //            NSLog(@"dict:%@",dict);
         //2、初始化数据
-//        [_fakeData removeAllObjects];
         _fakeData = [NSMutableArray array];
-//        [downloadArr removeAllObjects];
         downloadArr = [NSMutableArray array];
         downloadArr = [dict objectForKey:@"results"];
         if (downloadArr.count == 0) {
@@ -499,9 +496,20 @@
                     [vc->_fakeData addObject:[downloadArr objectAtIndex:i-1]];
                 }
             }
+            NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&latest=%d",self.accessToken,self.deviceID,1];
+            [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+                NSDictionary *dict = (NSDictionary *)responseObject;
+                NSArray *imageArr = [NSArray array];
+                imageArr = [dict objectForKey:@"list"];
+                NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
+                downloadImageURL = [imageURLDict objectForKey:@"url"];
+            } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                NSDictionary *errorDict = [error userInfo];
+                NSLog(@"errorDict:%@",errorDict);
+            }];
         }
         //请求点播缩略图
-        NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
+//        NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
 //        [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
 //            NSDictionary *dict = (NSDictionary *)responseObject;
 //            imageURLARR = [NSMutableArray array];
