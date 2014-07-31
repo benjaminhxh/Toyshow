@@ -58,7 +58,7 @@
     [imgV setImage:[UIImage imageNamed:backGroundImage]];
     [self.view addSubview:imgV];
     _listArr = [NSArray array];
-    _listArr = [NSArray arrayWithObjects:@"我的摄像头",@"我的收藏",@"分享的摄像头",@"添加新设备",@"",@"帮助",@"关于",@"分享", nil];
+    _listArr = [NSArray arrayWithObjects:@"我的摄像头",@"我的收藏",@"分享的摄像头",@"添加新设备",@"",@"帮助",@"关于", nil];
     UIImage *image1 = [UIImage imageNamed:@"shejingtou@2x"];
     UIImage *image2 = [UIImage imageNamed:@"collection@2x"];
     UIImage *image3 = [UIImage imageNamed:@"fenxiang@2x"];
@@ -66,8 +66,7 @@
     UIImage *image5 = [UIImage imageNamed:@"tuichudenglu@2x"];
     UIImage *image6 = [UIImage imageNamed:@"bangzhu@2x"];
     UIImage *image7 = [UIImage imageNamed:@"guanyu@2x"];
-    UIImage *image8 = [UIImage imageNamed:@"fenxiang@2x"];
-    _imageArr = [NSArray arrayWithObjects:image1,image2,image3,image4,image5,image6,image7,image8, nil];
+    _imageArr = [NSArray arrayWithObjects:image1,image2,image3,image4,image5,image6,image7, nil];
 
     self.navigationController.navigationBarHidden = YES;
 //    self.cameraThumb.layer.cornerRadius = self.cameraThumb.bounds.size.height/2;
@@ -196,11 +195,11 @@
             [[SliderViewController sharedSliderController] showContentControllerWithModel:@"HelpViewController" withDictionary:nil];
             break;
         case 6://关于
-            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"CollectionViewController" withDictionary:nil];
+            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"AboutViewController" withDictionary:nil];
             break;
-        case 7://分享到……
-            [self shareToQQ];
-            break;
+//        case 7://分享到……
+//            [self shareToQQ];
+//            break;
         default:
             break;
     }
@@ -468,16 +467,16 @@
 }
 #pragma mark - shareTo
 //分享
-- (void)shareToQQ
-{
-    NSURL *shareURL = [NSURL URLWithString:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=52.93b4c7183a5b297e8c6909ceda48483a.2592000.1406688540.1812238483-2271149&deviceid=175932720340992&share=1"];
-    [NSURL URLWithString:@"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4"];
-    activity = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
-    NSArray *shareArr = [NSArray arrayWithObjects:@"中和讯飞-乐现",@"hxh乐现是由北京中和讯飞开发的一款家居类APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，看你所看。", [UIImage imageNamed:@"icon_session"], shareURL,nil];
-    UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:shareArr applicationActivities:activity];
-    activityView.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypePrint,UIActivityTypeSaveToCameraRoll,UIActivityTypeMail];
-    [self presentViewController:activityView animated:YES completion:nil];
-}
+//- (void)shareToQQ
+//{
+//    NSURL *shareURL = [NSURL URLWithString:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=52.93b4c7183a5b297e8c6909ceda48483a.2592000.1406688540.1812238483-2271149&deviceid=175932720340992&share=1"];
+//    [NSURL URLWithString:@"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4"];
+//    activity = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
+//    NSArray *shareArr = [NSArray arrayWithObjects:@"中和讯飞-乐现",@"hxh乐现是由北京中和讯飞开发的一款家居类APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，看你所看。", [UIImage imageNamed:@"icon_session"], shareURL,nil];
+//    UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:shareArr applicationActivities:activity];
+//    activityView.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypePrint,UIActivityTypeSaveToCameraRoll,UIActivityTypeMail];
+//    [self presentViewController:activityView animated:YES completion:nil];
+//}
 //裁剪头像
 -(UIImage*)scaleToSize:(UIImage*)img size:(CGSize)size
 {

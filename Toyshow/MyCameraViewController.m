@@ -391,7 +391,7 @@
     int row = [_tableView indexPathForCell:cell].row;
     NSDictionary *dict = [_fakeData objectAtIndex:row];
 
-   BOOL status = [[dict objectForKey:@"status"] intValue];
+//   BOOL status = [[dict objectForKey:@"status"] intValue];
 //    if (status) {
         CameraSetViewController *setVC = [[CameraSetViewController alloc] init];
         setVC.deviceDesc = [dict objectForKey:@"description"];

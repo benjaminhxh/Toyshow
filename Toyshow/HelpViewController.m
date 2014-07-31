@@ -134,7 +134,7 @@
     [_tabView addSubview:progrView];
     [progrView showWhileExecuting:@selector(showOrDismissProgressView) onTarget:self withObject:nil animated:YES];
     
-    HowToUseViewController *howUseVC = [[HowToUseViewController alloc] init];
+//    HowToUseViewController *howUseVC = [[HowToUseViewController alloc] init];
 //    [[SliderViewController sharedSliderController].navigationController pushViewController:howUseVC animated:YES];
 //    [self presentViewController:howUseVC animated:YES completion:nil];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

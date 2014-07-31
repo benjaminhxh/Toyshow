@@ -13,7 +13,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "ShareCamereViewController.h"
 
-@interface CollectionViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate>
+@interface CollectionViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate,ShareCamereViewControllerDelegate>
 {
     UITableView *_tableView;
     UILabel *noInternetL,*noDataLoadL;
@@ -131,14 +131,14 @@
         NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listsubscribe&access_token=%@",accessToken];
         [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
-            NSLog(@"收藏的dict:%@",dict);
+//            NSLog(@"收藏的dict:%@",dict);
             //2、初始化数据
             _fakeData = [NSMutableArray array];
             downloadArr = [NSMutableArray array];
             downloadArr = [dict objectForKey:@"device_list"];
-            NSLog(@"downloadArr:%@",downloadArr);
+//            NSLog(@"downloadArr:%@",downloadArr);
             if (downloadArr.count == 0) {
-                [self MBprogressViewHubLoading:@"无摄像头"];
+                [self MBprogressViewHubLoading:@"无摄像头" withMode:4];
                 [badInternetHub hide:YES afterDelay:1];
             }else
             {
@@ -154,13 +154,13 @@
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
 
-            [self MBprogressViewHubLoading:@"网络延时"];
+            [self MBprogressViewHubLoading:@"网络延时" withMode:4];
             [badInternetHub hide:YES afterDelay:1];
-            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+            [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
         }];
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
-        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationFail];
+//        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationFail];
         NSLog(@"%@----开始进入刷新状态", refreshView.class);
     };
     header.endStateChangeBlock = ^(MJRefreshBaseView *refreshView) {
@@ -271,18 +271,18 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     // Configure the cell...
     if (nil == cell) {
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"collectionCell" owner:self options:nil] lastObject];
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"collectCell" owner:self options:nil] lastObject];
+    
         NSDictionary *cameraUserInfoDict = [_fakeData objectAtIndex:indexPath.row];
-        //            self.cameraId.text = [cameraUserInfoDict objectForKey:@"deviceid"];
         self.collectTitle.text = [cameraUserInfoDict objectForKey:@"description"];
-        NSString *status = [cameraUserInfoDict objectForKey:@"status"];
+        NSNumber *status = [cameraUserInfoDict objectForKey:@"status"];
         int stat = [status intValue];
         if (stat) {
             self.collectStatue.text = @"在线";
             self.collectStatue.textColor = [UIColor blueColor];
         }else
         {
-            self.collectTitle.text = @"离线";
+            self.collectStatue.text = @"离线";
             self.collectStatue.textColor = [UIColor grayColor];
         }
         NSString *urlImage = [cameraUserInfoDict objectForKey:@"thumbnail"];
@@ -317,42 +317,88 @@
             liveVC.shareId = shareid;
             liveVC.uk = uk;
             liveVC.shareStaue = [share intValue];
-            NSLog(@"shareStaue:%d",liveVC.shareStaue);
+//            NSLog(@"shareStaue:%d",liveVC.shareStaue);
             liveVC.url = rtmp;
             liveVC.isCollect = YES;
+            liveVC.delegate = self;
             liveVC.accecc_token = accessToken;//
             liveVC.deviceId = deviceId;//设备ID
             liveVC.playerTitle = [[dict objectForKey:@"description"] stringByAppendingString:@"(收藏)"];
             [[SliderViewController sharedSliderController].navigationController pushViewController:liveVC animated:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"失败了");
+//            NSLog(@"失败了");
             [_loadingView hide:YES];
-            [self MBprogressViewHubLoading:@"网络延时"];
+            [self MBprogressViewHubLoading:@"网络延时"withMode:4];
             [badInternetHub hide:YES afterDelay:1];
         }];
     }else
     {
-        [self MBprogressViewHubLoading:@"设备不在线"];
+        [self MBprogressViewHubLoading:@"设备不在线" withMode:4];
         [badInternetHub hide:YES afterDelay:1];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (void)MBprogressViewHubLoading:(NSString *)labtext
+- (void)MBprogressViewHubLoading:(NSString *)labtext withMode:(int)mode
 {
     if (badInternetHub) {
         badInternetHub.labelText = labtext;
+//        badInternetHub.mode = mode;
         [badInternetHub show:YES];
         return;
     }
     badInternetHub = [[MBProgressHUD alloc] initWithView:_tableView];
     badInternetHub.labelText = labtext;
-    badInternetHub.mode = 4;
+//    badInternetHub.mode = mode;
     badInternetHub.square = YES;
     [_tableView addSubview:badInternetHub];
     [badInternetHub show:YES];
 }
 
+#pragma mark - cancelCollectCamere
+- (void)cancelCameraCollection
+{
+    [self reloadCollectList];
+}
+
+- (void)reloadCollectList
+{
+    __unsafe_unretained CollectionViewController *vc = self;
+    //向服务器发起请求
+    NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listsubscribe&access_token=%@",accessToken];
+    [self MBprogressViewHubLoading:@"" withMode:0];
+    [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        NSLog(@"收藏的dict:%@",dict);
+        //2、初始化数据
+        _fakeData = [NSMutableArray array];
+        downloadArr = [NSMutableArray array];
+        downloadArr = [dict objectForKey:@"device_list"];
+        NSLog(@"downloadArr:%@",downloadArr);
+        if (downloadArr.count == 0) {
+            [self MBprogressViewHubLoading:@"无收藏摄像头" withMode:4];
+            [badInternetHub hide:YES afterDelay:1];
+        }else
+        {
+            if (downloadArr.count>20) {
+                for (int i = 0; i < 20; i++) {
+                    [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
+                }
+            }else
+            {
+                vc->_fakeData = (NSMutableArray *)downloadArr;
+            }
+//            [self MBprogressViewHubLoading:@"" withMode:0];
+            [badInternetHub hide:YES afterDelay:1];
+        }
+        
+        [_tableView reloadData];//刷新界面
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self MBprogressViewHubLoading:@"网络延时" withMode:4];
+        [badInternetHub hide:YES afterDelay:1];
+    }];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

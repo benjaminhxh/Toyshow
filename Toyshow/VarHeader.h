@@ -17,6 +17,7 @@
 #define navigationBarImage      @"bantou_di@2x"
 #define backBtnImage            @"cehuajiantou18x34@2x"
 #define kUserInfoNotification   @"userInfoNotification"
+#define kAPPWillResignActivenotif @"applicationWillResignActive"
 
 #define kUserName               @"userName"
 //#define kUserPwd                @"userPwd"

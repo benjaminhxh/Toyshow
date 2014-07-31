@@ -13,7 +13,10 @@
 
 - (void)playerViewBack:(NSString *)str;
 
+- (void)cancelCameraCollection;
+
 @end
+
 
 @interface ShareCamereViewController : UIViewController<UIScrollViewDelegate>
 
@@ -31,6 +34,7 @@
 @property (nonatomic,copy) NSString *deviceId;
 @property (nonatomic,assign) int startTimeInt;
 @property (nonatomic,copy) NSString *request_id;
+@property (nonatomic,assign) BOOL isCancelCollect;
 @property (nonatomic,copy) NSString *shareId;
 @property (nonatomic,copy) NSString *uk;
 @property (nonatomic,assign) id <ShareCamereViewControllerDelegate> delegate;

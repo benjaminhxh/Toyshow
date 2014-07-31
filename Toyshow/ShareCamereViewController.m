@@ -71,7 +71,7 @@
         self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
     }
     self.scrollv.delegate = self;
-    self.scrollv.backgroundColor = [UIColor grayColor];
+//    self.scrollv.backgroundColor = [UIColor grayColor];
     [self.view addSubview: self.scrollv ];
     self.imagev = [[UIImageView alloc] initWithFrame:self.scrollv.frame];
 //    self.imagev.backgroundColor = [UIColor redColor];
@@ -324,9 +324,19 @@
 //    [cbPlayerController.view addGestureRecognizer:doubleTap];
 //    [tapGest requireGestureRecognizerToFail:doubleTap];
     self.request_id = @"";
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WillResignActivenotifi:) name:kAPPWillResignActivenotif object:nil];
 }
 
-
+- (void)WillResignActivenotifi:(NSNotificationCenter *)notif
+{
+    NSLog(@"这是退出的通知：postNotificationName");
+    [self stopPlayback];
+    if ([localTimer isValid]) {
+        [localTimer invalidate];
+    }
+    localTimer = nil;
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)onDragSlideValueChanged:(id)sender {
     NSLog(@"slide changing, %f", slider.value);
@@ -542,11 +552,20 @@
 - (void)backBtn:(id)sender
 {
     [self stopPlayback];
-    [localTimer invalidate];
+    if ([localTimer isValid]) {
+        [localTimer invalidate];
+    }
+    localTimer = nil;
     if (![self.request_id isEqualToString:@""]) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(playerViewBack:)]) {
             [self.delegate playerViewBack:@"hello"];
         }
+    }else if (self.isCancelCollect){
+        if (self.delegate && [self.delegate respondsToSelector:@selector(cancelCameraCollection)]) {
+            [self.delegate cancelCameraCollection];
+        }
+    }else{
+        
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -594,7 +613,7 @@
         NSLog(@"收藏的dict:%@",dict);
         if (self.isCollect) {
             [self MBprogressViewHubLoading:@"已取消收藏" withMode:4];
-
+            self.isCancelCollect = YES;
         }else
         {
             [self MBprogressViewHubLoading:@"收藏成功" withMode:4];
