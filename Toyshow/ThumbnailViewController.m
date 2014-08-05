@@ -45,6 +45,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
 	// Do any additional setup after loading the view.
     UIImageView *background = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     background.image = [UIImage imageNamed:backGroundImage];

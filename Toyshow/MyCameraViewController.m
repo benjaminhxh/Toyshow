@@ -42,6 +42,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.accessToken = [[SliderViewController sharedSliderController].dict objectForKey:@"accessToken"];
     UIImageView *imgV=[[UIImageView alloc] initWithFrame:self.view.bounds];
     [imgV setImage:[UIImage imageNamed:@"dabeijing@2x"]];
@@ -483,11 +484,11 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
-//- (void)dealloc
-//{
-//    //移除观察者
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
-//}
+- (void)dealloc
+{
+    //移除观察者
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {

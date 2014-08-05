@@ -23,7 +23,7 @@
     CyberPlayerController *cbPlayerController;
     UIButton *startBtn, *shareBtn;
     UISlider *lightSlider;
-    NSTimer *timer,*localTimer;
+    NSTimer *timer,*localTimer,*_timer3;
     UIProgressView *progressV;
     UIImageView *topView,*bottomView;
     BOOL topViewHidden,lightBool;
@@ -115,10 +115,10 @@
                                                object:nil];
 
     //注册监听，当播放器缓冲视频过程中不断发送该通知。
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(GotCachePercent:)
-                                                 name:CyberPlayerGotCachePercentNotification
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(GotCachePercent:)
+//                                                 name:CyberPlayerGotCachePercentNotification
+//                                               object:nil];
 
     
     //系统音量
@@ -158,6 +158,22 @@
     [topView addSubview:timeL];
     localTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
 
+    //底部条
+    bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kWidth-60, kHeight, 60)];
+    bottomView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
+    //        bottomView.backgroundColor = [UIColor blueColor];
+    bottomView.userInteractionEnabled = YES;
+    [self.view addSubview:bottomView];
+    //开始暂停按钮
+    startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    startBtn.frame = CGRectMake(kHeight/2-10, 5, 20, 27);
+    //        startBtn.backgroundColor = [UIColor blueColor];
+    [startBtn setImage:[UIImage imageNamed:@"bofang_anniu@2x"] forState:UIControlStateNormal];
+    [startBtn addTarget:self action:@selector(onClickPlay:) forControlEvents:UIControlEventTouchUpInside];
+    //        [startBtn setImage:[UIImage imageNamed:@"bofang_zhong@2x"] forState:UIControlStateHighlighted];
+    [bottomView addSubview:startBtn];
+    [self startPlayback];
+    
     //直播
     if (self.islLve) {
         if (self.isShare) {
@@ -191,16 +207,6 @@
                     collectionBtn.frame = CGRectMake(kHeight/2+30+150, 11, 46, 24);
                 }
             }
-
-            
-            //分享
-//            shareBtn.frame = CGRectMake(kHeight*7/8, 11, 37, 22);
-//            [shareBtn setImage:[UIImage imageNamed:@"fenxiang_wei@2x"] forState:UIControlStateNormal];
-//            [shareBtn setBackgroundImage:[UIImage imageNamed:@"fenxiang_zhong@2x"] forState:UIControlStateHighlighted];
-//            [topView addSubview:shareBtn];
-            //开始播放
-//            [self startPlayback];
-            
         }else{
             //我的摄像头直播
             //分享、设置、截图、对讲
@@ -257,22 +263,6 @@
     }
     else{
         //点播(看录像)
-        //底部条
-        bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kWidth-60, kHeight, 60)];
-        bottomView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
-//        bottomView.backgroundColor = [UIColor blueColor];
-        bottomView.userInteractionEnabled = YES;
-        [self.view addSubview:bottomView];
-        
-        //开始暂停按钮
-        startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        startBtn.frame = CGRectMake(kHeight/2-10, 5, 20, 27);
-//        startBtn.backgroundColor = [UIColor blueColor];
-        [startBtn setImage:[UIImage imageNamed:@"bofang_anniu@2x"] forState:UIControlStateNormal];
-        [startBtn addTarget:self action:@selector(onClickPlay:) forControlEvents:UIControlEventTouchUpInside];
-//        [startBtn setImage:[UIImage imageNamed:@"bofang_zhong@2x"] forState:UIControlStateHighlighted];
-        [bottomView addSubview:startBtn];
-        
         //当前播放的时刻
         currentProgress = [[UILabel alloc] initWithFrame:CGRectMake(20, 43, 40, 10)];
 //        currentProgress.backgroundColor = [UIColor redColor];
@@ -307,7 +297,6 @@
         [bottomView addSubview:slider];
 //        [self startPlayback];
     }
-    [self startPlayback];
     
 //    indicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(140, 120, 137, 137)];
 //    [self.view addSubview:indicatorView];
@@ -360,9 +349,9 @@
 - (void)onpreparedListener: (NSNotification*)aNotification
 {
     //视频文件完成初始化，开始播放视频并启动刷新timer。1
-    dispatch_async(dispatch_get_main_queue(), ^{
-        _loadingView.hidden = NO;
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        _loadingView.hidden = NO;
+//    });
     NSLog(@"onpreparedListener");
     [self startTimer];
     NSLog(@"onpreparedListener--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
@@ -538,7 +527,11 @@
     {
         [timer invalidate];
     }
+    if (_timer3 && [_timer3 isValid]) {
+        [_timer3 invalidate];
+    }
     timer = nil;
+    _timer3 = nil;
 }
 
 - (void)stopPlayback{
@@ -574,6 +567,9 @@
 - (void)hiddenOrNo:(id)sender
 {
     if (topViewHidden) {
+        if (_timer3 && [_timer3 isValid]) {
+            [_timer3 invalidate];
+        }
         [UIView animateWithDuration:0.15 animations:^{
             topView.frame = CGRectMake(0, -44, kHeight, 44);
             bottomView.frame = CGRectMake(0, kWidth+60, kHeight, 60);
@@ -587,13 +583,27 @@
             bottomView.frame = CGRectMake(0, kWidth-60, kHeight, 60);
         }];
         topViewHidden = !topViewHidden;
-        //        NSTimer *timer1 = [NSTimer timerWithTimeInterval:0.8 target:self selector:@selector(hiddenView) userInfo:nil repeats:NO];
-        //        [[NSRunLoop currentRunLoop]addTimer:timer1 forMode:NSDefaultRunLoopMode];
-        //        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(hiddenView) userInfo:NO repeats:NO];
+        _timer3=[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(didTimer) userInfo:nil repeats:NO];
         return;
     }
 }
 
+- (void)didTimer
+{
+    [UIView transitionWithView:bottomView duration:0.5 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        bottomView.frame = CGRectMake(0, kWidth+44, kHeight, 44);
+    } completion:^(BOOL finished) {
+
+    }];
+    
+    [UIView transitionWithView:topView duration:0.5 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        topView.frame = CGRectMake(0, -44, kHeight, 44);
+    } completion:^(BOOL finished) {
+        
+    }];
+    topViewHidden = ! topViewHidden;
+
+}
 
 #define mark - SetMethod
 - (void)collectClick    //收藏

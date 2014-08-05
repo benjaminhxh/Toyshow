@@ -348,8 +348,8 @@
         [[AFHTTPSessionManager manager] GET:liveURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
             NSLog(@"公共摄像头:%@",dict);
-            shareVC.url = [dict objectForKey:@"url"];
-//            shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
+//            shareVC.url = [dict objectForKey:@"url"];
+            shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
             [_loadingView removeFromSuperview];
             [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -470,24 +470,13 @@
     [_tableView addSubview:badInternetHub];
     [badInternetHub show:YES];
 }
-- (void)viewWillAppear:(BOOL)animated
-{
-//    [self addheader];
-//    activiView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(130, 210, 120, 120)];
-//    activiView.backgroundColor = [UIColor grayColor];
-//    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(45, 60, 60, 60)];
-//    title.text = @"正在加载……";
-//    title.font = [UIFont systemFontOfSize:8];
-//    title.textAlignment = NSTextAlignmentCenter;
-//    [activiView addSubview:title];
-//    [activiView startAnimating];
-//    [_tableView addSubview:activiView];
-//
+//- (void)viewWillAppear:(BOOL)animated
+//{
 //}
-//- (IBAction)clickMOreAction:(id)sender {
-//    UIButton *button = (UIButton *)sender;
-//    cell = (UITableViewCell *)[button superview];
-//    int row = [_tableView indexPathForCell:cell].row;
-//    NSLog(@"row:%d",row);
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
 @end
