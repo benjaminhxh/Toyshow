@@ -53,6 +53,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //隐藏状态条
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];  
+//    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade]; 
     CGFloat duration = [UIApplication sharedApplication].statusBarOrientationAnimationDuration;
     //设置旋转动画
     [UIView beginAnimations:nil context:nil];
@@ -965,6 +968,16 @@ usePresentationLayer:YES];
 //{
 //    [self hiddenOrNo:nil];
 //}
+
+//ios7
+#if 1
+#endif
+//- (BOOL)prefersStatusBarHidden
+//{
+//    return NO;
+//}
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

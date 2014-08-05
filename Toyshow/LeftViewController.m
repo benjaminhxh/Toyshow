@@ -497,14 +497,14 @@
     return scaledImage;
 }
 
--(UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
-}
-
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
-}
+//-(UIStatusBarStyle)preferredStatusBarStyle
+//{
+//    return UIStatusBarStyleLightContent;
+//}
+//
+//- (BOOL)prefersStatusBarHidden
+//{
+//    return YES;
+//}
 
 @end

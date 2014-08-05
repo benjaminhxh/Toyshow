@@ -60,7 +60,7 @@
     finishBtn.frame = CGRectMake(275, [UIApplication sharedApplication].statusBarFrame.size.height+5, 36, 22);
     [finishBtn setTitle:@"完成" forState:UIControlStateNormal];
     [finishBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-//    [finishBtn addTarget:self action:@selector(finishBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [finishBtn addTarget:self action:@selector(finishBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:finishBtn];
 //    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(30, 25, 120, 24)];
 //    title.textColor = [UIColor whiteColor];
@@ -86,6 +86,12 @@
 
 }
 
+- (void)finishBtnAction:(id)sender
+{
+    TransformViewController *transVC = [[TransformViewController alloc] init];
+    [[SliderViewController sharedSliderController].navigationController pushViewController:transVC animated:YES];
+}
+#pragma mark - tableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 3;
