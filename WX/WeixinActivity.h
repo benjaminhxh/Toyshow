@@ -14,6 +14,7 @@
     NSString *description;
     UIImage *image;
     NSURL *url;
+//    NSDictionary *dict;
     enum WXScene scene;
 }
 

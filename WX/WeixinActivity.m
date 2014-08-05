@@ -42,6 +42,9 @@
         if ([activityItem isKindOfClass:[NSURL class]]) {
             url = activityItem;
         }
+//        if ([activityItem isKindOfClass:[NSDictionary class]]) {
+//            dict = activityItem;
+//        }
         if ([activityItem isKindOfClass:[NSString class]]) {
             if ([activityItem hasPrefix:@"hxh"]) {
                 description = [activityItem substringFromIndex:3];

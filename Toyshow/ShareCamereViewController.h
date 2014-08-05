@@ -17,7 +17,6 @@
 
 @end
 
-
 @interface ShareCamereViewController : UIViewController<UIScrollViewDelegate>
 
 @property (strong, nonatomic) UIScrollView *scrollv;
@@ -26,7 +25,7 @@
 @property (nonatomic,assign) BOOL islLve;
 @property (nonatomic,assign) BOOL isShare;
 @property (nonatomic,assign) BOOL isCollect;
-@property (nonatomic,assign) int shareStaue;
+@property (nonatomic,assign) BOOL shareStaue;
 @property (nonatomic,copy) NSString *url;
 @property (nonatomic,copy) NSString *playerTitle;
 @property (nonatomic,copy) NSString *stream_id;
@@ -37,5 +36,6 @@
 @property (nonatomic,assign) BOOL isCancelCollect;
 @property (nonatomic,copy) NSString *shareId;
 @property (nonatomic,copy) NSString *uk;
+
 @property (nonatomic,assign) id <ShareCamereViewControllerDelegate> delegate;
 @end
