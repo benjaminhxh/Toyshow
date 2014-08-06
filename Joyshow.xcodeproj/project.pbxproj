@@ -103,7 +103,6 @@
 		275031A8196A4CB7006A448D /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 275031A6196A4CB6006A448D /* libMobClickLibrary.a */; };
 		2750BA251904ADFA009AA5C6 /* cehuajiantou18x34@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2750BA241904ADFA009AA5C6 /* cehuajiantou18x34@2x.png */; };
 		2751C12718C417A9006173B3 /* ShowImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2751C12618C417A9006173B3 /* ShowImageViewController.m */; };
-		2751C13118C41FA7006173B3 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2751C13018C41FA7006173B3 /* VideoViewController.m */; };
 		2751C13718C42828006173B3 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2751C13618C42828006173B3 /* MediaPlayer.framework */; };
 		2751C13D18C457D4006173B3 /* wwmxd.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2751C13C18C457D4006173B3 /* wwmxd.mp4 */; };
 		2751C14318C45F8A006173B3 /* MVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2751C14218C45F8A006173B3 /* MVViewController.m */; };
@@ -175,7 +174,6 @@
 		278AC62118F69E7E00902363 /* goumai_anniuzhong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 278AC61F18F69E7E00902363 /* goumai_anniuzhong@2x.png */; };
 		278AC62318F69FEC00902363 /* beijing720@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 278AC62218F69FEC00902363 /* beijing720@2x.png */; };
 		278AC63118F6A26100902363 /* beijing1080@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 278AC63018F6A26100902363 /* beijing1080@2x.png */; };
-		2794B6DF18E023EC008DCF83 /* NetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2794B6DE18E023EC008DCF83 /* NetworkRequest.m */; };
 		2794B6E618E05F09008DCF83 /* ShareCamereViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2794B6E518E05F09008DCF83 /* ShareCamereViewController.m */; };
 		27966A0D18E2EB1A0076423C /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 27966A0318E2EB1A0076423C /* MJRefresh.bundle */; };
 		27966A0E18E2EB1A0076423C /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27966A0618E2EB1A0076423C /* MJRefreshBaseView.m */; };
@@ -187,6 +185,7 @@
 		2799684D1950440E00D9C6DD /* ImageResolutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279968461950440E00D9C6DD /* ImageResolutionViewController.m */; };
 		2799684E1950440E00D9C6DD /* DeviceControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279968481950440E00D9C6DD /* DeviceControlViewController.m */; };
 		2799684F1950440E00D9C6DD /* SensitivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2799684A1950440E00D9C6DD /* SensitivityViewController.m */; };
+		27B0F80D19920EE200CF29C1 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B0F80C19920EE200CF29C1 /* VideoViewController.m */; };
 		27BDCE4D196E6D3C00486FCC /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BDCE4C196E6D3C00486FCC /* Icon@2x.png */; };
 		27BDCE77196E9A2900486FCC /* fenxiang_wei@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BDCE6D196E9A2900486FCC /* fenxiang_wei@2x.png */; };
 		27BDCE78196E9A2900486FCC /* fenxiang_zhong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BDCE6E196E9A2900486FCC /* fenxiang_zhong@2x.png */; };
@@ -382,8 +381,6 @@
 		2750BA241904ADFA009AA5C6 /* cehuajiantou18x34@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cehuajiantou18x34@2x.png"; sourceTree = "<group>"; };
 		2751C12518C417A8006173B3 /* ShowImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowImageViewController.h; sourceTree = "<group>"; };
 		2751C12618C417A9006173B3 /* ShowImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowImageViewController.m; sourceTree = "<group>"; };
-		2751C12F18C41FA7006173B3 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
-		2751C13018C41FA7006173B3 /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
 		2751C13618C42828006173B3 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		2751C13C18C457D4006173B3 /* wwmxd.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = wwmxd.mp4; sourceTree = "<group>"; };
 		2751C14118C45F8A006173B3 /* MVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVViewController.h; sourceTree = "<group>"; };
@@ -486,8 +483,6 @@
 		278AC61F18F69E7E00902363 /* goumai_anniuzhong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goumai_anniuzhong@2x.png"; sourceTree = "<group>"; };
 		278AC62218F69FEC00902363 /* beijing720@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "beijing720@2x.png"; sourceTree = "<group>"; };
 		278AC63018F6A26100902363 /* beijing1080@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "beijing1080@2x.png"; sourceTree = "<group>"; };
-		2794B6DD18E023EC008DCF83 /* NetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkRequest.h; sourceTree = "<group>"; };
-		2794B6DE18E023EC008DCF83 /* NetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkRequest.m; sourceTree = "<group>"; };
 		2794B6E418E05F09008DCF83 /* ShareCamereViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareCamereViewController.h; sourceTree = "<group>"; };
 		2794B6E518E05F09008DCF83 /* ShareCamereViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareCamereViewController.m; sourceTree = "<group>"; };
 		27966A0318E2EB1A0076423C /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
@@ -510,6 +505,8 @@
 		279968481950440E00D9C6DD /* DeviceControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceControlViewController.m; sourceTree = "<group>"; };
 		279968491950440E00D9C6DD /* SensitivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensitivityViewController.h; sourceTree = "<group>"; };
 		2799684A1950440E00D9C6DD /* SensitivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensitivityViewController.m; sourceTree = "<group>"; };
+		27B0F80B19920EE200CF29C1 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
+		27B0F80C19920EE200CF29C1 /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
 		27BA304519737C6E00F98042 /* VarHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VarHeader.h; sourceTree = "<group>"; };
 		27BDCE4C196E6D3C00486FCC /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		27BDCE6D196E9A2900486FCC /* fenxiang_wei@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fenxiang_wei@2x.png"; sourceTree = "<group>"; };
@@ -917,15 +914,6 @@
 			path = "UIKit+AFNetworking";
 			sourceTree = "<group>";
 		};
-		2794B6DC18E023AB008DCF83 /* NetworkTool */ = {
-			isa = PBXGroup;
-			children = (
-				2794B6DD18E023EC008DCF83 /* NetworkRequest.h */,
-				2794B6DE18E023EC008DCF83 /* NetworkRequest.m */,
-			);
-			name = NetworkTool;
-			sourceTree = "<group>";
-		};
 		27966A0218E2EB1A0076423C /* MJRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -1119,7 +1107,6 @@
 		27FFE28A18BF287B00AE47FF /* Toyshow */ = {
 			isa = PBXGroup;
 			children = (
-				2794B6DC18E023AB008DCF83 /* NetworkTool */,
 				27BA304519737C6E00F98042 /* VarHeader.h */,
 				2703E51618D97EA500E31DF0 /* SliderViewController.h */,
 				2703E51718D97EA500E31DF0 /* SliderViewController.m */,
@@ -1150,10 +1137,10 @@
 				2751C12618C417A9006173B3 /* ShowImageViewController.m */,
 				2794B6E418E05F09008DCF83 /* ShareCamereViewController.h */,
 				2794B6E518E05F09008DCF83 /* ShareCamereViewController.m */,
-				2751C12F18C41FA7006173B3 /* VideoViewController.h */,
-				2751C13018C41FA7006173B3 /* VideoViewController.m */,
 				2751C14118C45F8A006173B3 /* MVViewController.h */,
 				2751C14218C45F8A006173B3 /* MVViewController.m */,
+				27B0F80B19920EE200CF29C1 /* VideoViewController.h */,
+				27B0F80C19920EE200CF29C1 /* VideoViewController.m */,
 				2758509318D69A1800CCB075 /* HelpViewController.h */,
 				2758509418D69A1800CCB075 /* HelpViewController.m */,
 				27F0A43C192C984400D02A79 /* HowToUseViewController.h */,
@@ -1431,7 +1418,6 @@
 				27540A8D1945B84600B73945 /* IPObtainStyleViewController.m in Sources */,
 				2777606F18FB74BD000A5F83 /* AFHTTPRequestOperation.m in Sources */,
 				2758509518D69A1800CCB075 /* HelpViewController.m in Sources */,
-				2751C13118C41FA7006173B3 /* VideoViewController.m in Sources */,
 				2777607818FB74BD000A5F83 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				2777607D18FB74BD000A5F83 /* UIProgressView+AFNetworking.m in Sources */,
 				2720DEAC18FFE33200DB494A /* Reachability1.m in Sources */,
@@ -1462,8 +1448,8 @@
 				274662D018C03F0A004C8DD4 /* JSONKit.m in Sources */,
 				2777607118FB74BD000A5F83 /* AFHTTPSessionManager.m in Sources */,
 				27966A1018E2EB1A0076423C /* MJRefreshFooterView.m in Sources */,
-				2794B6DF18E023EC008DCF83 /* NetworkRequest.m in Sources */,
 				2732466D18D98B2000F82011 /* MyCameraViewController.m in Sources */,
+				27B0F80D19920EE200CF29C1 /* VideoViewController.m in Sources */,
 				2751C12718C417A9006173B3 /* ShowImageViewController.m in Sources */,
 				2799684C1950440E00D9C6DD /* NtscOrpalViewController.m in Sources */,
 				274D771918E571BF00F352C7 /* ThumbnailViewController.m in Sources */,

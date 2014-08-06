@@ -8,7 +8,6 @@
 
 #import "HelpViewController.h"
 #import "TransformViewController.h"
-#import "NetworkRequest.h"
 #import "HowToUseViewController.h"
 
 @interface HelpViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,MBProgressHUDDelegate>

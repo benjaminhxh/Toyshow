@@ -11,7 +11,6 @@
 #import <CFNetwork/CFNetwork.h>
 #import <arpa/inet.h>
 #import <netdb.h>
-#import "NetworkRequest.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "SecurtyStyleViewController.h"
 #import "IPObtainStyleViewController.h"
