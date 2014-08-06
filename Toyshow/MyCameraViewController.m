@@ -348,6 +348,7 @@
             liveVC.islLve = YES;
             liveVC.isShare = NO;
             liveVC.shareStaue = [share intValue];
+            NSLog(@"live.share:%d",liveVC.shareStaue);
             NSLog(@"shareStaue:%d",liveVC.shareStaue);
             //        liveVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
             liveVC.url = rtmp;

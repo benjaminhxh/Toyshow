@@ -169,13 +169,19 @@
     [self.view addSubview:bottomView];
     //开始暂停按钮
     startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    startBtn.frame = CGRectMake(kHeight/2-10, 5, 20, 27);
+    startBtn.frame = CGRectMake(kHeight/2-14, 5, 27, 27);
     //        startBtn.backgroundColor = [UIColor blueColor];
     [startBtn setImage:[UIImage imageNamed:@"bofang_anniu@2x"] forState:UIControlStateNormal];
     [startBtn addTarget:self action:@selector(onClickPlay:) forControlEvents:UIControlEventTouchUpInside];
     //        [startBtn setImage:[UIImage imageNamed:@"bofang_zhong@2x"] forState:UIControlStateHighlighted];
     [bottomView addSubview:startBtn];
     [self startPlayback];
+    
+//    UIButton *stopBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    stopBtn.frame = CGRectMake(kHeight/2+30, 5, 27, 27);
+//    stopBtn.backgroundColor = [UIColor blueColor];
+//    [stopBtn addTarget:self action:@selector(onClickStop:) forControlEvents:UIControlEventTouchUpInside];
+//    [bottomView addSubview:stopBtn];
     
     //直播
     if (self.islLve) {
@@ -249,7 +255,7 @@
                 volumeBtn.frame = CGRectMake(kHeight/2+30+150, 11, 46, 24);
             }
             NSLog(@"-----------------self.shareStaue:%d",self.shareStaue);
-            if (1 == self.shareStaue) {
+            if (self.shareStaue) {
                 [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelwei@2x"] forState:UIControlStateNormal];
                 [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelzhong@2x"] forState:UIControlStateHighlighted];
                 
@@ -415,9 +421,9 @@
     [self startPlayback];
 }
 
-//- (void)onClickStop:(id)sender {
-//    [self stopPlayback];
-//}
+- (void)onClickStop:(id)sender {
+    [self stopPlayback];
+}
 - (void)startPlayback{
 //    NSString *urlStr = [[NSBundle mainBundle] pathForResource:@"wwmxd" ofType:@"mp4"];
 //    NSURL *url = [NSURL fileURLWithPath:urlStr];
@@ -591,21 +597,21 @@
     }
 }
 
+//自动隐藏菜单栏和播放控制条
 - (void)didTimer
 {
-    [UIView transitionWithView:bottomView duration:0.5 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView transitionWithView:bottomView duration:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         bottomView.frame = CGRectMake(0, kWidth+44, kHeight, 44);
     } completion:^(BOOL finished) {
 
     }];
     
-    [UIView transitionWithView:topView duration:0.5 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView transitionWithView:topView duration:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         topView.frame = CGRectMake(0, -44, kHeight, 44);
     } completion:^(BOOL finished) {
         
     }];
     topViewHidden = ! topViewHidden;
-
 }
 
 #define mark - SetMethod
@@ -642,30 +648,12 @@
 
 - (void)shareClick  //分享
 {
-    [self cancelShareCamera];
-    //    UIActionSheet *shareTypeSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"公共分享" otherButtonTitles:@"私密分享", nil];
-    //    [shareTypeSheet showInView:self.view];
     if (self.shareStaue) {
         //取消分享
-        cancelShareView = [[UIAlertView alloc] initWithTitle:@"取消该摄像头分享" message:@"取消分享之后，摄像头将不在公共摄像头列表中，当前直播也会中段一会，请回到上一级页面重新加载" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        cancelShareView = [[UIAlertView alloc] initWithTitle:@"取消该摄像头分享" message:@"取消分享之后，摄像头将不在公共摄像头列表中，转发给好友的也不可再播放，收藏的该摄像头也将消失，当前直播也会中段一会，请回到上一级页面重新加载" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
         [cancelShareView show];
-//        NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=cancelshare&access_token=%@&deviceid=%@",self.accecc_token,self.deviceId];
-//        [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            UIAlertView *successView = [[UIAlertView alloc] initWithTitle:@"已成功取消分享" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//            [successView show];
-//            [shareBtn setImage:[UIImage imageNamed:@"fenxiang_wei@2x"] forState:UIControlStateNormal];
-//            [shareBtn setImage:[UIImage imageNamed:@"fenxiang_zhong@2x"] forState:UIControlStateHighlighted];
-//            
-//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            NSLog(@"error:%@",[error userInfo]);
-//            UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"取消分享失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//            [failView show];
-//            
-//        }];
     }else
     {
-//        UIActionSheet *shareTypeSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"公共分享" otherButtonTitles:@"私密分享", nil];
-//        [shareTypeSheet showInView:self.view];
         publicView = [[UIAlertView alloc] initWithTitle:@"分享摄像头" message:@"分享之后所有人都可见,直到您取消分享" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
         [publicView show];
     }
@@ -683,10 +671,12 @@
         NSString *playURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareID,uk];
         NSURL *shareURL = [NSURL URLWithString:playURL];
         activity = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
-        NSArray *shareArr = [NSArray arrayWithObjects:@"中和讯飞-乐现",@"hxh乐现是由北京中和讯飞开发的一款家居类APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，看你所看。", [UIImage imageNamed:@"icon_session"], shareURL,nil];
+        NSString *title = [NSString stringWithFormat:@"精彩热线-%@",self.playerTitle];
+        NSArray *shareArr = [NSArray arrayWithObjects:title,@"hxh乐现是由北京中和讯飞开发的一款家居类APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，看你所看。", [UIImage imageNamed:@"icon_session"], shareURL,nil];
         UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:shareArr applicationActivities:activity];
         activityView.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypePrint,UIActivityTypeSaveToCameraRoll,UIActivityTypeMail];
         [self presentViewController:activityView animated:YES completion:nil];
+        self.shareStaue = 2;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error++++++++");
     }];
@@ -766,9 +756,9 @@ usePresentationLayer:YES];
     NSDate *timeDate = [NSDate dateWithTimeIntervalSinceNow:0];
     NSDateFormatter *formate = [[NSDateFormatter alloc] init];
     [formate setDateFormat:@"HH:mm:ss"];
-    NSString *localTIme = [formate stringFromDate:timeDate];
-//    NSLog(@"localTime:%@",localTIme);
-    timeL.text = localTIme;
+    NSString *localTime = [formate stringFromDate:timeDate];
+//    NSLog(@"localTime:%@",localTime);
+    timeL.text = localTime;
 }
 
 #pragma mark - ActionsheetDelegate
@@ -814,8 +804,10 @@ usePresentationLayer:YES];
         }
     }else{
         //取消分享
+        if (buttonIndex) {
             [self cancelShareCamera];
         }
+    }
 }
 
 #pragma mark - 公共分享
@@ -859,7 +851,7 @@ usePresentationLayer:YES];
 //        [shareHub hide:YES afterDelay:2];
         [self MBprogressViewHubLoading:@"分享失败" withMode:4];
         [shareHub hide:YES afterDelay:1];
-        self.shareStaue = 0;
+//        self.shareStaue = 0;
     }];
 }
 
@@ -894,7 +886,7 @@ usePresentationLayer:YES];
 //        shareHub.mode = MBProgressHUDModeCustomView;
 //        [shareHub show:YES];
 //        [shareHub hide:YES afterDelay:2];
-        self.shareStaue = 1;
+//        self.shareStaue = 1;
         [self MBprogressViewHubLoading:@"取消分享失败" withMode:4];
         [shareHub hide:YES afterDelay:1];
 

@@ -428,31 +428,15 @@
             shareVideoVC.islLve = YES;
             shareVideoVC.isShare = YES;
             shareVideoVC.url = [dict objectForKey:@"url"];
-            shareVideoVC.playerTitle = [[dictFromWeixin objectForKey:@"weixinTitle"] stringByAppendingString:@"(分享)"];
+            shareVideoVC.playerTitle = [dictFromWeixin objectForKey:@"weixinTitle"];
             [[SliderViewController sharedSliderController].navigationController pushViewController:shareVideoVC animated:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"error++++++++%@",[error userInfo]);
+            NSLog(@"error++++++++%@-------%@",[error userInfo],[error localizedDescription]);
+            [self MBprogressViewHubLoading:@"设备已取消分享"];
+            [badInternetHub hide:YES afterDelay:1];
         }];
-//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//        NSLog(@"error++++++++");
-//    }];
-    NSLog(@"info title come from weixin:%@",[dictFromWeixin objectForKey:@"weixinTitle"]);
 }
 
-//- (void)MBprogressViewHubLoading:(NSString *)labtext
-//{
-//    if (badInternetHub) {
-//        badInternetHub.labelText = labtext;
-//        [badInternetHub show:YES];
-//        [badInternetHub hide:YES afterDelay:1];
-//        return;
-//    }
-//    badInternetHub = [[MBProgressHUD alloc] initWithView:_tableView];
-//    badInternetHub.mode = MBProgressHUDModeCustomView;
-//    badInternetHub.labelText = labtext;
-//    [_tableView addSubview:badInternetHub];
-//    [badInternetHub show:YES];
-//}
 - (void)MBprogressViewHubLoading:(NSString *)labtext
 {
     if (badInternetHub) {
