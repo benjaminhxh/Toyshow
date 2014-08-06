@@ -109,8 +109,6 @@
 		2751C14318C45F8A006173B3 /* MVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2751C14218C45F8A006173B3 /* MVViewController.m */; };
 		27540A8D1945B84600B73945 /* IPObtainStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27540A8A1945B84600B73945 /* IPObtainStyleViewController.m */; };
 		27540A8E1945B84600B73945 /* SecurtyStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27540A8C1945B84600B73945 /* SecurtyStyleViewController.m */; };
-		2758508A18D6992100CCB075 /* CircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2758508718D6992100CCB075 /* CircleView.m */; };
-		2758508B18D6992100CCB075 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2758508918D6992100CCB075 /* EGORefreshTableHeaderView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2758509018D6999000CCB075 /* ShareCameraCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2758508E18D6999000CCB075 /* ShareCameraCell.xib */; };
 		2758509518D69A1800CCB075 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2758509418D69A1800CCB075 /* HelpViewController.m */; };
 		2759157C18EEAF9A00E3DDC2 /* bandi_beijing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2759156518EEAF9A00E3DDC2 /* bandi_beijing@2x.png */; };
@@ -206,7 +204,6 @@
 		27F4D8B418D83AE300538393 /* FrontiaSource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 27F4D8B218D83AE300538393 /* FrontiaSource.bundle */; };
 		27F4D8C918D83B3900538393 /* TencentOpenAPI in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F4D8BE18D83B3900538393 /* TencentOpenAPI */; };
 		27F4D8CA18D83B3900538393 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 27F4D8BF18D83B3900538393 /* TencentOpenApi_IOS_Bundle.bundle */; };
-		27F4D8CB18D83B3900538393 /* libWeiboSDK in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F4D8C318D83B3900538393 /* libWeiboSDK */; };
 		27F4D8CC18D83B3900538393 /* libWeChatSDK in Frameworks */ = {isa = PBXBuildFile; fileRef = 27F4D8C618D83B3900538393 /* libWeChatSDK */; };
 		27F872F519874D87002DABA3 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F872F419874D87002DABA3 /* Default-568h@2x.png */; };
 		27F872F8198759F5002DABA3 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F872F7198759F5002DABA3 /* CollectionViewController.m */; };
@@ -395,10 +392,6 @@
 		27540A8A1945B84600B73945 /* IPObtainStyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPObtainStyleViewController.m; sourceTree = "<group>"; };
 		27540A8B1945B84600B73945 /* SecurtyStyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecurtyStyleViewController.h; sourceTree = "<group>"; };
 		27540A8C1945B84600B73945 /* SecurtyStyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecurtyStyleViewController.m; sourceTree = "<group>"; };
-		2758508618D6992100CCB075 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
-		2758508718D6992100CCB075 /* CircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleView.m; sourceTree = "<group>"; };
-		2758508818D6992100CCB075 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
-		2758508918D6992100CCB075 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		2758508E18D6999000CCB075 /* ShareCameraCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareCameraCell.xib; sourceTree = "<group>"; };
 		2758509318D69A1800CCB075 /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
 		2758509418D69A1800CCB075 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
@@ -546,8 +539,6 @@
 		27F4D8BF18D83B3900538393 /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
 		27F4D8C018D83B3900538393 /* WeiBoAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiBoAPI.h; sourceTree = "<group>"; };
 		27F4D8C118D83B3900538393 /* WeiyunAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiyunAPI.h; sourceTree = "<group>"; };
-		27F4D8C318D83B3900538393 /* libWeiboSDK */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK; sourceTree = "<group>"; };
-		27F4D8C418D83B3900538393 /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboSDK.h; sourceTree = "<group>"; };
 		27F4D8C618D83B3900538393 /* libWeChatSDK */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK; sourceTree = "<group>"; };
 		27F4D8C718D83B3900538393 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		27F4D8C818D83B3900538393 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
@@ -610,7 +601,6 @@
 				274662B318C0307F004C8DD4 /* SystemConfiguration.framework in Frameworks */,
 				2764250D18DC244000D7EBB3 /* libBase64.a in Frameworks */,
 				2764250E18DC244000D7EBB3 /* libCyberPlayerController.a in Frameworks */,
-				27F4D8CB18D83B3900538393 /* libWeiboSDK in Frameworks */,
 				27FFE28718BF287B00AE47FF /* CoreGraphics.framework in Frameworks */,
 				27FFE28918BF287B00AE47FF /* UIKit.framework in Frameworks */,
 				27FFE28518BF287B00AE47FF /* Foundation.framework in Frameworks */,
@@ -841,17 +831,6 @@
 			name = AddCamera;
 			sourceTree = "<group>";
 		};
-		2758508518D6992100CCB075 /* RefreshTableHeaderView */ = {
-			isa = PBXGroup;
-			children = (
-				2758508618D6992100CCB075 /* CircleView.h */,
-				2758508718D6992100CCB075 /* CircleView.m */,
-				2758508818D6992100CCB075 /* EGORefreshTableHeaderView.h */,
-				2758508918D6992100CCB075 /* EGORefreshTableHeaderView.m */,
-			);
-			path = RefreshTableHeaderView;
-			sourceTree = "<group>";
-		};
 		2759156418EEAF8500E3DDC2 /* player */ = {
 			isa = PBXGroup;
 			children = (
@@ -1053,15 +1032,6 @@
 			path = QQ;
 			sourceTree = "<group>";
 		};
-		27F4D8C218D83B3900538393 /* WB */ = {
-			isa = PBXGroup;
-			children = (
-				27F4D8C318D83B3900538393 /* libWeiboSDK */,
-				27F4D8C418D83B3900538393 /* WeiboSDK.h */,
-			);
-			path = WB;
-			sourceTree = "<group>";
-		};
 		27F4D8C518D83B3900538393 /* WX */ = {
 			isa = PBXGroup;
 			children = (
@@ -1092,10 +1062,8 @@
 				27157E3C18E40C22008D5858 /* Loading */,
 				27966A0218E2EB1A0076423C /* MJRefresh */,
 				27F4D8B518D83B3900538393 /* QQ */,
-				27F4D8C218D83B3900538393 /* WB */,
 				27F4D8C518D83B3900538393 /* WX */,
 				2718FCB718D6D0C20094583F /* BaiduT5Player */,
-				2758508518D6992100CCB075 /* RefreshTableHeaderView */,
 				271BB90F18CDDFC3000DFC4A /* iCarousel */,
 				271BB8CF18CDDED9000DFC4A /* ZBarSDK */,
 				271BB77018CD4AF6000DFC4A /* AsyncUdpSocket */,
@@ -1440,7 +1408,6 @@
 				2799684B1950440E00D9C6DD /* SceneModeViewController.m in Sources */,
 				27F0A43E192C984400D02A79 /* HowToUseViewController.m in Sources */,
 				271BB90218CDDED9000DFC4A /* QRCodeGenerator.m in Sources */,
-				2758508B18D6992100CCB075 /* EGORefreshTableHeaderView.m in Sources */,
 				2777607418FB74BD000A5F83 /* AFURLConnectionOperation.m in Sources */,
 				274F50E9195D8AE500114416 /* WeixinSessionActivity.m in Sources */,
 				2777607C18FB74BD000A5F83 /* UIImageView+AFNetworking.m in Sources */,
@@ -1497,7 +1464,6 @@
 				27966A1018E2EB1A0076423C /* MJRefreshFooterView.m in Sources */,
 				2794B6DF18E023EC008DCF83 /* NetworkRequest.m in Sources */,
 				2732466D18D98B2000F82011 /* MyCameraViewController.m in Sources */,
-				2758508A18D6992100CCB075 /* CircleView.m in Sources */,
 				2751C12718C417A9006173B3 /* ShowImageViewController.m in Sources */,
 				2799684C1950440E00D9C6DD /* NtscOrpalViewController.m in Sources */,
 				274D771918E571BF00F352C7 /* ThumbnailViewController.m in Sources */,
