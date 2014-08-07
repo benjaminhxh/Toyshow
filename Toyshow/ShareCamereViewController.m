@@ -22,9 +22,9 @@
 //    UIView *cbdPlayerView;
     CyberPlayerController *cbPlayerController;
     UIButton *startBtn, *shareBtn;
-    UISlider *lightSlider;
+//    UISlider *lightSlider;
     NSTimer *timer,*localTimer,*_timer3;
-    UIProgressView *progressV;
+//    UIProgressView *progressV;
     UIImageView *topView,*bottomView;
     BOOL topViewHidden,lightBool;
     UILabel *currentProgress,*remainsProgress;
@@ -32,10 +32,10 @@
     UISlider *slider;
     UILabel *timeL;
     MPVolumeView *volumView;
-    UIView *tapView;
+//    UIView *tapView;
     UIAlertView *publicView,*cancelShareView;
     NSArray *activity;
-    UIActivityIndicatorView *indicatorView;
+//    UIActivityIndicatorView *indicatorView;
 }
 @end
 
@@ -145,14 +145,14 @@
     [backBtn setImage:[UIImage imageNamed:@"fanhui_jiantou@2x"] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtn:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backBtn];
-    
+    [backBtn release];
     //标题
     UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(55, 12, kWidth-55-20, 20)];
     titleL.textColor = [UIColor whiteColor];
     titleL.font = [UIFont systemFontOfSize:12];
     titleL.text = self.playerTitle;
     [topView addSubview:titleL];
-    
+    [titleL release];
     //显示实时时间
     timeL = [[UILabel alloc] initWithFrame:CGRectMake(kHeight/2-20, 10, 40, 15)];
     timeL.text = @"12:12:12";
@@ -215,6 +215,8 @@
                     forwardBtn.frame = CGRectMake(kHeight/2+30+100, 11, 46, 24);
                     collectionBtn.frame = CGRectMake(kHeight/2+30+150, 11, 46, 24);
                 }
+                [forwardBtn release];
+                [collectionBtn release];
             }
         }else{
             //我的摄像头直播
@@ -254,6 +256,9 @@
                 cutBtn.frame = CGRectMake(kHeight/2+30+100, 11, 46, 24);
                 volumeBtn.frame = CGRectMake(kHeight/2+30+150, 11, 46, 24);
             }
+            [forwardBtn release];
+            [cutBtn release];
+            [volumeBtn release];
             NSLog(@"-----------------self.shareStaue:%d",self.shareStaue);
             if (self.shareStaue) {
                 [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelwei@2x"] forState:UIControlStateNormal];
@@ -288,12 +293,12 @@
         [bottomView addSubview:remainsProgress];
         
         //下载进度条
-        progressV = [[UIProgressView alloc] initWithFrame:CGRectMake(60, 47, kHeight - 105, 2)];
-        progressV.progressViewStyle = UIProgressViewStyleBar;
+//        progressV = [[UIProgressView alloc] initWithFrame:CGRectMake(60, 47, kHeight - 105, 2)];
+//        progressV.progressViewStyle = UIProgressViewStyleBar;
 //        progressV.progress = 0.5;
-        //        progressV.trackTintColor = [UIColor redColor];//未缓冲的
-        progressV.progressTintColor = [UIColor grayColor];
-        [bottomView addSubview:progressV];
+//        progressV.trackTintColor = [UIColor redColor];//未缓冲的
+//        progressV.progressTintColor = [UIColor grayColor];
+//        [bottomView addSubview:progressV];
 
         //快进快退滑动条
         slider = [[UISlider alloc] initWithFrame:CGRectMake(60, 35, kHeight - 105, 25)];
@@ -317,24 +322,25 @@
 //    [cbPlayerController.view addSubview:tapView];
     UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenOrNo:)];
     [cbPlayerController.view addGestureRecognizer:tapGest];
-    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)];
-    doubleTap.numberOfTapsRequired = 2;
+    [tapGest release];
+//    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)];
+//    doubleTap.numberOfTapsRequired = 2;
 //    [cbPlayerController.view addGestureRecognizer:doubleTap];
 //    [tapGest requireGestureRecognizerToFail:doubleTap];
     self.request_id = @"";
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WillResignActivenotifi:) name:kAPPWillResignActivenotif object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WillResignActivenotifi:) name:kAPPWillResignActivenotif object:nil];
 }
 
-- (void)WillResignActivenotifi:(NSNotificationCenter *)notif
-{
-    NSLog(@"这是退出的通知：postNotificationName");
-    [self stopPlayback];
-    if ([localTimer isValid]) {
-        [localTimer invalidate];
-    }
-    localTimer = nil;
-    [self.navigationController popViewControllerAnimated:YES];
-}
+//- (void)WillResignActivenotifi:(NSNotificationCenter *)notif
+//{
+//    NSLog(@"这是退出的通知：postNotificationName");
+//    [self stopPlayback];
+//    if ([localTimer isValid]) {
+//        [localTimer invalidate];
+//    }
+//    localTimer = nil;
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
 
 - (void)onDragSlideValueChanged:(id)sender {
     NSLog(@"slide changing, %f", slider.value);
@@ -460,11 +466,11 @@
 {
     [self refreshProgress:cbPlayerController.currentPlaybackTime totalDuration:cbPlayerController.duration];
 //    [self refreshCurrentProgress:cbPlayerController.playableDuration totalDuration:cbPlayerController.duration];//当前可播放视频的长度4/6
-//    NSLog(@"timeHanler");
+    NSLog(@"timeHanler");
 }
 
 - (void)refreshProgress:(int) currentTime totalDuration:(int)allSecond{
-//    NSLog(@"refreshProgress");//4/7
+    NSLog(@"refreshProgress");//4/7
     NSInteger startT = self.startTimeInt + currentTime;//得到起始时间戳
     NSDictionary* dict = [[self class] convertSecond2HourMinuteSecond:startT];
     NSString* strPlayedTime = [self getTimeString:dict prefix:@""];
@@ -536,28 +542,30 @@
     {
         [timer invalidate];
     }
+    timer = nil;
+
+    if ([localTimer isValid]) {
+        [localTimer invalidate];
+    }
+    localTimer = nil;
+    
     if (_timer3 && [_timer3 isValid]) {
         [_timer3 invalidate];
     }
-    timer = nil;
     _timer3 = nil;
 }
 
 - (void)stopPlayback{
     //停止视频播放
+    [self stopTimer];
     [cbPlayerController stop];
     [startBtn setImage:[UIImage imageNamed:@"zanting_anniu@2x"] forState:UIControlStateNormal];
-    [self stopTimer];
 }
 
 //返回
 - (void)backBtn:(id)sender
 {
     [self stopPlayback];
-    if ([localTimer isValid]) {
-        [localTimer invalidate];
-    }
-    localTimer = nil;
     if (![self.request_id isEqualToString:@""]) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(playerViewBack:)]) {
             [self.delegate playerViewBack:@"hello"];
@@ -983,8 +991,55 @@ usePresentationLayer:YES];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc
+- (void)viewWillDisappear:(BOOL)animated
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super viewWillDisappear:YES];
+    [self release];
 }
+
+//- (void)dealloc
+//{
+//    [cbPlayerController release];
+//    cbPlayerController = nil;
+//    [startBtn release];
+//    startBtn = nil;
+//    [shareBtn release];
+//    shareBtn = nil;
+//    [timer release];
+//    timer = nil;
+//    [localTimer release];
+//    localTimer = nil;
+//    [_timer3 release];
+//    _timer3 = nil;
+//    [topView release];
+//    topView = nil;
+//    [bottomView release];
+//    bottomView = nil;
+//    [currentProgress release];
+//    currentProgress = nil;
+//    [remainsProgress release];
+//    remainsProgress = nil;
+//    [_loadingView release];
+//    _loadingView = nil;
+//    [shareHub release];
+//    shareHub = nil;
+//    [slider release];
+//    slider = nil;
+//    [timeL release];
+//    timeL = nil;
+//    [volumView release];
+//    volumView = nil;
+//    [publicView release];
+//    publicView = nil;
+//    [cancelShareView release];
+//    cancelShareView = nil;
+//    [activity release];
+//    activity = nil;
+//    
+////    [self.scrollv release];
+////    [self.imagev release];
+//    
+////    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//    [super dealloc];
+//}
 @end
