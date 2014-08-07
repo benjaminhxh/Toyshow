@@ -19,8 +19,8 @@
 
 @interface ShareCamereViewController : UIViewController<UIScrollViewDelegate>
 
-@property (retain, nonatomic) UIScrollView *scrollv;
-@property (retain, nonatomic) UIImageView *imagev;
+@property (strong, nonatomic) UIScrollView *scrollv;
+@property (strong, nonatomic) UIImageView *imagev;
 
 @property (nonatomic,assign) BOOL islLve;
 @property (nonatomic,assign) BOOL isShare;
