@@ -22,14 +22,13 @@
 //    UIView *cbdPlayerView;
     CyberPlayerController *cbPlayerController;
     UIButton *startBtn, *shareBtn;
-    UISlider *lightSlider;
+    UISlider *lightSlider,*slider;
     NSTimer *timer,*localTimer,*_timer3;
-    UIProgressView *progressV;
+//    UIProgressView *progressV;
     UIImageView *topView,*bottomView;
     BOOL topViewHidden,lightBool;
     UILabel *currentProgress,*remainsProgress;
     MBProgressHUD *_loadingView,*shareHub;
-    UISlider *slider;
     UILabel *timeL;
     MPVolumeView *volumView;
     UIView *tapView;
@@ -107,15 +106,15 @@
                                                  name:CyberPlayerSeekingDidFinishNotification
                                                object:nil];
     //注册监听，当播放器开始缓冲时发送通知
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(startCaching:)
-                                                 name:CyberPlayerStartCachingNotification
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(startCaching:)
+//                                                 name:CyberPlayerStartCachingNotification
+//                                               object:nil];
     //播放状态发送改变
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(stateDidChange:)
-                                                 name:CyberPlayerPlaybackStateDidChangeNotification
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(stateDidChange:)
+//                                                 name:CyberPlayerPlaybackStateDidChangeNotification
+//                                               object:nil];
 
     //注册监听，当播放器缓冲视频过程中不断发送该通知。
 //    [[NSNotificationCenter defaultCenter] addObserver:self
@@ -288,12 +287,12 @@
         [bottomView addSubview:remainsProgress];
         
         //下载进度条
-        progressV = [[UIProgressView alloc] initWithFrame:CGRectMake(60, 47, kHeight - 105, 2)];
-        progressV.progressViewStyle = UIProgressViewStyleBar;
-//        progressV.progress = 0.5;
-        //        progressV.trackTintColor = [UIColor redColor];//未缓冲的
-        progressV.progressTintColor = [UIColor grayColor];
-        [bottomView addSubview:progressV];
+//        progressV = [[UIProgressView alloc] initWithFrame:CGRectMake(60, 47, kHeight - 105, 2)];
+//        progressV.progressViewStyle = UIProgressViewStyleBar;
+////        progressV.progress = 0.5;
+//        //        progressV.trackTintColor = [UIColor redColor];//未缓冲的
+//        progressV.progressTintColor = [UIColor grayColor];
+//        [bottomView addSubview:progressV];
 
         //快进快退滑动条
         slider = [[UISlider alloc] initWithFrame:CGRectMake(60, 35, kHeight - 105, 25)];
@@ -322,7 +321,7 @@
 //    [cbPlayerController.view addGestureRecognizer:doubleTap];
 //    [tapGest requireGestureRecognizerToFail:doubleTap];
     self.request_id = @"";
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WillResignActivenotifi:) name:kAPPWillResignActivenotif object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WillResignActivenotifi:) name:kAPPWillResignActivenotif object:nil];
 }
 
 - (void)WillResignActivenotifi:(NSNotificationCenter *)notif
@@ -361,6 +360,8 @@
 //    dispatch_async(dispatch_get_main_queue(), ^{
 //        _loadingView.hidden = NO;
 //    });
+    [self performSelectorOnMainThread:@selector(hiddenLoadingView) withObject:nil waitUntilDone:NO];
+
     NSLog(@"onpreparedListener");
     [self startTimer];
     NSLog(@"onpreparedListener--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
@@ -371,15 +372,21 @@
 {
     NSLog(@"startCaching--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-        _loadingView.hidden = NO;
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        _loadingView.hidden = NO;
+//    });
+
     [self startTimer];
     NSLog(@"startCachhhhhhhhhhhhhh");
 }
 
+- (void)hiddenLoadingView
+{
+    _loadingView.hidden = YES;
+}
 - (void)seekComplete:(NSNotification*)notification
 {
+    //完成视频播放位置调整
     NSLog(@"seekComplete--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
 
     //开始启动UI刷新
@@ -460,7 +467,7 @@
 {
     [self refreshProgress:cbPlayerController.currentPlaybackTime totalDuration:cbPlayerController.duration];
 //    [self refreshCurrentProgress:cbPlayerController.playableDuration totalDuration:cbPlayerController.duration];//当前可播放视频的长度4/6
-//    NSLog(@"timeHanler");
+    NSLog(@"timeHanler");
 }
 
 - (void)refreshProgress:(int) currentTime totalDuration:(int)allSecond{
@@ -483,7 +490,6 @@
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
     
     int hour = 0, minute = 0;
-    
     hour = second / 3600;
     minute = (second - hour * 3600) / 60;
     second = second - hour * 3600 - minute *  60;
@@ -986,5 +992,6 @@ usePresentationLayer:YES];
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+//    [super dealloc];
 }
 @end
