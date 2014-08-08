@@ -105,6 +105,11 @@
                                              selector:@selector(seekComplete:)
                                                  name:CyberPlayerSeekingDidFinishNotification
                                                object:nil];
+    //注册监听，当播放器完成视频播放完成后发送CyberPlayerPlaybackDidFinishNotification通知，
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(playerBackDidFinish:)
+                                                 name:CyberPlayerPlaybackDidFinishNotification
+                                               object:nil];
     //注册监听，当播放器开始缓冲时发送通知
 //    [[NSNotificationCenter defaultCenter] addObserver:self
 //                                             selector:@selector(startCaching:)
@@ -388,13 +393,19 @@
 {
     //完成视频播放位置调整
     NSLog(@"seekComplete--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
-
-    //开始启动UI刷新
-    dispatch_async(dispatch_get_main_queue(), ^{
-    _loadingView.hidden = YES;
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//    _loadingView.hidden = YES;
+//    });
     [self startTimer];
     NSLog(@"seekCompleteeeeeeeeeeee");//15
+}
+
+//播放完成
+- (void)playerBackDidFinish:(NSNotification *)notif
+{
+    UIAlertView *finishView = [[UIAlertView alloc] initWithTitle:@"播放完成" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [finishView show];
+    [self backBtn:nil];
 }
 //状态改变
 - (void)stateDidChange:(NSNotification*)notif
