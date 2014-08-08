@@ -47,7 +47,7 @@
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeContactAdd];
     nextBtn.frame = CGRectMake(260, 25, 50, 24);
     [nextBtn addTarget:self action:@selector(showScrollImage) forControlEvents:UIControlEventTouchUpInside];
-    [topView addSubview:nextBtn];
+//    [topView addSubview:nextBtn];
     
 //    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(30, 25, 120, 24)];
 //    title.textColor = [UIColor whiteColor];

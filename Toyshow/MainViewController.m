@@ -333,43 +333,44 @@
 {
     NSDictionary *dict = [_fakeData objectAtIndex:indexPath.row];
     int status = [[dict objectForKey:@"status"] intValue];
-    ShareCamereViewController *shareVC = [[ShareCamereViewController alloc] init];
-    shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
-    [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
+//    ShareCamereViewController *shareVC = [[ShareCamereViewController alloc] init];
+//    shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
+//    [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
 
-//    if (status) {
-//        [self isLoadingView];
-//        NSString *shareID = [dict objectForKey:@"shareid"];
-//        NSString *uk = [dict objectForKey:@"uk"];
-//        ShareCamereViewController *shareVC = [[ShareCamereViewController alloc] init];
+    if (status) {
+        [self isLoadingView];
+        NSString *shareID = [dict objectForKey:@"shareid"];
+        NSString *uk = [dict objectForKey:@"uk"];
 //        shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
 //        [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
-//
-//        shareVC.islLve = YES;
-//        shareVC.isShare = YES;
-//        shareVC.shareId = shareID;
-//        shareVC.uk = uk;
-//        shareVC.deviceId = [dict objectForKey:@"deviceid"];
-//        shareVC.playerTitle = [[dict objectForKey:@"description"] stringByAppendingString:@"(分享)"];
-//        NSString *liveURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareID,uk];
-//        [[AFHTTPSessionManager manager] GET:liveURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//            NSDictionary *dict = (NSDictionary *)responseObject;
-//            NSLog(@"公共摄像头:%@",dict);
-//            shareVC.url = [dict objectForKey:@"url"];
+
+        
+        NSString *liveURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareID,uk];
+        [[AFHTTPSessionManager manager] GET:liveURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            NSLog(@"公共摄像头:%@",dict);
+            ShareCamereViewController *shareVC = [[ShareCamereViewController alloc] init];
+            shareVC.islLve = YES;
+            shareVC.isShare = YES;
+            shareVC.shareId = shareID;
+            shareVC.uk = uk;
+            shareVC.deviceId = [dict objectForKey:@"deviceid"];
+            shareVC.playerTitle = [[dict objectForKey:@"description"] stringByAppendingString:@"(分享)"];
+            shareVC.url = [dict objectForKey:@"url"];
 //            shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
-//            [_loadingView removeFromSuperview];
-//            [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
-//        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//            NSLog(@"error++++++++");
-//            [_loadingView removeFromSuperview];
-//            [self MBprogressViewHubLoading:@"网络延时"];
-//            [badInternetHub hide:YES afterDelay:1];
-//        }];
-//    }else
-//    {
-//        [self MBprogressViewHubLoading:@"设备不在线"];
-//        [badInternetHub hide:YES afterDelay:1];
-//    }
+            [_loadingView removeFromSuperview];
+            [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            NSLog(@"error++++++++");
+            [_loadingView removeFromSuperview];
+            [self MBprogressViewHubLoading:@"网络延时"];
+            [badInternetHub hide:YES afterDelay:1];
+        }];
+    }else
+    {
+        [self MBprogressViewHubLoading:@"设备不在线"];
+        [badInternetHub hide:YES afterDelay:1];
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 //    shareVC.url = @"http://zb.v.qq.com:1863/?progid=1975434150";
 //    shareVC.url = @"http://a.puteasy.com:8800/authorize?chn_id=89&mac=ffffffffffff&mac_code=67a2e0b15d7b1b6ab6ab4e1f6cc516d1";

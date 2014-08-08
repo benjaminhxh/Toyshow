@@ -211,7 +211,7 @@
                 if (downloadArr.count>20) {
                     //从尾到头遍历选出最后那20条数据
                     for (int i = downloadArr.count; i > (downloadArr.count-20); i--) {
-                        NSLog(@"downLoadArr:------i--------%d",i);
+//                        NSLog(@"downLoadArr:------i--------%d",i);
                         [vc->_fakeData addObject:[downloadArr objectAtIndex:i-1]];
                     }
                 }
@@ -343,7 +343,7 @@
 {
     // Return the number of rows in the section.
     if (_fakeData.count) {
-        NSLog(@"tableView.count:%d",_fakeData.count);
+//        NSLog(@"tableView.count:%d",_fakeData.count);
         return _fakeData.count;
     }
     return 0;

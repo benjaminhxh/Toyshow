@@ -106,10 +106,10 @@
                                                  name:CyberPlayerSeekingDidFinishNotification
                                                object:nil];
     //注册监听，当播放器播放完视频后发送CyberPlayerPlaybackDidFinishNotification通知，
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(playerBackDidFinish:)
-                                                 name:CyberPlayerPlaybackDidFinishNotification
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(playerBackDidFinish:)
+//                                                 name:CyberPlayerPlaybackDidFinishNotification
+//                                               object:nil];
     //注册监听，当播放器播放失败后发送CyberPlayerPlaybackErrorNotification通知，
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerBackError:)
@@ -118,15 +118,15 @@
 
     
     //注册监听，当播放器开始缓冲时发送通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(startCaching:)
-//                                                 name:CyberPlayerStartCachingNotification
-//                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(startCaching:)
+                                                 name:CyberPlayerStartCachingNotification
+                                               object:nil];
     //播放状态发送改变
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(stateDidChange:)
-//                                                 name:CyberPlayerPlaybackStateDidChangeNotification
-//                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(stateDidChange:)
+                                                 name:CyberPlayerPlaybackStateDidChangeNotification
+                                               object:nil];
 
     //注册监听，当播放器缓冲视频过程中不断发送该通知。
 //    [[NSNotificationCenter defaultCenter] addObserver:self
@@ -220,7 +220,6 @@
                 if (iphone5) {
                     forwardBtn.frame = CGRectMake(kHeight*26/32, 11, 46, 24);
                     collectionBtn.frame = CGRectMake(kHeight*29/32, 11, 46, 24);
-                    
                 }else
                 {
                     forwardBtn.frame = CGRectMake(kHeight/2+30+100, 11, 46, 24);
@@ -232,7 +231,6 @@
             //分享、设置、截图、对讲
             //分享
             shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-
             [topView addSubview:shareBtn];
             //转发
             UIButton *forwardBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -257,7 +255,6 @@
                 forwardBtn.frame = CGRectMake(kHeight*23/32, 11, 46, 24);
                 cutBtn.frame = CGRectMake(kHeight*26/32, 11, 46, 24);
                 volumeBtn.frame = CGRectMake(kHeight*29/32, 11, 46, 24);
-
             }else
             {
                 shareBtn.frame = CGRectMake(kHeight/2+30, 11, 46, 24);
@@ -265,7 +262,6 @@
                 cutBtn.frame = CGRectMake(kHeight/2+30+100, 11, 46, 24);
                 volumeBtn.frame = CGRectMake(kHeight/2+30+150, 11, 46, 24);
             }
-            NSLog(@"-----------------self.shareStaue:%d",self.shareStaue);
             if (self.shareStaue) {
                 [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelwei@2x"] forState:UIControlStateNormal];
                 [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelzhong@2x"] forState:UIControlStateHighlighted];
@@ -273,12 +269,8 @@
             }else{
                 [shareBtn setImage:[UIImage imageNamed:@"fenxiang_wei@2x"] forState:UIControlStateNormal];
                 [shareBtn setImage:[UIImage imageNamed:@"fenxiang_zhong@2x"] forState:UIControlStateHighlighted];
-                
             }
             [shareBtn addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchUpInside];
-
-            //开始播放
-//            [self startPlayback];
         }
     }
     else{
@@ -366,45 +358,37 @@
     [self stopTimer];//12
 }
 
+//视频文件完成初始化，开始播放视频并启动刷新timer。1
 - (void)onpreparedListener: (NSNotification*)aNotification
 {
-    //视频文件完成初始化，开始播放视频并启动刷新timer。1
 //    dispatch_async(dispatch_get_main_queue(), ^{
 //        _loadingView.hidden = NO;
 //    });
     [self performSelectorOnMainThread:@selector(hiddenLoadingView) withObject:nil waitUntilDone:NO];
-
-    NSLog(@"onpreparedListener");
     [self startTimer];
-    NSLog(@"onpreparedListener--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
-
+    NSLog(@"视频文件完成初始化onpreparedListener--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
 }
+
 //开始缓冲
 - (void)startCaching:(NSNotification*)botif
 {
-    NSLog(@"startCaching--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
-
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        _loadingView.hidden = NO;
-//    });
-
-    [self startTimer];
-    NSLog(@"startCachhhhhhhhhhhhhh");
+//    [self startTimer];
+    NSLog(@"开始缓冲startCachhhhhhhhhhhhhh");
 }
 
 - (void)hiddenLoadingView
 {
     _loadingView.hidden = YES;
 }
+
+//完成视频播放位置调整
 - (void)seekComplete:(NSNotification*)notification
 {
-    //完成视频播放位置调整
-    NSLog(@"seekComplete--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
+    NSLog(@"完成视频播放位置调整seekComplete--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
 //    dispatch_async(dispatch_get_main_queue(), ^{
 //    _loadingView.hidden = YES;
 //    });
     [self startTimer];
-    NSLog(@"seekCompleteeeeeeeeeeee");//15
 }
 
 //播放完成
@@ -412,38 +396,36 @@
 {
 //    UIAlertView *finishView = [[UIAlertView alloc] initWithTitle:@"播放完成" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
 //    [finishView show];
-    [self backBtn:nil];
+    NSLog(@"播放完成");
+//    [self backBtn:nil];
 }
 
+//播放失败
 - (void)playerBackError:(NSNotification *)notifa
 {
     UIAlertView *playError = [[UIAlertView alloc] initWithTitle:@"播放失败" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
     [playError show];
-    [self backBtn:nil];
+    NSLog(@"播放失败");
+//    [self backBtn:nil];
 }
 //状态改变
 - (void)stateDidChange:(NSNotification*)notif
 {
-    NSLog(@"stateDidChange--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
-
-    NSLog(@"stateDidChange");//4
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (_loadingView.hidden) {
-            _loadingView.hidden = NO;
-        }else
-        {
-            _loadingView.hidden = YES;
-        }
-    });
+    NSLog(@"播放状态发送改变stateDidChange--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        if (_loadingView.hidden) {
+//            _loadingView.hidden = NO;
+//        }else
+//        {
+//            _loadingView.hidden = YES;
+//        }
+//    });
 }
 //缓冲过程
 - (void)GotCachePercent:(NSNotification *)notific
 {
     NSLog(@"GotCachePercent--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
-
-    NSLog(@"GotCachePercent");
     dispatch_async(dispatch_get_main_queue(), ^{
-
     _loadingView.hidden = NO;
     });
 //    [self startTimer];
@@ -457,8 +439,6 @@
     [self stopPlayback];
 }
 - (void)startPlayback{
-//    NSString *urlStr = [[NSBundle mainBundle] pathForResource:@"wwmxd" ofType:@"mp4"];
-//    NSURL *url = [NSURL fileURLWithPath:urlStr];
 //    NSURL *url = [NSURL URLWithString:@"rtmp://livertmppc.wasu.cn/live/dfws"];
 //    NSURL *url = [NSURL URLWithString:@"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4"];
     NSURL *url = [NSURL URLWithString:self.url];
@@ -498,6 +478,7 @@
 - (void)refreshProgress:(int) currentTime totalDuration:(int)allSecond{
 //    NSLog(@"refreshProgress");//4/7
     NSInteger startT = self.startTimeInt + currentTime;//得到起始时间戳
+    NSLog(@"currentTime:%d---allSecond:%d",currentTime,allSecond);
     NSDictionary* dict = [[self class] convertSecond2HourMinuteSecond:startT];
     NSString* strPlayedTime = [self getTimeString:dict prefix:@""];
     currentProgress.text = strPlayedTime;
@@ -544,22 +525,22 @@
 }
 
 - (void)startTimer{
-    //为了保证UI刷新在主线程中完成。2
+    //为了保证UI播放进度刷新在主线程中完成
     NSLog(@"startTimer");
-    [self performSelectorOnMainThread:@selector(startTimeroOnMainThread) withObject:nil waitUntilDone:NO];
+    if (self.islLve) {
+        
+    }else
+    {
+        [self performSelectorOnMainThread:@selector(startTimeroOnMainThread) withObject:nil waitUntilDone:NO];
+    }
 //    NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);
 }
 
 //缓冲完也会进这个函数
 //只有这里主线程可以停掉loading
 - (void)startTimeroOnMainThread{
-//    _loadingView.hidden = YES;//============3
-//    [_loadingView removeFromSuperview];
-
     timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(timerHandler:) userInfo:nil repeats:YES];
 //    NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);3
-    NSLog(@"startTimerOnMain");
-
 }
 
 - (void)stopTimer{

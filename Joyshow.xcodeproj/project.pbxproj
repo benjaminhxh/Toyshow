@@ -104,7 +104,6 @@
 		2750BA251904ADFA009AA5C6 /* cehuajiantou18x34@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2750BA241904ADFA009AA5C6 /* cehuajiantou18x34@2x.png */; };
 		2751C12718C417A9006173B3 /* ShowImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2751C12618C417A9006173B3 /* ShowImageViewController.m */; };
 		2751C13718C42828006173B3 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2751C13618C42828006173B3 /* MediaPlayer.framework */; };
-		2751C13D18C457D4006173B3 /* wwmxd.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2751C13C18C457D4006173B3 /* wwmxd.mp4 */; };
 		2751C14318C45F8A006173B3 /* MVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2751C14218C45F8A006173B3 /* MVViewController.m */; };
 		27540A8D1945B84600B73945 /* IPObtainStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27540A8A1945B84600B73945 /* IPObtainStyleViewController.m */; };
 		27540A8E1945B84600B73945 /* SecurtyStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27540A8C1945B84600B73945 /* SecurtyStyleViewController.m */; };
@@ -382,7 +381,6 @@
 		2751C12518C417A8006173B3 /* ShowImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowImageViewController.h; sourceTree = "<group>"; };
 		2751C12618C417A9006173B3 /* ShowImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowImageViewController.m; sourceTree = "<group>"; };
 		2751C13618C42828006173B3 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		2751C13C18C457D4006173B3 /* wwmxd.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = wwmxd.mp4; sourceTree = "<group>"; };
 		2751C14118C45F8A006173B3 /* MVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVViewController.h; sourceTree = "<group>"; };
 		2751C14218C45F8A006173B3 /* MVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVViewController.m; sourceTree = "<group>"; };
 		27540A891945B84600B73945 /* IPObtainStyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPObtainStyleViewController.h; sourceTree = "<group>"; };
@@ -1149,7 +1147,6 @@
 				272C415B18ED66DB00432D5D /* TransformViewController.m */,
 				275C716918CEC91E00288C83 /* AboutViewController.h */,
 				275C716A18CEC91E00288C83 /* AboutViewController.m */,
-				2751C13C18C457D4006173B3 /* wwmxd.mp4 */,
 				2751C12E18C419D5006173B3 /* image */,
 				27FFE29618BF287B00AE47FF /* Images.xcassets */,
 				27FFE28B18BF287B00AE47FF /* Supporting Files */,
@@ -1287,7 +1284,6 @@
 				2759158F18EEAF9A00E3DDC2 /* yinliang_anniu@2x.png in Resources */,
 				27FFE28F18BF287B00AE47FF /* InfoPlist.strings in Resources */,
 				270C0C0218EBBF0300EBD83B /* shipinkuang@2x.png in Resources */,
-				2751C13D18C457D4006173B3 /* wwmxd.mp4 in Resources */,
 				271BB90A18CDDED9000DFC4A /* pick_bg@2x.png in Resources */,
 				2759159018EEAF9A00E3DDC2 /* yinliang_beijing@2x.png in Resources */,
 				270C0BE218EBB85200EBD83B /* fenjietiao@2x.png in Resources */,
