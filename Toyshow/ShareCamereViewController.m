@@ -105,11 +105,18 @@
                                              selector:@selector(seekComplete:)
                                                  name:CyberPlayerSeekingDidFinishNotification
                                                object:nil];
-    //注册监听，当播放器完成视频播放完成后发送CyberPlayerPlaybackDidFinishNotification通知，
+    //注册监听，当播放器播放完视频后发送CyberPlayerPlaybackDidFinishNotification通知，
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerBackDidFinish:)
                                                  name:CyberPlayerPlaybackDidFinishNotification
                                                object:nil];
+    //注册监听，当播放器播放失败后发送CyberPlayerPlaybackErrorNotification通知，
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(playerBackError:)
+                                                 name:CyberPlayerPlaybackErrorNotification
+                                               object:nil];
+
+    
     //注册监听，当播放器开始缓冲时发送通知
 //    [[NSNotificationCenter defaultCenter] addObserver:self
 //                                             selector:@selector(startCaching:)
@@ -403,8 +410,15 @@
 //播放完成
 - (void)playerBackDidFinish:(NSNotification *)notif
 {
-    UIAlertView *finishView = [[UIAlertView alloc] initWithTitle:@"播放完成" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    [finishView show];
+//    UIAlertView *finishView = [[UIAlertView alloc] initWithTitle:@"播放完成" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+//    [finishView show];
+    [self backBtn:nil];
+}
+
+- (void)playerBackError:(NSNotification *)notifa
+{
+    UIAlertView *playError = [[UIAlertView alloc] initWithTitle:@"播放失败" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+    [playError show];
     [self backBtn:nil];
 }
 //状态改变
