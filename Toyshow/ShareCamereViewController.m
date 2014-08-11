@@ -118,15 +118,15 @@
 
     
     //注册监听，当播放器开始缓冲时发送通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(startCaching:)
-//                                                 name:CyberPlayerStartCachingNotification
-//                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(startCaching:)
+                                                 name:CyberPlayerStartCachingNotification
+                                               object:nil];
     //播放状态发送改变
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(stateDidChange:)
-//                                                 name:CyberPlayerPlaybackStateDidChangeNotification
-//                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(stateDidChange:)
+                                                 name:CyberPlayerPlaybackStateDidChangeNotification
+                                               object:nil];
 
     //注册监听，当播放器缓冲视频过程中不断发送该通知。
 //    [[NSNotificationCenter defaultCenter] addObserver:self
@@ -526,6 +526,7 @@
 
 - (void)startTimer{
     //为了保证UI播放进度刷新在主线程中完成
+    NSLog(@"startTimer");
     if (self.islLve) {
         
     }else
