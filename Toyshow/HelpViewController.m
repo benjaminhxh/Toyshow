@@ -161,7 +161,7 @@
 {
     [self progressViewLoading];
     //检测新版本地址
-    NSString *url = @"http://www.51joyshow.com/index.php?m=content&c=banben&type=2";
+    NSString *url = @"http://www.51joyshow.com.cn/index.php?m=content&c=banben&type=2";
     NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
     NSString *Sysversion = [infoDict objectForKey:@"CFBundleShortVersionString"];
     [[AFHTTPRequestOperationManager manager]POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -171,11 +171,11 @@
         NSString *version = [versionDict objectForKey:@"version"];
         if ([Sysversion floatValue]<[version floatValue]) {
             [progressView hide:YES];
-            [self alertViewShowWithTitle:@"检测到新版本" andMessage:[versionDict objectForKey:@"description"] withDelegate:self andCancelButton:@"Cancel" andOtherButton:@"前往下载"];
+            [self alertViewShowWithTitle:@"检测到新版本,是否升级?" andMessage:[versionDict objectForKey:@"description"] withDelegate:self andCancelButton:@"取消" andOtherButton:@"升级"];
         }else
         {
             [progressView hide:YES];
-            [self alertViewShowWithTitle:@"无新版本" andMessage:nil withDelegate:nil andCancelButton:@"Cancel" andOtherButton:nil];
+            [self alertViewShowWithTitle:@"当前版本已是最新版本" andMessage:nil withDelegate:nil andCancelButton:@"Cancel" andOtherButton:nil];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [progressView hide:YES];

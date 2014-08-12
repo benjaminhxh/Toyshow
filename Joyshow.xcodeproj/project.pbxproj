@@ -77,6 +77,7 @@
 		272C415C18ED66DB00432D5D /* TransformViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 272C415B18ED66DB00432D5D /* TransformViewController.m */; };
 		2732466D18D98B2000F82011 /* MyCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2732466C18D98B2000F82011 /* MyCameraViewController.m */; };
 		2732466F18D99EC400F82011 /* MyCameraCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2732466E18D99EC400F82011 /* MyCameraCell.xib */; };
+		273922491998E63900168533 /* BPushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 273922481998E63900168533 /* BPushConfig.plist */; };
 		2745B2E918FE89D6009B3543 /* setanniuhei@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2745B2E818FE89D6009B3543 /* setanniuhei@2x.png */; };
 		274662B318C0307F004C8DD4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 274662B218C0307F004C8DD4 /* SystemConfiguration.framework */; };
 		274662B518C03087004C8DD4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 274662B418C03087004C8DD4 /* MessageUI.framework */; };
@@ -347,6 +348,7 @@
 		2732466B18D98B2000F82011 /* MyCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCameraViewController.h; sourceTree = "<group>"; };
 		2732466C18D98B2000F82011 /* MyCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCameraViewController.m; sourceTree = "<group>"; };
 		2732466E18D99EC400F82011 /* MyCameraCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyCameraCell.xib; sourceTree = "<group>"; };
+		273922481998E63900168533 /* BPushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BPushConfig.plist; sourceTree = "<group>"; };
 		2745B2E818FE89D6009B3543 /* setanniuhei@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setanniuhei@2x.png"; sourceTree = "<group>"; };
 		274662B218C0307F004C8DD4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		274662B418C03087004C8DD4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -1106,6 +1108,7 @@
 			isa = PBXGroup;
 			children = (
 				27BA304519737C6E00F98042 /* VarHeader.h */,
+				273922481998E63900168533 /* BPushConfig.plist */,
 				2703E51618D97EA500E31DF0 /* SliderViewController.h */,
 				2703E51718D97EA500E31DF0 /* SliderViewController.m */,
 				27FFE29318BF287B00AE47FF /* HXHAppDelegate.h */,
@@ -1321,6 +1324,7 @@
 				2759158818EEAF9A00E3DDC2 /* kuaijin_anniu@2x.png in Resources */,
 				27642A2D18FD355B00198E29 /* setanniu@2x.png in Resources */,
 				278AC63118F6A26100902363 /* beijing1080@2x.png in Resources */,
+				273922491998E63900168533 /* BPushConfig.plist in Resources */,
 				2777AF55198749EA000C6388 /* Default@2x.png in Resources */,
 				271BB89B18CD95A7000DFC4A /* shezhi_anniu.png in Resources */,
 				2759158C18EEAF9A00E3DDC2 /* shijian_beijing@2x.png in Resources */,
@@ -1586,6 +1590,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/zhxf/project/Toyshow,
@@ -1619,6 +1624,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/zhxf/project/Toyshow,

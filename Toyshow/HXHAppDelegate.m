@@ -7,8 +7,7 @@
 //
 
 #import "HXHAppDelegate.h"
-#import <Frontia/Frontia.h>
-#import "MobClick.h"
+//#import "MobClick.h"  //友盟
 #import "ShowImageViewController.h"
 
 #define APP_KEY @"ZIAgdlC7Vw7syTjeKG9zS4QP"
@@ -23,7 +22,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    
+    //判断是否第一次进入
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"first"]) {
         ShowImageViewController *firstVC = [[ShowImageViewController alloc] init];
         self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:firstVC];
@@ -35,31 +34,18 @@
     [SliderViewController sharedSliderController].RightSOpenDuration=0.8;
     [SliderViewController sharedSliderController].RightSCloseDuration=0.8;
     [SliderViewController sharedSliderController].RightSJudgeOffset=160;
-//    [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"firstLanuch"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isFirst"];
-    
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[SliderViewController sharedSliderController]];
     }
     self.window.backgroundColor = [UIColor whiteColor];
-//    UINavigationController *nav;
-//    if (flag) {
-//        ShowImageViewController *showImage = [[ShowImageViewController alloc] init];
-//        nav = [[UINavigationController alloc] initWithRootViewController:showImage];
-//    }else
-//    {
-//        HomeViewController *homeVC = [[HomeViewController alloc] init];
-//        nav = [[UINavigationController alloc] initWithRootViewController:homeVC];
-//    }
-//    flag = YES;
-//    self.window.rootViewController = nav;
-    
     [self.window makeKeyAndVisible];
+    NSString *Bundleidentifier = [[NSBundle mainBundle] bundleIdentifier];//zhxf.${PRODUCT_NAME:rfc1034identifier}
+    NSLog(@"Bundle identifier:%@",Bundleidentifier);
 //    //初始化Frontia
     [Frontia initWithApiKey:APP_KEY];
-    
     [Frontia getPush];
     [FrontiaPush setupChannel:launchOptions];
-    
+
     [application registerForRemoteNotificationTypes:
      UIRemoteNotificationTypeAlert
      | UIRemoteNotificationTypeBadge
@@ -77,8 +63,38 @@
      [UIApplication sharedApplication].idleTimerDisabled = YES;
     [WXApi registerApp:@"wx70162e2c344d4c79" withDescription:nil];
     //友盟错误信息统计
-    [MobClick startWithAppkey:@"53ba18ff56240b830200cdab" reportPolicy:SEND_INTERVAL channelId:nil];
+//    [MobClick startWithAppkey:@"53ba18ff56240b830200cdab" reportPolicy:SEND_INTERVAL channelId:nil];
     return YES;
+}
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
+    NSLog(@"frontia application:%@", deviceToken);
+    [FrontiaPush registerDeviceToken: deviceToken];
+    
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"frontia application:%@", error);
+}
+
+- (void)application:(UIApplication *)application
+didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    NSLog(@"frontia applciation receive Notify: %@", [userInfo description]);
+    NSString *alert = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
+    if (application.applicationState == UIApplicationStateActive) {
+        // Nothing to do if applicationState is Inactive, the iOS already displayed an alert view.
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Did receive a Remote Notification"
+                                                            message:[NSString stringWithFormat:@"The application received this remote notification while it was running:\n%@", alert]
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }
+    [application setApplicationIconBadgeNumber:0];
+    
+    [FrontiaPush handleNotification:userInfo];
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -100,13 +116,13 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    NSLog(@"applicationWillEnterForeground");
+//    NSLog(@"applicationWillEnterForeground");
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    NSLog(@"applicationDidBecomeActive");
+//    NSLog(@"applicationDidBecomeActive");
 
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
@@ -123,7 +139,13 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    return  [WXApi handleOpenURL:url delegate:self];
+    if ([WXApi handleOpenURL:url delegate:self]) {
+        return  [WXApi handleOpenURL:url delegate:self];
+    }else
+    {
+        FrontiaShare *share = [Frontia getShare];
+        return [share handleOpenURL:url];
+    }
 }
 
 //从微信点击回到该APP的时候调用

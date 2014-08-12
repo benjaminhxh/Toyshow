@@ -60,7 +60,7 @@
 - (NSString *)getMd5_32Bit_String:(NSString *)srcString{
     const char *cStr = [srcString UTF8String];
     unsigned char digest[CC_MD5_DIGEST_LENGTH *2];
-    NSLog(@"CC_MD5_DIGEST_LENGTH:%d",CC_MD5_DIGEST_LENGTH);
+//    NSLog(@"CC_MD5_DIGEST_LENGTH:%d",CC_MD5_DIGEST_LENGTH);
     CC_MD5( cStr, strlen(cStr), digest );
     NSMutableString *result = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
     for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
@@ -75,7 +75,7 @@
     //先拼接再MD5加密
     NSString *string = [NSString stringWithFormat:@"%@%@%@%@",APP_ID,expire,APP_KEY,APP_SecrectKey];
     realSign = [self getMd5_32Bit_String:string];
-    NSLog(@"md5String:%@",realSign);
+//    NSLog(@"md5String:%@",realSign);
     //再拼接
     sign = [NSString stringWithFormat:@"%@-%@-%@",APP_ID,APP_KEY,realSign];
 //    NSLog(@"sign:%@",sign);
@@ -153,7 +153,7 @@
         // 进入刷新状态就会回调这个Block
         //向服务器发起请求
         NSString *sharelistURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listshare&sign=%@&expire=%@&start=%d&num=100",sign,expire,0];
-        NSLog(@"shareListUrl:%@",sharelistURL);
+//        NSLog(@"shareListUrl:%@",sharelistURL);
         [[AFHTTPSessionManager manager] GET:sharelistURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
             //2、初始化数据

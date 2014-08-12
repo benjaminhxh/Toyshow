@@ -10,6 +10,7 @@
 #define Joyshow_VarHeader_h
 
 #define leftWidth 220
+//#define APIKEY                  @"ZIAgdlC7Vw7syTjeKG9zS4QP"
 #define msAK                    @"ZIAgdlC7Vw7syTjeKG9zS4QP"
 #define msSK                    @"pavlqfU4mzYQ1dH0NG3b7LyXNBy5SYk6"
 #define backGroundImage         @"beijing@2x"
@@ -20,8 +21,6 @@
 #define kAPPWillResignActivenotif @"applicationWillResignActive"
 
 #define kUserName               @"userName"
-//#define kUserPwd                @"userPwd"
-//#define kUserHeadURL            @"userHeadURL"
 #define kUserAccessToken        @"userAccessToken"
 #define kUserHeadImage          @"userHeadImage"
 

@@ -446,7 +446,7 @@
     if ([auth clearAllAuthorizationInfo]) {
         self.userImageVIew.image = [UIImage imageNamed:@"touxiang_n@2x"];
         self.userNameL.text = @"请登录";
-        self.titleText.text = @"登录";
+//        self.titleText.text = @"登录";
         loginOrOutL.text = @"登陆";
 
         NSHTTPCookie *cookie;
