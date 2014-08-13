@@ -193,7 +193,6 @@
 //    stopBtn.backgroundColor = [UIColor blueColor];
 //    [stopBtn addTarget:self action:@selector(onClickStop:) forControlEvents:UIControlEventTouchUpInside];
 //    [bottomView addSubview:stopBtn];
-    
     //直播
     if (self.islLve) {
         if (self.isShare) {
@@ -623,7 +622,7 @@
     } completion:^(BOOL finished) {
         
     }];
-    topViewHidden = ! topViewHidden;
+    topViewHidden = !topViewHidden;
 }
 
 #define mark - SetMethod
@@ -671,6 +670,7 @@
     }
 }
 
+#pragma mark - 转发
 - (void)forwardClick    //转发
 {
 //    _loadingView.hidden = NO;
@@ -683,7 +683,7 @@
         NSString *playURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareID,uk];
         NSURL *shareURL = [NSURL URLWithString:playURL];
         activity = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
-        NSString *title = [NSString stringWithFormat:@"精彩热线-%@",self.playerTitle];
+        NSString *title = [NSString stringWithFormat:@"精彩乐现-%@",self.playerTitle];
         NSArray *shareArr = [NSArray arrayWithObjects:title,@"hxh乐现是由北京中和讯飞开发的一款家居类APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，看你所看。", [UIImage imageNamed:@"icon_session"], shareURL,nil];
         UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:shareArr applicationActivities:activity];
         activityView.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypePrint,UIActivityTypeSaveToCameraRoll,UIActivityTypeMail];
@@ -773,38 +773,6 @@ usePresentationLayer:YES];
     timeL.text = localTime;
 }
 
-#pragma mark - ActionsheetDelegate
-//- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-//{
-//    switch (buttonIndex) {
-//        case 0:
-//        {
-//            NSLog(@"公共分享");//
-//            publicView = [[UIAlertView alloc] initWithTitle:@"确定要将该摄像头公共分享吗？" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-//            [publicView show];
-//        }
-//            break;
-//        case 1:
-//        {
-////            NSLog(@"私密分享");
-//            NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=%@&deviceid=%@&share=2",self.accecc_token,self.deviceId];//share=2为加密分享
-//            NSURL *shareURL = [NSURL URLWithString:url];
-//            //            [NSURL URLWithString:@"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4"];
-//            activity = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
-//            NSArray *shareArr = [NSArray arrayWithObjects:@"中和讯飞-乐现",@"hxh乐现是由北京中和讯飞开发的一款家居类APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，看你所看。", [UIImage imageNamed:@"icon_session"], shareURL,nil];
-//            UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:shareArr applicationActivities:activity];
-//            activityView.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypePrint,UIActivityTypeSaveToCameraRoll,UIActivityTypeMail];
-//            [self presentViewController:activityView animated:YES completion:nil];
-//        }
-//            break;
-//        case 2:
-//            
-//            break;
-//        default:
-//            break;
-//    }
-//}
-
 #pragma mark - alertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -837,14 +805,8 @@ usePresentationLayer:YES];
         self.shareStaue = 1;
         [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelwei@2x"] forState:UIControlStateNormal];
         [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelzhong@2x"] forState:UIControlStateHighlighted];
-//        UIAlertView *successView = [[UIAlertView alloc] initWithTitle:@"分享成功" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//        [successView show];
-//        shareHub.mode = MBProgressHUDModeCustomView;
-//        [shareHub show:YES];
-//        [shareHub hide:YES afterDelay:2];
         [self MBprogressViewHubLoading:@"分享成功" withMode:4];
         [shareHub hide:YES afterDelay:1];
-
         //{“shareid”:SHARE_ID, “uk”:UK, “request_id”:12345678}
         /*
          {
@@ -856,11 +818,6 @@ usePresentationLayer:YES];
          */
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error:%@",[error userInfo]);
-//        UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"分享失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//        [failView show];
-//        shareHub.mode = MBProgressHUDModeCustomView;
-//        [shareHub show:YES];
-//        [shareHub hide:YES afterDelay:2];
         [self MBprogressViewHubLoading:@"分享失败" withMode:4];
         [shareHub hide:YES afterDelay:1];
 //        self.shareStaue = 0;
@@ -876,11 +833,6 @@ usePresentationLayer:YES];
         NSLog(@"取消分享之后:%@",responseObject);
         NSDictionary *dict = (NSDictionary *)responseObject;
         self.request_id =[NSString stringWithFormat:@"%@",[dict objectForKey:@"request_id"]];
-//        UIAlertView *successView = [[UIAlertView alloc] initWithTitle:@"已成功取消分享" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//        [successView show];
-//        shareHub.mode = MBProgressHUDModeCustomView;
-//        [shareHub show:YES];
-//        [shareHub hide:YES afterDelay:2];
         [self MBprogressViewHubLoading:@"成功取消分享" withMode:4];
         [shareHub hide:YES afterDelay:1];
 
@@ -892,13 +844,7 @@ usePresentationLayer:YES];
         });
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"error:%@",[error userInfo]);
-//        UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"取消分享失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//        [failView show];
-//        shareHub.mode = MBProgressHUDModeCustomView;
-//        [shareHub show:YES];
-//        [shareHub hide:YES afterDelay:2];
-//        self.shareStaue = 1;
+//        NSLog(@"error:%@",[error userInfo]);
         [self MBprogressViewHubLoading:@"取消分享失败" withMode:4];
         [shareHub hide:YES afterDelay:1];
 
@@ -917,8 +863,7 @@ usePresentationLayer:YES];
     CGFloat widthRatio = maxSize.width/self.imagev.frame.size.width;
     CGFloat heightRatio = maxSize.height/self.imagev.frame.size.height;
     CGFloat initialZoom = (widthRatio > heightRatio) ? heightRatio : widthRatio;
-    /*
-     */
+
     [self.scrollv setMinimumZoomScale:initialZoom];
     [self.scrollv setMaximumZoomScale:5];
     // 设置UIScrollView初始化缩放级别
@@ -970,24 +915,6 @@ usePresentationLayer:YES];
     }
     return YES;
 }
-//- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//    [self hiddenOrNo:nil];
-//}
-//
-//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//    [self hiddenOrNo:nil];
-//}
-
-//ios7
-#if 1
-#endif
-//- (BOOL)prefersStatusBarHidden
-//{
-//    return NO;
-//}
-
 
 - (void)didReceiveMemoryWarning
 {

@@ -16,7 +16,6 @@
 #import "ShareCamereViewController.h"
 #import "MJRefreshHeaderView.h"
 #import "MJRefreshFooterView.h"
-//#import "NetworkRequest.h"
 #import "UIImageView+AFNetworking.h"
 #import "Reachability1.h"
 #import <CommonCrypto/CommonDigest.h> //md5加密需要的头文件
@@ -25,7 +24,6 @@
 {
     NSArray *_shareCameraListArr;
     BOOL _reloading;
-//    EGORefreshTableHeaderView *_refreshView;
     UITableView *_tableView;
     MJRefreshFooterView *_footerView;
     NSMutableArray *_fakeData;
@@ -48,13 +46,6 @@
     }
     return self;
 }
-
-//- (NSDateFormatter *)dateFormate
-//{
-//    NSDateFormatter *dateFormate = [[NSDateFormatter alloc] init];
-//    [dateFormate setDateFormat:@"MM-dd HH:mm"];
-//    return dateFormate;
-//}
 
 //32位MD5加密方式
 - (NSString *)getMd5_32Bit_String:(NSString *)srcString{
@@ -178,8 +169,6 @@
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
 //            NSLog(@"下载数据失败");
-//            NSLog(@"tabsk%@",task);
-//            NSLog(@"eror:%@",error);
 //            UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil
             [self MBprogressViewHubLoading:@"网络延时"];
             [badInternetHub hide:YES afterDelay:1];
@@ -188,7 +177,7 @@
         }];
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
-//        [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationFail];
+        [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationFail];
 //        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
 //        NSLog(@"%@----开始进入刷新状态", refreshView.class);
     };
@@ -321,7 +310,6 @@
             {
                 self.cameraStatus.text = @"离线";
                 self.cameraStatus.textColor = [UIColor grayColor];
-
             }
 //            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
@@ -343,12 +331,11 @@
         NSString *uk = [dict objectForKey:@"uk"];
 //        shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
 //        [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
-
         
         NSString *liveURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareID,uk];
         [[AFHTTPSessionManager manager] GET:liveURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dictResponse = (NSDictionary *)responseObject;
-            NSLog(@"公共摄像头:%@",dictResponse);
+//            NSLog(@"公共摄像头:%@",dictResponse);
             ShareCamereViewController *shareVC = [[ShareCamereViewController alloc] init];
             shareVC.islLve = YES;
             shareVC.isShare = YES;
@@ -460,9 +447,6 @@
     [_tableView addSubview:badInternetHub];
     [badInternetHub show:YES];
 }
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//}
 
 - (void)dealloc
 {

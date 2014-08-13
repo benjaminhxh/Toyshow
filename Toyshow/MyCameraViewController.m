@@ -493,6 +493,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    self.accessToken = [[SliderViewController sharedSliderController].dict objectForKey:@"accessToken"];
+    [_tableView reloadData];
 //    [[MJRefreshHeaderView header] beginRefreshing];
 }
 
