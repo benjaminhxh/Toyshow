@@ -189,13 +189,13 @@
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
 //        [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationFail];
-        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+//        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
 //        NSLog(@"%@----开始进入刷新状态", refreshView.class);
     };
     header.endStateChangeBlock = ^(MJRefreshBaseView *refreshView) {
         // 刷新完毕就会回调这个Block
 //        NSLog(@"%@----刷新完毕", refreshView.class);
-        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+        [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
     };
 //    header.refreshStateChangeBlock = ^(MJRefreshBaseView *refreshView, MJRefreshState state) {
 //        // 控件的刷新状态切换了就会调用这个block
@@ -347,16 +347,17 @@
         
         NSString *liveURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareID,uk];
         [[AFHTTPSessionManager manager] GET:liveURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-            NSDictionary *dict = (NSDictionary *)responseObject;
-            NSLog(@"公共摄像头:%@",dict);
+            NSDictionary *dictResponse = (NSDictionary *)responseObject;
+            NSLog(@"公共摄像头:%@",dictResponse);
             ShareCamereViewController *shareVC = [[ShareCamereViewController alloc] init];
             shareVC.islLve = YES;
             shareVC.isShare = YES;
             shareVC.shareId = shareID;
             shareVC.uk = uk;
             shareVC.deviceId = [dict objectForKey:@"deviceid"];
-            shareVC.playerTitle = [[dict objectForKey:@"description"] stringByAppendingString:@"(分享)"];
-            shareVC.url = [dict objectForKey:@"url"];
+            shareVC.playerTitle = [[dictResponse objectForKey:@"description"] stringByAppendingString:@"(分享)"];
+            shareVC.url = [dictResponse objectForKey:@"url"];
+//            NSLog(@"shareVC.url：%@",shareVC.url);
 //            shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
             [_loadingView removeFromSuperview];
             [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];

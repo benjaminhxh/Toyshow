@@ -570,6 +570,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				274662B918C030BB004C8DD4 /* CoreLocation.framework in Frameworks */,
 				2769146C18C81F4300B24469 /* CFNetwork.framework in Frameworks */,
 				27F4D8CC18D83B3900538393 /* libWeChatSDK in Frameworks */,
 				2718FCB618D6D08F0094583F /* MobileCoreServices.framework in Frameworks */,
@@ -590,7 +591,6 @@
 				274662BD18C030DD004C8DD4 /* libsqlite3.dylib in Frameworks */,
 				27F4D8C918D83B3900538393 /* TencentOpenAPI in Frameworks */,
 				274662BB18C030CA004C8DD4 /* CoreTelephony.framework in Frameworks */,
-				274662B918C030BB004C8DD4 /* CoreLocation.framework in Frameworks */,
 				2764251218DC244000D7EBB3 /* libSBJSON.a in Frameworks */,
 				2764250C18DC244000D7EBB3 /* libASIHTTP.a in Frameworks */,
 				274662B718C03090004C8DD4 /* QuartzCore.framework in Frameworks */,

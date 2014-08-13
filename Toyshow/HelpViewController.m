@@ -128,9 +128,11 @@
         return;
     }else if (1 == indexPath.row)
     {
-        NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/cn/app/tao-bao/id387682726?mt=8"];
+        [self showAlertView];
+//        NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/cn/app/tao-bao/id387682726?mt=8"];
         //[NSURL URLWithString:@"https://itunes.apple.com/cn/app/qq/id444934666?mt=8"]
-        [[UIApplication sharedApplication] openURL:url];
+//        [[UIApplication sharedApplication] openURL:url];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=LOCATION_SERVICES"]];
         return;
     }
     progrView = [[MBProgressHUD alloc] initWithView:_tabView];
@@ -144,6 +146,30 @@
 //    [self presentViewController:howUseVC animated:YES completion:nil];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+- (void)showAlertView
+{
+//    if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized)
+    {
+        //Check whether Settings page is openable (iOS 5.1 not allows Settings page to be opened via openURL:)
+        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"prefs:root=LOCATION_SERVICES"]]) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"You must enable location service,Turn on location service to allow \"YourApp\" to determine your location" delegate:self cancelButtonTitle:@"Settings" otherButtonTitles:@"Cancel", nil];
+            [alert show];
+        }
+        else {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"You must enable location service" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+            [alert show];
+        }
+    }
+}
+    
+    
+    
+//- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex  {
+//        if (buttonIndex == 0) {
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=LOCATION_SERVICES"]];
+//        }
+//}
 
 - (void)showOrDismissProgressView{
     sleep(3);
