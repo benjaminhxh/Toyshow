@@ -372,7 +372,6 @@
         thumbVC.accessToken = self.accessToken;
         thumbVC.deviceDesc = [cameraDict objectForKey:@"description"];
         [[SliderViewController sharedSliderController].navigationController pushViewController:thumbVC animated:YES];
-
 //        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备不在线" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
 //        [view show];
     }
@@ -433,7 +432,7 @@
     [self isLoadingView];
     _loadingView.detailsLabelText = @"";
 
-    NSLog(@"=============_fakeData：%@",_fakeData);
+//    NSLog(@"=============_fakeData：%@",_fakeData);
     __unsafe_unretained MyCameraViewController *vc = self;
     //向服务器发起请求
     NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=list&access_token=%@&device_type=1",self.accessToken];
@@ -493,9 +492,15 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.accessToken = [[SliderViewController sharedSliderController].dict objectForKey:@"accessToken"];
-    [_tableView reloadData];
-//    [[MJRefreshHeaderView header] beginRefreshing];
+    [super viewWillAppear:YES];
+//    NSLog(@"self.accessToken:%@",self.accessToken);//self.accessToken:52.1cbbd5324fb7d76122b91ff4d7265848.2592000.1410662156.1812238483-2271149
+//    if (!(nil == self.accessToken)) {
+        NSString *accesstoken = [[SliderViewController sharedSliderController].dict objectForKey:@"accessToken"];
+        if (![self.accessToken isEqualToString:accesstoken]) {
+            self.accessToken = accesstoken;
+            [self reloadMyCameraListView];
+        }
+//    }
 }
 
 - (void)modifySuccess:(NSNotification *)notif
@@ -516,11 +521,6 @@
     badInternetHub.square = YES;
     [_tableView addSubview:badInternetHub];
     [badInternetHub show:YES];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    NSLog(@"viewDidAppear");
 }
 
 @end

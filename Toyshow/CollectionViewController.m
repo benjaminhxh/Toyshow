@@ -53,7 +53,8 @@
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(leftClick) forControlEvents:UIControlEventTouchUpInside];
     [navBar addSubview:backBtn];
-    
+    accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:kUserAccessToken];
+
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, 320, [UIScreen mainScreen].bounds.size.height-65) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -127,7 +128,6 @@
     header.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView) {
         // 进入刷新状态就会回调这个Block
         //向服务器发起请求
-        accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:kUserAccessToken];
         NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listsubscribe&access_token=%@",accessToken];
         [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
@@ -376,7 +376,7 @@
         downloadArr = [dict objectForKey:@"device_list"];
         NSLog(@"downloadArr:%@",downloadArr);
         if (downloadArr.count == 0) {
-            [self MBprogressViewHubLoading:@"无收藏摄像头" withMode:4];
+            [self MBprogressViewHubLoading:@"无摄像头" withMode:4];
             [badInternetHub hide:YES afterDelay:1];
         }else
         {
@@ -398,6 +398,16 @@
         [self MBprogressViewHubLoading:@"网络延时" withMode:4];
         [badInternetHub hide:YES afterDelay:1];
     }];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    NSString *accessT = [[NSUserDefaults standardUserDefaults] objectForKey:kUserAccessToken];
+    if (![accessToken isEqualToString:accessT]) {
+        accessToken = accessT;
+        [self reloadCollectList];
+    }
 }
 - (void)didReceiveMemoryWarning
 {
