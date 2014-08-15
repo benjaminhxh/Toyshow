@@ -160,13 +160,13 @@
         }];
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
-//        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationFail];
+        [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationFail];
         NSLog(@"%@----开始进入刷新状态", refreshView.class);
     };
-    header.endStateChangeBlock = ^(MJRefreshBaseView *refreshView) {
-        // 刷新完毕就会回调这个Block
-        NSLog(@"%@----刷新完毕", refreshView.class);
-    };
+//    header.endStateChangeBlock = ^(MJRefreshBaseView *refreshView) {
+//        // 刷新完毕就会回调这个Block
+//        NSLog(@"%@----刷新完毕", refreshView.class);
+//    };
     header.refreshStateChangeBlock = ^(MJRefreshBaseView *refreshView, MJRefreshState state) {
         // 控件的刷新状态切换了就会调用这个block
         switch (state) {

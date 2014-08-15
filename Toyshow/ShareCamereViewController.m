@@ -21,7 +21,7 @@
 {
 //    UIView *cbdPlayerView;
     CyberPlayerController *cbPlayerController;
-    UIButton *startBtn, *shareBtn;
+    UIButton *startBtn, *shareBtn,*secretShareBtn;
     UISlider *lightSlider,*slider;
     NSTimer *timer,*localTimer,*_timer3;
 //    UIProgressView *progressV;
@@ -227,16 +227,16 @@
             }
         }else{
             //我的摄像头直播
-            //分享、设置、截图、对讲
-            //分享
+            //公共分享、私密分享、截图、对讲
+            //公共
             shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             [topView addSubview:shareBtn];
-            //转发
-            UIButton *forwardBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [forwardBtn setImage:[UIImage imageNamed:@"zhuanfa_wei@2x"] forState:UIControlStateNormal ];
-            [forwardBtn setImage:[UIImage imageNamed:@"zhuanfa_zhong@2x"] forState:UIControlStateHighlighted];
-            [forwardBtn addTarget:self action:@selector(forwardClick) forControlEvents:UIControlEventTouchUpInside];
-            [topView addSubview:forwardBtn];
+            //私密
+            secretShareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [secretShareBtn setImage:[UIImage imageNamed:@"secretShare_wei@2x"] forState:UIControlStateNormal ];
+            [secretShareBtn setImage:[UIImage imageNamed:@"secretShare_zhong@2x"] forState:UIControlStateHighlighted];
+            [secretShareBtn addTarget:self action:@selector(forwardClick) forControlEvents:UIControlEventTouchUpInside];
+            [topView addSubview:secretShareBtn];
             //截图
             UIButton *cutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             [cutBtn setImage:[UIImage imageNamed:@"jietu_wei@2x"] forState:UIControlStateNormal];
@@ -251,13 +251,13 @@
             [topView addSubview:volumeBtn];
             if (iphone5) {
                 shareBtn.frame = CGRectMake(kHeight*5/8, 11, 46, 24);
-                forwardBtn.frame = CGRectMake(kHeight*23/32, 11, 46, 24);
+                secretShareBtn.frame = CGRectMake(kHeight*23/32, 11, 46, 24);
                 cutBtn.frame = CGRectMake(kHeight*26/32, 11, 46, 24);
                 volumeBtn.frame = CGRectMake(kHeight*29/32, 11, 46, 24);
             }else
             {
                 shareBtn.frame = CGRectMake(kHeight/2+30, 11, 46, 24);
-                forwardBtn.frame = CGRectMake(kHeight/2+30+50, 11, 46, 24);
+                secretShareBtn.frame = CGRectMake(kHeight/2+30+50, 11, 46, 24);
                 cutBtn.frame = CGRectMake(kHeight/2+30+100, 11, 46, 24);
                 volumeBtn.frame = CGRectMake(kHeight/2+30+150, 11, 46, 24);
             }
@@ -266,8 +266,8 @@
                 [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelzhong@2x"] forState:UIControlStateHighlighted];
                 
             }else{
-                [shareBtn setImage:[UIImage imageNamed:@"fenxiang_wei@2x"] forState:UIControlStateNormal];
-                [shareBtn setImage:[UIImage imageNamed:@"fenxiang_zhong@2x"] forState:UIControlStateHighlighted];
+                [shareBtn setImage:[UIImage imageNamed:@"publicShare_wei@2x"] forState:UIControlStateNormal];
+                [shareBtn setImage:[UIImage imageNamed:@"publicShare_zhong@2x"] forState:UIControlStateHighlighted];
             }
             [shareBtn addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchUpInside];
         }
@@ -712,7 +712,7 @@ usePresentationLayer:YES];
     UIImageWriteToSavedPhotosAlbum(image2, nil, nil, nil);
 }
 
-////新增截屏代码
+////新增截屏代码（未测试）
 - (UIImage *)screenshot:(UIDeviceOrientation)orientation isOpaque:(BOOL)isOpaque usePresentationLayer:(BOOL)usePresentationLayer
 {
     CGSize size;
@@ -799,8 +799,8 @@ usePresentationLayer:YES];
     [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
         NSLog(@"公共分享的dict:%@",dict);
-        NSString *shareid = [dict objectForKey:@"shareid"];
-        NSLog(@"shareid:%@",shareid);
+//        NSString *shareid = [dict objectForKey:@"shareid"];
+//        NSLog(@"shareid:%@",shareid);
         self.request_id =[NSString stringWithFormat:@"%@",[dict objectForKey:@"request_id"]];
         self.shareStaue = 1;
         [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelwei@2x"] forState:UIControlStateNormal];
@@ -837,8 +837,8 @@ usePresentationLayer:YES];
         [shareHub hide:YES afterDelay:1];
 
         self.shareStaue = 0;
-        [shareBtn setImage:[UIImage imageNamed:@"fenxiang_wei@2x"] forState:UIControlStateNormal];
-        [shareBtn setImage:[UIImage imageNamed:@"fenxiang_zhong@2x"] forState:UIControlStateHighlighted];
+        [shareBtn setImage:[UIImage imageNamed:@"publicShare_wei@2x"] forState:UIControlStateNormal];
+        [shareBtn setImage:[UIImage imageNamed:@"publicShare_zhong@2x"] forState:UIControlStateHighlighted];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.view setNeedsDisplay];
         });

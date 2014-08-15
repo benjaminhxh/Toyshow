@@ -181,11 +181,11 @@
 //        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
 //        NSLog(@"%@----开始进入刷新状态", refreshView.class);
     };
-    header.endStateChangeBlock = ^(MJRefreshBaseView *refreshView) {
-        // 刷新完毕就会回调这个Block
-//        NSLog(@"%@----刷新完毕", refreshView.class);
-        [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
-    };
+//    header.endStateChangeBlock = ^(MJRefreshBaseView *refreshView) {
+//        // 刷新完毕就会回调这个Block
+////        NSLog(@"%@----刷新完毕", refreshView.class);
+//        [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
+//    };
 //    header.refreshStateChangeBlock = ^(MJRefreshBaseView *refreshView, MJRefreshState state) {
 //        // 控件的刷新状态切换了就会调用这个block
 //        switch (state) {
@@ -429,7 +429,7 @@
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"error++++++++%@-------%@",[error userInfo],[error localizedDescription]);
             [self MBprogressViewHubLoading:@"设备已取消分享"];
-            [badInternetHub hide:YES afterDelay:1];
+            [badInternetHub hide:YES afterDelay:3];
         }];
 }
 

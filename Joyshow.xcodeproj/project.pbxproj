@@ -32,7 +32,6 @@
 		270C0C0018EBBF0300EBD83B /* fenjiexian@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 270C0BF318EBBF0300EBD83B /* fenjiexian@2x.png */; };
 		270C0C0118EBBF0300EBD83B /* gongnengjiantou@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 270C0BF418EBBF0300EBD83B /* gongnengjiantou@2x.png */; };
 		270C0C0218EBBF0300EBD83B /* shipinkuang@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 270C0BF518EBBF0300EBD83B /* shipinkuang@2x.png */; };
-		270C0C0418EBBF0300EBD83B /* shuaxinbeijing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 270C0BF718EBBF0300EBD83B /* shuaxinbeijing@2x.png */; };
 		270C941618C732B900BE56C8 /* AddDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 270C941518C732B900BE56C8 /* AddDeviceViewController.m */; };
 		270C941818C7333700BE56C8 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 270C941718C7333700BE56C8 /* libiconv.dylib */; };
 		270C941A18C7336900BE56C8 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 270C941918C7336900BE56C8 /* CoreVideo.framework */; };
@@ -47,8 +46,6 @@
 		2718FCB618D6D08F0094583F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2718FCB518D6D08F0094583F /* MobileCoreServices.framework */; };
 		271BB89918CD95A7000DFC4A /* shanchuanniu.png in Resources */ = {isa = PBXBuildFile; fileRef = 271BB85318CD95A7000DFC4A /* shanchuanniu.png */; };
 		271BB89B18CD95A7000DFC4A /* shezhi_anniu.png in Resources */ = {isa = PBXBuildFile; fileRef = 271BB85518CD95A7000DFC4A /* shezhi_anniu.png */; };
-		271BB89E18CD95A7000DFC4A /* tianchong_xuanxiang.png in Resources */ = {isa = PBXBuildFile; fileRef = 271BB85818CD95A7000DFC4A /* tianchong_xuanxiang.png */; };
-		271BB8BB18CD95A7000DFC4A /* weitianchong.png in Resources */ = {isa = PBXBuildFile; fileRef = 271BB87518CD95A7000DFC4A /* weitianchong.png */; };
 		271BB8BC18CD95A7000DFC4A /* weixuanzhong.png in Resources */ = {isa = PBXBuildFile; fileRef = 271BB87618CD95A7000DFC4A /* weixuanzhong.png */; };
 		271BB8BE18CD95A7000DFC4A /* xiala_beijing.png in Resources */ = {isa = PBXBuildFile; fileRef = 271BB87818CD95A7000DFC4A /* xiala_beijing.png */; };
 		271BB8BF18CD95A7000DFC4A /* xiang_jiantou.png in Resources */ = {isa = PBXBuildFile; fileRef = 271BB87918CD95A7000DFC4A /* xiang_jiantou.png */; };
@@ -186,6 +183,10 @@
 		2799684E1950440E00D9C6DD /* DeviceControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 279968481950440E00D9C6DD /* DeviceControlViewController.m */; };
 		2799684F1950440E00D9C6DD /* SensitivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2799684A1950440E00D9C6DD /* SensitivityViewController.m */; };
 		27B0F80D19920EE200CF29C1 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B0F80C19920EE200CF29C1 /* VideoViewController.m */; };
+		27BC2CD8199DB3BE00F78665 /* publicShare_wei@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BC2CD4199DB3BE00F78665 /* publicShare_wei@2x.png */; };
+		27BC2CD9199DB3BE00F78665 /* publicShare_zhong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BC2CD5199DB3BE00F78665 /* publicShare_zhong@2x.png */; };
+		27BC2CDA199DB3BE00F78665 /* secretShare_zhong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BC2CD6199DB3BE00F78665 /* secretShare_zhong@2x.png */; };
+		27BC2CDB199DB3BE00F78665 /* secretShare_wei@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BC2CD7199DB3BE00F78665 /* secretShare_wei@2x.png */; };
 		27BDCE4D196E6D3C00486FCC /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BDCE4C196E6D3C00486FCC /* Icon@2x.png */; };
 		27BDCE77196E9A2900486FCC /* fenxiang_wei@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BDCE6D196E9A2900486FCC /* fenxiang_wei@2x.png */; };
 		27BDCE78196E9A2900486FCC /* fenxiang_zhong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27BDCE6E196E9A2900486FCC /* fenxiang_zhong@2x.png */; };
@@ -265,7 +266,6 @@
 		270C0BF318EBBF0300EBD83B /* fenjiexian@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fenjiexian@2x.png"; sourceTree = "<group>"; };
 		270C0BF418EBBF0300EBD83B /* gongnengjiantou@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gongnengjiantou@2x.png"; sourceTree = "<group>"; };
 		270C0BF518EBBF0300EBD83B /* shipinkuang@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shipinkuang@2x.png"; sourceTree = "<group>"; };
-		270C0BF718EBBF0300EBD83B /* shuaxinbeijing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shuaxinbeijing@2x.png"; sourceTree = "<group>"; };
 		270C941418C732B900BE56C8 /* AddDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDeviceViewController.h; sourceTree = "<group>"; };
 		270C941518C732B900BE56C8 /* AddDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDeviceViewController.m; sourceTree = "<group>"; };
 		270C941718C7333700BE56C8 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
@@ -284,8 +284,6 @@
 		2718FCB518D6D08F0094583F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		271BB85318CD95A7000DFC4A /* shanchuanniu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shanchuanniu.png; path = Toyshow/shanchuanniu.png; sourceTree = "<group>"; };
 		271BB85518CD95A7000DFC4A /* shezhi_anniu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shezhi_anniu.png; path = Toyshow/shezhi_anniu.png; sourceTree = "<group>"; };
-		271BB85818CD95A7000DFC4A /* tianchong_xuanxiang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tianchong_xuanxiang.png; path = Toyshow/tianchong_xuanxiang.png; sourceTree = "<group>"; };
-		271BB87518CD95A7000DFC4A /* weitianchong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = weitianchong.png; path = Toyshow/weitianchong.png; sourceTree = "<group>"; };
 		271BB87618CD95A7000DFC4A /* weixuanzhong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = weixuanzhong.png; path = Toyshow/weixuanzhong.png; sourceTree = "<group>"; };
 		271BB87818CD95A7000DFC4A /* xiala_beijing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = xiala_beijing.png; path = Toyshow/xiala_beijing.png; sourceTree = "<group>"; };
 		271BB87918CD95A7000DFC4A /* xiang_jiantou.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = xiang_jiantou.png; path = Toyshow/xiang_jiantou.png; sourceTree = "<group>"; };
@@ -508,6 +506,10 @@
 		27B0F80B19920EE200CF29C1 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
 		27B0F80C19920EE200CF29C1 /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
 		27BA304519737C6E00F98042 /* VarHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VarHeader.h; sourceTree = "<group>"; };
+		27BC2CD4199DB3BE00F78665 /* publicShare_wei@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "publicShare_wei@2x.png"; sourceTree = "<group>"; };
+		27BC2CD5199DB3BE00F78665 /* publicShare_zhong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "publicShare_zhong@2x.png"; sourceTree = "<group>"; };
+		27BC2CD6199DB3BE00F78665 /* secretShare_zhong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "secretShare_zhong@2x.png"; sourceTree = "<group>"; };
+		27BC2CD7199DB3BE00F78665 /* secretShare_wei@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "secretShare_wei@2x.png"; sourceTree = "<group>"; };
 		27BDCE4C196E6D3C00486FCC /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		27BDCE6D196E9A2900486FCC /* fenxiang_wei@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fenxiang_wei@2x.png"; sourceTree = "<group>"; };
 		27BDCE6E196E9A2900486FCC /* fenxiang_zhong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fenxiang_zhong@2x.png"; sourceTree = "<group>"; };
@@ -800,11 +802,8 @@
 				270C0BF318EBBF0300EBD83B /* fenjiexian@2x.png */,
 				270C0BF418EBBF0300EBD83B /* gongnengjiantou@2x.png */,
 				270C0BF518EBBF0300EBD83B /* shipinkuang@2x.png */,
-				270C0BF718EBBF0300EBD83B /* shuaxinbeijing@2x.png */,
 				271BB85318CD95A7000DFC4A /* shanchuanniu.png */,
 				271BB85518CD95A7000DFC4A /* shezhi_anniu.png */,
-				271BB85818CD95A7000DFC4A /* tianchong_xuanxiang.png */,
-				271BB87518CD95A7000DFC4A /* weitianchong.png */,
 				271BB87618CD95A7000DFC4A /* weixuanzhong.png */,
 				271BB87818CD95A7000DFC4A /* xiala_beijing.png */,
 				271BB87918CD95A7000DFC4A /* xiang_jiantou.png */,
@@ -850,6 +849,10 @@
 				27BDCE6E196E9A2900486FCC /* fenxiang_zhong@2x.png */,
 				27779CC3196F7C0C00727E3F /* fenxiang_cancelwei@2x.png */,
 				27779CC4196F7C0C00727E3F /* fenxiang_cancelzhong@2x.png */,
+				27BC2CD4199DB3BE00F78665 /* publicShare_wei@2x.png */,
+				27BC2CD5199DB3BE00F78665 /* publicShare_zhong@2x.png */,
+				27BC2CD6199DB3BE00F78665 /* secretShare_zhong@2x.png */,
+				27BC2CD7199DB3BE00F78665 /* secretShare_wei@2x.png */,
 				27BDCE6F196E9A2900486FCC /* jietu_wei@2x.png */,
 				27BDCE70196E9A2900486FCC /* jietu_zhong@2x.png */,
 				27BDCE72196E9A2900486FCC /* yinliang_wei@2x.png */,
@@ -1108,7 +1111,6 @@
 			isa = PBXGroup;
 			children = (
 				27BA304519737C6E00F98042 /* VarHeader.h */,
-				273922481998E63900168533 /* BPushConfig.plist */,
 				2703E51618D97EA500E31DF0 /* SliderViewController.h */,
 				2703E51718D97EA500E31DF0 /* SliderViewController.m */,
 				27FFE29318BF287B00AE47FF /* HXHAppDelegate.h */,
@@ -1161,6 +1163,7 @@
 			isa = PBXGroup;
 			children = (
 				27FFE28C18BF287B00AE47FF /* Joyshow-Info.plist */,
+				273922481998E63900168533 /* BPushConfig.plist */,
 				27FFE28D18BF287B00AE47FF /* InfoPlist.strings */,
 				27FFE29018BF287B00AE47FF /* main.m */,
 				27FFE29218BF287B00AE47FF /* Joyshow-Prefix.pch */,
@@ -1268,17 +1271,18 @@
 				27BDCE79196E9A2900486FCC /* jietu_wei@2x.png in Resources */,
 				27966A0D18E2EB1A0076423C /* MJRefresh.bundle in Resources */,
 				270C0BE018EBB85200EBD83B /* bangzhu@2x.png in Resources */,
-				270C0C0418EBBF0300EBD83B /* shuaxinbeijing@2x.png in Resources */,
 				2758509018D6999000CCB075 /* ShareCameraCell.xib in Resources */,
 				2777AF4D1987439F000C6388 /* Default-Portrait@2x.png in Resources */,
 				27F873011987900F002DABA3 /* collect_wei@2x.png in Resources */,
 				27C6DC421986321C0028B6BC /* 37x-Checkmark@2x.png in Resources */,
+				27BC2CDA199DB3BE00F78665 /* secretShare_zhong@2x.png in Resources */,
 				27642A2A18FD304F00198E29 /* qunaer_da@2x.png in Resources */,
 				27C5F8391905342B0078BBBE /* fanhui_jiantou@2x.png in Resources */,
 				27642A2F18FD35F500198E29 /* setanniuzhong@2x.png in Resources */,
 				274F50F1195D8F9F00114416 /* icon_session@2x.png in Resources */,
 				2777AF54198749EA000C6388 /* Default.png in Resources */,
 				27BDCE77196E9A2900486FCC /* fenxiang_wei@2x.png in Resources */,
+				27BC2CD9199DB3BE00F78665 /* publicShare_zhong@2x.png in Resources */,
 				27F872FF1987900F002DABA3 /* collect_cancelwei@2x.png in Resources */,
 				27F4D8B418D83AE300538393 /* FrontiaSource.bundle in Resources */,
 				274F50EF195D8F9F00114416 /* icon_timeline.png in Resources */,
@@ -1293,7 +1297,9 @@
 				27642A2B18FD304F00198E29 /* qunaer@2x.png in Resources */,
 				2759158718EEAF9A00E3DDC2 /* jingyin_anniu@2x.png in Resources */,
 				27642A2818FD304F00198E29 /* laorenxiaohai_da@2x.png in Resources */,
+				27BC2CD8199DB3BE00F78665 /* publicShare_wei@2x.png in Resources */,
 				27BDCE7C196E9A2900486FCC /* yinliang_wei@2x.png in Resources */,
+				27BC2CDB199DB3BE00F78665 /* secretShare_wei@2x.png in Resources */,
 				271BB90D18CDDED9000DFC4A /* zbar-helpicons.png in Resources */,
 				270C0BE918EBB85200EBD83B /* touxiang_w@2x.png in Resources */,
 				27C5F83F19053E4E0078BBBE /* bofang_anniu@2x.png in Resources */,
@@ -1340,7 +1346,6 @@
 				2759157F18EEAF9A00E3DDC2 /* bofang_anniuzhong@2x.png in Resources */,
 				270C0BE518EBB85200EBD83B /* shejingtou_shezhi@2x.png in Resources */,
 				270C0BE718EBB85200EBD83B /* tianjia@2x.png in Resources */,
-				271BB89E18CD95A7000DFC4A /* tianchong_xuanxiang.png in Resources */,
 				270C0BEC18EBB85200EBD83B /* xuanzhongtiao@2x.png in Resources */,
 				27F873021987900F002DABA3 /* collect_zhong@2x.png in Resources */,
 				278AC62018F69E7E00902363 /* goumai_anniu@2x.png in Resources */,
@@ -1358,7 +1363,6 @@
 				274D771B18E572FA00F352C7 /* thumbCell.xib in Resources */,
 				278AC61D18F69E4600902363 /* anniu@2x.png in Resources */,
 				27F873001987900F002DABA3 /* collect_cancelzhong.png in Resources */,
-				271BB8BB18CD95A7000DFC4A /* weitianchong.png in Resources */,
 				270C0BE418EBB85200EBD83B /* guanyu@2x.png in Resources */,
 				2759157C18EEAF9A00E3DDC2 /* bandi_beijing@2x.png in Resources */,
 				270C0BEA18EBB85200EBD83B /* touxiang@2x.png in Resources */,
@@ -1590,7 +1594,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yiping hong (X56K7HERP9)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/zhxf/project/Toyshow,
@@ -1614,6 +1618,7 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Joyshow;
+				PROVISIONING_PROFILE = "873c45e8-4820-40d5-97a9-1ecaf3d74537";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -1624,7 +1629,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yiping hong (X56K7HERP9)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/zhxf/project/Toyshow,
@@ -1648,6 +1653,7 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Joyshow;
+				PROVISIONING_PROFILE = "873c45e8-4820-40d5-97a9-1ecaf3d74537";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
