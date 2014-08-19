@@ -85,18 +85,14 @@
     //添加开发者信息
     [[CyberPlayerController class ]setBAEAPIKey:msAK SecretKey:msSK ];
     //当前只支持CyberPlayerController的单实例
-    if (cbPlayerController) {
-    }else
-    {
-        cbPlayerController = [[CyberPlayerController alloc] init];
-    }
+    cbPlayerController = [[CyberPlayerController alloc] init];
+    
 //    NSString *SDKVerion = [cbPlayerController getSDKVersion];
 //    NSLog(@"SDKVersion:%@",SDKVerion);
     //设置视频显示的位置
     [cbPlayerController.view setFrame: self.imagev.frame];
     //将视频显示view添加到当前view中
     [self.imagev addSubview:cbPlayerController.view];
-    [self isLoadingView];
     
     //注册监听，当播放器完成视频的初始化后会发送CyberPlayerLoadDidPreparedNotification通知，
     //此时naturalSize/videoHeight/videoWidth/duration等属性有效。
@@ -175,22 +171,6 @@
     timeL.textColor = [UIColor whiteColor];
     [topView addSubview:timeL];
     localTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
-
-    //底部条
-    bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kWidth-60, kHeight, 60)];
-    bottomView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
-    //        bottomView.backgroundColor = [UIColor blueColor];
-    bottomView.userInteractionEnabled = YES;
-    [self.view addSubview:bottomView];
-    //开始暂停按钮
-    startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    startBtn.frame = CGRectMake(kHeight/2-14, 5, 27, 27);
-    //        startBtn.backgroundColor = [UIColor blueColor];
-    [startBtn setImage:[UIImage imageNamed:@"bofang_anniu@2x"] forState:UIControlStateNormal];
-    [startBtn addTarget:self action:@selector(onClickPlay:) forControlEvents:UIControlEventTouchUpInside];
-    //        [startBtn setImage:[UIImage imageNamed:@"bofang_zhong@2x"] forState:UIControlStateHighlighted];
-    [bottomView addSubview:startBtn];
-//    [self startPlayback];
     
 //    UIButton *stopBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    stopBtn.frame = CGRectMake(kHeight/2+30, 5, 27, 27);
@@ -278,6 +258,18 @@
     }
     else{
         //点播(看录像)
+        //底部条
+        bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kWidth-60, kHeight, 60)];
+        bottomView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
+        bottomView.userInteractionEnabled = YES;
+        [self.view addSubview:bottomView];
+        //开始暂停按钮
+        startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        startBtn.frame = CGRectMake(kHeight/2-14, 5, 27, 27);
+        [startBtn setImage:[UIImage imageNamed:@"bofang_anniu@2x"] forState:UIControlStateNormal];
+        [startBtn addTarget:self action:@selector(onClickPlay:) forControlEvents:UIControlEventTouchUpInside];
+        //        [startBtn setImage:[UIImage imageNamed:@"bofang_zhong@2x"] forState:UIControlStateHighlighted];
+        [bottomView addSubview:startBtn];
         //当前播放的时刻
         currentProgress = [[UILabel alloc] initWithFrame:CGRectMake(20, 43, 40, 10)];
 //        currentProgress.backgroundColor = [UIColor redColor];
@@ -317,6 +309,7 @@
 //    [self.view addSubview:indicatorView];
 //    indicatorView.backgroundColor = [UIColor lightGrayColor];
 //    [indicatorView startAnimating];
+    [self isLoadingView];
 
 //    tapView = [[UIView alloc] initWithFrame:CGRectMake(70, 50, kHeight-80, kWidth-60-60)];
 //    tapView.backgroundColor = [UIColor redColor];
@@ -407,6 +400,7 @@
 //播放失败
 - (void)playerBackError:(NSNotification *)notifa
 {
+    [self performSelectorOnMainThread:@selector(hiddenLoadingView) withObject:nil waitUntilDone:NO];
     UIAlertView *playError = [[UIAlertView alloc] initWithTitle:@"播放失败" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
     [playError show];
     NSLog(@"播放失败");
@@ -419,7 +413,6 @@
     if (self.islLve) {
        if(cbPlayerController.playbackState == CBPMoviePlaybackStatePaused){
            [cbPlayerController play];
-
         }
     }
 //    switch (cbPlayerController.playbackState) {
@@ -451,7 +444,6 @@
 //    NSURL *url = [NSURL URLWithString:@"rtmp://livertmppc.wasu.cn/live/dfws"];
 //    NSURL *url = [NSURL URLWithString:@"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4"];
     NSURL *url = [NSURL URLWithString:self.url];
-//    [progressV setProgressWithDownloadProgressOfOperation:(AFURLConnectionOperation *) animated:<#(BOOL)#>;
     switch (cbPlayerController.playbackState) {
         case CBPMoviePlaybackStateStopped:
         case CBPMoviePlaybackStateInterrupted:
@@ -934,6 +926,7 @@ usePresentationLayer:YES];
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    _loadingView.hidden = NO;
     [self startPlayback];
 }
 - (void)viewWillDisappear:(BOOL)animated
