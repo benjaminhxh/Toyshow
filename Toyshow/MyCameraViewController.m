@@ -24,6 +24,8 @@
     NSMutableArray *downloadArr;
     MBProgressHUD *_loadingView,*badInternetHub;
     UILabel *noDataLoadL,*noInternetL;
+    CameraSetViewController *setVC;
+    ShareCamereViewController *liveVC;
 }
 
 @end
@@ -104,6 +106,9 @@
     _fakeData = [NSMutableArray array];
     [self addheader];
     [self addFooter];
+    setVC = [[CameraSetViewController alloc] init];
+    liveVC = [[ShareCamereViewController alloc] init];
+
 }
 
 - (void)isLoadingView
@@ -343,7 +348,6 @@
             //获取直播rtmp地址
             NSString *rtmp = [dict objectForKey:@"url"];
             NSString *share = [cameraDict objectForKey:@"share"];
-            ShareCamereViewController *liveVC = [[ShareCamereViewController alloc] init];
             liveVC.delegate = self;
             liveVC.islLve = YES;
             liveVC.isShare = NO;
@@ -394,7 +398,6 @@
 
 //   BOOL status = [[dict objectForKey:@"status"] intValue];
 //    if (status) {
-        CameraSetViewController *setVC = [[CameraSetViewController alloc] init];
         setVC.deviceDesc = [dict objectForKey:@"description"];
         setVC.access_token = self.accessToken;
         setVC.deviceid = [dict objectForKey:@"deviceid"];

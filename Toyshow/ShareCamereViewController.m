@@ -85,7 +85,11 @@
     //添加开发者信息
     [[CyberPlayerController class ]setBAEAPIKey:msAK SecretKey:msSK ];
     //当前只支持CyberPlayerController的单实例
-    cbPlayerController = [[CyberPlayerController alloc] init];
+    if (cbPlayerController) {
+    }else
+    {
+        cbPlayerController = [[CyberPlayerController alloc] init];
+    }
 //    NSString *SDKVerion = [cbPlayerController getSDKVersion];
 //    NSLog(@"SDKVersion:%@",SDKVerion);
     //设置视频显示的位置
@@ -122,7 +126,7 @@
                                              selector:@selector(startCaching:)
                                                  name:CyberPlayerStartCachingNotification
                                                object:nil];
-    //播放状态发送改变
+    //播放状态发生改变
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(stateDidChange:)
                                                  name:CyberPlayerPlaybackStateDidChangeNotification
@@ -186,7 +190,7 @@
     [startBtn addTarget:self action:@selector(onClickPlay:) forControlEvents:UIControlEventTouchUpInside];
     //        [startBtn setImage:[UIImage imageNamed:@"bofang_zhong@2x"] forState:UIControlStateHighlighted];
     [bottomView addSubview:startBtn];
-    [self startPlayback];
+//    [self startPlayback];
     
 //    UIButton *stopBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    stopBtn.frame = CGRectMake(kHeight/2+30, 5, 27, 27);
@@ -324,10 +328,11 @@
 //    [cbPlayerController.view addGestureRecognizer:doubleTap];
 //    [tapGest requireGestureRecognizerToFail:doubleTap];
     self.request_id = @"";
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WillResignActivenotifi:) name:kAPPWillResignActivenotif object:nil];
+    //进入home后台的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willBackToHomeNotification:) name:kAPPWillResignActivenotif object:nil];
 }
 
-- (void)WillResignActivenotifi:(NSNotificationCenter *)notif
+- (void)willBackToHomeNotification:(NSNotificationCenter *)notif
 {
     NSLog(@"这是退出的通知：postNotificationName");
     [self stopPlayback];
@@ -411,14 +416,19 @@
 - (void)stateDidChange:(NSNotification*)notif
 {
     NSLog(@"播放状态发送改变stateDidChange--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        if (_loadingView.hidden) {
-//            _loadingView.hidden = NO;
-//        }else
-//        {
-//            _loadingView.hidden = YES;
-//        }
-//    });
+    if (self.islLve) {
+       if(cbPlayerController.playbackState == CBPMoviePlaybackStatePaused){
+           [cbPlayerController play];
+
+        }
+    }
+//    switch (cbPlayerController.playbackState) {
+//        case CBPMoviePlaybackStatePaused:
+//            break;
+//            
+//        default:
+//            break;
+//    }
 }
 //缓冲过程
 - (void)GotCachePercent:(NSNotification *)notific
@@ -921,7 +931,16 @@ usePresentationLayer:YES];
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [self startPlayback];
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self stopPlayback];
+    [super viewWillDisappear:YES];
+}
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

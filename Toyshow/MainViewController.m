@@ -33,6 +33,7 @@
     NSString *realSign, __block *sign;
     MBProgressHUD *_loadingView;
     MBProgressHUD *badInternetHub;
+    ShareCamereViewController *shareVC;
 }
 @end
 
@@ -131,6 +132,8 @@
     };
     [reachab startNotifier];
     
+    shareVC = [[ShareCamereViewController alloc] init];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivesComeFromWeixin:) name:@"shareToWeixinNotif" object:nil];
 }
 
@@ -321,22 +324,19 @@
 {
     NSDictionary *dict = [_fakeData objectAtIndex:indexPath.row];
     int status = [[dict objectForKey:@"status"] intValue];
-//    ShareCamereViewController *shareVC = [[ShareCamereViewController alloc] init];
-//    shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
+//    shareVC.islLve = YES;
+//    shareVC.isShare = YES;
+//    shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";//@"http://zb.v.qq.com:1863/?progid=1975434150"
 //    [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
-
+//#if 0
     if (status) {
         [self isLoadingView];
         NSString *shareID = [dict objectForKey:@"shareid"];
         NSString *uk = [dict objectForKey:@"uk"];
-//        shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
-//        [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
-        
         NSString *liveURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareID,uk];
         [[AFHTTPSessionManager manager] GET:liveURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dictResponse = (NSDictionary *)responseObject;
 //            NSLog(@"公共摄像头:%@",dictResponse);
-            ShareCamereViewController *shareVC = [[ShareCamereViewController alloc] init];
             shareVC.islLve = YES;
             shareVC.isShare = YES;
             shareVC.shareId = shareID;
@@ -344,8 +344,7 @@
             shareVC.deviceId = [dict objectForKey:@"deviceid"];
             shareVC.playerTitle = [[dictResponse objectForKey:@"description"] stringByAppendingString:@"(分享)"];
             shareVC.url = [dictResponse objectForKey:@"url"];
-//            NSLog(@"shareVC.url：%@",shareVC.url);
-//            shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
+            NSLog(@"shareVC.url：%@",shareVC.url);
             [_loadingView removeFromSuperview];
             [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
         } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -359,6 +358,7 @@
         [self MBprogressViewHubLoading:@"设备不在线"];
         [badInternetHub hide:YES afterDelay:1];
     }
+//#endif
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -410,12 +410,12 @@
     [[AFHTTPRequestOperationManager manager] POST:shareURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
 //            NSLog(@"公共摄像头url:%@",[dict objectForKey:@"url"]);
-            ShareCamereViewController *shareVideoVC = [[ShareCamereViewController alloc] init];
-            shareVideoVC.islLve = YES;
-            shareVideoVC.isShare = YES;
-            shareVideoVC.url = [dict objectForKey:@"url"];
-            shareVideoVC.playerTitle = [dictFromWeixin objectForKey:@"weixinTitle"];
-            [[SliderViewController sharedSliderController].navigationController pushViewController:shareVideoVC animated:YES];
+//            ShareCamereViewController *shareVideoVC = [[ShareCamereViewController alloc] init];
+            shareVC.islLve = YES;
+            shareVC.isShare = YES;
+            shareVC.url = [dict objectForKey:@"url"];
+            shareVC.playerTitle = [dictFromWeixin objectForKey:@"weixinTitle"];
+            [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //            NSLog(@"error++++++++%@-------%@",[error userInfo],[error localizedDescription]);
             [self MBprogressViewHubLoading:@"设备已取消分享"];
