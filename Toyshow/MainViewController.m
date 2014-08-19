@@ -33,7 +33,7 @@
     NSString *realSign, __block *sign;
     MBProgressHUD *_loadingView;
     MBProgressHUD *badInternetHub;
-    ShareCamereViewController *shareVC;
+    ShareCamereViewController *shareVC,*shareVideoVC;
 }
 @end
 
@@ -133,6 +133,7 @@
     [reachab startNotifier];
     
     shareVC = [[ShareCamereViewController alloc] init];
+    shareVideoVC = [[ShareCamereViewController alloc] init];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivesComeFromWeixin:) name:@"shareToWeixinNotif" object:nil];
 }
@@ -410,12 +411,11 @@
     [[AFHTTPRequestOperationManager manager] POST:shareURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
 //            NSLog(@"公共摄像头url:%@",[dict objectForKey:@"url"]);
-//            ShareCamereViewController *shareVideoVC = [[ShareCamereViewController alloc] init];
-            shareVC.islLve = YES;
-            shareVC.isShare = YES;
-            shareVC.url = [dict objectForKey:@"url"];
-            shareVC.playerTitle = [dictFromWeixin objectForKey:@"weixinTitle"];
-            [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
+            shareVideoVC.islLve = YES;
+            shareVideoVC.isShare = YES;
+            shareVideoVC.url = [dict objectForKey:@"url"];
+            shareVideoVC.playerTitle = [dictFromWeixin objectForKey:@"weixinTitle"];
+            [[SliderViewController sharedSliderController].navigationController pushViewController:shareVideoVC animated:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //            NSLog(@"error++++++++%@-------%@",[error userInfo],[error localizedDescription]);
             [self MBprogressViewHubLoading:@"设备已取消分享"];

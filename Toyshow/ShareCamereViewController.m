@@ -316,8 +316,8 @@
 //    [cbPlayerController.view addSubview:tapView];
     UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenOrNo:)];
     [cbPlayerController.view addGestureRecognizer:tapGest];
-    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)];
-    doubleTap.numberOfTapsRequired = 2;
+//    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)];
+//    doubleTap.numberOfTapsRequired = 2;
 //    [cbPlayerController.view addGestureRecognizer:doubleTap];
 //    [tapGest requireGestureRecognizerToFail:doubleTap];
     self.request_id = @"";
@@ -358,12 +358,8 @@
 //视频文件完成初始化，开始播放视频并启动刷新timer。1
 - (void)onpreparedListener: (NSNotification*)aNotification
 {
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        _loadingView.hidden = NO;
-//    });
     [self performSelectorOnMainThread:@selector(hiddenLoadingView) withObject:nil waitUntilDone:NO];
     [self startTimer];
-    NSLog(@"视频文件完成初始化onpreparedListener--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
 }
 
 //开始缓冲
@@ -394,7 +390,6 @@
 //    UIAlertView *finishView = [[UIAlertView alloc] initWithTitle:@"播放完成" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
 //    [finishView show];
     NSLog(@"播放完成");
-//    [self backBtn:nil];
 }
 
 //播放失败
@@ -403,8 +398,6 @@
     [self performSelectorOnMainThread:@selector(hiddenLoadingView) withObject:nil waitUntilDone:NO];
     UIAlertView *playError = [[UIAlertView alloc] initWithTitle:@"播放失败" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
     [playError show];
-    NSLog(@"播放失败");
-//    [self backBtn:nil];
 }
 //状态改变
 - (void)stateDidChange:(NSNotification*)notif
@@ -415,13 +408,6 @@
            [cbPlayerController play];
         }
     }
-//    switch (cbPlayerController.playbackState) {
-//        case CBPMoviePlaybackStatePaused:
-//            break;
-//            
-//        default:
-//            break;
-//    }
 }
 //缓冲过程
 - (void)GotCachePercent:(NSNotification *)notific
