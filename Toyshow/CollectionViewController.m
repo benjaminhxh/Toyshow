@@ -20,6 +20,7 @@
     MBProgressHUD *_loadingView,*badInternetHub;
     NSMutableArray *_fakeData,*downloadArr;
     NSString *accessToken;
+    ShareCamereViewController *liveVC;
 }
 @end
 
@@ -97,6 +98,8 @@
     _fakeData = [NSMutableArray array];
     [self addheader];
     [self addFooter];
+    liveVC = [[ShareCamereViewController alloc] init];
+
 }
 
 - (void)isLoadingView
@@ -311,7 +314,6 @@
             //获取直播rtmp地址
             NSString *rtmp = [dict objectForKey:@"url"];
             NSString *share = [cameraDict objectForKey:@"share"];
-            ShareCamereViewController *liveVC = [[ShareCamereViewController alloc] init];
             liveVC.islLve = YES;
             liveVC.isShare = YES;
             liveVC.shareId = shareid;

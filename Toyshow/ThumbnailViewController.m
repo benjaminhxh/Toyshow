@@ -28,6 +28,7 @@
     NSInteger pickRow;
     NSString *downloadImageURL;
     MBProgressHUD *badInternetHub;
+    ShareCamereViewController *vodVC;
 }
 @end
 
@@ -153,6 +154,8 @@
     _fakeData = [NSMutableArray array];
     [self addheader];
     [self addFooter];
+    vodVC = [[ShareCamereViewController alloc] init];
+
 }
 
 //- (NSDate *)dateFrom:(NSDate *)datenow
@@ -395,7 +398,6 @@
     NSNumber *ett = [arr objectAtIndex:1];
     int endtf = [ett intValue];
 
-    ShareCamereViewController *vodVC = [[ShareCamereViewController alloc] init];
     vodVC.islLve = NO;
     NSString *URLstring = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=vod&access_token=%@&deviceid=%@&st=%d&et=%d",self.accessToken,self.deviceID,stf,endtf];
     vodVC.url = URLstring;
