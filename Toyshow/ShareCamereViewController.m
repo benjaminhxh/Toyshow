@@ -796,7 +796,7 @@ usePresentationLayer:YES];
 - (void)isLoadingView
 {
     if (_loadingView) {
-        [_loadingView show:YES];
+        _loadingView.hidden = NO;
         return;
     }
     _loadingView = [[MBProgressHUD alloc] initWithView:self.view];
