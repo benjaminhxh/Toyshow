@@ -24,6 +24,7 @@
 #import "WeixinSessionActivity.h"
 #import "WeixinTimelineActivity.h"
 #import "UIImageView+AFNetworking.h"
+#import "ShareCamereViewController.h"
 
 @interface LeftViewController ()<UITableViewDataSource,UITableViewDelegate,ZBarReaderDelegate,UIAlertViewDelegate,WXApiDelegate>
 {
@@ -36,6 +37,8 @@
     BOOL _reloading;
     NSArray *activity;
     UIAlertView *_loginView;
+    ShareCamereViewController *_playVC;
+    NSDictionary *_playDict;
 }
 @end
 
@@ -102,6 +105,11 @@
         self.userImageVIew.image = [self scaleToSize:self.userImageVIew.image size:self.userImageVIew.frame.size];
         self.accessToken = [[NSUserDefaults standardUserDefaults]stringForKey:kUserAccessToken];
     }
+    //创建播放器对象
+    _playVC = [[ShareCamereViewController alloc] init];
+    _playDict = [NSDictionary dictionaryWithObjectsAndKeys:_playVC,kplayerKey, nil];
+    [SliderViewController sharedSliderController].dict = _playDict;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kplayerObj object:nil userInfo:_playDict];
 	// Do any additional setup after loading the view.
 }
 
@@ -156,7 +164,7 @@
         {
             if ([self accessTokenIsExist]) {
                 
-                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] stringForKey:kUserName],@"userID",self.accessToken,@"accessToken",nil];
+                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] stringForKey:kUserName],@"userID",self.accessToken,@"accessToken",_playDict,kplayerDict,nil];
                 NSLog(@"my camera dict:%@",dict);
 //                [[NSNotificationCenter defaultCenter] postNotificationName:kUserInfoNotification object:nil userInfo:dict];
                 [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MyCameraViewController" withDictionary:dict];
@@ -165,12 +173,12 @@
             break;
         case 1://我的收藏
             if ([self accessTokenIsExist]) {
-            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"CollectionViewController" withDictionary:nil];
+            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"CollectionViewController" withDictionary:_playDict];
             }
             break;
             break;
         case 2://分享的设备
-            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MainViewController" withDictionary:nil];
+            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MainViewController" withDictionary:_playDict];
             break;
         case 3://添加设备、扫描二维码
             if ([self accessTokenIsExist]) {
@@ -459,9 +467,6 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserHeadImage];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserName];
         [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MainViewController" withDictionary:nil];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.view setNeedsDisplay];
-//        });
     }
  
 }

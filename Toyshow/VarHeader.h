@@ -23,6 +23,9 @@
 #define kUserName               @"userName"
 #define kUserAccessToken        @"userAccessToken"
 #define kUserHeadImage          @"userHeadImage"
+#define kplayerKey              @"playerKey"
+#define kplayerDict             @"playerDict"
+#define kplayerObj              @"playerObjctNotif"
 
 #define iOS7 [[UIDevice currentDevice].systemVersion integerValue]>=7
 #define iphone5     [UIScreen mainScreen].bounds.size.height > 480

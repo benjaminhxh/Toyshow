@@ -33,7 +33,7 @@
     NSString *realSign, __block *sign;
     MBProgressHUD *_loadingView;
     MBProgressHUD *badInternetHub;
-    ShareCamereViewController *shareVC,*shareVideoVC;
+    ShareCamereViewController *shareVC;
 }
 @end
 
@@ -44,6 +44,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivesPlayerObject:) name:kplayerObj object:nil];
+
     }
     return self;
 }
@@ -64,6 +66,9 @@
 {
     
     [super viewDidLoad];
+    NSString *str11 = @"北京(直播)";
+    NSString *newStr = [str11 substringToIndex:str11.length-4];
+    NSLog(@"newStr.length:%d  %@",newStr.length,newStr);
     //先拼接再MD5加密
     NSString *string = [NSString stringWithFormat:@"%@%@%@%@",APP_ID,expire,APP_KEY,APP_SecrectKey];
     realSign = [self getMd5_32Bit_String:string];
@@ -132,12 +137,18 @@
     };
     [reachab startNotifier];
     
-    shareVC = [[ShareCamereViewController alloc] init];
-    shareVideoVC = [[ShareCamereViewController alloc] init];
+    shareVC = [[SliderViewController sharedSliderController].dict objectForKey:kplayerKey];
+    
+//    shareVideoVC = [[ShareCamereViewController alloc] init];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivesComeFromWeixin:) name:@"shareToWeixinNotif" object:nil];
 }
 
+- (void)receivesPlayerObject:(NSNotification*)notif
+{
+    NSLog(@"这是全局播放器对象");
+   shareVC = [[notif userInfo] objectForKey:kplayerKey];
+}
 - (void)addheader{
     __unsafe_unretained MainViewController *vc = self;
     __block MJRefreshHeaderView *header;
@@ -338,7 +349,7 @@
         [[AFHTTPSessionManager manager] GET:liveURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *dictResponse = (NSDictionary *)responseObject;
 //            NSLog(@"公共摄像头:%@",dictResponse);
-            shareVC.islLve = YES;
+            shareVC.isLive = YES;
             shareVC.isShare = YES;
             shareVC.shareId = shareID;
             shareVC.uk = uk;
@@ -411,11 +422,11 @@
     [[AFHTTPRequestOperationManager manager] POST:shareURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
 //            NSLog(@"公共摄像头url:%@",[dict objectForKey:@"url"]);
-            shareVideoVC.islLve = YES;
-            shareVideoVC.isShare = YES;
-            shareVideoVC.url = [dict objectForKey:@"url"];
-            shareVideoVC.playerTitle = [dictFromWeixin objectForKey:@"weixinTitle"];
-            [[SliderViewController sharedSliderController].navigationController pushViewController:shareVideoVC animated:YES];
+            shareVC.isLive = YES;
+            shareVC.isShare = YES;
+            shareVC.url = [dict objectForKey:@"url"];
+            shareVC.playerTitle = [dictFromWeixin objectForKey:@"weixinTitle"];
+            [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //            NSLog(@"error++++++++%@-------%@",[error userInfo],[error localizedDescription]);
             [self MBprogressViewHubLoading:@"设备已取消分享"];

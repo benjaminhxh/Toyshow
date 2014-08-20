@@ -21,13 +21,13 @@
 {
 //    UIView *cbdPlayerView;
     CyberPlayerController *cbPlayerController;
-    UIButton *startBtn, *shareBtn,*secretShareBtn;
+    UIButton *startBtn, *shareBtn,*secretShareBtn,*forwardBtn,*collectionBtn,*cutBtn,*volumeBtn;
     UISlider *lightSlider,*slider;
     NSTimer *timer,*localTimer,*_timer3;
 //    UIProgressView *progressV;
     UIImageView *topView,*bottomView;
     BOOL topViewHidden,lightBool;
-    UILabel *currentProgress,*remainsProgress;
+    UILabel *titleL,*currentProgress,*remainsProgress;
     MBProgressHUD *_loadingView,*shareHub;
     UILabel *timeL;
     MPVolumeView *volumView;
@@ -158,7 +158,7 @@
     [topView addSubview:backBtn];
     
     //标题
-    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(55, 12, kWidth-55-20, 20)];
+    titleL = [[UILabel alloc] initWithFrame:CGRectMake(55, 12, kWidth-55-20, 20)];
     titleL.textColor = [UIColor whiteColor];
     titleL.font = [UIFont systemFontOfSize:12];
     titleL.text = self.playerTitle;
@@ -170,27 +170,21 @@
     timeL.font = [UIFont systemFontOfSize:9];
     timeL.textColor = [UIColor whiteColor];
     [topView addSubview:timeL];
-    localTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
-    
-//    UIButton *stopBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    stopBtn.frame = CGRectMake(kHeight/2+30, 5, 27, 27);
-//    stopBtn.backgroundColor = [UIColor blueColor];
-//    [stopBtn addTarget:self action:@selector(onClickStop:) forControlEvents:UIControlEventTouchUpInside];
-//    [bottomView addSubview:stopBtn];
+
     //直播
-    if (self.islLve) {
-        if (self.isShare) {
+//    if (self.isLive) {
+//        if (self.isShare) {
             //分享和收藏的摄像头
             //收藏、转发
-            if ([self checkAccessTokenIsExist]) {
+//            if ([self checkAccessTokenIsExist]) {
                 //转发
-                UIButton *forwardBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+                forwardBtn = [UIButton buttonWithType:UIButtonTypeCustom];
                 [forwardBtn setImage:[UIImage imageNamed:@"zhuanfa_wei@2x"] forState:UIControlStateNormal ];
                 [forwardBtn setImage:[UIImage imageNamed:@"zhuanfa_zhong@2x"] forState:UIControlStateHighlighted];
                 [forwardBtn addTarget:self action:@selector(forwardClick) forControlEvents:UIControlEventTouchUpInside];
                 [topView addSubview:forwardBtn];
                 //收藏
-                UIButton *collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+                collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
                 if (self.isCollect) {
                     [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelwei@2x"] forState:UIControlStateNormal];
                     [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelzhong@2x"] forState:UIControlStateHighlighted];
@@ -208,8 +202,8 @@
                     forwardBtn.frame = CGRectMake(kHeight/2+30+100, 11, 46, 24);
                     collectionBtn.frame = CGRectMake(kHeight/2+30+150, 11, 46, 24);
                 }
-            }
-        }else{
+//            }
+//        }else{
             //我的摄像头直播
             //公共分享、私密分享、截图、对讲
             //公共
@@ -222,13 +216,13 @@
             [secretShareBtn addTarget:self action:@selector(forwardClick) forControlEvents:UIControlEventTouchUpInside];
             [topView addSubview:secretShareBtn];
             //截图
-            UIButton *cutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            cutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             [cutBtn setImage:[UIImage imageNamed:@"jietu_wei@2x"] forState:UIControlStateNormal];
             [cutBtn setImage:[UIImage imageNamed:@"jietu_zhong@2x"] forState:UIControlStateHighlighted];
             [cutBtn addTarget:self action:@selector(cutPrint) forControlEvents:UIControlEventTouchUpInside];
             [topView addSubview:cutBtn];
             //音量
-            UIButton *volumeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            volumeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             [volumeBtn setImage:[UIImage imageNamed:@"yinliang_wei@2x"] forState:UIControlStateNormal];
             [volumeBtn setImage:[UIImage imageNamed:@"yinliang_zhong@2x"] forState:UIControlStateHighlighted];
             [volumeBtn addTarget:self action:@selector(volumeBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -254,9 +248,9 @@
                 [shareBtn setImage:[UIImage imageNamed:@"publicShare_zhong@2x"] forState:UIControlStateHighlighted];
             }
             [shareBtn addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchUpInside];
-        }
-    }
-    else{
+//        }
+//    }
+//    else{
         //点播(看录像)
         //底部条
         bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kWidth-60, kHeight, 60)];
@@ -303,13 +297,13 @@
 //        slider.backgroundColor = [UIColor blueColor];
         [bottomView addSubview:slider];
 //        [self startPlayback];
-    }
-    
+//    }
+
 //    indicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(140, 120, 137, 137)];
 //    [self.view addSubview:indicatorView];
 //    indicatorView.backgroundColor = [UIColor lightGrayColor];
 //    [indicatorView startAnimating];
-    [self isLoadingView];
+//    [self isLoadingView];
 
 //    tapView = [[UIView alloc] initWithFrame:CGRectMake(70, 50, kHeight-80, kWidth-60-60)];
 //    tapView.backgroundColor = [UIColor redColor];
@@ -325,6 +319,66 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willBackToHomeNotification:) name:kAPPWillResignActivenotif object:nil];
 }
 
+- (void)adjustIsShareOrVod
+{
+    titleL.text = self.playerTitle;
+    localTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
+
+    [self isLoadingView];
+    //直播
+    if (self.isLive) {
+        if (self.isShare) {
+            //分享和收藏的摄像头
+            //收藏、转发
+            if ([self checkAccessTokenIsExist]) {
+                //已经登录
+                if (self.isCollect) {
+                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelwei@2x"] forState:UIControlStateNormal];
+                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelzhong@2x"] forState:UIControlStateHighlighted];
+                }else{
+                    [collectionBtn setImage:[UIImage imageNamed:@"collect_wei@2x"] forState:UIControlStateNormal];
+                    [collectionBtn setImage:[UIImage imageNamed:@"collect_zhong@2x"] forState:UIControlStateHighlighted];
+                }
+                forwardBtn.hidden = NO;
+                collectionBtn.hidden = NO;
+                
+            }else{
+                forwardBtn.hidden = YES;
+                collectionBtn.hidden = YES;
+            }
+
+            shareBtn.hidden = YES;
+            secretShareBtn.hidden = YES;
+            cutBtn.hidden = YES;
+            bottomView.hidden = YES;
+        }else{
+            //我的摄像头直播
+            if (self.shareStaue) {
+                [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelwei@2x"] forState:UIControlStateNormal];
+                [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelzhong@2x"] forState:UIControlStateHighlighted];
+                
+            }else{
+                [shareBtn setImage:[UIImage imageNamed:@"publicShare_wei@2x"] forState:UIControlStateNormal];
+                [shareBtn setImage:[UIImage imageNamed:@"publicShare_zhong@2x"] forState:UIControlStateHighlighted];
+            }
+            forwardBtn.hidden = YES;
+            collectionBtn.hidden = YES;
+            shareBtn.hidden = NO;
+            secretShareBtn.hidden = NO;
+            cutBtn.hidden = NO;
+            bottomView.hidden = YES;
+        }
+    }else{
+        //点播
+        forwardBtn.hidden = YES;
+        collectionBtn.hidden = YES;
+        shareBtn.hidden = YES;
+        secretShareBtn.hidden = YES;
+        cutBtn.hidden = YES;
+        bottomView.hidden = NO;
+    }
+    
+}
 - (void)willBackToHomeNotification:(NSNotificationCenter *)notif
 {
     NSLog(@"这是退出的通知：postNotificationName");
@@ -403,7 +457,7 @@
 - (void)stateDidChange:(NSNotification*)notif
 {
     NSLog(@"播放状态发送改变stateDidChange--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
-    if (self.islLve) {
+    if (self.isLive) {
        if(cbPlayerController.playbackState == CBPMoviePlaybackStatePaused){
            [cbPlayerController play];
         }
@@ -513,9 +567,9 @@
 
 - (void)startTimer{
     //为了保证UI播放进度刷新在主线程中完成
-    NSLog(@"startTimer");
-    if (self.islLve) {
-        
+    NSLog(@"startTimer：isLive：%d",self.isLive);
+    if (_isLive) {
+        return;
     }else
     {
         [self performSelectorOnMainThread:@selector(startTimeroOnMainThread) withObject:nil waitUntilDone:NO];
@@ -741,6 +795,10 @@ usePresentationLayer:YES];
 
 - (void)isLoadingView
 {
+    if (_loadingView) {
+        [_loadingView show:YES];
+        return;
+    }
     _loadingView = [[MBProgressHUD alloc] initWithView:self.view];
     _loadingView.delegate = self;
     _loadingView.labelText = @"loading";
@@ -912,7 +970,8 @@ usePresentationLayer:YES];
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    _loadingView.hidden = NO;
+    [self adjustIsShareOrVod];
+//    _loadingView.hidden = NO;
     [self startPlayback];
 }
 - (void)viewWillDisappear:(BOOL)animated

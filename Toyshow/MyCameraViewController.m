@@ -46,6 +46,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.accessToken = [[SliderViewController sharedSliderController].dict objectForKey:@"accessToken"];
+    
     UIImageView *imgV=[[UIImageView alloc] initWithFrame:self.view.bounds];
     [imgV setImage:[UIImage imageNamed:@"dabeijing@2x"]];
     [self.view addSubview:imgV];
@@ -107,7 +108,7 @@
     [self addheader];
     [self addFooter];
     setVC = [[CameraSetViewController alloc] init];
-    liveVC = [[ShareCamereViewController alloc] init];
+    liveVC = [[[SliderViewController sharedSliderController].dict objectForKey:kplayerDict] objectForKey:kplayerKey];
 
 }
 
@@ -349,7 +350,7 @@
             NSString *rtmp = [dict objectForKey:@"url"];
             NSString *share = [cameraDict objectForKey:@"share"];
             liveVC.delegate = self;
-            liveVC.islLve = YES;
+            liveVC.isLive = YES;
             liveVC.isShare = NO;
             liveVC.shareStaue = [share intValue];
             NSLog(@"live.share:%d",liveVC.shareStaue);
@@ -363,8 +364,6 @@
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"失败了");
             [_loadingView hide:YES];
-//            UIAlertView *badInternetView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-//            [badInternetView show];
             [self MBprogressViewHubLoading:@"网络延时"];
             [badInternetHub hide:YES afterDelay:1];
         }];

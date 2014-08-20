@@ -98,8 +98,7 @@
     _fakeData = [NSMutableArray array];
     [self addheader];
     [self addFooter];
-    liveVC = [[ShareCamereViewController alloc] init];
-
+    liveVC = [[SliderViewController sharedSliderController].dict objectForKey:kplayerKey];
 }
 
 - (void)isLoadingView
@@ -314,7 +313,7 @@
             //获取直播rtmp地址
             NSString *rtmp = [dict objectForKey:@"url"];
             NSString *share = [cameraDict objectForKey:@"share"];
-            liveVC.islLve = YES;
+            liveVC.isLive = YES;
             liveVC.isShare = YES;
             liveVC.shareId = shareid;
             liveVC.uk = uk;

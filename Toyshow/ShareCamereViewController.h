@@ -22,7 +22,7 @@
 @property (strong, nonatomic) UIScrollView *scrollv;
 @property (strong, nonatomic) UIImageView *imagev;
 
-@property (nonatomic,assign) BOOL islLve;
+@property (nonatomic,assign) BOOL isLive;
 @property (nonatomic,assign) BOOL isShare;
 @property (nonatomic,assign) BOOL isCollect;
 @property (nonatomic,assign) int shareStaue;
