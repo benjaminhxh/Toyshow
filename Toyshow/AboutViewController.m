@@ -9,8 +9,10 @@
 #import "AboutViewController.h"
 #import "ShowImageViewController.h"
 
-@interface AboutViewController ()
-
+@interface AboutViewController ()<UIWebViewDelegate>
+{
+    UIActivityIndicatorView *indicatorView;
+}
 @end
 
 @implementation AboutViewController
@@ -44,9 +46,9 @@
     [backBtn addTarget:self action:@selector(backBtn) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backBtn];
     
-    UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    nextBtn.frame = CGRectMake(260, 25, 50, 24);
-    [nextBtn addTarget:self action:@selector(showScrollImage) forControlEvents:UIControlEventTouchUpInside];
+//    UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeContactAdd];
+//    nextBtn.frame = CGRectMake(260, 25, 50, 24);
+//    [nextBtn addTarget:self action:@selector(showScrollImage) forControlEvents:UIControlEventTouchUpInside];
 //    [topView addSubview:nextBtn];
     
 //    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(30, 25, 120, 24)];
@@ -54,6 +56,20 @@
 //    title.text = @"关于乐现";
 //    title.textAlignment = NSTextAlignmentLeft;
 //    [self.view addSubview:title];
+    
+
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 44+kStatusbarHeight, kWidth, kHeight-44-kStatusbarHeight)];
+    NSURL *url = [NSURL URLWithString:@"http://www.baidu.com"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [webView loadRequest:request];
+    webView.delegate = self;
+    [self.view addSubview:webView];
+    
+    indicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(kWidth/2-40, kHeight/2-84, 80, 80)];
+    [webView addSubview:indicatorView];
+    indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    indicatorView.backgroundColor = [UIColor lightGrayColor];
+    [indicatorView startAnimating];
     
     //右滑回到上一个页面
     UISwipeGestureRecognizer *recognizer;
@@ -79,6 +95,17 @@
 //    [self presentViewController:imageVC animated:YES completion:nil];
 }
 
+#define mark - webViewDelegate
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [indicatorView stopAnimating];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [indicatorView stopAnimating];
+    NSLog(@"加载失败error:%@",[error userInfo]);
+}
 //强制不允许转屏
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
     return (toInterfaceOrientation == UIInterfaceOrientationMaskPortrait);

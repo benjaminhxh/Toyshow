@@ -34,5 +34,5 @@
 
 #define kHeight [UIScreen mainScreen].bounds.size.height
 #define kWidth  [UIScreen mainScreen].bounds.size.width
-
+#define kStatusbarHeight  [UIApplication sharedApplication].statusBarFrame.size.height
 #endif

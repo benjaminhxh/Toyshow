@@ -671,9 +671,13 @@
     NSString *method;
     if (self.isCollect) {
         method = @"unsubscribe";
+        [self MBprogressViewHubLoading:@"取消收藏" withMode:4];
+
     }else
     {
         method = @"subscribe";
+        [self MBprogressViewHubLoading:@"正在收藏" withMode:4];
+
     }
     NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=%@&access_token=%@&shareid=%@&uk=%@",method,accessToken,self.shareId,self.uk];
     NSLog(@"收藏的URL：%@",url);
@@ -686,13 +690,14 @@
         }else
         {
             [self MBprogressViewHubLoading:@"收藏成功" withMode:4];
-
         }
-        [shareHub hide:YES afterDelay:1];
+        [shareHub hide:YES afterDelay:2];
 
 //        self.isCollect = !self.isCollect;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"收藏的error：%@",[error userInfo]);
+        [self MBprogressViewHubLoading:@"操作失败" withMode:4];
+
     }];
 }
 
@@ -704,18 +709,21 @@
         [cancelShareView show];
     }else
     {
-        publicView = [[UIAlertView alloc] initWithTitle:@"分享摄像头" message:@"分享之后所有人都可见,直到您取消分享" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        publicView = [[UIAlertView alloc] initWithTitle:@"分享摄像头" message:@"分享之后所有人都可见,直到您取消分享或者私密分享" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
         [publicView show];
     }
 }
 
-#pragma mark - 转发
+#pragma mark - 转发（私密分享）
 - (void)forwardClick    //转发
 {
 //    _loadingView.hidden = NO;
     NSString *userAccessToken = [[NSUserDefaults standardUserDefaults]stringForKey:kUserAccessToken];
     NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=%@&deviceid=%@&share=2",userAccessToken,self.deviceId];//share=2为加密分享
     [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [shareBtn setImage:[UIImage imageNamed:@"publicShare_wei@2x"] forState:UIControlStateNormal];
+        [shareBtn setImage:[UIImage imageNamed:@"publicShare_zhong@2x"] forState:UIControlStateHighlighted];
+
         NSDictionary *dict = (NSDictionary *)responseObject;
         NSString *shareID = [dict objectForKey:@"shareid"];
         NSString *uk = [dict objectForKey:@"uk"];
