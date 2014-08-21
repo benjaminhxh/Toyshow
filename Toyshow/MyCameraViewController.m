@@ -24,7 +24,6 @@
     NSMutableArray *downloadArr;
     MBProgressHUD *_loadingView,*badInternetHub;
     UILabel *noDataLoadL,*noInternetL;
-    CameraSetViewController *setVC;
     ShareCamereViewController *liveVC;
 }
 
@@ -107,7 +106,6 @@
     _fakeData = [NSMutableArray array];
     [self addheader];
     [self addFooter];
-    setVC = [[CameraSetViewController alloc] init];
     liveVC = [[[SliderViewController sharedSliderController].dict objectForKey:kplayerDict] objectForKey:kplayerKey];
 
 }
@@ -376,6 +374,7 @@
 
 //   BOOL status = [[dict objectForKey:@"status"] intValue];
 //    if (status) {
+        CameraSetViewController *setVC = [[CameraSetViewController alloc] init];
         setVC.deviceDesc = [dict objectForKey:@"description"];
         setVC.access_token = self.accessToken;
         setVC.deviceid = [dict objectForKey:@"deviceid"];

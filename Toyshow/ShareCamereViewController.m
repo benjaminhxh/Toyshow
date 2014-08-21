@@ -32,7 +32,7 @@
     UILabel *timeL;
     MPVolumeView *volumView;
     UIView *tapView;
-    UIAlertView *publicView,*cancelShareView;
+    UIAlertView *publicView,*cancelShareView,*resultView;
     NSArray *activity;
     UIActivityIndicatorView *indicatorView;
 }
@@ -186,11 +186,11 @@
                 //收藏
                 collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
                 if (self.isCollect) {
-                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelwei@2x"] forState:UIControlStateNormal];
-                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelzhong@2x"] forState:UIControlStateHighlighted];
+                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelwei"] forState:UIControlStateNormal];
+                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelzhong"] forState:UIControlStateHighlighted];
                 }else{
-                    [collectionBtn setImage:[UIImage imageNamed:@"collect_wei@2x"] forState:UIControlStateNormal];
-                    [collectionBtn setImage:[UIImage imageNamed:@"collect_zhong@2x"] forState:UIControlStateHighlighted];
+                    [collectionBtn setImage:[UIImage imageNamed:@"collect_wei"] forState:UIControlStateNormal];
+                    [collectionBtn setImage:[UIImage imageNamed:@"collect_zhong"] forState:UIControlStateHighlighted];
                 }
                 [collectionBtn addTarget:self action:@selector(collectClick) forControlEvents:UIControlEventTouchUpInside];
                 [topView addSubview:collectionBtn];
@@ -223,8 +223,8 @@
             [topView addSubview:cutBtn];
             //音量
             volumeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [volumeBtn setImage:[UIImage imageNamed:@"yinliang_wei@2x"] forState:UIControlStateNormal];
-            [volumeBtn setImage:[UIImage imageNamed:@"yinliang_zhong@2x"] forState:UIControlStateHighlighted];
+            [volumeBtn setImage:[UIImage imageNamed:@"yinliang_wei"] forState:UIControlStateNormal];
+            [volumeBtn setImage:[UIImage imageNamed:@"yinliang_zhong"] forState:UIControlStateHighlighted];
             [volumeBtn addTarget:self action:@selector(volumeBtnClick) forControlEvents:UIControlEventTouchUpInside];
             [topView addSubview:volumeBtn];
             if (iphone5) {
@@ -685,19 +685,22 @@
         NSDictionary *dict = (NSDictionary*)responseObject;
         NSLog(@"收藏的dict:%@",dict);
         if (self.isCollect) {
-            [self MBprogressViewHubLoading:@"已取消收藏" withMode:4];
+//            [self MBprogressViewHubLoading:@"已取消收藏" withMode:4];
+            [self showResultAlertView:@"已取消收藏"];
             self.isCancelCollect = YES;
         }else
         {
-            [self MBprogressViewHubLoading:@"收藏成功" withMode:4];
+//            [self MBprogressViewHubLoading:@"收藏成功" withMode:4];
+            [self showResultAlertView:@"收藏成功"];
         }
-        [shareHub hide:YES afterDelay:2];
+        [shareHub hide:YES afterDelay:0.5];
 
 //        self.isCollect = !self.isCollect;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"收藏的error：%@",[error userInfo]);
-        [self MBprogressViewHubLoading:@"操作失败" withMode:4];
-
+//        [self MBprogressViewHubLoading:@"操作失败" withMode:4];
+        [self showResultAlertView:@"操作失败"];
+        [shareHub hide:YES afterDelay:0.5];
     }];
 }
 
@@ -958,6 +961,17 @@ usePresentationLayer:YES];
     [shareHub show:YES];
 }
 
+- (void)showResultAlertView:(NSString *)message
+{
+    if (resultView) {
+        resultView.message = message;
+        [resultView show];
+        return;
+    }
+    resultView = [[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    [resultView show];
+}
+
 - (BOOL)checkAccessTokenIsExist
 {
     NSString *userAccessToken = [[NSUserDefaults standardUserDefaults]stringForKey:kUserAccessToken];
@@ -976,7 +990,6 @@ usePresentationLayer:YES];
 {
     [super viewWillAppear:YES];
     [self adjustIsShareOrVod];
-//    _loadingView.hidden = NO;
     [self startPlayback];
 }
 - (void)viewWillDisappear:(BOOL)animated
