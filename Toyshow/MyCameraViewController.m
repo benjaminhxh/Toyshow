@@ -256,11 +256,6 @@
     [[SliderViewController sharedSliderController] leftItemClick];
 }
 
-- (void)rightItemClick
-{
-    [[SliderViewController sharedSliderController]rightItemClick];
-}
-
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -323,20 +318,6 @@
     NSString *deviceid = [cameraDict objectForKey:@"deviceid"];
     NSString *status = [cameraDict objectForKey:@"status"];
     int stat = [status intValue];
-//分享
-//    NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=%@&deviceid=%@&share=1",self.accessToken,deviceid];//share=1为公共分享
-//取消分享
-//    NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=cancelshare&access_token=52.458ff6f376002020f442208e094ca7b7.2592000.1405677428.906252268-2271149&deviceid=%@",deviceid];
-//    [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSDictionary *dict = (NSDictionary *)responseObject;
-//        NSLog(@"dict:%@",dict);
-//        NSString *shareid = [dict objectForKey:@"shareid"];
-//        NSLog(@"shareid:%@",shareid);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"error:%@",[error userInfo]);
-//        UIAlertView *failView = [[UIAlertView alloc] initWithTitle:@"分享失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//        [failView show];
-//    }];
 
     //判断是被是否在线，在线则可以看直播
     if (stat) {
@@ -375,8 +356,6 @@
         thumbVC.accessToken = self.accessToken;
         thumbVC.deviceDesc = [cameraDict objectForKey:@"description"];
         [[SliderViewController sharedSliderController].navigationController pushViewController:thumbVC animated:YES];
-//        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备不在线" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-//        [view show];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -434,7 +413,6 @@
     [self isLoadingView];
     _loadingView.detailsLabelText = @"";
 
-//    NSLog(@"=============_fakeData：%@",_fakeData);
     __unsafe_unretained MyCameraViewController *vc = self;
     //向服务器发起请求
     NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=list&access_token=%@&device_type=1",self.accessToken];
@@ -495,7 +473,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-//    NSLog(@"self.accessToken:%@",self.accessToken);//self.accessToken:52.1cbbd5324fb7d76122b91ff4d7265848.2592000.1410662156.1812238483-2271149
 //    if (!(nil == self.accessToken)) {
         NSString *accesstoken = [[SliderViewController sharedSliderController].dict objectForKey:@"accessToken"];
         if (![self.accessToken isEqualToString:accesstoken]) {

@@ -21,7 +21,7 @@
 {
 //    UIView *cbdPlayerView;
     CyberPlayerController *cbPlayerController;
-    UIButton *startBtn, *shareBtn,*secretShareBtn,*forwardBtn,*collectionBtn,*cutBtn,*volumeBtn;
+    UIButton *startBtn, *shareBtn,*secretShareBtn,*collectionBtn,*cutBtn,*volumeBtn;
     UISlider *lightSlider,*slider;
     NSTimer *timer,*localTimer,*_timer3;
 //    UIProgressView *progressV;
@@ -178,11 +178,11 @@
             //收藏、转发
 //            if ([self checkAccessTokenIsExist]) {
                 //转发
-                forwardBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-                [forwardBtn setImage:[UIImage imageNamed:@"zhuanfa_wei@2x"] forState:UIControlStateNormal ];
-                [forwardBtn setImage:[UIImage imageNamed:@"zhuanfa_zhong@2x"] forState:UIControlStateHighlighted];
-                [forwardBtn addTarget:self action:@selector(forwardClick) forControlEvents:UIControlEventTouchUpInside];
-                [topView addSubview:forwardBtn];
+//                forwardBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//                [forwardBtn setImage:[UIImage imageNamed:@"zhuanfa_wei@2x"] forState:UIControlStateNormal ];
+//                [forwardBtn setImage:[UIImage imageNamed:@"zhuanfa_zhong@2x"] forState:UIControlStateHighlighted];
+//                [forwardBtn addTarget:self action:@selector(forwardClick) forControlEvents:UIControlEventTouchUpInside];
+//                [topView addSubview:forwardBtn];
                 //收藏
                 collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
                 if (self.isCollect) {
@@ -195,12 +195,12 @@
                 [collectionBtn addTarget:self action:@selector(collectClick) forControlEvents:UIControlEventTouchUpInside];
                 [topView addSubview:collectionBtn];
                 if (iphone5) {
-                    forwardBtn.frame = CGRectMake(kHeight*26/32, 11, 46, 24);
-                    collectionBtn.frame = CGRectMake(kHeight*29/32, 11, 46, 24);
+//                    forwardBtn.frame = CGRectMake(kHeight*23/32, 11, 46, 24);
+                    collectionBtn.frame = CGRectMake(kHeight*26/32, 11, 46, 24);
                 }else
                 {
-                    forwardBtn.frame = CGRectMake(kHeight/2+30+100, 11, 46, 24);
-                    collectionBtn.frame = CGRectMake(kHeight/2+30+150, 11, 46, 24);
+//                    forwardBtn.frame = CGRectMake(kHeight/2+30+50, 11, 46, 24);
+                    collectionBtn.frame = CGRectMake(kHeight/2+30+100, 11, 46, 24);
                 }
 //            }
 //        }else{
@@ -339,11 +339,11 @@
                     [collectionBtn setImage:[UIImage imageNamed:@"collect_wei@2x"] forState:UIControlStateNormal];
                     [collectionBtn setImage:[UIImage imageNamed:@"collect_zhong@2x"] forState:UIControlStateHighlighted];
                 }
-                forwardBtn.hidden = NO;
+//                forwardBtn.hidden = NO;
                 collectionBtn.hidden = NO;
                 
             }else{
-                forwardBtn.hidden = YES;
+//                forwardBtn.hidden = YES;
                 collectionBtn.hidden = YES;
             }
 
@@ -361,7 +361,7 @@
                 [shareBtn setImage:[UIImage imageNamed:@"publicShare_wei@2x"] forState:UIControlStateNormal];
                 [shareBtn setImage:[UIImage imageNamed:@"publicShare_zhong@2x"] forState:UIControlStateHighlighted];
             }
-            forwardBtn.hidden = YES;
+//            forwardBtn.hidden = YES;
             collectionBtn.hidden = YES;
             shareBtn.hidden = NO;
             secretShareBtn.hidden = NO;
@@ -370,7 +370,7 @@
         }
     }else{
         //点播
-        forwardBtn.hidden = YES;
+//        forwardBtn.hidden = YES;
         collectionBtn.hidden = YES;
         shareBtn.hidden = YES;
         secretShareBtn.hidden = YES;
@@ -432,9 +432,6 @@
 - (void)seekComplete:(NSNotification*)notification
 {
     NSLog(@"完成视频播放位置调整seekComplete--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//    _loadingView.hidden = YES;
-//    });
     [self startTimer];
 }
 
