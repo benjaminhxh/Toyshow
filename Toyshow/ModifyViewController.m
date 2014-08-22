@@ -9,10 +9,11 @@
 #import "ModifyViewController.h"
 #import "MyCameraViewController.h"
 
-@interface ModifyViewController ()<MBProgressHUDDelegate>
+@interface ModifyViewController ()<MBProgressHUDDelegate,UITextFieldDelegate>
 {
     UITextField *modifyText;
     MBProgressHUD *modifyHub;
+    UIScrollView *scrollView;
 }
 @end
 
@@ -31,7 +32,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
+    self.view.backgroundColor = [UIColor whiteColor];
+
     UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44+[UIApplication sharedApplication].statusBarFrame.size.height)];
     topView.image = [UIImage imageNamed:navigationBarImageiOS7];
     topView.userInteractionEnabled = YES;
@@ -43,24 +45,29 @@
     [backBtn addTarget:self action:@selector(backBtn) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backBtn];
     
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
+    scrollView.contentSize = CGSizeMake(kWidth, kHeight-44);
+    [self.view addSubview:scrollView];
+    
     //右滑回到上一个页面
     UISwipeGestureRecognizer *recognizer;
     recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(backBtn)];
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [self.view addGestureRecognizer:recognizer];
     
-    modifyText = [[UITextField alloc] initWithFrame:CGRectMake(40, 80, 240, 40)];
+    modifyText = [[UITextField alloc] initWithFrame:CGRectMake(40, 20, 240, 40)];
     modifyText.borderStyle = UITextBorderStyleRoundedRect;
+    modifyText.delegate = self;
     modifyText.text = self.deviceName;
-    [self.view addSubview:modifyText];
+    [scrollView addSubview:modifyText];
 
     UIButton *modifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    modifyBtn.frame = CGRectMake(90, 160, 140, 40);
+    modifyBtn.frame = CGRectMake(90, 90, 140, 40);
     [modifyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [modifyBtn setTitle:@"修改设备名称" forState:UIControlStateNormal];
     [modifyBtn setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
     [modifyBtn addTarget:self action:@selector(modifyDevice:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:modifyBtn];
+    [scrollView addSubview:modifyBtn];
 }
 
 - (void)modifyDevice:(id)sender
@@ -146,6 +153,11 @@
 //    [modifyHub hide:YES afterDelay:2];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [modifyText resignFirstResponder];
+    return YES;
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -154,7 +166,8 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [modifyText resignFirstResponder];
+//    [modifyText resignFirstResponder];
+    [scrollView endEditing:YES];
 }
 
 @end

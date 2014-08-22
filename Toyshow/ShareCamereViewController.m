@@ -106,10 +106,10 @@
                                                  name:CyberPlayerSeekingDidFinishNotification
                                                object:nil];
     //注册监听，当播放器播放完视频后发送CyberPlayerPlaybackDidFinishNotification通知，
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(playerBackDidFinish:)
-//                                                 name:CyberPlayerPlaybackDidFinishNotification
-//                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(playerBackDidFinish:)
+                                                 name:CyberPlayerPlaybackDidFinishNotification
+                                               object:nil];
     //注册监听，当播放器播放失败后发送CyberPlayerPlaybackErrorNotification通知，
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerBackError:)
@@ -314,7 +314,6 @@
 //    doubleTap.numberOfTapsRequired = 2;
 //    [cbPlayerController.view addGestureRecognizer:doubleTap];
 //    [tapGest requireGestureRecognizerToFail:doubleTap];
-    self.request_id = @"";
     //进入home后台的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willBackToHomeNotification:) name:kAPPWillResignActivenotif object:nil];
 }
@@ -323,7 +322,7 @@
 {
     titleL.text = self.playerTitle;
     localTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
-
+    self.request_id = @"";
     [self isLoadingView];
     //直播
     if (self.isLive) {
@@ -449,6 +448,8 @@
     [self performSelectorOnMainThread:@selector(hiddenLoadingView) withObject:nil waitUntilDone:NO];
     UIAlertView *playError = [[UIAlertView alloc] initWithTitle:@"播放失败" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
     [playError show];
+    NSLog(@"播放失败");
+
 }
 //状态改变
 - (void)stateDidChange:(NSNotification*)notif
@@ -616,8 +617,8 @@
         if (self.delegate && [self.delegate respondsToSelector:@selector(cancelCameraCollection)]) {
             [self.delegate cancelCameraCollection];
         }
-    }else{
-        
+    }else
+    {
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -629,6 +630,7 @@
         if (_timer3 && [_timer3 isValid]) {
             [_timer3 invalidate];
         }
+        _timer3 = nil;
         [UIView animateWithDuration:0.15 animations:^{
             topView.frame = CGRectMake(0, -44, kHeight, 44);
             bottomView.frame = CGRectMake(0, kWidth+60, kHeight, 60);

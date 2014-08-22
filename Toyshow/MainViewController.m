@@ -44,7 +44,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivesPlayerObject:) name:kplayerObj object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivesPlayerObject:) name:kplayerObj object:nil];
 
     }
     return self;
@@ -66,9 +66,19 @@
 {
     
     [super viewDidLoad];
-    NSString *str11 = @"北京(直播)";
-    NSString *newStr = [str11 substringToIndex:str11.length-4];
-    NSLog(@"newStr.length:%d  %@",newStr.length,newStr);
+//    NSString *str11 = @"北京(直播)";
+//    NSArray *arr = [NSArray arrayWithObjects:@1,@2,@3,@4, nil];
+//    NSLog(@"%@",[arr JSONString]);
+//    NSRange range = [str11 rangeOfString:@"ni"];
+//    NSLog(@"range:%d----%d",range.location,range.length);
+//    if (!range.length) {
+//        NSLog(@"000000000000000");
+//    }else
+//    {
+//        NSLog(@"111111111111111");
+//    }
+//    NSString *newStr = [str11 substringToIndex:str11.length-4];
+//    NSLog(@"newStr.length:%d  %@",newStr.length,newStr);
     //先拼接再MD5加密
     NSString *string = [NSString stringWithFormat:@"%@%@%@%@",APP_ID,expire,APP_KEY,APP_SecrectKey];
     realSign = [self getMd5_32Bit_String:string];
@@ -144,11 +154,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivesComeFromWeixin:) name:@"shareToWeixinNotif" object:nil];
 }
 
-- (void)receivesPlayerObject:(NSNotification*)notif
-{
-    NSLog(@"这是全局播放器对象");
-   shareVC = [[notif userInfo] objectForKey:kplayerKey];
-}
+//- (void)receivesPlayerObject:(NSNotification*)notif
+//{
+//    NSLog(@"这是全局播放器对象");
+//   shareVC = [[notif userInfo] objectForKey:kplayerKey];
+//}
 - (void)addheader{
     __unsafe_unretained MainViewController *vc = self;
     __block MJRefreshHeaderView *header;
@@ -312,7 +322,7 @@
             //            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             cell = [[[NSBundle mainBundle] loadNibNamed:@"ShareCameraCell" owner:self options:nil] lastObject];
             NSDictionary *dict = [_fakeData objectAtIndex:indexPath.row];
-            NSLog(@"公共摄像头列表的dict:%@",dict);
+//            NSLog(@"公共摄像头列表的dict:%@",dict);
             self.cameraName.text = [dict objectForKey:@"description"];
 //            self.cameraId.text = [dict objectForKey:@"deviceid"];
             NSString *imageURL = [dict objectForKey:@"thumbnail"];

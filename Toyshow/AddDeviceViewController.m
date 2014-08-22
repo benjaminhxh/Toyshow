@@ -49,6 +49,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor whiteColor];
     UIImageView *background = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     background.image = [UIImage imageNamed:backGroundImage];
     [self.view addSubview:background];
@@ -276,7 +277,7 @@
 
 - (void)connectToWifi
 {
-    nextAlertview = [[UIAlertView alloc] initWithTitle:@"连接设备AP" message:@"1.请切换到“系统设置”>>“无线局域网”\n2.连接Joyshow开头的摄像头热点,(密码为123456789)\n3.切换回此页面，点击下一步" delegate:self cancelButtonTitle:@"下一步" otherButtonTitles:nil, nil];
+    nextAlertview = [[UIAlertView alloc] initWithTitle:@"连接设备AP" message:@"1.请切换到“系统设置”>>“无线局域网”\n2.连接Joyshow_cam开头的摄像头热点,(密码为123456789)\n3.切换回此页面，点击下一步" delegate:self cancelButtonTitle:@"下一步" otherButtonTitles:nil, nil];
     nextAlertview.delegate = self;
     [nextAlertview show];
     
@@ -324,8 +325,8 @@
     [self.view setNeedsDisplay];
     //判断WiFi名是否以joyshow开头
     if ([[self fetchSSIDInfo]hasPrefix:@"Joyshow_cam" ]) {
+        [self isLoadingView];
         [self openUDPServer];
-        _loadingView.hidden = NO;
 //        if (hexOrAscii.hidden) {
 //            self.wepStyle = @"1";
 //        }
@@ -367,10 +368,10 @@
                                   @"",@"reserved",nil];//保留参数
         NSLog(@"dataDict:%@",dataDict);
         NSString *md5String = [self getMd5_32Bit_String:dataStr];//得到md5加密后的32位字符串
-        NSLog(@"md5String:%@",md5String);//0ea7ccca8f7eeefb255e1931cb1409aa
+//        NSLog(@"md5String:%@",md5String);//0ea7ccca8f7eeefb255e1931cb1409aa
         
         NSMutableString *md5exchangeString = [self exchangeString:md5String];//1,6;4,13;21,29;20,25交换
-        NSLog(@"md5exchangeString:%@",md5exchangeString);
+//        NSLog(@"md5exchangeString:%@",md5exchangeString);
         NSInteger length = dataStr.length;//data的长度
         NSString *md5Length = [NSString stringWithFormat:@"%ld",(long)length];
         NSDictionary *headDict = [NSDictionary dictionaryWithObjectsAndKeys:md5Length,@"length",md5exchangeString,@"verify", nil];
@@ -457,6 +458,8 @@
 - (void)onUdpSocket:(AsyncUdpSocket *)sock didNotSendDataWithTag:(long)tag dueToError:(NSError *)error
 {
 	//无法发送时,返回的异常提示信息
+    _loadingView.hidden = YES;
+    [nextAlertview show];
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法发送"
 													message:[error description]
 												   delegate:nil
@@ -468,6 +471,8 @@
 - (void)onUdpSocket:(AsyncUdpSocket *)sock didNotReceiveDataWithTag:(long)tag dueToError:(NSError *)error
 {
 	//无法接收时，返回异常提示信息
+    _loadingView.hidden = YES;
+    [nextAlertview show];
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法接收"
 													message:[error description]
 												   delegate:nil
@@ -550,16 +555,18 @@
 
 - (void)isLoadingView
 {
+    if (_loadingView) {
+        [_loadingView show:YES];
+        return;
+    }
     _loadingView = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:_loadingView];
-    
     _loadingView.delegate = self;
     _loadingView.labelText = @"loading";
     _loadingView.detailsLabelText = @"向服务器注册中，请稍后……";
     _loadingView.square = YES;
     [_loadingView show:YES];
     _loadingView.color = [UIColor grayColor];
-    
 }
 
 - (void)didReceiveMemoryWarning

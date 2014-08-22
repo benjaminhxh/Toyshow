@@ -56,7 +56,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    [self shouldAutorotate];
     UIImageView *imgV=[[UIImageView alloc] initWithFrame:self.view.bounds];
     [imgV setImage:[UIImage imageNamed:backGroundImage]];
     [self.view addSubview:imgV];
@@ -275,9 +274,7 @@
     [image addSubview:_line];
     //定时器，设定时间过1.5秒，
     timer = [NSTimer scheduledTimerWithTimeInterval:.02 target:self selector:@selector(animation1) userInfo:nil repeats:YES];
-    [self presentViewController:reader animated:YES completion:^{
-        
-    }];
+    [self presentViewController:reader animated:YES completion:nil];
 }
 
 -(void)animation1
@@ -355,9 +352,7 @@
 //登录按钮
 - (void)signonButtonClicked {
     FrontiaAuthorization* authorization = [Frontia getAuthorization];
-    
     if(authorization) {
-        
         //授权取消回调函数
         FrontiaAuthorizationCancelCallback onCancel = ^(){
             NSLog(@"OnCancel: authorization is cancelled");//不继续登陆
@@ -454,7 +449,6 @@
     if ([auth clearAllAuthorizationInfo]) {
         self.userImageVIew.image = [UIImage imageNamed:@"touxiang_n@2x"];
         self.userNameL.text = @"请登录";
-//        self.titleText.text = @"登录";
         loginOrOutL.text = @"登陆";
 
         NSHTTPCookie *cookie;
@@ -468,20 +462,8 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserName];
         [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MainViewController" withDictionary:nil];
     }
- 
 }
-#pragma mark - shareTo
-//分享
-//- (void)shareToQQ
-//{
-//    NSURL *shareURL = [NSURL URLWithString:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=52.93b4c7183a5b297e8c6909ceda48483a.2592000.1406688540.1812238483-2271149&deviceid=175932720340992&share=1"];
-//    [NSURL URLWithString:@"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4"];
-//    activity = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
-//    NSArray *shareArr = [NSArray arrayWithObjects:@"中和讯飞-乐现",@"hxh乐现是由北京中和讯飞开发的一款家居类APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，看你所看。", [UIImage imageNamed:@"icon_session"], shareURL,nil];
-//    UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:shareArr applicationActivities:activity];
-//    activityView.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypePrint,UIActivityTypeSaveToCameraRoll,UIActivityTypeMail];
-//    [self presentViewController:activityView animated:YES completion:nil];
-//}
+
 //裁剪头像
 -(UIImage*)scaleToSize:(UIImage*)img size:(CGSize)size
 {

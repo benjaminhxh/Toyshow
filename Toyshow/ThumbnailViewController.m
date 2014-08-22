@@ -158,14 +158,6 @@
 
 }
 
-//- (NSDate *)dateFrom:(NSDate *)datenow
-//{
-//    NSTimeZone *zone = [NSTimeZone localTimeZone];
-//    NSInteger interval = [zone secondsFromGMTForDate:datenow];
-//    NSDate *localeDate = [datenow  dateByAddingTimeInterval: interval];
-//    return localeDate;
-//}
-
 - (NSDateFormatter *)dateFormatterYYYYMMdd {
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"YYYY-MM-dd"];

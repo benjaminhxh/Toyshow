@@ -146,7 +146,7 @@
             _fakeData = [NSMutableArray array];
             downloadArr = [NSMutableArray array];
             downloadArr = [dict objectForKey:@"list"];
-            NSLog(@"downloadArr:%@",downloadArr);
+//            NSLog(@"downloadArr:%@",downloadArr);
             if (downloadArr.count == 0) {
 //                UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"无摄像头" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
 //                [noDataView show];

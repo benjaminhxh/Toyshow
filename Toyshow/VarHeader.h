@@ -19,10 +19,11 @@
 #define backBtnImage            @"cehuajiantou18x34@2x"
 #define kUserInfoNotification   @"userInfoNotification"
 #define kAPPWillResignActivenotif @"applicationWillResignActive"
-
+//百度用户信息
 #define kUserName               @"userName"
 #define kUserAccessToken        @"userAccessToken"
 #define kUserHeadImage          @"userHeadImage"
+//播放器
 #define kplayerKey              @"playerKey"
 #define kplayerDict             @"playerDict"
 #define kplayerObj              @"playerObjctNotif"
