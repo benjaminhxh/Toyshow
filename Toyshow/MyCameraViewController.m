@@ -112,6 +112,10 @@
 
 - (void)isLoadingView
 {
+    if (_loadingView) {
+        [_loadingView show:YES];
+        return;
+    }
     _loadingView = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:_loadingView];
     
@@ -396,8 +400,9 @@
 #pragma mark - cameraSetDelegate
 - (void)logoutCameraAtindex:(int)index
 {
-//    [self isLoadingView];
+    [self isLoadingView];
     [self reloadMyCameraListView];
+//    [_headerView beginRefreshing];
 }
 
 #pragma mark - PlayerViewDelegate
@@ -405,6 +410,8 @@
 {
     NSLog(@"str:%@",str);
     [self reloadMyCameraListView];
+//    [_headerView beginRefreshing];
+
 }
 
 - (void)reloadMyCameraListView
@@ -472,15 +479,20 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-//    if (!(nil == self.accessToken)) {
-        NSString *accesstoken = [[SliderViewController sharedSliderController].dict objectForKey:@"accessToken"];
-        if (![self.accessToken isEqualToString:accesstoken]) {
-            self.accessToken = accesstoken;
-            [self reloadMyCameraListView];
-        }
-//    }
+
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    NSString *accesstoken = [[SliderViewController sharedSliderController].dict objectForKey:@"accessToken"];
+    if (![self.accessToken isEqualToString:accesstoken]) {
+        self.accessToken = accesstoken;
+        [self reloadMyCameraListView];
+//        [_headerView beginRefreshing];
+        
+    }
+}
 - (void)modifySuccess:(NSNotification *)notif
 {
     [self logoutCameraAtindex:0];

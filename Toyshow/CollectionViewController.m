@@ -20,6 +20,7 @@
     MBProgressHUD *_loadingView,*badInternetHub;
     NSMutableArray *_fakeData,*downloadArr;
     NSString *accessToken;
+    MJRefreshHeaderView *_headview;
     ShareCamereViewController *liveVC;
 }
 @end
@@ -188,6 +189,7 @@
                 break;
         }
     };
+    _headview = header;
     [header beginRefreshing];
 }
 
@@ -411,6 +413,12 @@
         [self reloadCollectList];
     }
 }
+
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//    [super viewDidAppear:YES];
+//    [_headview beginRefreshing];
+//}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

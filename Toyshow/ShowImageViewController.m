@@ -35,6 +35,8 @@
 {
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = YES;
+    self.view.backgroundColor = [UIColor whiteColor];
+
 	// Do any additional setup after loading the view.
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     backBtn.frame = CGRectMake(5, 20, 40, 20);

@@ -25,6 +25,7 @@
     NSArray *_shareCameraListArr;
     BOOL _reloading;
     UITableView *_tableView;
+    MJRefreshHeaderView *_headview;
     MJRefreshFooterView *_footerView;
     NSMutableArray *_fakeData;
     NSArray *downloadArr;
@@ -229,6 +230,7 @@
 //                break;
 //        }
 //    };
+    _headview = header;
     [header beginRefreshing];
 }
 
@@ -459,6 +461,11 @@
     [badInternetHub show:YES];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    [_headview beginRefreshing];
+}
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
