@@ -20,7 +20,7 @@
 @property (copy, nonatomic) NSString *deviceid;
 @property (copy, nonatomic) NSString *access_token;
 @property (assign, nonatomic) int index;
-//@property (nonatomic) BOOL statue;
+@property (nonatomic) BOOL isOnline;
 
 @property(nonatomic, assign) NSInteger EnableEventIndex;//事件通知
 @property(nonatomic, assign) NSInteger audioIndex;//音频

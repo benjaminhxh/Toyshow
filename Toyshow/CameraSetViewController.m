@@ -80,9 +80,9 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
-//    if (self.statue) {
+    if (self.isOnline) {
         [self getDeviceInfo];
-//    }
+    }
 
     //右滑回到上一个页面
     UISwipeGestureRecognizer *recognizer;

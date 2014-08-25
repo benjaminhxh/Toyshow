@@ -379,7 +379,7 @@
         setVC.access_token = self.accessToken;
         setVC.deviceid = [dict objectForKey:@"deviceid"];
         setVC.index = row;
-//        setVC.statue = [[dict objectForKey:@"status"] intValue];
+        setVC.isOnline = [[dict objectForKey:@"status"] intValue];
         setVC.delegate = self;
         [[SliderViewController sharedSliderController].navigationController pushViewController:setVC animated:YES];
 //    }else
