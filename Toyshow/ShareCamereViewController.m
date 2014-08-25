@@ -748,20 +748,22 @@
 
 - (void)cutPrint    //截图
 {
-    UIGraphicsBeginImageContext(cbPlayerController.view.bounds.size);
-    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-    //自动保存到图片库
-    UIImage *image2 = [self screenshot:UIDeviceOrientationPortrait
-            isOpaque:YES
-usePresentationLayer:YES];
+    UIAlertView *cutimageView = [[UIAlertView alloc] initWithTitle:@"截图" message:@"请同时按住电源键和home键来截屏" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [cutimageView show];
+//    UIGraphicsBeginImageContext(cbPlayerController.view.bounds.size);
+//    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+//    //自动保存到图片库
+//    UIImage *image2 = [self screenshot:UIDeviceOrientationPortrait
+//            isOpaque:YES
+//usePresentationLayer:YES];
 //    UIGraphicsBeginImageContext(cbPlayerController.view.bounds.size);
 //    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
 ////    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
 //    UIGraphicsEndImageContext();
-    UIImageWriteToSavedPhotosAlbum(image2, nil, nil, nil);
+//    UIImageWriteToSavedPhotosAlbum(image2, nil, nil, nil);
 }
 
 ////新增截屏代码（未测试）
