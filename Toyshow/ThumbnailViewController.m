@@ -48,10 +48,10 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
 	// Do any additional setup after loading the view.
-    UIImageView *background = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    background.image = [UIImage imageNamed:backGroundImage];
+//    UIImageView *background = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//    background.image = [UIImage imageNamed:backGroundImage];
 //    [self.view addSubview:background];
-    background.userInteractionEnabled = YES;
+//    background.userInteractionEnabled = YES;
     UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44+[UIApplication sharedApplication].statusBarFrame.size.height)];
     topView.image = [UIImage imageNamed:navigationBarImageiOS7];
     topView.userInteractionEnabled = YES;
