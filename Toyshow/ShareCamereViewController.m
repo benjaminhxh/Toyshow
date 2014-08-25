@@ -399,6 +399,7 @@
 - (void)onDragSlideDone:(id)sender {
     float currentTIme = slider.value;
     NSLog(@"seek to %f", currentTIme);
+    [self isLoadingView];
     //实现视频播放位置切换，
     [cbPlayerController seekTo:currentTIme];
     //两种方式都可以实现seek操作
@@ -420,6 +421,7 @@
 {
 //    [self startTimer];
     NSLog(@"开始缓冲startCachhhhhhhhhhhhhh");
+    [self isLoadingView];
 }
 
 - (void)hiddenLoadingView
@@ -431,6 +433,7 @@
 - (void)seekComplete:(NSNotification*)notification
 {
     NSLog(@"完成视频播放位置调整seekComplete--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
+    [self performSelectorOnMainThread:@selector(hiddenLoadingView) withObject:nil waitUntilDone:NO];
     [self startTimer];
 }
 
@@ -449,7 +452,6 @@
     UIAlertView *playError = [[UIAlertView alloc] initWithTitle:@"播放失败" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
     [playError show];
     NSLog(@"播放失败");
-
 }
 //状态改变
 - (void)stateDidChange:(NSNotification*)notif
