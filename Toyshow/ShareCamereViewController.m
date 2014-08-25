@@ -32,7 +32,7 @@
     UILabel *timeL;
     MPVolumeView *volumView;
     UIView *tapView;
-    UIAlertView *publicView,*cancelShareView,*resultView;
+    UIAlertView *publicView,*cancelShareView,*resultView, *cutimageView;
     NSArray *activity;
     UIActivityIndicatorView *indicatorView;
 }
@@ -386,7 +386,7 @@
         [localTimer invalidate];
     }
     localTimer = nil;
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (void)onDragSlideValueChanged:(id)sender {
@@ -748,7 +748,11 @@
 
 - (void)cutPrint    //截图
 {
-    UIAlertView *cutimageView = [[UIAlertView alloc] initWithTitle:@"截图" message:@"请同时按住电源键和home键来截屏" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    if (cutimageView) {
+        [cutimageView show];
+        return;
+    }
+    cutimageView = [[UIAlertView alloc] initWithTitle:@"截图" message:@"请同时按住电源键和home键来截屏" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     [cutimageView show];
 //    UIGraphicsBeginImageContext(cbPlayerController.view.bounds.size);
 //    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
