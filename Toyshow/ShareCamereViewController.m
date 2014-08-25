@@ -375,6 +375,8 @@
         secretShareBtn.hidden = YES;
         cutBtn.hidden = YES;
         bottomView.hidden = NO;
+        currentProgress.text = @"00:00:00";
+        slider.value = 0.0;
     }
     
 }
@@ -399,13 +401,14 @@
 - (void)onDragSlideDone:(id)sender {
     float currentTIme = slider.value;
     NSLog(@"seek to %f", currentTIme);
-    [self isLoadingView];
     //实现视频播放位置切换，
     [cbPlayerController seekTo:currentTIme];
     //两种方式都可以实现seek操作
     [cbPlayerController setCurrentPlaybackTime:currentTIme];
 }
 - (void)onDragSlideStart:(id)sender {
+    [self isLoadingView];
+
     [self stopTimer];//12
 }
 
@@ -421,7 +424,7 @@
 {
 //    [self startTimer];
     NSLog(@"开始缓冲startCachhhhhhhhhhhhhh");
-    [self isLoadingView];
+//    [self isLoadingView];
 }
 
 - (void)hiddenLoadingView
@@ -464,14 +467,14 @@
     }
 }
 //缓冲过程
-- (void)GotCachePercent:(NSNotification *)notific
-{
-    NSLog(@"GotCachePercent--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
-    dispatch_async(dispatch_get_main_queue(), ^{
-    _loadingView.hidden = NO;
-    });
-//    [self startTimer];
-}
+//- (void)GotCachePercent:(NSNotification *)notific
+//{
+//    NSLog(@"GotCachePercent--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//    _loadingView.hidden = NO;
+//    });
+////    [self startTimer];
+//}
 - (void)onClickPlay:(id)sender {
     //当按下播放按钮时，调用startPlayback方法
     [self startPlayback];
@@ -513,13 +516,13 @@
 {
     [self refreshProgress:cbPlayerController.currentPlaybackTime totalDuration:cbPlayerController.duration];
 //    [self refreshCurrentProgress:cbPlayerController.playableDuration totalDuration:cbPlayerController.duration];//当前可播放视频的长度4/6
-    NSLog(@"timeHanler");
+//    NSLog(@"timeHanler");
 }
 
 - (void)refreshProgress:(int) currentTime totalDuration:(int)allSecond{
 //    NSLog(@"refreshProgress");//4/7
     NSInteger startT = self.startTimeInt + currentTime;//得到起始时间戳
-    NSLog(@"currentTime:%d---allSecond:%d",currentTime,allSecond);
+//    NSLog(@"currentTime:%d---allSecond:%d",currentTime,allSecond);
     NSDictionary* dict = [[self class] convertSecond2HourMinuteSecond:startT];
     NSString* strPlayedTime = [self getTimeString:dict prefix:@""];
     currentProgress.text = strPlayedTime;
