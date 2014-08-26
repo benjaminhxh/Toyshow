@@ -35,12 +35,20 @@
 //    background.image = [UIImage imageNamed:backGroundImage];
 //    [self.view addSubview:background];
 //    background.userInteractionEnabled = YES;
-    UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44+[UIApplication sharedApplication].statusBarFrame.size.height)];
+    UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
     topView.image = [UIImage imageNamed:navigationBarImageiOS7];
     topView.userInteractionEnabled = YES;
     [self.view addSubview:topView];
+    
+    float backHeight;
+    if (iOS7) {
+        backHeight = kStatusbarHeight + 5;
+    }else
+    {
+        backHeight = kStatusbarHeight + 25;
+    }
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(5, [UIApplication sharedApplication].statusBarFrame.size.height+5, 102, 22);
+    backBtn.frame = CGRectMake(5, backHeight, 102, 22);
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn setTitle:@"关于乐现" forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtn) forControlEvents:UIControlEventTouchUpInside];
@@ -58,7 +66,7 @@
 //    [self.view addSubview:title];
     
 
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 44+kStatusbarHeight, kWidth, kHeight-44-kStatusbarHeight)];
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
     NSURL *url = [NSURL URLWithString:@"http://www.baidu.com"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [webView loadRequest:request];

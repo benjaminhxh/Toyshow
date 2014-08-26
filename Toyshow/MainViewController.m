@@ -92,19 +92,26 @@
     [imgV setImage:[UIImage imageNamed:@"dabeijing@2x"]];
     [self.view addSubview:imgV];
     
-    UIImageView *navBar=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44+[UIApplication sharedApplication].statusBarFrame.size.height)];
+    float backHeight;
+    if (iOS7) {
+        backHeight = kStatusbarHeight + 5;
+    }else
+    {
+        backHeight = kStatusbarHeight + 25;
+    }
+    UIImageView *navBar=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 64)];
     navBar.image=[UIImage imageNamed:navigationBarImageiOS7];
-//    navBar.alpha=0.8;
+    //    navBar.alpha=0.8;
     navBar.userInteractionEnabled = YES;
     [self.view addSubview:navBar];
-
+    
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(5, [UIApplication sharedApplication].statusBarFrame.size.height+5, 126, 22);
+    backBtn.frame = CGRectMake(5, backHeight, 126, 22);
+    
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn setTitle:@"分享的摄像头" forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(leftItemClick) forControlEvents:UIControlEventTouchUpInside];
     [navBar addSubview:backBtn];
-
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, 320, [UIScreen mainScreen].bounds.size.height-65) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;

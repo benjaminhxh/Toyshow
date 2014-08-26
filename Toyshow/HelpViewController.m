@@ -41,27 +41,33 @@
 //    background.image = [UIImage imageNamed:backGroundImage];
 //    [self.view addSubview:background];
     background.userInteractionEnabled = YES;
-    UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44+[UIApplication sharedApplication].statusBarFrame.size.height)];
+    UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 64)];
     topView.image = [UIImage imageNamed:navigationBarImageiOS7];
     topView.userInteractionEnabled = YES;
     [self.view addSubview:topView];
     
+    float backHeight;
+    if (iOS7) {
+        backHeight = kStatusbarHeight + 5;
+    }else
+    {
+        backHeight = kStatusbarHeight + 25;
+    }
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(5, [UIApplication sharedApplication].statusBarFrame.size.height+5, 56, 22);
+    backBtn.frame = CGRectMake(5, backHeight, 56, 22);
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtn) forControlEvents:UIControlEventTouchUpInside];
     [backBtn setTitle:@"帮助" forState:UIControlStateNormal];
-//    backBtn.frame = CGRectMake(5, [UIApplication sharedApplication].statusBarFrame.size.height+5, 180, 22);
-//    [backBtn setTitle:@"无线路由器认证方式" forState:UIControlStateNormal];
+    //    backBtn.frame = CGRectMake(5, [UIApplication sharedApplication].statusBarFrame.size.height+5, 180, 22);
+    //    [backBtn setTitle:@"无线路由器认证方式" forState:UIControlStateNormal];
     [topView addSubview:backBtn];
-
+    
     UIButton *finishBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    finishBtn.frame = CGRectMake(275, [UIApplication sharedApplication].statusBarFrame.size.height+5, 36, 22);
+    finishBtn.frame = CGRectMake(275, backHeight, 36, 22);
     [finishBtn setTitle:@"完成" forState:UIControlStateNormal];
     [finishBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [finishBtn addTarget:self action:@selector(finishBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [topView addSubview:finishBtn];
-//    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(30, 25, 120, 24)];
+    [topView addSubview:finishBtn];//    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(30, 25, 120, 24)];
 //    title.textColor = [UIColor whiteColor];
 //    title.text = @"帮助";
 ////    title.textAlignment = NSTextAlignmentCenter;
