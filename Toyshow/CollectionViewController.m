@@ -22,6 +22,7 @@
     NSString *accessToken;
     MJRefreshHeaderView *_headview;
     ShareCamereViewController *liveVC;
+    BOOL notFirstFlag;
 }
 @end
 
@@ -134,6 +135,7 @@
         //向服务器发起请求
         NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listsubscribe&access_token=%@",accessToken];
         [[AFHTTPRequestOperationManager manager] GET:urlSTR parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            notFirstFlag = YES;
             NSDictionary *dict = (NSDictionary *)responseObject;
             //            NSLog(@"收藏的dict:%@",dict);
             //2、初始化数据
@@ -157,7 +159,7 @@
             }
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
+            notFirstFlag = YES;
             [self MBprogressViewHubLoading:@"网络延时" withMode:4];
             [badInternetHub hide:YES afterDelay:1];
             [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
@@ -434,22 +436,20 @@
     }];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:YES];
+    [super viewDidAppear:YES];
     NSString *accessT = [[NSUserDefaults standardUserDefaults] objectForKey:kUserAccessToken];
     if (![accessToken isEqualToString:accessT]) {
         accessToken = accessT;
-        [self reloadCollectList];
+        //        [self reloadCollectList];
+        [_headview beginRefreshing];
+        return;
     }
-}
-
-//- (void)viewDidAppear:(BOOL)animated
-//{
-//    [super viewDidAppear:YES];
-//    [_headview beginRefreshing];
-//}
-- (void)didReceiveMemoryWarning
+    if (notFirstFlag) {
+        [_headview beginRefreshing];
+    }
+}- (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

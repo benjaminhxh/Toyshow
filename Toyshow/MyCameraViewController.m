@@ -25,6 +25,7 @@
     MBProgressHUD *_loadingView,*badInternetHub;
     UILabel *noDataLoadL,*noInternetL;
     ShareCamereViewController *liveVC;
+    BOOL notFirstFlag;
 }
 
 @end
@@ -145,6 +146,7 @@
         //向服务器发起请求
         NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=list&access_token=%@&device_type=1",self.accessToken];
         [[AFHTTPRequestOperationManager manager] GET:urlSTR parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            notFirstFlag = YES;
             NSDictionary *dict = (NSDictionary *)responseObject;
             //2、初始化数据
             _fakeData = [NSMutableArray array];
@@ -171,6 +173,7 @@
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             //            UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
             //            [noDataView show];
+            notFirstFlag = YES;
             [self MBprogressViewHubLoading:@"网络延时"];
             [badInternetHub hide:YES afterDelay:1];
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
@@ -431,7 +434,7 @@
 #pragma mark - cameraSetDelegate
 - (void)logoutCameraAtindex:(int)index
 {
-    [self isLoadingView];
+//    [self isLoadingView];
     [self reloadMyCameraListView];
 //    [_headerView beginRefreshing];
 }
@@ -440,8 +443,8 @@
 - (void)playerViewBack:(NSString *)str
 {
     NSLog(@"str:%@",str);
-    [self reloadMyCameraListView];
-//    [_headerView beginRefreshing];
+//    [self reloadMyCameraListView];
+    [_headerView beginRefreshing];
 
 }
 
@@ -539,12 +542,16 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
+    
     NSString *accesstoken = [[SliderViewController sharedSliderController].dict objectForKey:@"accessToken"];
     if (![self.accessToken isEqualToString:accesstoken]) {
         self.accessToken = accesstoken;
         [self reloadMyCameraListView];
 //        [_headerView beginRefreshing];
-        
+        return;
+    }
+    if (notFirstFlag) {
+        [_headerView beginRefreshing];
     }
 }
 - (void)modifySuccess:(NSNotification *)notif
