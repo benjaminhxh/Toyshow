@@ -52,13 +52,13 @@
 //    background.image = [UIImage imageNamed:backGroundImage];
 //    [self.view addSubview:background];
 //    background.userInteractionEnabled = YES;
-    UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44+[UIApplication sharedApplication].statusBarFrame.size.height)];
+    UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 64)];
     topView.image = [UIImage imageNamed:navigationBarImageiOS7];
     topView.userInteractionEnabled = YES;
     [self.view addSubview:topView];
     
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(5, [UIApplication sharedApplication].statusBarFrame.size.height+5, 100, 22);
+    backBtn.frame = CGRectMake(5, 25, 100, 22);
     [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn setTitle:@"点播列表" forState:UIControlStateNormal];
@@ -66,7 +66,7 @@
     [topView addSubview:backBtn];
 
     UIButton *timeSelectBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    timeSelectBtn.frame = CGRectMake(kWidth-75, [UIApplication sharedApplication].statusBarFrame.size.height+2, 65, 35);
+    timeSelectBtn.frame = CGRectMake(kWidth-75, 22, 65, 35);
     [timeSelectBtn setTitle:@"时间选择" forState:UIControlStateNormal];
     [timeSelectBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [timeSelectBtn setBackgroundImage:[UIImage imageNamed:@"lishijilu@2x"] forState:UIControlStateNormal];
@@ -87,9 +87,10 @@
     dateView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:dateView];
     
-    pickView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 20, kWidth, 162)];
+    pickView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 34, kWidth, 160)];
     pickView.delegate = self;
     pickView.dataSource = self;
+    pickView.showsSelectionIndicator = YES;
     [dateView addSubview:pickView];
     
     UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -218,7 +219,7 @@
                 }
                 //请求点播缩略图
                 NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&latest=%d",self.accessToken,self.deviceID,1];
-                [[AFHTTPRequestOperationManager manager] POST:imageURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [[AFHTTPRequestOperationManager manager]POST:imageURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSDictionary *dict = (NSDictionary *)responseObject;
                     NSArray *imageArr = [NSArray array];
                     imageArr = [dict objectForKey:@"list"];
@@ -248,6 +249,56 @@
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
             
         }];
+        
+//        [[AFHTTPSessionManager manager] GET:urlStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//            NSDictionary *dict = (NSDictionary *)responseObject;
+////            NSLog(@"dict:%@",dict);
+//            //2、初始化数据
+//            _fakeData = [NSMutableArray array];
+//            downloadArr = [NSMutableArray array];
+//            downloadArr = [dict objectForKey:@"results"];
+////            NSLog(@"downloadArr:%@=====%d",downloadArr,downloadArr.count);
+//            
+//            if (downloadArr.count == 0) {
+//                [self MBprogressViewHubLoading:@"无录像"];
+//                [badInternetHub hide:YES afterDelay:1];
+//            }else
+//            {
+//                if (downloadArr.count>20) {
+//                    //从尾到头遍历选出最后那20条数据
+//                    for (int i = downloadArr.count; i > (downloadArr.count-20); i--) {
+////                        NSLog(@"downLoadArr:------i--------%d",i);
+//                        [vc->_fakeData addObject:[downloadArr objectAtIndex:i-1]];
+//                    }
+//                }
+//                else
+//                {
+//                    for (int i = downloadArr.count; i > 0; i--) {
+//                        [vc->_fakeData addObject:[downloadArr objectAtIndex:i-1]];
+//                    }
+//                }
+//                //请求点播缩略图
+//                NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&latest=%d",self.accessToken,self.deviceID,1];
+//                [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//                    NSDictionary *dict = (NSDictionary *)responseObject;
+//                    NSArray *imageArr = [NSArray array];
+//                    imageArr = [dict objectForKey:@"list"];
+//                    NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
+//                    downloadImageURL = [imageURLDict objectForKey:@"url"];
+//                } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//                    NSDictionary *errorDict = [error userInfo];
+//                    NSLog(@"errorDict:%@",errorDict);
+//                }];
+//            }
+//            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+//        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//            NSDictionary *errorDict = [error userInfo];
+//            NSLog(@"errorDict:%@",errorDict);
+//            [self MBprogressViewHubLoading:@"网络延时"];
+//            [badInternetHub hide:YES afterDelay:1];
+//            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+//
+//        }];
 
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
@@ -510,6 +561,16 @@
                 NSDictionary *errorDict = [error userInfo];
                 NSLog(@"errorDict:%@",errorDict);
             }];
+//            [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//                NSDictionary *dict = (NSDictionary *)responseObject;
+//                NSArray *imageArr = [NSArray array];
+//                imageArr = [dict objectForKey:@"list"];
+//                NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
+//                downloadImageURL = [imageURLDict objectForKey:@"url"];
+//            } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//                NSDictionary *errorDict = [error userInfo];
+//                NSLog(@"errorDict:%@",errorDict);
+//            }];
         }
         //请求点播缩略图
         //        NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
@@ -541,6 +602,72 @@
         [self MBprogressViewHubLoading:@"网络延时"];
         [badInternetHub hide:YES afterDelay:1];
     }];
+    
+//    [[AFHTTPSessionManager manager] GET:urlStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//        NSDictionary *dict = (NSDictionary *)responseObject;
+//        //            NSLog(@"dict:%@",dict);
+//        //2、初始化数据
+//        _fakeData = [NSMutableArray array];
+//        downloadArr = [NSMutableArray array];
+//        downloadArr = [dict objectForKey:@"results"];
+//        if (downloadArr.count == 0) {
+//            [self MBprogressViewHubLoading:@"无录像"];
+//            [badInternetHub hide:YES afterDelay:1];
+//        }else
+//        {
+//            if (downloadArr.count>20) {
+//                //从尾到头遍历选出最后那20条数据
+//                for (int i = downloadArr.count; i > (downloadArr.count-20); i--) {
+//                    [vc->_fakeData addObject:[downloadArr objectAtIndex:i-1]];
+//                }
+//            }else
+//            {
+//                for (int i = downloadArr.count; i > 0; i--) {
+//                    [vc->_fakeData addObject:[downloadArr objectAtIndex:i-1]];
+//                }
+//            }
+//            NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&latest=%d",self.accessToken,self.deviceID,1];
+//            [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//                NSDictionary *dict = (NSDictionary *)responseObject;
+//                NSArray *imageArr = [NSArray array];
+//                imageArr = [dict objectForKey:@"list"];
+//                NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
+//                downloadImageURL = [imageURLDict objectForKey:@"url"];
+//            } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//                NSDictionary *errorDict = [error userInfo];
+//                NSLog(@"errorDict:%@",errorDict);
+//            }];
+//        }
+//        //请求点播缩略图
+////        NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
+////        [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+////            NSDictionary *dict = (NSDictionary *)responseObject;
+////            imageURLARR = [NSMutableArray array];
+////            NSArray *imageArr = [NSArray array];
+////            imageArr = [dict objectForKey:@"list"];
+////            for (int i=imageArr.count; i>0; i--) {
+////                [imageURLARR addObject:[imageArr objectAtIndex:i-1]];
+////            }
+////            dispatch_async(dispatch_get_main_queue(), ^{
+////                [_tableView reloadData];
+////            });
+////            
+////        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+////            NSDictionary *errorDict = [error userInfo];
+////            NSLog(@"errorDict:%@",errorDict);
+////        }];
+//
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [_tableView reloadData];
+//        });
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        NSDictionary *errorDict = [error userInfo];
+//        NSLog(@"errorDict:%@",errorDict);
+////        UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+////        [noDataView show];
+//        [self MBprogressViewHubLoading:@"网络延时"];
+//        [badInternetHub hide:YES afterDelay:1];
+//    }];
 }
 
 - (void)MBprogressViewHubLoading:(NSString *)labtext

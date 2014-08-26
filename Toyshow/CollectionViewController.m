@@ -45,13 +45,13 @@
     [imgV setImage:[UIImage imageNamed:@"dabeijing@2x"]];
     [self.view addSubview:imgV];
     
-    UIImageView *navBar=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44+[UIApplication sharedApplication].statusBarFrame.size.height)];
+    UIImageView *navBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 64)];
     navBar.image=[UIImage imageNamed:navigationBarImageiOS7];
     //    navBar.alpha=0.8;
     navBar.userInteractionEnabled = YES;
     [self.view addSubview:navBar];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(5, [UIApplication sharedApplication].statusBarFrame.size.height+5, 90, 22);
+    backBtn.frame = CGRectMake(5, 25, 90, 22);
     [backBtn setTitle:@"我的收藏" forState:UIControlStateNormal];
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(leftClick) forControlEvents:UIControlEventTouchUpInside];
@@ -162,6 +162,36 @@
             [badInternetHub hide:YES afterDelay:1];
             [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
         }];
+        
+//        [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//            NSDictionary *dict = (NSDictionary *)responseObject;
+////            NSLog(@"收藏的dict:%@",dict);
+//            //2、初始化数据
+//            _fakeData = [NSMutableArray array];
+//            downloadArr = [NSMutableArray array];
+//            downloadArr = [dict objectForKey:@"device_list"];
+////            NSLog(@"downloadArr:%@",downloadArr);
+//            if (downloadArr.count == 0) {
+//                [self MBprogressViewHubLoading:@"无摄像头" withMode:4];
+//                [badInternetHub hide:YES afterDelay:1];
+//            }else
+//            {
+//                if (downloadArr.count>20) {
+//                    for (int i = 0; i < 20; i++) {
+//                        [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
+//                    }
+//                }else
+//                {
+//                    vc->_fakeData = (NSMutableArray *)downloadArr;
+//                }
+//            }
+//            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+//        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//
+//            [self MBprogressViewHubLoading:@"网络延时" withMode:4];
+//            [badInternetHub hide:YES afterDelay:1];
+//            [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
+//        }];
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
         [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationFail];

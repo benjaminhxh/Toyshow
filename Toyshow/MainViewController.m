@@ -67,19 +67,6 @@
 {
     
     [super viewDidLoad];
-//    NSString *str11 = @"北京(直播)";
-//    NSArray *arr = [NSArray arrayWithObjects:@1,@2,@3,@4, nil];
-//    NSLog(@"%@",[arr JSONString]);
-//    NSRange range = [str11 rangeOfString:@"ni"];
-//    NSLog(@"range:%d----%d",range.location,range.length);
-//    if (!range.length) {
-//        NSLog(@"000000000000000");
-//    }else
-//    {
-//        NSLog(@"111111111111111");
-//    }
-//    NSString *newStr = [str11 substringToIndex:str11.length-4];
-//    NSLog(@"newStr.length:%d  %@",newStr.length,newStr);
     //先拼接再MD5加密
     NSString *string = [NSString stringWithFormat:@"%@%@%@%@",APP_ID,expire,APP_KEY,APP_SecrectKey];
     realSign = [self getMd5_32Bit_String:string];
@@ -91,7 +78,7 @@
     UIImageView *imgV=[[UIImageView alloc] initWithFrame:self.view.bounds];
     [imgV setImage:[UIImage imageNamed:@"dabeijing@2x"]];
     [self.view addSubview:imgV];
-    
+//    CGRect rect;
     float backHeight;
     if (iOS7) {
         backHeight = kStatusbarHeight + 5;
@@ -101,10 +88,10 @@
     }
     UIImageView *navBar=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 64)];
     navBar.image=[UIImage imageNamed:navigationBarImageiOS7];
-    //    navBar.alpha=0.8;
+//    navBar.alpha=0.8;
     navBar.userInteractionEnabled = YES;
     [self.view addSubview:navBar];
-    
+
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     backBtn.frame = CGRectMake(5, backHeight, 126, 22);
     
@@ -112,6 +99,7 @@
     [backBtn setTitle:@"分享的摄像头" forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(leftItemClick) forControlEvents:UIControlEventTouchUpInside];
     [navBar addSubview:backBtn];
+
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, 320, [UIScreen mainScreen].bounds.size.height-65) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;

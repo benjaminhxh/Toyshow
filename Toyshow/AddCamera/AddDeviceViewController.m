@@ -80,6 +80,7 @@
     UILabel *deviceL = [[UILabel alloc] initWithFrame:CGRectMake(10, 6, 100, 30)];
     deviceL.text = @"设备ID:";
     deviceL.backgroundColor = [UIColor clearColor];
+
     [scrollView addSubview:deviceL];
     UITextField *deviceF = [[UITextField alloc] initWithFrame:CGRectMake(100, 6, 180, 30)];
     deviceF.text = self.deviceID;
@@ -91,6 +92,7 @@
     UILabel *deviceDetail = [[UILabel alloc] initWithFrame:CGRectMake(10, 46, 100, 30)];
     deviceDetail.text = @"设备描述:";
     deviceDetail.backgroundColor = [UIColor clearColor];
+
     [scrollView addSubview:deviceDetail];
     deviceDetailF = [[UITextField alloc] initWithFrame:CGRectMake(100, 46, 180, 30)];
     deviceDetailF.borderStyle = UITextBorderStyleRoundedRect;
@@ -101,6 +103,7 @@
     UILabel *SSIDL = [[UILabel alloc] initWithFrame:CGRectMake(10, 86, 100, 30)];
     SSIDL.text = @"WiFi名称:";
     SSIDL.backgroundColor = [UIColor clearColor];
+
     [scrollView addSubview:SSIDL];
     SSIDF = [[UITextField alloc] initWithFrame:CGRectMake(100, 86, 180, 30)];
     SSIDF.borderStyle = UITextBorderStyleRoundedRect;
@@ -113,6 +116,7 @@
     UILabel *SSIDPW = [[UILabel alloc] initWithFrame:CGRectMake(10, 126, 100, 30)];
     SSIDPW.text = @"WiFi密码:";
     SSIDPW.backgroundColor = [UIColor clearColor];
+
     [scrollView addSubview:SSIDPW];
     SSIDPWF = [[UITextField alloc] initWithFrame:CGRectMake(100, 126, 180, 30)];
     SSIDPWF.borderStyle = UITextBorderStyleRoundedRect;
@@ -124,6 +128,7 @@
     UILabel *SSIDPWconfirm = [[UILabel alloc] initWithFrame:CGRectMake(10, 166, 80, 30)];
     SSIDPWconfirm.text = @"确认密码:";
     SSIDPWconfirm.backgroundColor = [UIColor clearColor];
+
     [scrollView addSubview:SSIDPWconfirm];
     SSIDPWFconfirm = [[UITextField alloc] initWithFrame:CGRectMake(100, 166, 180, 30)];
     SSIDPWFconfirm.borderStyle = UITextBorderStyleRoundedRect;
@@ -138,12 +143,14 @@
     UILabel *securtyStyleLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 211, 145, 24)];
     securtyStyleLab.text = @"高级设置";
     securtyStyleLab.backgroundColor = [UIColor clearColor];
+
     securtyStyleLab.font = [UIFont systemFontOfSize:24];
     [scrollView addSubview:securtyStyleLab];
     
     UILabel *ipStyleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 246, 140, 34)];
     ipStyleLabel.text = @"IP地址获取方式:";
     ipStyleLabel.backgroundColor = [UIColor clearColor];
+
     [scrollView addSubview:ipStyleLabel];
     ipStyleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     ipStyleBtn.frame = CGRectMake(220, 246, 80, 34);

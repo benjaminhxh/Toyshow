@@ -61,6 +61,7 @@
     [UIView setAnimationDuration:duration];
     //设置视图旋转
     self.view.bounds = CGRectMake(0, 0, kWidth,kHeight);
+    NSLog(@"kwidth:%f===========,kheight:%f",kWidth,kHeight);
     self.view.transform = CGAffineTransformMakeRotation(M_PI_2);
     [UIView commitAnimations];
     self.view.backgroundColor = [UIColor blackColor];
@@ -271,6 +272,7 @@
 //        currentProgress.backgroundColor = [UIColor redColor];
         currentProgress.textColor = [UIColor whiteColor];
         currentProgress.text = @"00:00:00";
+    currentProgress.backgroundColor = [UIColor clearColor];
         currentProgress.font = [UIFont systemFontOfSize:8];
         [bottomView addSubview:currentProgress];
         //剩余时长
@@ -279,6 +281,7 @@
 //        remainsProgress.backgroundColor = [UIColor grayColor];
 //        remainsProgress.text = @"01:52:10";
         remainsProgress.font = [UIFont systemFontOfSize:8];
+    remainsProgress.backgroundColor = [UIColor clearColor];
         [bottomView addSubview:remainsProgress];
         
         //下载进度条

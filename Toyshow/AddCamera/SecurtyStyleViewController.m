@@ -58,6 +58,7 @@
     [finishBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [finishBtn addTarget:self action:@selector(finishBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:finishBtn];
+
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
     scrollView.contentSize = CGSizeMake(kWidth, kHeight);
     [self.view addSubview:scrollView];

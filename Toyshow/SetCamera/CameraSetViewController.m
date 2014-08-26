@@ -55,19 +55,20 @@
 //    background.image = [UIImage imageNamed:backGroundImage];
 //    [self.view addSubview:background];
 //    background.userInteractionEnabled = YES;
-    UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44+[UIApplication sharedApplication].statusBarFrame.size.height)];
+    UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 64)];
     topView.image = [UIImage imageNamed:navigationBarImageiOS7];
     topView.userInteractionEnabled = YES;
     [self.view addSubview:topView];
+    
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(5, [UIApplication sharedApplication].statusBarFrame.size.height+3, 120, 22);
+    backBtn.frame = CGRectMake(5, 25, 120, 22);
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn setTitle:@"摄像头设置" forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtn:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backBtn];
     
     UIButton *seeVideoBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    seeVideoBtn.frame = CGRectMake(kWidth-65, [UIApplication sharedApplication].statusBarFrame.size.height+2, 55, 35);
+    seeVideoBtn.frame = CGRectMake(kWidth-65, 25-3, 55, 35);
     [seeVideoBtn setTitle:@"看录像" forState:UIControlStateNormal];
     [seeVideoBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [seeVideoBtn setBackgroundImage:[UIImage imageNamed:@"lishijilu@2x"] forState:UIControlStateNormal];
@@ -595,6 +596,18 @@
         _loginoutView.hidden = YES;
         [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
     }];
+//    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//        NSDictionary *dict = (NSDictionary*)responseObject;
+//        NSLog(@"dict:%@",dict);
+//        videooffON.on = self.videoRecordIndex;
+//        _loginoutView.hidden = YES;
+//        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
+//        
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        videooffON.on = !self.videoRecordIndex;
+//        _loginoutView.hidden = YES;
+//        [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
+//    }];
 }
 ////画面是否旋转
 //- (void)flipImageoffONEventAction:(id)sender
@@ -656,6 +669,18 @@
         _loginoutView.hidden = YES;
         [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
     }];
+//    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//        NSDictionary *dict = (NSDictionary*)responseObject;
+//        NSLog(@"dict:%@",dict);
+//        stateLightoffON.on = self.lightStatueIndex;
+//        _loginoutView.hidden = YES;
+//        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
+//        
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        stateLightoffON.on = !self.lightStatueIndex;
+//        _loginoutView.hidden = YES;
+//        [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
+//    }];
 
 }
 
@@ -699,6 +724,18 @@
         _loginoutView.hidden = YES;
         [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
     }];
+//    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//        NSDictionary *dict = (NSDictionary*)responseObject;
+//        NSLog(@"dict:%@",dict);
+//        timeHidden.on = self.timeShowIndex;
+//        _loginoutView.hidden = YES;
+//        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
+//        
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        timeHidden.on = !self.timeShowIndex;
+//        _loginoutView.hidden = YES;
+//        [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
+//    }];
 }
 
 //完成设置
@@ -916,6 +953,28 @@
         [self alertViewShowWithTitle:@"获取设备信息失败" andMessage:[error localizedDescription]];
         //        NSLog(@"errorInfo:%@",[error userInfo]);
     }];
+//    [[AFHTTPSessionManager manager] POST:getInfoURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//        NSDictionary *dict = (NSDictionary*)responseObject;
+//        NSArray *arr = [dict objectForKey:@"data"];
+//        NSDictionary *userData = [arr lastObject];
+////        NSLog(@"userData:%@",userData);
+//        NSString *userDataString = [userData objectForKey:@"userData"];
+//        NSLog(@"userDataDict:%@",userDataString);
+//        NSData *resData = [[NSData alloc] initWithData:[userDataString dataUsingEncoding:NSUTF8StringEncoding]];
+//        //系统自带JSON解析
+//        cameraInfoDict = [NSDictionary dictionary];
+//        cameraInfoDict = [NSJSONSerialization JSONObjectWithData:resData options:NSJSONReadingMutableLeaves error:nil];
+//        count = 8;
+//        _loginoutView.hidden = YES;
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [_tableView reloadData];
+////            [self.view setNeedsDisplay]; //7
+//        });
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        _loginoutView.hidden = YES;
+//        [self alertViewShowWithTitle:@"获取设备信息失败" andMessage:[error localizedDescription]];
+////        NSLog(@"errorInfo:%@",[error userInfo]);
+//    }];
 }
 
 - (void)alertViewShowWithTitle:(NSString*)string andMessage:(NSString*)message

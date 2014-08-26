@@ -20,6 +20,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="94"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" highlightedImage="xuanzhong_tiao.png" translatesAutoresizingMaskIntoConstraints="NO" id="n5d-Sz-WV9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="94"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shipinkuang.png" translatesAutoresizingMaskIntoConstraints="NO" id="npZ-SN-o4R">
                         <rect key="frame" x="6" y="14" width="105" height="65"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -44,5 +48,6 @@
     </objects>
     <resources>
         <image name="shipinkuang.png" width="102" height="57"/>
+        <image name="xuanzhong_tiao.png" width="320" height="95"/>
     </resources>
 </document>

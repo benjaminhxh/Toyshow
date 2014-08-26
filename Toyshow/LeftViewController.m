@@ -7,7 +7,7 @@
 //
 
 #import "LeftViewController.h"
-#import "ZBarSDK.h"
+//#import "ZBarSDK.h"
 #import <Frontia/Frontia.h>
 #import <Frontia/FrontiaShare.h>
 #import <Frontia/FrontiaShareContent.h>
@@ -26,7 +26,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "ShareCamereViewController.h"
 
-@interface LeftViewController ()<UITableViewDataSource,UITableViewDelegate,ZBarReaderDelegate,UIAlertViewDelegate,WXApiDelegate>
+@interface LeftViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,WXApiDelegate>
 {
     NSArray *_listArr,*_imageArr;
     UILabel *_titleTextL,*loginOrOutL;
@@ -148,6 +148,7 @@
             loginOrOutL = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 123, 50)];
             loginOrOutL.textColor = [UIColor whiteColor];
             loginOrOutL.backgroundColor = [UIColor clearColor];
+
             [self.titleText addSubview:loginOrOutL];
             if ([self checkAccessTokenIsExist]) {
                 loginOrOutL.text = @"退出";
@@ -184,7 +185,14 @@
             break;
         case 3://添加设备、扫描二维码
             if ([self accessTokenIsExist]) {
-                [self scanBtnAction];
+//                [self scanBtnAction];
+                NSLog(@"扫描二维码");
+                AddDeviceViewController *addDeviceVC = [[AddDeviceViewController alloc] init];
+//                addDeviceVC.deviceID = result;
+                addDeviceVC.access_token = self.accessToken;
+                addDeviceVC.userID = [[NSUserDefaults standardUserDefaults] stringForKey:kUserName];
+                [self.navigationController pushViewController:addDeviceVC animated:YES];
+
             }
             break;
         case 4://登录or退出
@@ -234,7 +242,7 @@
     }
     return YES;
 }
-
+/*
 #pragma mark - ZBar 二维码扫描
 //扫描二维码
 -(void)scanBtnAction
@@ -351,6 +359,7 @@
         }
     }];
 }
+*/
 #pragma mark - baidu登陆
 //登录按钮
 - (void)signonButtonClicked {

@@ -50,7 +50,7 @@
     [imgV setImage:[UIImage imageNamed:@"dabeijing@2x"]];
     [self.view addSubview:imgV];
     
-    UIImageView *navBar=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44+[UIApplication sharedApplication].statusBarFrame.size.height)];
+    UIImageView *navBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 64)];
     navBar.image=[UIImage imageNamed:navigationBarImageiOS7];
     //    navBar.alpha=0.8;
     navBar.userInteractionEnabled = YES;
@@ -58,7 +58,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modifySuccess:) name:@"modifySuccess" object:nil];
 
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(5, [UIApplication sharedApplication].statusBarFrame.size.height+5, 120, 22);
+    backBtn.frame = CGRectMake(5, 25, 120, 22);
     [backBtn setTitle:@"我的摄像头" forState:UIControlStateNormal];
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(leftClick) forControlEvents:UIControlEventTouchUpInside];
@@ -175,6 +175,37 @@
             [badInternetHub hide:YES afterDelay:1];
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
         }];
+//        [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//            NSDictionary *dict = (NSDictionary *)responseObject;
+//            //2、初始化数据
+//            _fakeData = [NSMutableArray array];
+//            downloadArr = [NSMutableArray array];
+//            downloadArr = [dict objectForKey:@"list"];
+////            NSLog(@"downloadArr:%@",downloadArr);
+//            if (downloadArr.count == 0) {
+////                UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"无摄像头" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+////                [noDataView show];
+//                [self MBprogressViewHubLoading:@"无摄像头"];
+//                [badInternetHub hide:YES afterDelay:1];
+//            }else
+//            {
+//                if (downloadArr.count>20) {
+//                    for (int i = 0; i < 20; i++) {
+//                        [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
+//                    }
+//                }else
+//                {
+//                    vc->_fakeData = (NSMutableArray *)downloadArr;
+//                }
+//            }
+//        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+//        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+////            UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+////            [noDataView show];
+//            [self MBprogressViewHubLoading:@"网络延时"];
+//            [badInternetHub hide:YES afterDelay:1];
+//            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+//        }];
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
         [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationFail];
@@ -445,6 +476,29 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_loadingView hide:YES];
     }];
+//    [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//        NSDictionary *dict = (NSDictionary *)responseObject;
+//        //2、初始化数据
+//        _fakeData = [NSMutableArray array];
+//        downloadArr = [NSMutableArray array];
+//        downloadArr = [dict objectForKey:@"list"];
+//        NSLog(@"downloadArr:%@",downloadArr);
+//        [_loadingView hide:YES];
+//        
+//        if (downloadArr.count>20) {
+//            for (int i = 0; i < 20; i++) {
+//                [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
+//            }
+//        }else
+//        {
+//            vc->_fakeData = (NSMutableArray *)downloadArr;
+//        }
+//        
+//        [_tableView reloadData];//刷新界面
+//        
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        [_loadingView hide:YES];
+//    }];
     
     //Url示例:https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=46192376&access_token=52.458ff6f376002020f442208e094ca7b7.2592000.1405677428.906252268-2271149&device_type=1&desc=都是测试数据
 }

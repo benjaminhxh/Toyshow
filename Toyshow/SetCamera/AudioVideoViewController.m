@@ -35,13 +35,12 @@
     self.view.backgroundColor = [UIColor whiteColor];
     UIImageView *background = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     background.userInteractionEnabled = YES;
-    UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44+[UIApplication sharedApplication].statusBarFrame.size.height)];
+    UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 64)];
     topView.image = [UIImage imageNamed:navigationBarImageiOS7];
     topView.userInteractionEnabled = YES;
     [self.view addSubview:topView];
-    
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(5, [UIApplication sharedApplication].statusBarFrame.size.height+5, 118, 22);
+    backBtn.frame = CGRectMake(5, 25, 118, 22);
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
     [backBtn setTitle:@"音视频设置" forState:UIControlStateNormal];
@@ -54,7 +53,7 @@
     [self.view addGestureRecognizer:recognizer];
 
     UIButton *saveBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    saveBtn.frame = CGRectMake(kWidth-65, [UIApplication sharedApplication].statusBarFrame.size.height+2, 55, 35);
+    saveBtn.frame = CGRectMake(kWidth-65, 25-5, 55, 35);
     [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
     [saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [saveBtn setBackgroundImage:[UIImage imageNamed:@"lishijilu@2x"] forState:UIControlStateNormal];
@@ -189,6 +188,16 @@
         _progressView.hidden = YES;
         [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
     }];
+//    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//        NSDictionary *dict = (NSDictionary*)responseObject;
+//        NSLog(@"dict:%@",dict);
+//        _progressView.hidden = YES;
+//        [self alertViewShowWithTitle:@"设置成功" andMessage:nil];
+//        [self backToRootViewController];
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        _progressView.hidden = YES;
+//        [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
+//    }];
 }
 
 - (void)backAction:(id)sender

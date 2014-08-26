@@ -33,13 +33,13 @@
     self.view.backgroundColor = [UIColor whiteColor];
     UIImageView *background = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     background.userInteractionEnabled = YES;
-    UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44+[UIApplication sharedApplication].statusBarFrame.size.height)];
+    UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 64)];
     topView.image = [UIImage imageNamed:navigationBarImageiOS7];
     topView.userInteractionEnabled = YES;
     [self.view addSubview:topView];
-    
+
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(5, [UIApplication sharedApplication].statusBarFrame.size.height+5, 162, 22);
+    backBtn.frame = CGRectMake(5, 25, 162, 22);
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
     [backBtn setTitle:@"NTSC或PAL制式" forState:UIControlStateNormal];

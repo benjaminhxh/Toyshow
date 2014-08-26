@@ -19,8 +19,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" highlightedImage="xuanzhongtiao.png" translatesAutoresizingMaskIntoConstraints="NO" id="oiF-aP-0HY">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" highlightedImage="xuanzhongtiao1.png" translatesAutoresizingMaskIntoConstraints="NO" id="oiF-aP-0HY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </imageView>
@@ -45,7 +45,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="xuanzhongtiao.png" width="320" height="70"/>
+        <image name="xuanzhongtiao1.png" width="320" height="53"/>
         <image name="youjiantou.png" width="10" height="19"/>
     </resources>
 </document>
