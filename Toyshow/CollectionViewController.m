@@ -133,14 +133,14 @@
         // 进入刷新状态就会回调这个Block
         //向服务器发起请求
         NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listsubscribe&access_token=%@",accessToken];
-        [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        [[AFHTTPRequestOperationManager manager] GET:urlSTR parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
-//            NSLog(@"收藏的dict:%@",dict);
+            //            NSLog(@"收藏的dict:%@",dict);
             //2、初始化数据
             _fakeData = [NSMutableArray array];
             downloadArr = [NSMutableArray array];
             downloadArr = [dict objectForKey:@"device_list"];
-//            NSLog(@"downloadArr:%@",downloadArr);
+            //            NSLog(@"downloadArr:%@",downloadArr);
             if (downloadArr.count == 0) {
                 [self MBprogressViewHubLoading:@"无摄像头" withMode:4];
                 [badInternetHub hide:YES afterDelay:1];
@@ -156,8 +156,8 @@
                 }
             }
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
-        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
             [self MBprogressViewHubLoading:@"网络延时" withMode:4];
             [badInternetHub hide:YES afterDelay:1];
             [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
@@ -371,7 +371,7 @@
     //向服务器发起请求
     NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listsubscribe&access_token=%@",accessToken];
     [self MBprogressViewHubLoading:@"" withMode:0];
-    [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[AFHTTPRequestOperationManager manager] GET:urlSTR parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
         NSLog(@"收藏的dict:%@",dict);
         //2、初始化数据
@@ -392,13 +392,13 @@
             {
                 vc->_fakeData = (NSMutableArray *)downloadArr;
             }
-//            [self MBprogressViewHubLoading:@"" withMode:0];
+            //            [self MBprogressViewHubLoading:@"" withMode:0];
             [badInternetHub hide:YES afterDelay:1];
         }
         
         [_tableView reloadData];//刷新界面
         
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self MBprogressViewHubLoading:@"网络延时" withMode:4];
         [badInternetHub hide:YES afterDelay:1];
     }];

@@ -189,14 +189,14 @@
       
         //请求点播时间
         NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=playlist&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
-        [[AFHTTPSessionManager manager] GET:urlStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        [[AFHTTPRequestOperationManager manager] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
-//            NSLog(@"dict:%@",dict);
+            //            NSLog(@"dict:%@",dict);
             //2、初始化数据
             _fakeData = [NSMutableArray array];
             downloadArr = [NSMutableArray array];
             downloadArr = [dict objectForKey:@"results"];
-//            NSLog(@"downloadArr:%@=====%d",downloadArr,downloadArr.count);
+            //            NSLog(@"downloadArr:%@=====%d",downloadArr,downloadArr.count);
             
             if (downloadArr.count == 0) {
                 [self MBprogressViewHubLoading:@"无录像"];
@@ -206,7 +206,7 @@
                 if (downloadArr.count>20) {
                     //从尾到头遍历选出最后那20条数据
                     for (int i = downloadArr.count; i > (downloadArr.count-20); i--) {
-//                        NSLog(@"downLoadArr:------i--------%d",i);
+                        //                        NSLog(@"downLoadArr:------i--------%d",i);
                         [vc->_fakeData addObject:[downloadArr objectAtIndex:i-1]];
                     }
                 }
@@ -230,13 +230,13 @@
                 }];
             }
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
-        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSDictionary *errorDict = [error userInfo];
             NSLog(@"errorDict:%@",errorDict);
             [self MBprogressViewHubLoading:@"网络延时"];
             [badInternetHub hide:YES afterDelay:1];
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
-
+            
         }];
 
         // 模拟延迟加载数据，因此2秒后才调用）
@@ -466,7 +466,7 @@
     __unsafe_unretained ThumbnailViewController *vc = self;
     //请求点播时间
     NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=playlist&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
-    [[AFHTTPSessionManager manager] GET:urlStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[AFHTTPRequestOperationManager manager] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
         //            NSLog(@"dict:%@",dict);
         //2、初始化数据
@@ -502,32 +502,32 @@
             }];
         }
         //请求点播缩略图
-//        NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
-//        [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//            NSDictionary *dict = (NSDictionary *)responseObject;
-//            imageURLARR = [NSMutableArray array];
-//            NSArray *imageArr = [NSArray array];
-//            imageArr = [dict objectForKey:@"list"];
-//            for (int i=imageArr.count; i>0; i--) {
-//                [imageURLARR addObject:[imageArr objectAtIndex:i-1]];
-//            }
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [_tableView reloadData];
-//            });
-//            
-//        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//            NSDictionary *errorDict = [error userInfo];
-//            NSLog(@"errorDict:%@",errorDict);
-//        }];
-
+        //        NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
+        //        [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        //            NSDictionary *dict = (NSDictionary *)responseObject;
+        //            imageURLARR = [NSMutableArray array];
+        //            NSArray *imageArr = [NSArray array];
+        //            imageArr = [dict objectForKey:@"list"];
+        //            for (int i=imageArr.count; i>0; i--) {
+        //                [imageURLARR addObject:[imageArr objectAtIndex:i-1]];
+        //            }
+        //            dispatch_async(dispatch_get_main_queue(), ^{
+        //                [_tableView reloadData];
+        //            });
+        //
+        //        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        //            NSDictionary *errorDict = [error userInfo];
+        //            NSLog(@"errorDict:%@",errorDict);
+        //        }];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [_tableView reloadData];
         });
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSDictionary *errorDict = [error userInfo];
         NSLog(@"errorDict:%@",errorDict);
-//        UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-//        [noDataView show];
+        //        UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        //        [noDataView show];
         [self MBprogressViewHubLoading:@"网络延时"];
         [badInternetHub hide:YES afterDelay:1];
     }];
