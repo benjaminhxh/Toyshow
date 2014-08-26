@@ -171,13 +171,13 @@
         //向服务器发起请求
         NSString *sharelistURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listshare&sign=%@&expire=%@&start=%d&num=100",sign,expire,0];
 //        NSLog(@"shareListUrl:%@",sharelistURL);
-        [[AFHTTPSessionManager manager] GET:sharelistURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        [[AFHTTPRequestOperationManager manager] GET:sharelistURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
             //2、初始化数据
             _fakeData = [NSMutableArray array];
             downloadArr = [NSArray array];
             downloadArr = [dict objectForKey:@"device_list"];
-//            NSLog(@"downloadArr:%@",downloadArr);
+            //            NSLog(@"downloadArr:%@",downloadArr);
             if (downloadArr.count == 0) {
                 [self MBprogressViewHubLoading:@"无分享的摄像头"];
                 [badInternetHub hide:YES afterDelay:1];
@@ -193,13 +193,13 @@
                 }
             }
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
-        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//            NSLog(@"下载数据失败");
-//            UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            //            NSLog(@"下载数据失败");
+            //            UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil
             [self MBprogressViewHubLoading:@"网络延时"];
             [badInternetHub hide:YES afterDelay:1];
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
-
+            
         }];
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
@@ -358,9 +358,9 @@
         NSString *shareID = [dict objectForKey:@"shareid"];
         NSString *uk = [dict objectForKey:@"uk"];
         NSString *liveURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareID,uk];
-        [[AFHTTPSessionManager manager] GET:liveURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        [[AFHTTPRequestOperationManager manager]GET:liveURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dictResponse = (NSDictionary *)responseObject;
-//            NSLog(@"公共摄像头:%@",dictResponse);
+            //            NSLog(@"公共摄像头:%@",dictResponse);
             shareVC.isLive = YES;
             shareVC.isShare = YES;
             shareVC.shareId = shareID;
@@ -371,7 +371,7 @@
             NSLog(@"shareVC.url：%@",shareVC.url);
             [_loadingView removeFromSuperview];
             [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
-        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"error++++++++");
             [_loadingView removeFromSuperview];
             [self MBprogressViewHubLoading:@"网络延时"];

@@ -73,7 +73,7 @@
     [timeSelectBtn addTarget:self action:@selector(timeSelectAction:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:timeSelectBtn];
 
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, 320, [UIScreen mainScreen].bounds.size.height-65) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, kWidth, [UIScreen mainScreen].bounds.size.height-65) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.backgroundColor = [UIColor clearColor];
@@ -83,11 +83,11 @@
     et = (long)[datenow timeIntervalSince1970];
     st = et - 7*24*3600;
     
-    dateView = [[UIView alloc] initWithFrame:CGRectMake(0, 480, 320, 202)];
+    dateView = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight, kWidth, 202)];
     dateView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:dateView];
     
-    pickView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 20, 320, 162)];
+    pickView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 20, kWidth, 162)];
     pickView.delegate = self;
     pickView.dataSource = self;
     [dateView addSubview:pickView];
@@ -135,7 +135,7 @@
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [_tableView addGestureRecognizer:recognizer];
 
-    noInternetL = [[UILabel alloc] initWithFrame:CGRectMake(0, 65, 320, 44)];
+    noInternetL = [[UILabel alloc] initWithFrame:CGRectMake(0, 65, kWidth, 44)];
     noInternetL.text = @"当前网络不可用，请检查你的网络设置";
     noInternetL.backgroundColor = [UIColor grayColor];
     noInternetL.font = [UIFont systemFontOfSize:14];
@@ -143,7 +143,7 @@
     noInternetL.hidden = YES;
     [self.view addSubview:noInternetL];
     
-    noDataLoadL = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-44, 320, 44)];
+    noDataLoadL = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-44, kWidth, 44)];
     noDataLoadL.text = @"无更多数据加载";
     noDataLoadL.backgroundColor = [UIColor grayColor];
     noDataLoadL.font = [UIFont systemFontOfSize:14];
@@ -427,21 +427,21 @@
 - (void)timeSelectAction:(id)sender
 {
     [UIView animateWithDuration:0.3 animations:^{
-        dateView.frame = CGRectMake(0, kHeight-202, 320, 202);
+        dateView.frame = CGRectMake(0, kHeight-202, kWidth, 202);
     }];
 }
 
 - (void)cancelDatePickSelectAction:(id)sender
 {
     [UIView animateWithDuration:0.3 animations:^{
-        dateView.frame = CGRectMake(0, kHeight, 320, 202);
+        dateView.frame = CGRectMake(0, kHeight, kWidth, 202);
     }];
 }
 
 - (void)OKBtnDatePickSelectAction:(id)sender
 {
     [UIView animateWithDuration:0.3 animations:^{
-        dateView.frame = CGRectMake(0, kHeight, 320, 202);
+        dateView.frame = CGRectMake(0, kHeight, kWidth, 202);
     }];
     st = [[timeIntArr objectAtIndex:pickRow] longValue];
     if (pickRow==0) {
@@ -561,7 +561,7 @@
 {
     [super viewWillDisappear:animated];
     [UIView animateWithDuration:0.3 animations:^{
-        dateView.frame = CGRectMake(0, kHeight, 320, 202);
+        dateView.frame = CGRectMake(0, kHeight, kWidth, 202);
     }];
 }
 - (void)didReceiveMemoryWarning
