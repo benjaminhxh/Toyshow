@@ -144,16 +144,16 @@
         // 进入刷新状态就会回调这个Block
         //向服务器发起请求
         NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=list&access_token=%@&device_type=1",self.accessToken];
-        [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        [[AFHTTPRequestOperationManager manager] GET:urlSTR parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
             //2、初始化数据
             _fakeData = [NSMutableArray array];
             downloadArr = [NSMutableArray array];
             downloadArr = [dict objectForKey:@"list"];
-//            NSLog(@"downloadArr:%@",downloadArr);
+            //            NSLog(@"downloadArr:%@",downloadArr);
             if (downloadArr.count == 0) {
-//                UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"无摄像头" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-//                [noDataView show];
+                //                UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"无摄像头" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+                //                [noDataView show];
                 [self MBprogressViewHubLoading:@"无摄像头"];
                 [badInternetHub hide:YES afterDelay:1];
             }else
@@ -167,10 +167,10 @@
                     vc->_fakeData = (NSMutableArray *)downloadArr;
                 }
             }
-        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
-        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//            UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-//            [noDataView show];
+            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            //            UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+            //            [noDataView show];
             [self MBprogressViewHubLoading:@"网络延时"];
             [badInternetHub hide:YES afterDelay:1];
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
@@ -422,7 +422,7 @@
     __unsafe_unretained MyCameraViewController *vc = self;
     //向服务器发起请求
     NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=list&access_token=%@&device_type=1",self.accessToken];
-    [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[AFHTTPRequestOperationManager manager] GET:urlSTR parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
         //2、初始化数据
         _fakeData = [NSMutableArray array];
@@ -442,7 +442,7 @@
         
         [_tableView reloadData];//刷新界面
         
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_loadingView hide:YES];
     }];
     
