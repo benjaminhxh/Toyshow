@@ -56,6 +56,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     UIImageView *imgV=[[UIImageView alloc] initWithFrame:self.view.bounds];
     [imgV setImage:[UIImage imageNamed:backGroundImage]];
     [self.view addSubview:imgV];
@@ -85,6 +86,7 @@
     //用户名
     self.userNameL = [[UILabel alloc] initWithFrame:CGRectMake(20, 105, 180, 20)];
     self.userNameL.textColor = [UIColor whiteColor];
+    self.userNameL.backgroundColor = [UIColor clearColor];
     self.userNameL.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.userNameL];
     UITableView *tableV=[[UITableView alloc] initWithFrame:CGRectMake(0, 130, leftWidth, self.view.frame.size.height-130)];
@@ -145,6 +147,7 @@
         if (4 == indexPath.row) {
             loginOrOutL = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 123, 50)];
             loginOrOutL.textColor = [UIColor whiteColor];
+            loginOrOutL.backgroundColor = [UIColor clearColor];
             [self.titleText addSubview:loginOrOutL];
             if ([self checkAccessTokenIsExist]) {
                 loginOrOutL.text = @"退出";

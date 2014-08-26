@@ -160,6 +160,7 @@
     //标题
     titleL = [[UILabel alloc] initWithFrame:CGRectMake(55, 12, kWidth-55-20, 20)];
     titleL.textColor = [UIColor whiteColor];
+    titleL.backgroundColor = [UIColor clearColor];
     titleL.font = [UIFont systemFontOfSize:12];
     titleL.text = self.playerTitle;
     [topView addSubview:titleL];
@@ -169,6 +170,7 @@
     timeL.text = @"12:12:12";
     timeL.font = [UIFont systemFontOfSize:9];
     timeL.textColor = [UIColor whiteColor];
+    timeL.backgroundColor = [UIColor clearColor];
     [topView addSubview:timeL];
 
     //直播

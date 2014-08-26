@@ -583,14 +583,14 @@
     NSString *setCameraDataString = [setCameraDataDict JSONString];
     NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
     NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
-    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[AFHTTPRequestOperationManager manager] POST:setURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary*)responseObject;
         NSLog(@"dict:%@",dict);
         videooffON.on = self.videoRecordIndex;
         _loginoutView.hidden = YES;
         [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
         
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         videooffON.on = !self.videoRecordIndex;
         _loginoutView.hidden = YES;
         [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
@@ -644,14 +644,14 @@
     NSString *setCameraDataString = [setCameraDataDict JSONString];
     NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
     NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
-    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[AFHTTPRequestOperationManager manager] POST:setURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary*)responseObject;
         NSLog(@"dict:%@",dict);
         stateLightoffON.on = self.lightStatueIndex;
         _loginoutView.hidden = YES;
         [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
         
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         stateLightoffON.on = !self.lightStatueIndex;
         _loginoutView.hidden = YES;
         [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
@@ -687,14 +687,14 @@
     NSString *setCameraDataString = [setCameraDataDict JSONString];
     NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
     NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
-    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[AFHTTPRequestOperationManager manager] POST:setURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary*)responseObject;
         NSLog(@"dict:%@",dict);
         timeHidden.on = self.timeShowIndex;
         _loginoutView.hidden = YES;
         [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
         
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         timeHidden.on = !self.timeShowIndex;
         _loginoutView.hidden = YES;
         [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
@@ -894,11 +894,11 @@
 
     NSString *getInfoURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
     NSLog(@"getInfoURL:%@",getInfoURL);
-    [[AFHTTPSessionManager manager] POST:getInfoURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[AFHTTPRequestOperationManager manager] POST:getInfoURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary*)responseObject;
         NSArray *arr = [dict objectForKey:@"data"];
         NSDictionary *userData = [arr lastObject];
-//        NSLog(@"userData:%@",userData);
+        //        NSLog(@"userData:%@",userData);
         NSString *userDataString = [userData objectForKey:@"userData"];
         NSLog(@"userDataDict:%@",userDataString);
         NSData *resData = [[NSData alloc] initWithData:[userDataString dataUsingEncoding:NSUTF8StringEncoding]];
@@ -909,12 +909,12 @@
         _loginoutView.hidden = YES;
         dispatch_async(dispatch_get_main_queue(), ^{
             [_tableView reloadData];
-//            [self.view setNeedsDisplay]; //7
+            //            [self.view setNeedsDisplay]; //7
         });
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         _loginoutView.hidden = YES;
         [self alertViewShowWithTitle:@"获取设备信息失败" andMessage:[error localizedDescription]];
-//        NSLog(@"errorInfo:%@",[error userInfo]);
+        //        NSLog(@"errorInfo:%@",[error userInfo]);
     }];
 }
 

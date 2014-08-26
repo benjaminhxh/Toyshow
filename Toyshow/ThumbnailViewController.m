@@ -218,16 +218,26 @@
                 }
                 //请求点播缩略图
                 NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&latest=%d",self.accessToken,self.deviceID,1];
-                [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+                [[AFHTTPRequestOperationManager manager] POST:imageURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSDictionary *dict = (NSDictionary *)responseObject;
                     NSArray *imageArr = [NSArray array];
                     imageArr = [dict objectForKey:@"list"];
                     NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
                     downloadImageURL = [imageURLDict objectForKey:@"url"];
-                } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     NSDictionary *errorDict = [error userInfo];
                     NSLog(@"errorDict:%@",errorDict);
                 }];
+//                [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//                    NSDictionary *dict = (NSDictionary *)responseObject;
+//                    NSArray *imageArr = [NSArray array];
+//                    imageArr = [dict objectForKey:@"list"];
+//                    NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
+//                    downloadImageURL = [imageURLDict objectForKey:@"url"];
+//                } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//                    NSDictionary *errorDict = [error userInfo];
+//                    NSLog(@"errorDict:%@",errorDict);
+//                }];
             }
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -490,13 +500,13 @@
                 }
             }
             NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&latest=%d",self.accessToken,self.deviceID,1];
-            [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            [[AFHTTPRequestOperationManager manager]GET:imageURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSDictionary *dict = (NSDictionary *)responseObject;
                 NSArray *imageArr = [NSArray array];
                 imageArr = [dict objectForKey:@"list"];
                 NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
                 downloadImageURL = [imageURLDict objectForKey:@"url"];
-            } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSDictionary *errorDict = [error userInfo];
                 NSLog(@"errorDict:%@",errorDict);
             }];
