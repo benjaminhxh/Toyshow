@@ -40,11 +40,14 @@
 		274F50E9195D8AE500114416 /* WeixinSessionActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 274F50E6195D8AE500114416 /* WeixinSessionActivity.m */; };
 		2751C12718C417A9006173B3 /* ShowImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2751C12618C417A9006173B3 /* ShowImageViewController.m */; };
 		2751C13718C42828006173B3 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2751C13618C42828006173B3 /* MediaPlayer.framework */; };
-		2751C14318C45F8A006173B3 /* MVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2751C14218C45F8A006173B3 /* MVViewController.m */; };
 		2758509018D6999000CCB075 /* ShareCameraCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2758508E18D6999000CCB075 /* ShareCameraCell.xib */; };
 		2758509518D69A1800CCB075 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2758509418D69A1800CCB075 /* HelpViewController.m */; };
 		275C716B18CEC91E00288C83 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275C716A18CEC91E00288C83 /* AboutViewController.m */; };
 		2769146C18C81F4300B24469 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2769146B18C81F4300B24469 /* CFNetwork.framework */; };
+		276D1B0319ADCA290024BFFC /* MVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276D1B0019ADCA290024BFFC /* MVViewController.m */; };
+		276D1B0419ADCA2A0024BFFC /* MVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276D1B0019ADCA290024BFFC /* MVViewController.m */; };
+		276D1B0519ADCA2A0024BFFC /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276D1B0219ADCA290024BFFC /* VideoViewController.m */; };
+		276D1B0619ADCA2A0024BFFC /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276D1B0219ADCA290024BFFC /* VideoViewController.m */; };
 		2777606F18FB74BD000A5F83 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777604B18FB74BD000A5F83 /* AFHTTPRequestOperation.m */; };
 		2777607018FB74BD000A5F83 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777604D18FB74BD000A5F83 /* AFHTTPRequestOperationManager.m */; };
 		2777607118FB74BD000A5F83 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777604F18FB74BD000A5F83 /* AFHTTPSessionManager.m */; };
@@ -69,7 +72,6 @@
 		27966A0F18E2EB1A0076423C /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 27966A0818E2EB1A0076423C /* MJRefreshConst.m */; };
 		27966A1018E2EB1A0076423C /* MJRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27966A0A18E2EB1A0076423C /* MJRefreshFooterView.m */; };
 		27966A1118E2EB1A0076423C /* MJRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27966A0C18E2EB1A0076423C /* MJRefreshHeaderView.m */; };
-		27B0F80D19920EE200CF29C1 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B0F80C19920EE200CF29C1 /* VideoViewController.m */; };
 		27E5A8EC19AB32F8004B5458 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E5A8EB19AB32F8004B5458 /* MBProgressHUD.m */; };
 		27E5A8ED19AB32F8004B5458 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E5A8EB19AB32F8004B5458 /* MBProgressHUD.m */; };
 		27E5A93519AB3346004B5458 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E5A8F019AB3346004B5458 /* AsyncUdpSocket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -415,14 +417,16 @@
 		2751C12518C417A8006173B3 /* ShowImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowImageViewController.h; sourceTree = "<group>"; };
 		2751C12618C417A9006173B3 /* ShowImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowImageViewController.m; sourceTree = "<group>"; };
 		2751C13618C42828006173B3 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		2751C14118C45F8A006173B3 /* MVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVViewController.h; sourceTree = "<group>"; };
-		2751C14218C45F8A006173B3 /* MVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVViewController.m; sourceTree = "<group>"; };
 		2758508E18D6999000CCB075 /* ShareCameraCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareCameraCell.xib; sourceTree = "<group>"; };
 		2758509318D69A1800CCB075 /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
 		2758509418D69A1800CCB075 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
 		275C716918CEC91E00288C83 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		275C716A18CEC91E00288C83 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		2769146B18C81F4300B24469 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		276D1AFF19ADCA290024BFFC /* MVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVViewController.h; sourceTree = "<group>"; };
+		276D1B0019ADCA290024BFFC /* MVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVViewController.m; sourceTree = "<group>"; };
+		276D1B0119ADCA290024BFFC /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
+		276D1B0219ADCA290024BFFC /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
 		2777604A18FB74BD000A5F83 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		2777604B18FB74BD000A5F83 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		2777604C18FB74BD000A5F83 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -472,8 +476,6 @@
 		27966A0A18E2EB1A0076423C /* MJRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshFooterView.m; sourceTree = "<group>"; };
 		27966A0B18E2EB1A0076423C /* MJRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshHeaderView.h; sourceTree = "<group>"; };
 		27966A0C18E2EB1A0076423C /* MJRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshHeaderView.m; sourceTree = "<group>"; };
-		27B0F80B19920EE200CF29C1 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
-		27B0F80C19920EE200CF29C1 /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
 		27BA304519737C6E00F98042 /* VarHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VarHeader.h; sourceTree = "<group>"; };
 		27E5A8EA19AB32F8004B5458 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		27E5A8EB19AB32F8004B5458 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
@@ -1256,10 +1258,10 @@
 				2751C12618C417A9006173B3 /* ShowImageViewController.m */,
 				2794B6E418E05F09008DCF83 /* ShareCamereViewController.h */,
 				2794B6E518E05F09008DCF83 /* ShareCamereViewController.m */,
-				2751C14118C45F8A006173B3 /* MVViewController.h */,
-				2751C14218C45F8A006173B3 /* MVViewController.m */,
-				27B0F80B19920EE200CF29C1 /* VideoViewController.h */,
-				27B0F80C19920EE200CF29C1 /* VideoViewController.m */,
+				276D1AFF19ADCA290024BFFC /* MVViewController.h */,
+				276D1B0019ADCA290024BFFC /* MVViewController.m */,
+				276D1B0119ADCA290024BFFC /* VideoViewController.h */,
+				276D1B0219ADCA290024BFFC /* VideoViewController.m */,
 				2758509318D69A1800CCB075 /* HelpViewController.h */,
 				2758509418D69A1800CCB075 /* HelpViewController.m */,
 				27F0A43C192C984400D02A79 /* HowToUseViewController.h */,
@@ -1648,7 +1650,6 @@
 				27FFE29518BF287B00AE47FF /* HXHAppDelegate.m in Sources */,
 				272C415C18ED66DB00432D5D /* TransformViewController.m in Sources */,
 				27E5AC2019AB3ECE004B5458 /* qrencode.c in Sources */,
-				2751C14318C45F8A006173B3 /* MVViewController.m in Sources */,
 				2794B6E618E05F09008DCF83 /* ShareCamereViewController.m in Sources */,
 				27E5A97619AB34ED004B5458 /* IPObtainStyleViewController.m in Sources */,
 				27E5A99919AB35D0004B5458 /* DeviceInfoViewController.m in Sources */,
@@ -1659,15 +1660,16 @@
 				27E5A9AE19AB35F3004B5458 /* JSONKit.m in Sources */,
 				27966A1018E2EB1A0076423C /* MJRefreshFooterView.m in Sources */,
 				2732466D18D98B2000F82011 /* MyCameraViewController.m in Sources */,
-				27B0F80D19920EE200CF29C1 /* VideoViewController.m in Sources */,
 				27E5AC1A19AB3ECE004B5458 /* bitstream.c in Sources */,
 				2751C12718C417A9006173B3 /* ShowImageViewController.m in Sources */,
 				27E5A93519AB3346004B5458 /* AsyncUdpSocket.m in Sources */,
 				274D771918E571BF00F352C7 /* ThumbnailViewController.m in Sources */,
+				276D1B0519ADCA2A0024BFFC /* VideoViewController.m in Sources */,
 				274F50E7195D8AE500114416 /* WeixinActivity.m in Sources */,
 				2777607518FB74BD000A5F83 /* AFURLRequestSerialization.m in Sources */,
 				275C716B18CEC91E00288C83 /* AboutViewController.m in Sources */,
 				27E5A99319AB35D0004B5458 /* AudioVideoViewController.m in Sources */,
+				276D1B0319ADCA290024BFFC /* MVViewController.m in Sources */,
 				2777607F18FB74BD000A5F83 /* UIWebView+AFNetworking.m in Sources */,
 				2777607618FB74BD000A5F83 /* AFURLResponseSerialization.m in Sources */,
 				27E5AC2819AB3ECE004B5458 /* split.c in Sources */,
@@ -1690,6 +1692,7 @@
 				27E5AC2119AB3ECE004B5458 /* qrencode.c in Sources */,
 				27E5A93619AB3346004B5458 /* AsyncUdpSocket.m in Sources */,
 				27E5A97919AB34ED004B5458 /* SecurtyStyleViewController.m in Sources */,
+				276D1B0619ADCA2A0024BFFC /* VideoViewController.m in Sources */,
 				27E5A9A619AB35D0004B5458 /* NtscOrpalViewController.m in Sources */,
 				27E5A99E19AB35D0004B5458 /* EventNotificationViewController.m in Sources */,
 				27E5A99C19AB35D0004B5458 /* DeviceStatueControlViewController.m in Sources */,
@@ -1704,6 +1707,7 @@
 				27E5A97519AB34ED004B5458 /* AddDeviceViewController.m in Sources */,
 				27E5AC2919AB3ECE004B5458 /* split.c in Sources */,
 				27E5A9A819AB35D0004B5458 /* SceneModeViewController.m in Sources */,
+				276D1B0419ADCA2A0024BFFC /* MVViewController.m in Sources */,
 				27E5A99619AB35D0004B5458 /* CameraSetViewController.m in Sources */,
 				27FFE2AA18BF287B00AE47FF /* ToyshowTests.m in Sources */,
 				27E5A97719AB34ED004B5458 /* IPObtainStyleViewController.m in Sources */,

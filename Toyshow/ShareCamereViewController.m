@@ -345,6 +345,7 @@
             //分享和收藏的摄像头
             //收藏、转发
             if ([self checkAccessTokenIsExist]) {
+                self.isCancelCollect = NO;
                 //已经登录
                 if (self.isCollect) {
                     [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelwei@2x"] forState:UIControlStateNormal];

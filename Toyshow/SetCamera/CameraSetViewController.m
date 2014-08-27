@@ -367,6 +367,8 @@
                 //            loggout.backgroundColor = [UIColor blueColor];
                 [cell addSubview:loggout];
                 [loggout addTarget:self action:@selector(LoginOutAction:) forControlEvents:UIControlEventTouchUpInside];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
             }else
             {
                 //修改设备名称
