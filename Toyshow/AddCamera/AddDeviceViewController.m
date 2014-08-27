@@ -122,6 +122,7 @@
     SSIDPWF.borderStyle = UITextBorderStyleRoundedRect;
     SSIDPWF.returnKeyType = UIReturnKeyNext;
 //    SSIDPWF.text = @"zhxf0602";
+    SSIDPWF.keyboardType = UIKeyboardTypeASCIICapable;
     SSIDPWF.delegate = self;
     [scrollView addSubview:SSIDPWF];
     
@@ -135,6 +136,7 @@
     SSIDPWFconfirm.returnKeyType = UIReturnKeyDone;
 //    SSIDPWFconfirm.text = @"zhxf0602";
     SSIDPWFconfirm.delegate = self;
+    SSIDPWFconfirm.keyboardType = UIKeyboardTypeASCIICapable;
     [scrollView addSubview:SSIDPWFconfirm];
     
     UILabel  *lineL = [[UILabel alloc] initWithFrame:CGRectMake(2, 201, 320-4, 1)];

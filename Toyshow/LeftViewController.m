@@ -7,7 +7,7 @@
 //
 
 #import "LeftViewController.h"
-//#import "ZBarSDK.h"
+#import "ZBarSDK.h"
 #import <Frontia/Frontia.h>
 #import <Frontia/FrontiaShare.h>
 #import <Frontia/FrontiaShareContent.h>
@@ -26,7 +26,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "ShareCamereViewController.h"
 
-@interface LeftViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,WXApiDelegate>
+@interface LeftViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,WXApiDelegate,ZBarReaderDelegate>
 {
     NSArray *_listArr,*_imageArr;
     UILabel *_titleTextL,*loginOrOutL;
@@ -185,13 +185,13 @@
             break;
         case 3://添加设备、扫描二维码
             if ([self accessTokenIsExist]) {
-//                [self scanBtnAction];
+                [self scanBtnAction];
                 NSLog(@"扫描二维码");
-                AddDeviceViewController *addDeviceVC = [[AddDeviceViewController alloc] init];
-//                addDeviceVC.deviceID = result;
-                addDeviceVC.access_token = self.accessToken;
-                addDeviceVC.userID = [[NSUserDefaults standardUserDefaults] stringForKey:kUserName];
-                [self.navigationController pushViewController:addDeviceVC animated:YES];
+//                AddDeviceViewController *addDeviceVC = [[AddDeviceViewController alloc] init];
+////                addDeviceVC.deviceID = result;
+//                addDeviceVC.access_token = self.accessToken;
+//                addDeviceVC.userID = [[NSUserDefaults standardUserDefaults] stringForKey:kUserName];
+//                [self.navigationController pushViewController:addDeviceVC animated:YES];
 
             }
             break;
@@ -199,7 +199,7 @@
         {
             if (![self accessTokenIsExist]) {
                 //------------------------登录
-//                [self signonButtonClicked];
+                [self signonButtonClicked];
                 //5
             }else
             {
@@ -242,7 +242,7 @@
     }
     return YES;
 }
-/*
+
 #pragma mark - ZBar 二维码扫描
 //扫描二维码
 -(void)scanBtnAction
@@ -359,7 +359,7 @@
         }
     }];
 }
-*/
+
 #pragma mark - baidu登陆
 //登录按钮
 - (void)signonButtonClicked {
