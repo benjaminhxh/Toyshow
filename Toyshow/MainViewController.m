@@ -358,6 +358,7 @@
             //            NSLog(@"公共摄像头:%@",dictResponse);
             shareVC.isLive = YES;
             shareVC.isShare = YES;
+            shareVC.isCollect = NO;
             shareVC.shareId = shareID;
             shareVC.uk = uk;
             shareVC.deviceId = [dict objectForKey:@"deviceid"];
