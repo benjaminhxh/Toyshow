@@ -339,6 +339,7 @@
     localTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
     self.request_id = @"";
     [self isLoadingView];
+    volumView.hidden = YES;
     //直播
     if (self.isLive) {
         if (self.isShare) {
