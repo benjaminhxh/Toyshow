@@ -113,7 +113,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        [_loadingView hide:YES];
         [self MBprogressViewHubLoading:@"设备修改失败" withMode:4];
-        NSDictionary *errorDict = [error userInfo];
+//        NSDictionary *errorDict = [error userInfo];
         ////NSLog(@"errorDict:%@",errorDict);
 //        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备修改失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
 //        [view show];

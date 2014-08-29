@@ -57,8 +57,6 @@
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtn) forControlEvents:UIControlEventTouchUpInside];
     [backBtn setTitle:@"帮助" forState:UIControlStateNormal];
-//    backBtn.frame = CGRectMake(5, [UIApplication sharedApplication].statusBarFrame.size.height+5, 180, 22);
-//    [backBtn setTitle:@"无线路由器认证方式" forState:UIControlStateNormal];
     [topView addSubview:backBtn];
 
 //    UIButton *finishBtn = [UIButton buttonWithType:UIButtonTypeCustom];

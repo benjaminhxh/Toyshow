@@ -226,23 +226,13 @@
                     NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
                     downloadImageURL = [imageURLDict objectForKey:@"url"];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    NSDictionary *errorDict = [error userInfo];
+//                    NSDictionary *errorDict = [error userInfo];
                     ////NSLog(@"errorDict:%@",errorDict);
                 }];
-//                [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//                    NSDictionary *dict = (NSDictionary *)responseObject;
-//                    NSArray *imageArr = [NSArray array];
-//                    imageArr = [dict objectForKey:@"list"];
-//                    NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
-//                    downloadImageURL = [imageURLDict objectForKey:@"url"];
-//                } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//                    NSDictionary *errorDict = [error userInfo];
-//                    ////NSLog(@"errorDict:%@",errorDict);
-//                }];
             }
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSDictionary *errorDict = [error userInfo];
+//            NSDictionary *errorDict = [error userInfo];
             ////NSLog(@"errorDict:%@",errorDict);
             [self MBprogressViewHubLoading:@"网络延时"];
             [badInternetHub hide:YES afterDelay:1];
@@ -558,7 +548,7 @@
                 NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
                 downloadImageURL = [imageURLDict objectForKey:@"url"];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSDictionary *errorDict = [error userInfo];
+//                NSDictionary *errorDict = [error userInfo];
                 ////NSLog(@"errorDict:%@",errorDict);
             }];
 //            [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -595,7 +585,7 @@
             [_tableView reloadData];
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSDictionary *errorDict = [error userInfo];
+//        NSDictionary *errorDict = [error userInfo];
         ////NSLog(@"errorDict:%@",errorDict);
         //        UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
         //        [noDataView show];

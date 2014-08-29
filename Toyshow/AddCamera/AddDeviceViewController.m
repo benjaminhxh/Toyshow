@@ -260,9 +260,9 @@
         //--------------------向Baidu注册成功，隐藏loginAlterView-------------------------
 //        [loginAlterView dismissWithClickedButtonIndex:0 animated:YES];
         
-        NSDictionary *dict = (NSDictionary *)responseObject;
+//        NSDictionary *dict = (NSDictionary *)responseObject;
 //        ////NSLog(@"dict:%@",dict);
-        NSString *stream_id = [dict objectForKey:@"stream_id"];
+//        NSString *stream_id = [dict objectForKey:@"stream_id"];
         ////NSLog(@"注册stream_id:%@",stream_id);
         [_loadingView hide:YES];
 
@@ -465,7 +465,7 @@
     ////NSLog(@"host---->%@",host);
     _loadingView.hidden = YES;
    	//接收到数据回调，显示出来
-	NSString *info=[[NSString alloc] initWithData:data encoding: NSUTF8StringEncoding];
+//	NSString *info=[[NSString alloc] initWithData:data encoding: NSUTF8StringEncoding];
 	////NSLog(@"UDP代理接收到的数据：%@",info);
 	//已经处理完毕
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"配置成功"
