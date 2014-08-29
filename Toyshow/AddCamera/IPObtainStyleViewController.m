@@ -141,21 +141,21 @@
             int i = [ips intValue];
             if([[NSString stringWithFormat:@"%d",i] isEqualToString:ips])
             {
-                NSLog(@"i:%d",i);
+                ////NSLog(@"i:%d",i);
                 if (i<=255&&i>=0) {
                 }else
                 {
-//                    NSLog(@"不合法");
+//                    ////NSLog(@"不合法");
                     return NO;
                 }
             }else{
-//                NSLog(@"不合法");
+//                ////NSLog(@"不合法");
                 return NO;
             }
         }
     }else
     {
-        NSLog(@"不合法");
+        ////NSLog(@"不合法");
         return NO;
     }
     return YES;
@@ -178,7 +178,7 @@
         //判断ip是否合法
         if(![self isLegalIP:ipAddressF.text]||![self isLegalIP:subnetmaskF.text]||![self isLegalIP:routerF.text])
        {
-           NSLog(@"不合法的IP");
+           ////NSLog(@"不合法的IP");
            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入合法的地址" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
            [view show];
            return;
@@ -198,12 +198,12 @@
 {
     UISegmentedControl *segment = (UISegmentedControl *)sender;
     if (segment.selectedSegmentIndex) {
-        NSLog(@"1111111111");
+        ////NSLog(@"1111111111");
         staticView.hidden = NO;
         dhcpLab.hidden = YES;
     }else
     {
-        NSLog(@"0000000000");
+        ////NSLog(@"0000000000");
         staticView.hidden = YES;
         dhcpLab.hidden = NO;
     }

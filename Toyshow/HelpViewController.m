@@ -7,7 +7,6 @@
 //
 
 #import "HelpViewController.h"
-#import "TransformViewController.h"
 #import "HowToUseViewController.h"
 
 @interface HelpViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,MBProgressHUDDelegate>
@@ -62,12 +61,12 @@
 //    [backBtn setTitle:@"无线路由器认证方式" forState:UIControlStateNormal];
     [topView addSubview:backBtn];
 
-    UIButton *finishBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    finishBtn.frame = CGRectMake(275, backHeight, 36, 22);
-    [finishBtn setTitle:@"完成" forState:UIControlStateNormal];
-    [finishBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [finishBtn addTarget:self action:@selector(finishBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [topView addSubview:finishBtn];
+//    UIButton *finishBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    finishBtn.frame = CGRectMake(275, backHeight, 36, 22);
+//    [finishBtn setTitle:@"完成" forState:UIControlStateNormal];
+//    [finishBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+//    [finishBtn addTarget:self action:@selector(finishBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+//    [topView addSubview:finishBtn];
 //    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(30, 25, 120, 24)];
 //    title.textColor = [UIColor whiteColor];
 //    title.text = @"帮助";
@@ -92,11 +91,6 @@
 
 }
 
-- (void)finishBtnAction:(id)sender
-{
-    TransformViewController *transVC = [[TransformViewController alloc] init];
-    [[SliderViewController sharedSliderController].navigationController pushViewController:transVC animated:YES];
-}
 #pragma mark - tableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -109,14 +103,21 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellI];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellI];
-        cell.imageView.image = [UIImage imageNamed:@"dingshi_h@2x"];
-        cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
-        cell.textLabel.text = @"如何使用乐现";
-        if (1 == indexPath.row) {
-            cell.textLabel.text = @"前往下载新版本";
-        }else if (2 == indexPath.row)
-        {
-            cell.textLabel.text = @"检测新版本";
+        switch (indexPath.row) {
+            case 0:
+                cell.textLabel.text = @"如何使用乐现";
+
+                break;
+            case 1:
+                cell.textLabel.text = @"前往官网";
+
+                break;
+            case 2:
+                cell.textLabel.text = @"检测新版本";
+
+                break;
+            default:
+                break;
         }
     }
     return cell;
@@ -129,55 +130,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (2 == indexPath.row) {
-        //检测新版本
-        [self checkVersion];
-        return;
-    }else if (1 == indexPath.row)
-    {
-        [self showAlertView];
-//        NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/cn/app/tao-bao/id387682726?mt=8"];
-        //[NSURL URLWithString:@"https://itunes.apple.com/cn/app/qq/id444934666?mt=8"]
-//        [[UIApplication sharedApplication] openURL:url];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=LOCATION_SERVICES"]];
-        return;
+    switch (indexPath.row) {
+        case 0:
+            [self alertViewShowWithTitle:@"请详细阅读说明书或者前往官网" andMessage:nil withDelegate:self andCancelButton:@"好" andOtherButton:nil];
+            break;
+        case 1:
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.51joyshow.com.cn"]];
+            break;
+        case 2:
+            [self checkVersion];
+            break;
+   
+        default:
+            break;
     }
-    progrView = [[MBProgressHUD alloc] initWithView:_tabView];
-//    progrView.detailsLabelText = @"收藏中";
-    progrView.labelText = @"收藏中";
-    [_tabView addSubview:progrView];
-    [progrView showWhileExecuting:@selector(showOrDismissProgressView) onTarget:self withObject:nil animated:YES];
-    
-//    HowToUseViewController *howUseVC = [[HowToUseViewController alloc] init];
-//    [[SliderViewController sharedSliderController].navigationController pushViewController:howUseVC animated:YES];
-//    [self presentViewController:howUseVC animated:YES completion:nil];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-
-- (void)showAlertView
-{
-//    if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized)
-    {
-        //Check whether Settings page is openable (iOS 5.1 not allows Settings page to be opened via openURL:)
-        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"prefs:root=LOCATION_SERVICES"]]) {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"You must enable location service,Turn on location service to allow \"YourApp\" to determine your location" delegate:self cancelButtonTitle:@"Settings" otherButtonTitles:@"Cancel", nil];
-            [alert show];
-        }
-        else {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"You must enable location service" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-            [alert show];
-        }
-    }
-}
     
-    
-    
-//- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex  {
-//        if (buttonIndex == 0) {
-//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=LOCATION_SERVICES"]];
-//        }
-//}
-
 - (void)showOrDismissProgressView{
     sleep(3);
     __block UIImageView *imageView;
@@ -195,13 +164,13 @@
     [self progressViewLoading];
     //检测新版本地址
     NSString *url = @"http://www.51joyshow.com.cn/index.php?m=content&c=banben&type=2";
-    NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
-    NSString *Sysversion = [infoDict objectForKey:@"CFBundleShortVersionString"];
     [[AFHTTPRequestOperationManager manager]POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         versionDict = [NSDictionary dictionary];
         versionDict = (NSDictionary *)responseObject;
-        NSLog(@"dict:%@",versionDict);
+        ////NSLog(@"dict:%@",versionDict);
         NSString *version = [versionDict objectForKey:@"version"];
+        NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
+        NSString *Sysversion = [infoDict objectForKey:@"CFBundleShortVersionString"];
         if ([Sysversion floatValue]<[version floatValue]) {
             [progressView hide:YES];
             [self alertViewShowWithTitle:@"检测到新版本,是否升级?" andMessage:[versionDict objectForKey:@"description"] withDelegate:self andCancelButton:@"取消" andOtherButton:@"升级"];
@@ -212,7 +181,7 @@
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [progressView hide:YES];
-        NSLog(@"错误%@",[error userInfo]);
+        ////NSLog(@"错误%@",[error userInfo]);
         [self alertViewShowWithTitle:@"检测失败" andMessage:nil withDelegate:nil andCancelButton:@"Cancel" andOtherButton:nil];
     }];
 }
@@ -238,7 +207,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex) {
-//        NSLog(@"前往下载");
+//        ////NSLog(@"前往下载");
         NSString *url = [versionDict objectForKey:@"apkurl"];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
     }
@@ -247,7 +216,7 @@
 - (void)progressViewLoading
 {
     if (progressView) {
-//        NSLog(@"已经存在了");
+//        ////NSLog(@"已经存在了");
 //        progressView.detailsLabelText = @"测试……";
         [progressView show:YES];
         return;

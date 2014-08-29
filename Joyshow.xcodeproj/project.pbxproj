@@ -20,7 +20,6 @@
 		2718FCB218D6D05E0094583F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2718FCB118D6D05E0094583F /* AudioToolbox.framework */; };
 		2718FCB418D6D06C0094583F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2718FCB318D6D06C0094583F /* Security.framework */; };
 		2718FCB618D6D08F0094583F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2718FCB518D6D08F0094583F /* MobileCoreServices.framework */; };
-		272C415C18ED66DB00432D5D /* TransformViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 272C415B18ED66DB00432D5D /* TransformViewController.m */; };
 		2732466D18D98B2000F82011 /* MyCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2732466C18D98B2000F82011 /* MyCameraViewController.m */; };
 		2732466F18D99EC400F82011 /* MyCameraCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2732466E18D99EC400F82011 /* MyCameraCell.xib */; };
 		273922491998E63900168533 /* BPushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 273922481998E63900168533 /* BPushConfig.plist */; };
@@ -388,8 +387,6 @@
 		2718FCB118D6D05E0094583F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2718FCB318D6D06C0094583F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2718FCB518D6D08F0094583F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		272C415A18ED66DB00432D5D /* TransformViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformViewController.h; sourceTree = "<group>"; };
-		272C415B18ED66DB00432D5D /* TransformViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransformViewController.m; sourceTree = "<group>"; };
 		2732466B18D98B2000F82011 /* MyCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCameraViewController.h; sourceTree = "<group>"; };
 		2732466C18D98B2000F82011 /* MyCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCameraViewController.m; sourceTree = "<group>"; };
 		2732466E18D99EC400F82011 /* MyCameraCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyCameraCell.xib; sourceTree = "<group>"; };
@@ -1260,8 +1257,6 @@
 				2758509418D69A1800CCB075 /* HelpViewController.m */,
 				27F0A43C192C984400D02A79 /* HowToUseViewController.h */,
 				27F0A43D192C984400D02A79 /* HowToUseViewController.m */,
-				272C415A18ED66DB00432D5D /* TransformViewController.h */,
-				272C415B18ED66DB00432D5D /* TransformViewController.m */,
 				275C716918CEC91E00288C83 /* AboutViewController.h */,
 				275C716A18CEC91E00288C83 /* AboutViewController.m */,
 				27FFE29618BF287B00AE47FF /* Images.xcassets */,
@@ -1645,7 +1640,6 @@
 				27E5A9A119AB35D0004B5458 /* ModifyViewController.m in Sources */,
 				27E5A94D19AB3346004B5458 /* Reachability1.m in Sources */,
 				27FFE29518BF287B00AE47FF /* HXHAppDelegate.m in Sources */,
-				272C415C18ED66DB00432D5D /* TransformViewController.m in Sources */,
 				27E5AC2019AB3ECE004B5458 /* qrencode.c in Sources */,
 				2794B6E618E05F09008DCF83 /* ShareCamereViewController.m in Sources */,
 				27E5A97619AB34ED004B5458 /* IPObtainStyleViewController.m in Sources */,

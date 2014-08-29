@@ -151,12 +151,12 @@
 
 - (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index
 {
-    NSLog(@"index:%d",index);
+    ////NSLog(@"index:%d",index);
 }
 
 - (void)lookAroundClick
 {
-    NSLog(@"随便看看");
+    ////NSLog(@"随便看看");
     [self showTabBarController];
     
 //    icaView.hidden = YES;
@@ -165,7 +165,7 @@
 
 - (void)loginClick
 {
-    NSLog(@"登录按钮");
+    ////NSLog(@"登录按钮");
 //    icaView.hidden = YES;
 //    backgroundView.hidden = YES;
     loginFlag = YES;
@@ -174,13 +174,13 @@
 
 - (void)buyClick
 {
-    NSLog(@"购买链接");
+    ////NSLog(@"购买链接");
     NSURL *url = [NSURL URLWithString:@"openApp.jdMobile://"];
     if ([[UIApplication sharedApplication]canOpenURL:url]) {
         [[UIApplication sharedApplication]openURL:url];
     }else
     {
-        NSLog(@"没安装客户端");
+        ////NSLog(@"没安装客户端");
     }
 }
 

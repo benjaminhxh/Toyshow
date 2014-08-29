@@ -98,7 +98,7 @@
 - (void)selectWEBstyle:(id)sender
 {
     UISegmentedControl *segment = (UISegmentedControl *)sender;
-    NSLog(@"segment.selectIndex:%d",segment.selectedSegmentIndex);
+    ////NSLog(@"segment.selectIndex:%d",segment.selectedSegmentIndex);
     self.selectIndex = segment.selectedSegmentIndex;
     explainLab.text = [explainArr objectAtIndex:self.selectIndex];
 

@@ -100,7 +100,7 @@
 //看录像，进入录像列表
 - (void)didSeeVideoClick
 {
-    NSLog(@"录像列表");
+    ////NSLog(@"录像列表");
     ThumbnailViewController *thumbVC = [[ThumbnailViewController alloc] init];
     thumbVC.deviceID = self.deviceid;
     thumbVC.accessToken = self.access_token;
@@ -465,7 +465,7 @@
                 avideoVC.flipImageIndex = [[cameraInfoDict objectForKey:@"iFlipImage"] integerValue];
                 avideoVC.ntscOrPalIndex = [[cameraInfoDict objectForKey:@"iNTSCPAL"] integerValue];
                 avideoVC.imageResolutionIndex = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
-                NSLog(@"分辨率：%@",[cameraInfoDict objectForKey:@"iImageResolution"]);
+                ////NSLog(@"分辨率：%@",[cameraInfoDict objectForKey:@"iImageResolution"]);
                 [[SliderViewController sharedSliderController].navigationController pushViewController:avideoVC animated:YES];
             }
                 break;
@@ -539,29 +539,29 @@
 //- (void)enaleEventAction:(id)sender
 //{
 //    UISwitch *offswitch = (UISwitch *)sender;
-//    NSLog(@"offswtich.on:%d",offswitch.on);
+//    ////NSLog(@"offswtich.on:%d",offswitch.on);
 //    if (offswitch.on) {
-//        NSLog(@"打开的");
+//        ////NSLog(@"打开的");
 //        self.EnableEventIndex = 1;
 //    }
 //    else
 //    {
 //        self.EnableEventIndex = 0;
-//        NSLog(@"关闭的");
+//        ////NSLog(@"关闭的");
 //    }
 //}
 //音频是否打开
 //- (void)AudioEventAction:(id)sender
 //{
 //    UISwitch *offswitch = (UISwitch *)sender;
-//    NSLog(@"offswtich.on:%d",offswitch.on);
+//    ////NSLog(@"offswtich.on:%d",offswitch.on);
 //    if (offswitch.on) {
-//        NSLog(@"打开的音频");
+//        ////NSLog(@"打开的音频");
 //        self.audioIndex = 1;
 //    }
 //    else
 //    {
-//        NSLog(@"关闭的");
+//        ////NSLog(@"关闭的");
 //        self.audioIndex = 0;
 //    }
 //}
@@ -570,12 +570,12 @@
 {
 //    UISwitch *offswitch = (UISwitch *)sender;
 //    if (offswitch.on) {
-//        NSLog(@"打开的视频");
+//        ////NSLog(@"打开的视频");
 //        self.videoRecordIndex = 1;
 //    }
 //    else
 //    {
-//        NSLog(@"关闭的");
+//        ////NSLog(@"关闭的");
 //        self.videoRecordIndex = 0;
 //    }
     _loginoutView.hidden = NO;
@@ -588,7 +588,7 @@
     NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
     [[AFHTTPRequestOperationManager manager] POST:setURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary*)responseObject;
-        NSLog(@"dict:%@",dict);
+        ////NSLog(@"dict:%@",dict);
         videooffON.on = self.videoRecordIndex;
         _loginoutView.hidden = YES;
         [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
@@ -600,7 +600,7 @@
     }];
 //    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
 //        NSDictionary *dict = (NSDictionary*)responseObject;
-//        NSLog(@"dict:%@",dict);
+//        ////NSLog(@"dict:%@",dict);
 //        videooffON.on = self.videoRecordIndex;
 //        _loginoutView.hidden = YES;
 //        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
@@ -616,12 +616,12 @@
 //{
 //    UISwitch *offswitch = (UISwitch *)sender;
 //    if (offswitch.on) {
-//        NSLog(@"打开的");
+//        ////NSLog(@"打开的");
 //        self.flipImageIndex = 1;
 //    }
 //    else
 //    {
-//        NSLog(@"关闭的");
+//        ////NSLog(@"关闭的");
 //        self.flipImageIndex = 0;
 //    }
 //}
@@ -637,13 +637,13 @@
 //    {
 //        self.screneIndex = 0;
 //    }
-//    NSLog(@"室内室外");
+//    ////NSLog(@"室内室外");
 //}
 
 //设备状态指示灯
 - (void)stateLightEventAction:(id)sender
 {
-    NSLog(@"状态指示灯");
+    ////NSLog(@"状态指示灯");
     _loginoutView.hidden = NO;
 //    UISwitch *offswitch = (UISwitch *)sender;
 //    if (offswitch.on) {
@@ -661,7 +661,7 @@
     NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
     [[AFHTTPRequestOperationManager manager] POST:setURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary*)responseObject;
-        NSLog(@"dict:%@",dict);
+        ////NSLog(@"dict:%@",dict);
         stateLightoffON.on = self.lightStatueIndex;
         _loginoutView.hidden = YES;
         [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
@@ -673,7 +673,7 @@
     }];
 //    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
 //        NSDictionary *dict = (NSDictionary*)responseObject;
-//        NSLog(@"dict:%@",dict);
+//        ////NSLog(@"dict:%@",dict);
 //        stateLightoffON.on = self.lightStatueIndex;
 //        _loginoutView.hidden = YES;
 //        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
@@ -697,7 +697,7 @@
 //是否在界面上显示时间
 - (void)timeHiddenEventAction:(id)sender
 {
-    NSLog(@"时间是否显示");
+    ////NSLog(@"时间是否显示");
     _loginoutView.hidden = NO;
 //    UISwitch *timeStaueSwitch = (UISwitch *)sender;
 //    if (timeStaueSwitch.on) {
@@ -716,7 +716,7 @@
     NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
     [[AFHTTPRequestOperationManager manager] POST:setURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary*)responseObject;
-        NSLog(@"dict:%@",dict);
+        ////NSLog(@"dict:%@",dict);
         timeHidden.on = self.timeShowIndex;
         _loginoutView.hidden = YES;
         [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
@@ -728,7 +728,7 @@
     }];
 //    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
 //        NSDictionary *dict = (NSDictionary*)responseObject;
-//        NSLog(@"dict:%@",dict);
+//        ////NSLog(@"dict:%@",dict);
 //        timeHidden.on = self.timeShowIndex;
 //        _loginoutView.hidden = YES;
 //        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
@@ -743,10 +743,10 @@
 //完成设置
 //- (void)setFinishAction:(id)sender
 //{
-//    NSLog(@"setFinishAction");
+//    ////NSLog(@"setFinishAction");
 //    _loginoutView.hidden = NO;
 //    NSString *str = [NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",self.EnableEventIndex,self.audioIndex,self.videoRecordIndex,self.flipImageIndex,self.screneIndex,self.lightFilterModeIndex,self.lightStatueIndex,self.streamBitrateIndex,self.ntscOrpalIndex,self.imageResolutionIndex,self.controlONOrOFFIndex,self.sensitivityIndex,self.timeShowIndex];
-//    NSLog(@"str:%@",str);
+//    ////NSLog(@"str:%@",str);
 //    NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
 //                                   [NSNumber numberWithInteger:self.EnableEventIndex],@"iEnableEvent",
 //                                   [NSNumber numberWithInteger:self.audioIndex],@"iEnableAudioIn",
@@ -762,17 +762,17 @@
 //                                   [NSNumber numberWithInteger:self.sensitivityIndex],@"iObjDetectLevel",
 //                                   [NSNumber numberWithInteger:self.timeShowIndex],@"iEnableOSDTime",
 //                                   nil];
-//    NSLog(@"setCameraDataDict:%@",setCameraDataDict);
+//    ////NSLog(@"setCameraDataDict:%@",setCameraDataDict);
 ////    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"iNTSCPAL", nil];
 //    NSString *setCameraDataString = [setCameraDataDict JSONString];
 //    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
 //    NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
 //////    NSString *setURL = @"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4";
 //    NSDictionary *paramDict = [NSDictionary dictionaryWithObjectsAndKeys:@"control",@"method",self.access_token,@"access_token",self.deviceid,@"deviceid",setCameraDataDict,@"command", nil];
-//    NSLog(@"paramDict:%@",paramDict);
+//    ////NSLog(@"paramDict:%@",paramDict);
 //    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
 //        NSDictionary *dict = (NSDictionary*)responseObject;
-//        NSLog(@"dict:%@",dict);
+//        ////NSLog(@"dict:%@",dict);
 //        [self alertViewShowWithTitle:@"设置成功" andMessage:nil];
 //        if (self.delegate && [self.delegate respondsToSelector:@selector(logoutCameraAtindex:)]) {
 //            [self.delegate logoutCameraAtindex:self.index];
@@ -872,11 +872,11 @@
     _loginoutView.labelText = @"注销中……";
     _loginoutView.hidden = NO;
     NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=drop&deviceid=%@&access_token=%@",self.deviceid,self.access_token];
-    NSLog(@"urlStr:%@",urlStr);
+    ////NSLog(@"urlStr:%@",urlStr);
     [[AFHTTPRequestOperationManager manager] POST:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
         NSString *deviceID = [dict objectForKey:@"deviceid"];
-        NSLog(@"deviceid:%@",deviceID);
+        ////NSLog(@"deviceid:%@",deviceID);
         if (self.delegate && [self.delegate respondsToSelector:@selector(logoutCameraAtindex:)]) {
             [self.delegate logoutCameraAtindex:self.index];
         }
@@ -890,7 +890,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSDictionary *errorDict = [error userInfo];
         NSString *errorMSG = [errorDict objectForKey:@"error_msg"];
-        NSLog(@"erroeMSG:%@",errorMSG);
+        ////NSLog(@"erroeMSG:%@",errorMSG);
         _loginoutView.mode = 4;
         _loginoutView.labelText = @"注销失败";
         [_loginoutView hide:YES];
@@ -928,18 +928,18 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"iGetDeviceConfig", nil];
 //    NSDictionary *getInfoparamDict = [NSDictionary dictionaryWithObjectsAndKeys:dict,@"command", nil];
     NSString *requestStr = [dict JSONString];
-//    NSLog(@"requestStr:%@",requestStr);
+//    ////NSLog(@"requestStr:%@",requestStr);
     NSString *strWithUTF8 = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)requestStr, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
 
     NSString *getInfoURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
-    NSLog(@"getInfoURL:%@",getInfoURL);
+    ////NSLog(@"getInfoURL:%@",getInfoURL);
     [[AFHTTPRequestOperationManager manager] POST:getInfoURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary*)responseObject;
         NSArray *arr = [dict objectForKey:@"data"];
         NSDictionary *userData = [arr lastObject];
-        //        NSLog(@"userData:%@",userData);
+        //        ////NSLog(@"userData:%@",userData);
         NSString *userDataString = [userData objectForKey:@"userData"];
-        NSLog(@"userDataDict:%@",userDataString);
+        ////NSLog(@"userDataDict:%@",userDataString);
         NSData *resData = [[NSData alloc] initWithData:[userDataString dataUsingEncoding:NSUTF8StringEncoding]];
         //系统自带JSON解析
         cameraInfoDict = [NSDictionary dictionary];
@@ -953,15 +953,15 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         _loginoutView.hidden = YES;
         [self alertViewShowWithTitle:@"获取设备信息失败" andMessage:[error localizedDescription]];
-        //        NSLog(@"errorInfo:%@",[error userInfo]);
+        //        ////NSLog(@"errorInfo:%@",[error userInfo]);
     }];
 //    [[AFHTTPSessionManager manager] POST:getInfoURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
 //        NSDictionary *dict = (NSDictionary*)responseObject;
 //        NSArray *arr = [dict objectForKey:@"data"];
 //        NSDictionary *userData = [arr lastObject];
-////        NSLog(@"userData:%@",userData);
+////        ////NSLog(@"userData:%@",userData);
 //        NSString *userDataString = [userData objectForKey:@"userData"];
-//        NSLog(@"userDataDict:%@",userDataString);
+//        ////NSLog(@"userDataDict:%@",userDataString);
 //        NSData *resData = [[NSData alloc] initWithData:[userDataString dataUsingEncoding:NSUTF8StringEncoding]];
 //        //系统自带JSON解析
 //        cameraInfoDict = [NSDictionary dictionary];
@@ -975,7 +975,7 @@
 //    } failure:^(NSURLSessionDataTask *task, NSError *error) {
 //        _loginoutView.hidden = YES;
 //        [self alertViewShowWithTitle:@"获取设备信息失败" andMessage:[error localizedDescription]];
-////        NSLog(@"errorInfo:%@",[error userInfo]);
+////        ////NSLog(@"errorInfo:%@",[error userInfo]);
 //    }];
 }
 

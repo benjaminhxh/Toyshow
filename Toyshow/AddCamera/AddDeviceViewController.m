@@ -203,19 +203,19 @@
 //获取WiFi名称
 - (id)fetchSSIDInfo {
     NSArray *ifs = (__bridge_transfer id)CNCopySupportedInterfaces();
-//    NSLog(@"Supported interfaces: %@", ifs);
+//    ////NSLog(@"Supported interfaces: %@", ifs);
     id info = nil;
     for (NSString *ifnam in ifs) {
         info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifnam);
-//        NSLog(@"%@ => %@", ifnam, info);
+//        ////NSLog(@"%@ => %@", ifnam, info);
         NSString *BSSID = [info objectForKey:@"BSSID"];
-//        NSLog(@"BSSID:%@",BSSID);
+//        ////NSLog(@"BSSID:%@",BSSID);
         self.wifiBssid = BSSID;
 //        NSString *SSIDDATAT = [info objectForKey:@"SSIDDATA"];
-//        NSLog(@"SSIDDATA:%@",SSIDDATAT);
+//        ////NSLog(@"SSIDDATA:%@",SSIDDATAT);
 //        NSData *ssiddata = [info objectForKey:@"SSIDDATA"];
 //        NSString *ssidda = [NSString stringWithFormat:@"%@",ssiddata ];
-//        NSLog(@"ssiddata:%@",ssidda);
+//        ////NSLog(@"ssiddata:%@",ssidda);
         if (info && [info count]) { break; }
     }
     NSString *SSID = [info objectForKey:@"SSID"];
@@ -252,7 +252,7 @@
     NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)des, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
                                                   //https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=123456&access_token=52.88be325d08d983f7403be8438c0c1eed.2592000.1403337720.1812238483-2271149&device_type=1&desc=摄像头描述
     NSString *URLstr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=%@&access_token=%@&device_type=1&desc=%@",self.deviceID,self.access_token,strWithUTF8];
-    NSLog(@"urlSTR:%@",URLstr);
+    ////NSLog(@"urlSTR:%@",URLstr);
 //    return ;
     [self isLoadingView];
 
@@ -261,22 +261,22 @@
 //        [loginAlterView dismissWithClickedButtonIndex:0 animated:YES];
         
         NSDictionary *dict = (NSDictionary *)responseObject;
-//        NSLog(@"dict:%@",dict);
+//        ////NSLog(@"dict:%@",dict);
         NSString *stream_id = [dict objectForKey:@"stream_id"];
-        NSLog(@"注册stream_id:%@",stream_id);
+        ////NSLog(@"注册stream_id:%@",stream_id);
         [_loadingView hide:YES];
 
         [self connectToWifi];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"==========注册失败===============");
+        ////NSLog(@"==========注册失败===============");
         //--------------------向Baidu注册成功，隐藏loginAlterView-------------------------
 //        [loginAlterView dismissWithClickedButtonIndex:0 animated:YES];
         NSDictionary *errorDict = [error userInfo];
-//        NSLog(@"dict:%@",errorDict);
+//        ////NSLog(@"dict:%@",errorDict);
         [_loadingView hide:YES];
 
         NSString *NSLocalizedDescription = [errorDict objectForKey:@"NSLocalizedDescription"];
-        NSLog(@"NSLocalizedDescription:%@",NSLocalizedDescription);//Request failed: forbidden (403)
+        ////NSLog(@"NSLocalizedDescription:%@",NSLocalizedDescription);//Request failed: forbidden (403)
         if ([NSLocalizedDescription rangeOfString:@"403"].location) {
             UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"错误信息" message:@"设备已经注册过了" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [errorView show];
@@ -372,7 +372,7 @@
         NSString *userName = [NSString stringWithCString:str2 encoding:NSUTF8StringEncoding];
         
         NSString *dataStr = [NSString stringWithFormat:@"1%@%@%@%@%@%@%@2%@%@%@%@%@",self.wifiBssid,SSIDF.text,self.security,self.identifify,SSIDPWF.text,userName,self.access_token,self.wepStyle,self.dhcp,self.ipaddr,self.mask,self.gateway];
-        NSLog(@"dataStr:%@",dataStr);
+        ////NSLog(@"dataStr:%@",dataStr);
         NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                   @"1",@"opcode",//1为注册
                                   self.wifiBssid,@"bssid",//
@@ -390,12 +390,12 @@
                                   self.mask,@"geteway",//路由器
                                   @"",@"url",//保留URL
                                   @"",@"reserved",nil];//保留参数
-        NSLog(@"dataDict:%@",dataDict);
+        ////NSLog(@"dataDict:%@",dataDict);
         NSString *md5String = [self getMd5_32Bit_String:dataStr];//得到md5加密后的32位字符串
-//        NSLog(@"md5String:%@",md5String);//0ea7ccca8f7eeefb255e1931cb1409aa
+//        ////NSLog(@"md5String:%@",md5String);//0ea7ccca8f7eeefb255e1931cb1409aa
         
         NSMutableString *md5exchangeString = [self exchangeString:md5String];//1,6;4,13;21,29;20,25交换
-//        NSLog(@"md5exchangeString:%@",md5exchangeString);
+//        ////NSLog(@"md5exchangeString:%@",md5exchangeString);
         NSInteger length = dataStr.length;//data的长度
         NSString *md5Length = [NSString stringWithFormat:@"%ld",(long)length];
         NSDictionary *headDict = [NSDictionary dictionaryWithObjectsAndKeys:md5Length,@"length",md5exchangeString,@"verify", nil];
@@ -462,11 +462,11 @@
 - (BOOL)onUdpSocket:(AsyncUdpSocket *)sock didReceiveData:(NSData *)data withTag:(long)tag fromHost:(NSString *)host port:(UInt16)port
 {
     [self.udpSocket receiveWithTimeout:-1 tag:0];
-    NSLog(@"host---->%@",host);
+    ////NSLog(@"host---->%@",host);
     _loadingView.hidden = YES;
    	//接收到数据回调，显示出来
 	NSString *info=[[NSString alloc] initWithData:data encoding: NSUTF8StringEncoding];
-	NSLog(@"UDP代理接收到的数据：%@",info);
+	////NSLog(@"UDP代理接收到的数据：%@",info);
 	//已经处理完毕
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"配置成功"
 													message:@"1.请切换到“系统设置”>>“无线局域网”\n2.断开Joyshow_cam开头的摄像头热点\n3.连接到可上网的WiFi热点\n4.切换回此页面，再次刷新页面"
@@ -540,22 +540,22 @@
 {
     IPIndexPath = integer;
     if (integer) {
-        NSLog(@"1");
+        ////NSLog(@"1");
 //        NSString *subnetMask = [ipParameter objectForKey:@"subnetMask"];
-//        NSLog(@"subnetmask:%@",subnetMask);
+//        ////NSLog(@"subnetmask:%@",subnetMask);
         ipParameraDict = ipParameter;
         [ipStyleBtn setTitle:@"手动设置" forState:UIControlStateNormal];
         
     }else
     {
-        NSLog(@"0");
+        ////NSLog(@"0");
         [ipStyleBtn setTitle:@"自动获取" forState:UIControlStateNormal];
     }
 }
 //无线加密方式
 - (void)securtyStyleSelect:(NSString *)securtyStyle withIndex:(NSInteger)index withpwd:(NSString *)pwd
 {
-    NSLog(@"securtyStyle:%@,index:%d,pwd:%@",securtyStyle,index,pwd);
+    ////NSLog(@"securtyStyle:%@,index:%d,pwd:%@",securtyStyle,index,pwd);
     securtyIndexPath = index;
     self.identifify = pwd;
     [securtyBtn setTitle:securtyStyle forState:UIControlStateNormal];

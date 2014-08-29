@@ -168,7 +168,7 @@
             if ([self accessTokenIsExist]) {
                 
                 NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] stringForKey:kUserName],@"userID",self.accessToken,@"accessToken",_playDict,kplayerDict,nil];
-                NSLog(@"my camera dict:%@",dict);
+                ////NSLog(@"my camera dict:%@",dict);
 //                [[NSNotificationCenter defaultCenter] postNotificationName:kUserInfoNotification object:nil userInfo:dict];
                 [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MyCameraViewController" withDictionary:dict];
             }
@@ -186,7 +186,7 @@
         case 3://添加设备、扫描二维码
             if ([self accessTokenIsExist]) {
                 [self scanBtnAction];
-                NSLog(@"扫描二维码");
+                ////NSLog(@"扫描二维码");
 //                AddDeviceViewController *addDeviceVC = [[AddDeviceViewController alloc] init];
 ////                addDeviceVC.deviceID = result;
 //                addDeviceVC.access_token = self.accessToken;
@@ -363,22 +363,22 @@
     if(authorization) {
         //授权取消回调函数
         FrontiaAuthorizationCancelCallback onCancel = ^(){
-            NSLog(@"OnCancel: authorization is cancelled");//不继续登陆
+            ////NSLog(@"OnCancel: authorization is cancelled");//不继续登陆
         };
         
         //授权失败回调函数
         FrontiaAuthorizationFailureCallback onFailure = ^(int errorCode, NSString *errorMessage){
-            NSLog(@"OnFailure: %d  %@", errorCode, errorMessage);
+            ////NSLog(@"OnFailure: %d  %@", errorCode, errorMessage);
         };
         
         //授权成功回调函数 登录之后 2（授权中……） 输入密码之后
         FrontiaAuthorizationResultCallback onResult = ^(FrontiaUser *result){
-            NSLog(@"OnResult account name: %@ account experidDate: %@  account.accessToken:%@", result.accountName, result.experidDate,result.accessToken);
+            ////NSLog(@"OnResult account name: %@ account experidDate: %@  account.accessToken:%@", result.accountName, result.experidDate,result.accessToken);
             [[NSUserDefaults standardUserDefaults] setObject:result.accountName forKey:kUserName];
             [[NSUserDefaults standardUserDefaults] setObject:result.accessToken forKey:kUserAccessToken];
             [[NSUserDefaults standardUserDefaults] synchronize];
             self.accessToken = result.accessToken;
-            NSLog(@"授权成功的accessToken：%@",result.accessToken);//有
+            ////NSLog(@"授权成功的accessToken：%@",result.accessToken);//有
             //设置授权成功的账户为当前使用者账户
             self.userNameL.text = result.accountName;
             [Frontia setCurrentAccount:result];
@@ -390,7 +390,7 @@
         NSMutableArray *scope = [[NSMutableArray alloc] init];
         [scope addObject:FRONTIA_PERMISSION_USER_INFO];
         [scope addObject:FRONTIA_PERMISSION_PCS];
-//        NSLog(@"-------fengexian---------scope:%@",scope);
+//        ////NSLog(@"-------fengexian---------scope:%@",scope);
         [authorization authorizeWithPlatform:FRONTIA_SOCIAL_PLATFORM_BAIDU scope:scope supportedInterfaceOrientations:UIInterfaceOrientationMaskPortrait isStatusBarHidden:NO cancelListener:onCancel failureListener:onFailure resultListener:onResult];
     }
 }
@@ -401,12 +401,12 @@
     if(authorization) {
         //获取用户信息失败回调
         FrontiaUserInfoFailureCallback onFailure = ^(int errorCode, NSString *errorMessage){
-            NSLog(@"get user detail info failed with ID: %d and message:%@", errorCode, errorMessage);
+            ////NSLog(@"get user detail info failed with ID: %d and message:%@", errorCode, errorMessage);
         };
         //获取用户信息成功回调
         FrontiaUserInfoResultCallback onUserResult = ^(FrontiaUserDetail *result) {
             //  5
-            NSLog(@"get user detail info success with userName: %@ ----headURL：%@", result.accountName,result.headUrl);
+            ////NSLog(@"get user detail info success with userName: %@ ----headURL：%@", result.accountName,result.headUrl);
             NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:result.headUrl]];
             UIImage *userImage = [UIImage imageWithData:data];
             
@@ -422,7 +422,7 @@
 //            self.userNameL.text = result.accountName;
 //            self.titleText.text = @"退出登录";
             //            accessToken = result.accessToken;
-//            NSLog(@"用户信息的accessToken:%@",result.accessToken);//null
+//            ////NSLog(@"用户信息的accessToken:%@",result.accessToken);//null
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.view setNeedsDisplay]; //7
             });

@@ -86,12 +86,12 @@
     [self MBprogressViewHubLoading:@"设备修改……" withMode:0];
     //UTF8编码，上传服务器修改设备名
 //    NSString *modifyT = [[NSString alloc] initWithUTF8String:[modifyText.text UTF8String]];
-    //    NSLog(@"desc:%@",desc);
+    //    ////NSLog(@"desc:%@",desc);
     NSString *des = [modifyText.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSString *desWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)des, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
 
     NSString *URLstr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=update&deviceid=%@&access_token=%@&device_type=1&desc=%@&Need_stream_id_when_exists=1",self.deviceId,self.accessToken,desWithUTF8];
-    NSLog(@"URLstr:%@",URLstr);
+    ////NSLog(@"URLstr:%@",URLstr);
 
     [[AFHTTPRequestOperationManager manager]GET:URLstr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
@@ -114,7 +114,7 @@
 //        [_loadingView hide:YES];
         [self MBprogressViewHubLoading:@"设备修改失败" withMode:4];
         NSDictionary *errorDict = [error userInfo];
-        NSLog(@"errorDict:%@",errorDict);
+        ////NSLog(@"errorDict:%@",errorDict);
 //        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备修改失败" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
 //        [view show];
         [self backBtn];

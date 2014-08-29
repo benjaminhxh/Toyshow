@@ -55,7 +55,7 @@
 - (NSString *)getMd5_32Bit_String:(NSString *)srcString{
     const char *cStr = [srcString UTF8String];
     unsigned char digest[CC_MD5_DIGEST_LENGTH *2];
-//    NSLog(@"CC_MD5_DIGEST_LENGTH:%d",CC_MD5_DIGEST_LENGTH);
+//    ////NSLog(@"CC_MD5_DIGEST_LENGTH:%d",CC_MD5_DIGEST_LENGTH);
     CC_MD5( cStr, strlen(cStr), digest );
     NSMutableString *result = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
     for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
@@ -70,10 +70,10 @@
     //先拼接再MD5加密
     NSString *string = [NSString stringWithFormat:@"%@%@%@%@",APP_ID,expire,APP_KEY,APP_SecrectKey];
     realSign = [self getMd5_32Bit_String:string];
-//    NSLog(@"md5String:%@",realSign);
+//    ////NSLog(@"md5String:%@",realSign);
     //再拼接
     sign = [NSString stringWithFormat:@"%@-%@-%@",APP_ID,APP_KEY,realSign];
-//    NSLog(@"sign:%@",sign);
+//    ////NSLog(@"sign:%@",sign);
     [self shouldAutorotate];
     UIImageView *imgV=[[UIImageView alloc] initWithFrame:self.view.bounds];
     [imgV setImage:[UIImage imageNamed:@"dabeijing@2x"]];
@@ -152,7 +152,7 @@
 
 //- (void)receivesPlayerObject:(NSNotification*)notif
 //{
-//    NSLog(@"这是全局播放器对象");
+//    ////NSLog(@"这是全局播放器对象");
 //   shareVC = [[notif userInfo] objectForKey:kplayerKey];
 //}
 - (void)addheader{
@@ -165,14 +165,14 @@
         // 进入刷新状态就会回调这个Block
         //向服务器发起请求
         NSString *sharelistURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listshare&sign=%@&expire=%@&start=%d&num=100",sign,expire,0];
-//        NSLog(@"shareListUrl:%@",sharelistURL);
+//        ////NSLog(@"shareListUrl:%@",sharelistURL);
         [[AFHTTPRequestOperationManager manager] GET:sharelistURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
             //2、初始化数据
             _fakeData = [NSMutableArray array];
             downloadArr = [NSArray array];
             downloadArr = [dict objectForKey:@"device_list"];
-            //            NSLog(@"downloadArr:%@",downloadArr);
+            //            ////NSLog(@"downloadArr:%@",downloadArr);
             if (downloadArr.count == 0) {
                 [self MBprogressViewHubLoading:@"无分享的摄像头"];
                 [badInternetHub hide:YES afterDelay:1];
@@ -189,7 +189,7 @@
             }
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            //            NSLog(@"下载数据失败");
+            //            ////NSLog(@"下载数据失败");
             //            UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil
             [self MBprogressViewHubLoading:@"网络延时"];
             [badInternetHub hide:YES afterDelay:1];
@@ -200,26 +200,26 @@
         // 这里的refreshView其实就是header
         [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationFail];
 //        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
-//        NSLog(@"%@----开始进入刷新状态", refreshView.class);
+//        ////NSLog(@"%@----开始进入刷新状态", refreshView.class);
     };
 //    header.endStateChangeBlock = ^(MJRefreshBaseView *refreshView) {
 //        // 刷新完毕就会回调这个Block
-////        NSLog(@"%@----刷新完毕", refreshView.class);
+////        ////NSLog(@"%@----刷新完毕", refreshView.class);
 //        [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
 //    };
 //    header.refreshStateChangeBlock = ^(MJRefreshBaseView *refreshView, MJRefreshState state) {
 //        // 控件的刷新状态切换了就会调用这个block
 //        switch (state) {
 //            case MJRefreshStateNormal:
-//                NSLog(@"%@----切换到：普通状态", refreshView.class);
+//                ////NSLog(@"%@----切换到：普通状态", refreshView.class);
 //                break;
 //                
 //            case MJRefreshStatePulling:
-//                NSLog(@"%@----切换到：松开即可刷新的状态", refreshView.class);
+//                ////NSLog(@"%@----切换到：松开即可刷新的状态", refreshView.class);
 //                break;
 //                
 //            case MJRefreshStateRefreshing:
-//                NSLog(@"%@----切换到：正在刷新状态", refreshView.class);
+//                ////NSLog(@"%@----切换到：正在刷新状态", refreshView.class);
 //                break;
 //            default:
 //                break;
@@ -247,7 +247,7 @@
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是footer
         [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
-        NSLog(@"%@----开始进入刷新状态", refreshView.class);
+        ////NSLog(@"%@----开始进入刷新状态", refreshView.class);
         }
     else
     {
@@ -319,7 +319,7 @@
             //            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             cell = [[[NSBundle mainBundle] loadNibNamed:@"ShareCameraCell" owner:self options:nil] lastObject];
             NSDictionary *dict = [_fakeData objectAtIndex:indexPath.row];
-//            NSLog(@"公共摄像头列表的dict:%@",dict);
+//            ////NSLog(@"公共摄像头列表的dict:%@",dict);
             self.cameraName.text = [dict objectForKey:@"description"];
 //            self.cameraId.text = [dict objectForKey:@"deviceid"];
             NSString *imageURL = [dict objectForKey:@"thumbnail"];
@@ -355,7 +355,7 @@
         NSString *liveURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareID,uk];
         [[AFHTTPRequestOperationManager manager]GET:liveURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dictResponse = (NSDictionary *)responseObject;
-            //            NSLog(@"公共摄像头:%@",dictResponse);
+            //            ////NSLog(@"公共摄像头:%@",dictResponse);
             shareVC.isLive = YES;
             shareVC.isShare = YES;
             shareVC.isCollect = NO;
@@ -364,12 +364,12 @@
             shareVC.deviceId = [dict objectForKey:@"deviceid"];
             shareVC.playerTitle = [[dictResponse objectForKey:@"description"] stringByAppendingString:@"(分享)"];
             shareVC.url = [dictResponse objectForKey:@"url"];
-            NSLog(@"shareVC.url：%@",shareVC.url);
+            ////NSLog(@"shareVC.url：%@",shareVC.url);
 //            shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
             [_loadingView removeFromSuperview];
             [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"error++++++++");
+            ////NSLog(@"error++++++++");
             [_loadingView removeFromSuperview];
             [self MBprogressViewHubLoading:@"网络延时"];
             [badInternetHub hide:YES afterDelay:1];
@@ -427,17 +427,17 @@
 {
     NSDictionary *dictFromWeixin = (NSDictionary *)[notif userInfo];
     NSString *shareURL = [dictFromWeixin objectForKey:@"weixinInfo"];
-    NSLog(@"url come from weixin:%@",shareURL);
+    ////NSLog(@"url come from weixin:%@",shareURL);
     [[AFHTTPRequestOperationManager manager] POST:shareURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
-//            NSLog(@"公共摄像头url:%@",[dict objectForKey:@"url"]);
+//            ////NSLog(@"公共摄像头url:%@",[dict objectForKey:@"url"]);
             shareVC.isLive = YES;
             shareVC.isShare = YES;
             shareVC.url = [dict objectForKey:@"url"];
             shareVC.playerTitle = [dictFromWeixin objectForKey:@"weixinTitle"];
             [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            NSLog(@"error++++++++%@-------%@",[error userInfo],[error localizedDescription]);
+//            ////NSLog(@"error++++++++%@-------%@",[error userInfo],[error localizedDescription]);
             [self MBprogressViewHubLoading:@"设备已取消分享"];
             [badInternetHub hide:YES afterDelay:3];
         }];

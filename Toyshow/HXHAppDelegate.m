@@ -7,7 +7,6 @@
 //
 
 #import "HXHAppDelegate.h"
-//#import "MobClick.h"  //友盟
 #import "ShowImageViewController.h"
 
 #define APP_KEY @"ZIAgdlC7Vw7syTjeKG9zS4QP"
@@ -39,12 +38,9 @@
     }
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    NSString *Bundleidentifier = [[NSBundle mainBundle] bundleIdentifier];//zhxf.${PRODUCT_NAME:rfc1034identifier}
-    NSLog(@"Bundle identifier:%@",Bundleidentifier);
-//    //初始化Frontia
+
+    //初始化Frontia
     [Frontia initWithApiKey:APP_KEY];
-    [Frontia getPush];
-    [FrontiaPush setupChannel:launchOptions];
 
     [application registerForRemoteNotificationTypes:
      UIRemoteNotificationTypeAlert
@@ -69,19 +65,19 @@
 }
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
-    NSLog(@"frontia application deviceToken:%@", deviceToken);
+    //NSLog(@"frontia application deviceToken:%@", deviceToken);
     [FrontiaPush registerDeviceToken: deviceToken];
     
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    NSLog(@"frontia application error:%@", error);
+    //NSLog(@"frontia application error:%@", error);
 }
 
 - (void)application:(UIApplication *)application
 didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    NSLog(@"frontia applciation receive Notify: %@", [userInfo description]);
+    //NSLog(@"frontia applciation receive Notify: %@", [userInfo description]);
     NSString *alert = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
     if (application.applicationState == UIApplicationStateActive) {
         // Nothing to do if applicationState is Inactive, the iOS already displayed an alert view.
@@ -100,14 +96,14 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-//    NSLog(@"applicationWillResignActive");
+//    //NSLog(@"applicationWillResignActive");
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-//    NSLog(@"applicationDidEnterBackground");
+//    //NSLog(@"applicationDidEnterBackground");
     [[NSNotificationCenter defaultCenter] postNotificationName:kAPPWillResignActivenotif object:nil userInfo:nil];
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
@@ -115,13 +111,13 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-//    NSLog(@"applicationWillEnterForeground");
+//    //NSLog(@"applicationWillEnterForeground");
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-//    NSLog(@"applicationDidBecomeActive");
+//    //NSLog(@"applicationDidBecomeActive");
 
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
@@ -170,7 +166,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
         
 //        NSString *strTitle = [NSString stringWithFormat:@"微信请求App显示内容"];
 //        NSString *strMsg = [NSString stringWithFormat:@"标题：%@ \n内容：%@ \n附带信息：%@ \n缩略图:%u bytes\n\n", msg.title, msg.description, obj.extInfo, msg.thumbData.length];
-//        NSLog(@"strMSG:%@",strMsg);
+//        //NSLog(@"strMSG:%@",strMsg);
 //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle message:strMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
 //        [alert show];
         NSDictionary *weixinInfo = [NSDictionary dictionaryWithObjectsAndKeys:obj.url,@"weixinInfo",msg.title,@"weixinTitle", nil];

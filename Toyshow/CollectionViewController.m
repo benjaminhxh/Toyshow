@@ -137,12 +137,12 @@
         [[AFHTTPRequestOperationManager manager] GET:urlSTR parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             notFirstFlag = YES;
             NSDictionary *dict = (NSDictionary *)responseObject;
-            //            NSLog(@"收藏的dict:%@",dict);
+            //            ////NSLog(@"收藏的dict:%@",dict);
             //2、初始化数据
             _fakeData = [NSMutableArray array];
             downloadArr = [NSMutableArray array];
             downloadArr = [dict objectForKey:@"device_list"];
-            //            NSLog(@"downloadArr:%@",downloadArr);
+            //            ////NSLog(@"downloadArr:%@",downloadArr);
             if (downloadArr.count == 0) {
                 [self MBprogressViewHubLoading:@"无摄像头" withMode:4];
                 [badInternetHub hide:YES afterDelay:1];
@@ -167,12 +167,12 @@
         
 //        [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
 //            NSDictionary *dict = (NSDictionary *)responseObject;
-////            NSLog(@"收藏的dict:%@",dict);
+////            ////NSLog(@"收藏的dict:%@",dict);
 //            //2、初始化数据
 //            _fakeData = [NSMutableArray array];
 //            downloadArr = [NSMutableArray array];
 //            downloadArr = [dict objectForKey:@"device_list"];
-////            NSLog(@"downloadArr:%@",downloadArr);
+////            ////NSLog(@"downloadArr:%@",downloadArr);
 //            if (downloadArr.count == 0) {
 //                [self MBprogressViewHubLoading:@"无摄像头" withMode:4];
 //                [badInternetHub hide:YES afterDelay:1];
@@ -197,25 +197,25 @@
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
         [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationFail];
-        NSLog(@"%@----开始进入刷新状态", refreshView.class);
+        ////NSLog(@"%@----开始进入刷新状态", refreshView.class);
     };
 //    header.endStateChangeBlock = ^(MJRefreshBaseView *refreshView) {
 //        // 刷新完毕就会回调这个Block
-//        NSLog(@"%@----刷新完毕", refreshView.class);
+//        ////NSLog(@"%@----刷新完毕", refreshView.class);
 //    };
     header.refreshStateChangeBlock = ^(MJRefreshBaseView *refreshView, MJRefreshState state) {
         // 控件的刷新状态切换了就会调用这个block
         switch (state) {
             case MJRefreshStateNormal:
-                NSLog(@"%@----切换到：普通状态", refreshView.class);
+                ////NSLog(@"%@----切换到：普通状态", refreshView.class);
                 break;
                 
             case MJRefreshStatePulling:
-                NSLog(@"%@----切换到：松开即可刷新的状态", refreshView.class);
+                ////NSLog(@"%@----切换到：松开即可刷新的状态", refreshView.class);
                 break;
                 
             case MJRefreshStateRefreshing:
-                NSLog(@"%@----切换到：正在刷新状态", refreshView.class);
+                ////NSLog(@"%@----切换到：正在刷新状态", refreshView.class);
                 break;
             default:
                 break;
@@ -243,7 +243,7 @@
             // 模拟延迟加载数据，因此2秒后才调用）
             // 这里的refreshView其实就是footer
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
-            NSLog(@"%@----开始进入刷新状态", refreshView.class);
+            ////NSLog(@"%@----开始进入刷新状态", refreshView.class);
         }
         else
         {
@@ -340,11 +340,11 @@
     if (stat) {
         [self isLoadingView];
         NSString *liveUrl = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareid,uk];
-        NSLog(@"collectURL:%@",liveUrl);
+        ////NSLog(@"collectURL:%@",liveUrl);
         [[AFHTTPRequestOperationManager manager] POST:liveUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [_loadingView hide:YES];
             NSDictionary *dict = (NSDictionary *)responseObject;
-            NSLog(@"播放摄像头的dict:%@",dict);
+            ////NSLog(@"播放摄像头的dict:%@",dict);
             //获取直播rtmp地址
             NSString *rtmp = [dict objectForKey:@"url"];
             NSString *share = [cameraDict objectForKey:@"share"];
@@ -353,7 +353,7 @@
             liveVC.shareId = shareid;
             liveVC.uk = uk;
             liveVC.shareStaue = [share intValue];
-//            NSLog(@"shareStaue:%d",liveVC.shareStaue);
+//            ////NSLog(@"shareStaue:%d",liveVC.shareStaue);
             liveVC.url = rtmp;
             liveVC.isCollect = YES;
             liveVC.delegate = self;
@@ -362,7 +362,7 @@
             liveVC.playerTitle = [[dict objectForKey:@"description"] stringByAppendingString:@"(收藏)"];
             [[SliderViewController sharedSliderController].navigationController pushViewController:liveVC animated:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            NSLog(@"失败了");
+//            ////NSLog(@"失败了");
             [_loadingView hide:YES];
             [self MBprogressViewHubLoading:@"网络延时"withMode:4];
             [badInternetHub hide:YES afterDelay:1];
@@ -405,12 +405,12 @@
     [self MBprogressViewHubLoading:@"" withMode:0];
     [[AFHTTPRequestOperationManager manager] GET:urlSTR parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
-        NSLog(@"收藏的dict:%@",dict);
+        ////NSLog(@"收藏的dict:%@",dict);
         //2、初始化数据
         _fakeData = [NSMutableArray array];
         downloadArr = [NSMutableArray array];
         downloadArr = [dict objectForKey:@"device_list"];
-        NSLog(@"downloadArr:%@",downloadArr);
+        ////NSLog(@"downloadArr:%@",downloadArr);
         if (downloadArr.count == 0) {
             [self MBprogressViewHubLoading:@"无摄像头" withMode:4];
             [badInternetHub hide:YES afterDelay:1];

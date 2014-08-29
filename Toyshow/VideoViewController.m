@@ -35,13 +35,13 @@
     MPMoviePlayerController *player = notif.object;
     MPMoviePlaybackState playstate = player.playbackState;
     if (playstate == MPMoviePlaybackStatePaused) {
-        NSLog(@"pause");
+        ////NSLog(@"pause");
     }else if (playstate == MPMoviePlaybackStateStopped)
     {
-        NSLog(@"stop");
+        ////NSLog(@"stop");
     }else if (playstate == MPMoviePlaybackStatePlaying)
     {
-        NSLog(@"isPlaying");
+        ////NSLog(@"isPlaying");
     }
 }
 - (void)viewDidLoad
@@ -71,12 +71,12 @@
 }
 
 //- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
-//    NSLog(@"finish");
+//    ////NSLog(@"finish");
 //}
 //
 //- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error
 //{
-//    NSLog(@"error:%@",error);
+//    ////NSLog(@"error:%@",error);
 //}
 
 - (void)backBtn:(id)sender

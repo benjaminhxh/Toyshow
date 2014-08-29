@@ -67,7 +67,7 @@
     
 
     UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
-    NSURL *url = [NSURL URLWithString:@"http://www.baidu.com"];
+    NSURL *url = [NSURL URLWithString:@"http://www.51joyshow.com"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [webView loadRequest:request];
     webView.delegate = self;
@@ -112,7 +112,7 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [indicatorView stopAnimating];
-    NSLog(@"加载失败error:%@",[error userInfo]);
+    ////NSLog(@"加载失败error:%@",[error userInfo]);
 }
 //强制不允许转屏
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {

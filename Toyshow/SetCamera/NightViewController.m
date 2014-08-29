@@ -111,10 +111,10 @@
     //
     NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
     NSDictionary *paramDict = [NSDictionary dictionaryWithObjectsAndKeys:@"control",@"method",self.access_token,@"access_token",self.deviceid,@"deviceid",setCameraDataDict,@"command", nil];
-//    NSLog(@"paramDict:%@",paramDict);
+//    ////NSLog(@"paramDict:%@",paramDict);
     [[AFHTTPRequestOperationManager manager] POST:setURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary*)responseObject;
-        NSLog(@"dict:%@",dict);
+        ////NSLog(@"dict:%@",dict);
         _progressView.hidden = YES;
         [self alertViewShowWithTitle:@"设置成功" andMessage:nil];
         [self backToRootViewController];
@@ -124,7 +124,7 @@
     }];
 //    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
 //        NSDictionary *dict = (NSDictionary*)responseObject;
-//        NSLog(@"dict:%@",dict);
+//        ////NSLog(@"dict:%@",dict);
 //        _progressView.hidden = YES;
 //        [self alertViewShowWithTitle:@"设置成功" andMessage:nil];
 //        [self backToRootViewController];
