@@ -365,6 +365,7 @@
             shareVC.playerTitle = [[dictResponse objectForKey:@"description"] stringByAppendingString:@"(分享)"];
             shareVC.url = [dictResponse objectForKey:@"url"];
             NSLog(@"shareVC.url：%@",shareVC.url);
+//            shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
             [_loadingView removeFromSuperview];
             [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

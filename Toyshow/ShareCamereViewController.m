@@ -64,19 +64,19 @@
     NSLog(@"kwidth:%f===========,kheight:%f",kWidth,kHeight);
     self.view.transform = CGAffineTransformMakeRotation(M_PI_2);
     [UIView commitAnimations];
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = [UIColor whiteColor];
 
     self.scrollv = [[UIScrollView alloc] init];
+    self.scrollv.backgroundColor = [UIColor blackColor];
     if (iOS7) {
-        self.scrollv.frame = CGRectMake( 0, -20, kHeight, kWidth );
+        self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
     }else
     {
         self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
     }
     self.scrollv.delegate = self;
-//    self.scrollv.backgroundColor = [UIColor grayColor];
     [self.view addSubview: self.scrollv ];
-    self.imagev = [[UIImageView alloc] initWithFrame:self.scrollv.frame];
+    self.imagev = [[UIImageView alloc] initWithFrame:self.view.frame];
 //    self.imagev.backgroundColor = [UIColor redColor];
     self.imagev.userInteractionEnabled = YES;
     [self.scrollv addSubview: self.imagev];
@@ -92,6 +92,7 @@
 //    NSLog(@"SDKVersion:%@",SDKVerion);
     //设置视频显示的位置
     [cbPlayerController.view setFrame: self.imagev.frame];
+//    cbPlayerController.scalingMode = CBPMovieScalingModeFill;
     //将视频显示view添加到当前view中
     [self.imagev addSubview:cbPlayerController.view];
     
@@ -393,6 +394,7 @@
         cutBtn.hidden = YES;
         bottomView.hidden = NO;
         currentProgress.text = @"00:00:00";
+        remainsProgress.text = @"00:00:00";
         slider.value = 0.0;
     }
     

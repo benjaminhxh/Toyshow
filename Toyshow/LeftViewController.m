@@ -197,15 +197,14 @@
             break;
         case 4://登录or退出
         {
-            if (![self accessTokenIsExist]) {
-                //------------------------登录
-                [self signonButtonClicked];
+            if ([self accessTokenIsExist]) {
                 //5
-            }else
-            {
                 UIAlertView *logoutView = [[UIAlertView alloc] initWithTitle:@"退出提醒" message:@"确定要注销登录？" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
                 [logoutView show];
                 //------------------------退出登录
+            }else
+            {
+                //------------------------登录
             }
         }
             break;
@@ -239,7 +238,7 @@
         _loginView = [[UIAlertView alloc] initWithTitle:@"请登陆" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
         [_loginView show];
         return NO;
-    }
+    }else
     return YES;
 }
 
