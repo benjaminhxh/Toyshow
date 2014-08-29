@@ -214,9 +214,6 @@
         case 6://关于
             [[SliderViewController sharedSliderController] showContentControllerWithModel:@"AboutViewController" withDictionary:nil];
             break;
-//        case 7://分享到……
-//            [self shareToQQ];
-//            break;
         default:
             break;
     }

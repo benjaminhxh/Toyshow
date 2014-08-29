@@ -305,8 +305,6 @@
 		27E5AC0F19AB3ECE004B5458 /* libCyberPlayerController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E5ABD319AB3ECE004B5458 /* libCyberPlayerController.a */; };
 		27E5AC1019AB3ECE004B5458 /* libCyberPlayerUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E5ABD419AB3ECE004B5458 /* libCyberPlayerUtils.a */; };
 		27E5AC1119AB3ECE004B5458 /* libCyberPlayerUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E5ABD419AB3ECE004B5458 /* libCyberPlayerUtils.a */; };
-		27E5AC1419AB3ECE004B5458 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E5ABD619AB3ECE004B5458 /* libMobClickLibrary.a */; };
-		27E5AC1519AB3ECE004B5458 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E5ABD619AB3ECE004B5458 /* libMobClickLibrary.a */; };
 		27E5AC1619AB3ECE004B5458 /* libReachability.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E5ABD719AB3ECE004B5458 /* libReachability.a */; };
 		27E5AC1719AB3ECE004B5458 /* libReachability.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E5ABD719AB3ECE004B5458 /* libReachability.a */; };
 		27E5AC1819AB3ECE004B5458 /* libSBJSON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E5ABD819AB3ECE004B5458 /* libSBJSON.a */; };
@@ -614,7 +612,6 @@
 		27E5ABD219AB3ECE004B5458 /* libBase64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBase64.a; sourceTree = "<group>"; };
 		27E5ABD319AB3ECE004B5458 /* libCyberPlayerController.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCyberPlayerController.a; sourceTree = "<group>"; };
 		27E5ABD419AB3ECE004B5458 /* libCyberPlayerUtils.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCyberPlayerUtils.a; sourceTree = "<group>"; };
-		27E5ABD619AB3ECE004B5458 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		27E5ABD719AB3ECE004B5458 /* libReachability.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libReachability.a; sourceTree = "<group>"; };
 		27E5ABD819AB3ECE004B5458 /* libSBJSON.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSBJSON.a; sourceTree = "<group>"; };
 		27E5ABDD19AB3ECE004B5458 /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
@@ -734,7 +731,6 @@
 				27FFE28918BF287B00AE47FF /* UIKit.framework in Frameworks */,
 				27E5AC0E19AB3ECE004B5458 /* libCyberPlayerController.a in Frameworks */,
 				27FFE28518BF287B00AE47FF /* Foundation.framework in Frameworks */,
-				27E5AC1419AB3ECE004B5458 /* libMobClickLibrary.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -753,7 +749,6 @@
 				27E5AC0F19AB3ECE004B5458 /* libCyberPlayerController.a in Frameworks */,
 				27E5AC1119AB3ECE004B5458 /* libCyberPlayerUtils.a in Frameworks */,
 				27E5AC0B19AB3ECE004B5458 /* libASIHTTP.a in Frameworks */,
-				27E5AC1519AB3ECE004B5458 /* libMobClickLibrary.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1030,7 +1025,6 @@
 				27E5ABD219AB3ECE004B5458 /* libBase64.a */,
 				27E5ABD319AB3ECE004B5458 /* libCyberPlayerController.a */,
 				27E5ABD419AB3ECE004B5458 /* libCyberPlayerUtils.a */,
-				27E5ABD619AB3ECE004B5458 /* libMobClickLibrary.a */,
 				27E5ABD719AB3ECE004B5458 /* libReachability.a */,
 				27E5ABD819AB3ECE004B5458 /* libSBJSON.a */,
 			);
