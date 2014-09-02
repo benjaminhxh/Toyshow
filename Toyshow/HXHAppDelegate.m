@@ -57,16 +57,14 @@
 //    statTracker.shortAppVersion  = IosAppVersion; //参数为NSString * 类型,自定义app版本信息，如果不设置，默认从CFBundleVersion里取
 //    [statTracker startWithReportId:REPORT_ID];//设置您在mtj网站上添加的app的appkey
     
-//     [UIApplication sharedApplication].idleTimerDisabled = YES;//app在后台不锁屏
+     [UIApplication sharedApplication].idleTimerDisabled = YES;//app在后台不锁屏
     [WXApi registerApp:@"wx70162e2c344d4c79" withDescription:nil];
-    //友盟错误信息统计
-//    [MobClick startWithAppkey:@"53ba18ff56240b830200cdab" reportPolicy:SEND_INTERVAL channelId:nil];
     return YES;
 }
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
     //NSLog(@"frontia application deviceToken:%@", deviceToken);
-    [FrontiaPush registerDeviceToken: deviceToken];
+//    [FrontiaPush registerDeviceToken: deviceToken];
     
 }
 
