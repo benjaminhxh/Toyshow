@@ -41,12 +41,15 @@
 
     //初始化Frontia
     [Frontia initWithApiKey:APP_KEY];
+    [Frontia getPush];
+    [FrontiaPush setupChannel:launchOptions];
+    UIRemoteNotificationType  mytype =
+    UIRemoteNotificationTypeAlert|
+    UIRemoteNotificationTypeBadge|
+    UIRemoteNotificationTypeNewsstandContentAvailability|
+    UIRemoteNotificationTypeSound;
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:mytype];
 
-    [application registerForRemoteNotificationTypes:
-     UIRemoteNotificationTypeAlert
-     | UIRemoteNotificationTypeBadge
-     | UIRemoteNotificationTypeSound];
-    
 //    FrontiaStatistics* statTracker = [Frontia getStatistics];//集成百度云集成服务
 //    statTracker.enableExceptionLog = YES; // 是否允许截获并发送崩溃信息，请设置YES或者NO
 //    statTracker.channelId = @"this_is_a_invalid_channel_ID";//设置您的app的发布渠道
@@ -59,28 +62,29 @@
     
      [UIApplication sharedApplication].idleTimerDisabled = YES;//app在后台不锁屏
     [WXApi registerApp:@"wx70162e2c344d4c79" withDescription:nil];
+    
     return YES;
 }
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
-    //NSLog(@"frontia application deviceToken:%@", deviceToken);
-//    [FrontiaPush registerDeviceToken: deviceToken];
+    NSLog(@"frontia application deviceToken:%@", deviceToken);
+    [FrontiaPush registerDeviceToken: deviceToken];
     
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    //NSLog(@"frontia application error:%@", error);
+    NSLog(@"frontia application error:%@", error);
 }
 
 - (void)application:(UIApplication *)application
 didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    //NSLog(@"frontia applciation receive Notify: %@", [userInfo description]);
+//    NSLog(@"frontia applciation receive Notify: %@", [userInfo description]);
     NSString *alert = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
     if (application.applicationState == UIApplicationStateActive) {
         // Nothing to do if applicationState is Inactive, the iOS already displayed an alert view.
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Did receive a Remote Notification"
-                                                            message:[NSString stringWithFormat:@"The application received this remote notification while it was running:\n%@", alert]
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Joyshow"
+                                                            message:[NSString stringWithFormat:@"%@", alert]
                                                            delegate:self
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
@@ -90,6 +94,12 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
     
     [FrontiaPush handleNotification:userInfo];
     
+}
+
+- (void)onMethod:(NSString*)method response:(NSDictionary*)data
+{
+    NSDictionary *dict = [[NSDictionary alloc] initWithDictionary:data];
+    NSLog(@"dict:%@",dict);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

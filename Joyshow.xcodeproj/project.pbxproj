@@ -1837,6 +1837,7 @@
 					"$(inherited)",
 					/Users/zhxf/project/Toyshow/BaiduT5Player,
 					/Users/zhxf/project/Toyshow/ZBarSDK,
+					/Users/zhxf/project/Toyshow/LibBPush,
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Joyshow;
@@ -1866,6 +1867,7 @@
 					"$(inherited)",
 					/Users/zhxf/project/Toyshow/BaiduT5Player,
 					/Users/zhxf/project/Toyshow/ZBarSDK,
+					/Users/zhxf/project/Toyshow/LibBPush,
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Joyshow;
@@ -1898,6 +1900,7 @@
 					"$(inherited)",
 					/Users/zhxf/project/Toyshow/BaiduT5Player,
 					/Users/zhxf/project/Toyshow/ZBarSDK,
+					/Users/zhxf/project/Toyshow/LibBPush,
 				);
 				PRODUCT_NAME = JoyshowTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -1923,6 +1926,7 @@
 					"$(inherited)",
 					/Users/zhxf/project/Toyshow/BaiduT5Player,
 					/Users/zhxf/project/Toyshow/ZBarSDK,
+					/Users/zhxf/project/Toyshow/LibBPush,
 				);
 				PRODUCT_NAME = JoyshowTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";

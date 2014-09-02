@@ -45,8 +45,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivesPlayerObject:) name:kplayerObj object:nil];
-
     }
     return self;
 }
