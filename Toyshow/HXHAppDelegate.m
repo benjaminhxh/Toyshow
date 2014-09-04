@@ -79,7 +79,7 @@
 - (void)application:(UIApplication *)application
 didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-//    NSLog(@"frontia applciation receive Notify: %@", [userInfo description]);
+    NSLog(@"frontia applciation receive Notify: %@", [userInfo description]);
     NSString *alert = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
     if (application.applicationState == UIApplicationStateActive) {
         // Nothing to do if applicationState is Inactive, the iOS already displayed an alert view.
@@ -90,16 +90,18 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
                                                   otherButtonTitles:nil];
         [alertView show];
     }
+//    else if (application.applicationState == UIApplicationStateBackground)
+//    {
+//        NSLog(@"UIApplicationStateBackground");
+//    }
+//    else if (application.applicationState == UIApplicationStateInactive)
+//    {
+//        NSLog(@"UIApplicationStateInactive");
+//    }
     [application setApplicationIconBadgeNumber:0];
     
     [FrontiaPush handleNotification:userInfo];
     
-}
-
-- (void)onMethod:(NSString*)method response:(NSDictionary*)data
-{
-    NSDictionary *dict = [[NSDictionary alloc] initWithDictionary:data];
-    NSLog(@"dict:%@",dict);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

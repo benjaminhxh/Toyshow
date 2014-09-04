@@ -66,18 +66,27 @@
 //    [self.view addSubview:title];
     
 
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
-    NSURL *url = [NSURL URLWithString:@"http://www.51joyshow.com"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [webView loadRequest:request];
-    webView.delegate = self;
-    [self.view addSubview:webView];
+//    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
+//    NSURL *url = [NSURL URLWithString:@"http://www.51joyshow.com"];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    [webView loadRequest:request];
+//    webView.delegate = self;
+//    [self.view addSubview:webView];
     
     indicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(kWidth/2-40, kHeight/2-84, 80, 80)];
-    [webView addSubview:indicatorView];
+    [self.view addSubview:indicatorView];
     indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
     indicatorView.backgroundColor = [UIColor lightGrayColor];
-    [indicatorView startAnimating];
+//    [indicatorView startAnimating];
+    
+    UILabel *policyL = [[UILabel alloc] initWithFrame:CGRectMake(10, kHeight-38, kWidth-20, 34)];
+    policyL.text = @"精彩乐现 版权所有\nCopyright © 2013 - 2014 Joyshow.All Rights Reserved.";
+    policyL.numberOfLines = 2;
+    policyL.textAlignment = NSTextAlignmentCenter;
+    policyL.font = [UIFont systemFontOfSize:11];
+    policyL.backgroundColor = [UIColor clearColor];
+    policyL.textColor = [UIColor grayColor];
+    [self.view addSubview:policyL];
     
     //右滑回到上一个页面
     UISwipeGestureRecognizer *recognizer;
@@ -107,6 +116,11 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [indicatorView stopAnimating];
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"WebKitDiskImageCacheEnabled"];//自己添加的，原文没有提到。
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"WebKitOfflineWebApplicationCacheEnabled"];//自己添加的，原文没有提到。
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error

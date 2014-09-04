@@ -76,7 +76,7 @@
 //    [nextBtn addTarget:self action:@selector(nextBtnClick) forControlEvents:UIControlEventTouchUpInside];
 //    [topView addSubview:nextBtn];
     
-    _tabView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64) style:UITableViewStylePlain];
+    _tabView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kWidth, 180) style:UITableViewStylePlain];
     _tabView.delegate = self;
     _tabView.dataSource = self;
     [self.view addSubview:_tabView];

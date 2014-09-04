@@ -464,7 +464,12 @@
 {
 //    UIAlertView *finishView = [[UIAlertView alloc] initWithTitle:@"播放完成" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
 //    [finishView show];
-    ////NSLog(@"播放完成");
+    NSLog(@"播放完成");
+    if (self.isLive) {
+        if(cbPlayerController.playbackState == CBPMoviePlaybackStateInterrupted){
+            [cbPlayerController play];
+        }
+    }
 }
 
 //播放失败

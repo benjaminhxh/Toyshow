@@ -38,12 +38,12 @@
     self.view.backgroundColor = [UIColor whiteColor];
 
 	// Do any additional setup after loading the view.
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(5, 20, 40, 20);
-    [backBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [backBtn setTitle:@"返回" forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(backBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:backBtn];
+//    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    backBtn.frame = CGRectMake(5, 20, 40, 20);
+//    [backBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+//    [backBtn setTitle:@"返回" forState:UIControlStateNormal];
+//    [backBtn addTarget:self action:@selector(backBtn:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:backBtn];
     backgroundView = [[UIView alloc] initWithFrame:self.view.frame];
     backgroundView.backgroundColor = [UIColor grayColor];
     [self.view addSubview:backgroundView];
@@ -88,14 +88,6 @@
 //    }
 }
 
-//进去看看
-- (void)nextMainView
-{
-    [UIView animateWithDuration:0.3 animations:^{
-//        icaView.hidden = YES;
-//        backgroundView.hidden = YES;
-    }];
-}
 - (void)backBtn:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -181,6 +173,8 @@
     }else
     {
         ////NSLog(@"没安装客户端");
+        NSURL *url1 = [NSURL URLWithString:@"http://www.51joyshow.com.cn"];
+        [[UIApplication sharedApplication]canOpenURL:url1];
     }
 }
 
