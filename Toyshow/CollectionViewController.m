@@ -326,6 +326,7 @@
 //            //NSLog(@"shareStaue:%d",liveVC.shareStaue);
             liveVC.url = rtmp;
             liveVC.isCollect = YES;
+            liveVC.isWeixinShare = NO;
             liveVC.delegate = self;
             liveVC.accecc_token = accessToken;//
             liveVC.deviceId = deviceId;//设备ID

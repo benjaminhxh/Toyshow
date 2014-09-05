@@ -129,7 +129,7 @@
     imageResolutionL.text = @"图像分辨率";
     [scrollView addSubview:imageResolutionL];
     
-    NSArray *imageResolutionArr = [NSArray arrayWithObjects:@"1080P",@"720P",@"4CIF",@"640*480",@"352*288", nil];
+    NSArray *imageResolutionArr = [NSArray arrayWithObjects:@"1080P",@"720P",@"标清",@"流畅", nil];
     imageResolutionSeg = [[UISegmentedControl alloc] initWithItems:imageResolutionArr];
     imageResolutionSeg.frame = CGRectMake(5, 260, 310, 41);
     imageResolutionSeg.selectedSegmentIndex = self.imageResolutionIndex-1;
@@ -163,9 +163,8 @@
         return;
     }
     [self.view endEditing:YES];
-    if (nil == _progressView) {
-        [self isLoadingView];
-    }
+    [self isLoadingView];
+    
     NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                        [NSNumber numberWithInteger:audioSw.on ],@"iEnableAudioIn",
                                        streamF.text,@"iStreamBitrate",
@@ -212,13 +211,17 @@
 
 - (void)isLoadingView
 {
-    _progressView = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:_progressView];
-    
-    _progressView.delegate = self;
-    _progressView.labelText = @"loading";
-    _progressView.square = YES;
-    _progressView.color = [UIColor grayColor];
+    if (_progressView == nil) {
+        _progressView = [[MBProgressHUD alloc] initWithView:self.view];
+        [_progressView show:YES];
+        [self.view addSubview:_progressView];
+        
+        _progressView.delegate = self;
+        _progressView.labelText = @"loading";
+        _progressView.square = YES;
+        _progressView.color = [UIColor grayColor];
+        return;
+    }
     [_progressView show:YES];
 }
 
@@ -227,7 +230,7 @@
     UIAlertView *setError = [[UIAlertView alloc] initWithTitle:string
                                                        message:message
                                                       delegate:nil
-                                             cancelButtonTitle:@"Cancel"
+                                             cancelButtonTitle:@"OK"
                                              otherButtonTitles:nil, nil];
     [setError show];
 }

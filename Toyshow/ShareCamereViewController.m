@@ -357,11 +357,20 @@
                     [collectionBtn setImage:[UIImage imageNamed:@"collect_zhong@2x"] forState:UIControlStateHighlighted];
                 }
 //                forwardBtn.hidden = NO;
-                collectionBtn.hidden = NO;
-                
+                if (self.isWeixinShare) {
+                    collectionBtn.hidden = YES;
+                }else
+                {
+                    collectionBtn.hidden = NO;
+                }
             }else{
 //                forwardBtn.hidden = YES;
-                collectionBtn.hidden = YES;
+                if (self.isWeixinShare) {
+                    collectionBtn.hidden = YES;
+                }else
+                {
+                    collectionBtn.hidden = NO;
+                }
             }
 
             shareBtn.hidden = YES;
@@ -468,6 +477,13 @@
     if (self.isLive) {
         if(cbPlayerController.playbackState == CBPMoviePlaybackStateInterrupted){
             [cbPlayerController play];
+            NSLog(@"CBPMoviePlaybackStateInterrupted");
+        }else if (cbPlayerController.playbackState == CBPMoviePlaybackStateStopped)
+        {
+            NSLog(@"CBPMoviePlaybackStateStopped");
+        }else if (cbPlayerController.playbackState == CBPMoviePlaybackStatePaused)
+        {
+            NSLog(@"CBPMoviePlaybackStatePaused");
         }
     }
 }
@@ -478,7 +494,7 @@
     [self performSelectorOnMainThread:@selector(hiddenLoadingView) withObject:nil waitUntilDone:NO];
     UIAlertView *playError = [[UIAlertView alloc] initWithTitle:@"播放失败" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
     [playError show];
-    ////NSLog(@"播放失败");
+    NSLog(@"播放失败");
 }
 //状态改变
 - (void)stateDidChange:(NSNotification*)notif
@@ -692,6 +708,7 @@
     } completion:^(BOOL finished) {
         
     }];
+    volumView.hidden = YES;
     topViewHidden = !topViewHidden;
 }
 

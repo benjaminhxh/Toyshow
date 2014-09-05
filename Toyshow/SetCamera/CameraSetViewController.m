@@ -7,18 +7,20 @@
 //
 
 #import "CameraSetViewController.h"
-#import "ModifyViewController.h"
 #import "ThumbnailViewController.h"
 #import "SceneModeViewController.h"
 #import "NtscOrpalViewController.h"
 #import "ImageResolutionViewController.h"
 #import "DeviceControlViewController.h"
 #import "SensitivityViewController.h"
+
 #import "AudioVideoViewController.h"
 #import "NightViewController.h"
 #import "EventNotificationViewController.h"
 #import "DeviceStatueControlViewController.h"
 #import "DeviceInfoViewController.h"
+#import "ModifyViewController.h"
+
 @interface CameraSetViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,SceneModeViewControllerDelegate,NtscOrpalViewControllerDelegate,ImageResolutionViewControllerDelegate,DeviceControlViewControlDelegate,SensitivityViewControllerDelegate,MBProgressHUDDelegate>
 {
     NSArray *cameraInfoArr;
@@ -94,6 +96,7 @@
 
 - (void)backBtn:(id)sender
 {
+    _loginoutView.hidden = YES;
     [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
 }
 

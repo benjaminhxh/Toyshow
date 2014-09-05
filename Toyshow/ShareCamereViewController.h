@@ -25,6 +25,8 @@
 @property (nonatomic,assign) BOOL isLive;
 @property (nonatomic,assign) BOOL isShare;
 @property (nonatomic,assign) BOOL isCollect;
+@property (nonatomic,assign) BOOL isWeixinShare;
+
 @property (nonatomic,assign) int shareStaue;
 @property (nonatomic,copy) NSString *url;
 @property (nonatomic,copy) NSString *playerTitle;

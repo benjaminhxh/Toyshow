@@ -357,6 +357,7 @@
             shareVC.isLive = YES;
             shareVC.isShare = YES;
             shareVC.isCollect = NO;
+            shareVC.isWeixinShare = NO;
             shareVC.shareId = shareID;
             shareVC.uk = uk;
             shareVC.deviceId = [dict objectForKey:@"deviceid"];
@@ -431,6 +432,7 @@
 //            ////NSLog(@"公共摄像头url:%@",[dict objectForKey:@"url"]);
             shareVC.isLive = YES;
             shareVC.isShare = YES;
+            shareVC.isWeixinShare = YES;
             shareVC.url = [dict objectForKey:@"url"];
             shareVC.playerTitle = [dictFromWeixin objectForKey:@"weixinTitle"];
             [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
