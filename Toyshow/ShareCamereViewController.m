@@ -365,12 +365,7 @@
                 }
             }else{
 //                forwardBtn.hidden = YES;
-                if (self.isWeixinShare) {
-                    collectionBtn.hidden = YES;
-                }else
-                {
-                    collectionBtn.hidden = NO;
-                }
+                collectionBtn.hidden = YES;
             }
 
             shareBtn.hidden = YES;

@@ -465,8 +465,8 @@
     ////NSLog(@"host---->%@",host);
     _loadingView.hidden = YES;
    	//接收到数据回调，显示出来
-//	NSString *info=[[NSString alloc] initWithData:data encoding: NSUTF8StringEncoding];
-	////NSLog(@"UDP代理接收到的数据：%@",info);
+	NSString *info=[[NSString alloc] initWithData:data encoding: NSUTF8StringEncoding];
+	NSLog(@"UDP代理接收到的数据：%@",info);
 	//已经处理完毕
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"配置成功"
 													message:@"1.请切换到“系统设置”>>“无线局域网”\n2.断开Joyshow_cam开头的摄像头热点\n3.连接到可上网的WiFi热点\n4.切换回此页面，再次刷新页面"

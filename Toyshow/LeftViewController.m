@@ -39,6 +39,7 @@
     UIAlertView *_loginView;
     ShareCamereViewController *_playVC;
     NSDictionary *_playDict;
+    ZBarReaderViewController *reader;
 }
 @end
 
@@ -231,7 +232,8 @@
 
 - (BOOL)accessTokenIsExist
 {
-    if ([[NSUserDefaults standardUserDefaults] stringForKey:kUserAccessToken]==nil) {
+    NSString *userAccessToken = [[NSUserDefaults standardUserDefaults]stringForKey:kUserAccessToken];
+    if (userAccessToken == nil) {
         _loginView = [[UIAlertView alloc] initWithTitle:@"请登陆" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
         [_loginView show];
         return NO;
@@ -246,7 +248,12 @@
     num = 0;
     upOrdown = NO;
     //初始话ZBar
-    ZBarReaderViewController * reader = [ZBarReaderViewController new];
+    if (reader) {
+        
+    }else
+    {
+        reader = [ZBarReaderViewController new];
+    }
     //设置代理
     reader.readerDelegate = self;
     //支持界面旋转
@@ -374,6 +381,7 @@
         //授权成功回调函数 登录之后 2（授权中……） 输入密码之后
         FrontiaAuthorizationResultCallback onResult = ^(FrontiaUser *result){
             ////NSLog(@"OnResult account name: %@ account experidDate: %@  account.accessToken:%@", result.accountName, result.experidDate,result.accessToken);
+            NSLog(@"平台信息：%@",result.platform);
             [[NSUserDefaults standardUserDefaults] setObject:result.accountName forKey:kUserName];
             [[NSUserDefaults standardUserDefaults] setObject:result.accessToken forKey:kUserAccessToken];
             [[NSUserDefaults standardUserDefaults] synchronize];
@@ -458,7 +466,7 @@
         self.userImageVIew.image = [UIImage imageNamed:@"touxiang_n@2x"];
         self.userNameL.text = @"请登录";
         loginOrOutL.text = @"登陆";
-
+        //清楚cookie
         NSHTTPCookie *cookie;
         NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
         for (cookie in [storage cookies])

@@ -218,12 +218,19 @@
                     }
                 }
                 //请求点播缩略图
+                //获取视频流最后一张缩略图:
                 NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&latest=%d",self.accessToken,self.deviceID,1];
+                //获取一段时间内的缩略图列表:
+//                NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
+//                NSLog(@"imageURL:%@",imageURL);
                 [[AFHTTPRequestOperationManager manager]POST:imageURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSDictionary *dict = (NSDictionary *)responseObject;
+//                    NSLog(@"视频流的图像：%@",dict);
                     NSArray *imageArr = [NSArray array];
                     imageArr = [dict objectForKey:@"list"];
+//                    NSLog(@"imageArr.count:%d",imageArr.count);
                     NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
+//                    NSLog(@"imageURLDict:%@",imageURLDict);
                     downloadImageURL = [imageURLDict objectForKey:@"url"];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //                    NSDictionary *errorDict = [error userInfo];
@@ -236,59 +243,9 @@
             ////NSLog(@"errorDict:%@",errorDict);
             [self MBprogressViewHubLoading:@"网络延时"];
             [badInternetHub hide:YES afterDelay:1];
-            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+            [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
             
         }];
-        
-//        [[AFHTTPSessionManager manager] GET:urlStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//            NSDictionary *dict = (NSDictionary *)responseObject;
-////            ////NSLog(@"dict:%@",dict);
-//            //2、初始化数据
-//            _fakeData = [NSMutableArray array];
-//            downloadArr = [NSMutableArray array];
-//            downloadArr = [dict objectForKey:@"results"];
-////            ////NSLog(@"downloadArr:%@=====%d",downloadArr,downloadArr.count);
-//            
-//            if (downloadArr.count == 0) {
-//                [self MBprogressViewHubLoading:@"无录像"];
-//                [badInternetHub hide:YES afterDelay:1];
-//            }else
-//            {
-//                if (downloadArr.count>20) {
-//                    //从尾到头遍历选出最后那20条数据
-//                    for (int i = downloadArr.count; i > (downloadArr.count-20); i--) {
-////                        ////NSLog(@"downLoadArr:------i--------%d",i);
-//                        [vc->_fakeData addObject:[downloadArr objectAtIndex:i-1]];
-//                    }
-//                }
-//                else
-//                {
-//                    for (int i = downloadArr.count; i > 0; i--) {
-//                        [vc->_fakeData addObject:[downloadArr objectAtIndex:i-1]];
-//                    }
-//                }
-//                //请求点播缩略图
-//                NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&latest=%d",self.accessToken,self.deviceID,1];
-//                [[AFHTTPSessionManager manager] GET:imageURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//                    NSDictionary *dict = (NSDictionary *)responseObject;
-//                    NSArray *imageArr = [NSArray array];
-//                    imageArr = [dict objectForKey:@"list"];
-//                    NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
-//                    downloadImageURL = [imageURLDict objectForKey:@"url"];
-//                } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//                    NSDictionary *errorDict = [error userInfo];
-//                    ////NSLog(@"errorDict:%@",errorDict);
-//                }];
-//            }
-//            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
-//        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//            NSDictionary *errorDict = [error userInfo];
-//            ////NSLog(@"errorDict:%@",errorDict);
-//            [self MBprogressViewHubLoading:@"网络延时"];
-//            [badInternetHub hide:YES afterDelay:1];
-//            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
-//
-//        }];
 
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header

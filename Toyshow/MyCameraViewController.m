@@ -176,42 +176,11 @@
             notFirstFlag = YES;
             [self MBprogressViewHubLoading:@"网络延时"];
             [badInternetHub hide:YES afterDelay:1];
-            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+            [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
         }];
-//        [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//            NSDictionary *dict = (NSDictionary *)responseObject;
-//            //2、初始化数据
-//            _fakeData = [NSMutableArray array];
-//            downloadArr = [NSMutableArray array];
-//            downloadArr = [dict objectForKey:@"list"];
-////            ////NSLog(@"downloadArr:%@",downloadArr);
-//            if (downloadArr.count == 0) {
-////                UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"无摄像头" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-////                [noDataView show];
-//                [self MBprogressViewHubLoading:@"无摄像头"];
-//                [badInternetHub hide:YES afterDelay:1];
-//            }else
-//            {
-//                if (downloadArr.count>20) {
-//                    for (int i = 0; i < 20; i++) {
-//                        [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
-//                    }
-//                }else
-//                {
-//                    vc->_fakeData = (NSMutableArray *)downloadArr;
-//                }
-//            }
-//        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
-//        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-////            UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-////            [noDataView show];
-//            [self MBprogressViewHubLoading:@"网络延时"];
-//            [badInternetHub hide:YES afterDelay:1];
-//            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
-//        }];
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
-        [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationFail];
+        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationFail];
         ////NSLog(@"%@----开始进入刷新状态", refreshView.class);
     };
 //    header.endStateChangeBlock = ^(MJRefreshBaseView *refreshView) {
@@ -479,29 +448,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_loadingView hide:YES];
     }];
-//    [[AFHTTPSessionManager manager] GET:urlSTR parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//        NSDictionary *dict = (NSDictionary *)responseObject;
-//        //2、初始化数据
-//        _fakeData = [NSMutableArray array];
-//        downloadArr = [NSMutableArray array];
-//        downloadArr = [dict objectForKey:@"list"];
-//        ////NSLog(@"downloadArr:%@",downloadArr);
-//        [_loadingView hide:YES];
-//        
-//        if (downloadArr.count>20) {
-//            for (int i = 0; i < 20; i++) {
-//                [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
-//            }
-//        }else
-//        {
-//            vc->_fakeData = (NSMutableArray *)downloadArr;
-//        }
-//        
-//        [_tableView reloadData];//刷新界面
-//        
-//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//        [_loadingView hide:YES];
-//    }];
     
     //Url示例:https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=46192376&access_token=52.458ff6f376002020f442208e094ca7b7.2592000.1405677428.906252268-2271149&device_type=1&desc=都是测试数据
 }
