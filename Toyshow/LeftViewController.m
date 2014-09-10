@@ -351,7 +351,7 @@
             AddDeviceViewController *addDeviceVC = [[AddDeviceViewController alloc] init];
             addDeviceVC.deviceID = result;
             addDeviceVC.access_token = self.accessToken;
-            addDeviceVC.userID = [[NSUserDefaults standardUserDefaults] stringForKey:kUserName];
+//            addDeviceVC.userID = [[NSUserDefaults standardUserDefaults] stringForKey:kUserName];
             [self.navigationController pushViewController:addDeviceVC animated:YES];
         }
         else
@@ -386,7 +386,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:result.accessToken forKey:kUserAccessToken];
             [[NSUserDefaults standardUserDefaults] synchronize];
             self.accessToken = result.accessToken;
-            ////NSLog(@"授权成功的accessToken：%@",result.accessToken);//有
+            NSLog(@"授权成功的accessToken：%@",result.accessToken);//有
             //设置授权成功的账户为当前使用者账户
             self.userNameL.text = result.accountName;
             [Frontia setCurrentAccount:result];
@@ -415,22 +415,19 @@
         FrontiaUserInfoResultCallback onUserResult = ^(FrontiaUserDetail *result) {
             //  5
             ////NSLog(@"get user detail info success with userName: %@ ----headURL：%@", result.accountName,result.headUrl);
+
             NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:result.headUrl]];
+//            NSLog(@"result.url:%@",result.headUrl);
             UIImage *userImage = [UIImage imageWithData:data];
-            
-//            [[NSUserDefaults standardUserDefaults] setValue:result.headUrl forKey:kUserHeadURL];
-//            [self.userImageVIew setImageWithURL:[NSURL URLWithString:result.headUrl]];
             self.userImageVIew.clipsToBounds = YES;
             self.userImageVIew.image = [self scaleToSize:userImage size:self.userImageVIew.frame.size];
             self.userImageVIew.layer.cornerRadius = self.userImageVIew.bounds.size.width/2;
             [[NSUserDefaults standardUserDefaults] setObject:data forKey:kUserHeadImage];
             [[NSUserDefaults standardUserDefaults] synchronize];
-
             loginOrOutL.text = @"退出";
 //            self.userNameL.text = result.accountName;
 //            self.titleText.text = @"退出登录";
             //            accessToken = result.accessToken;
-//            ////NSLog(@"用户信息的accessToken:%@",result.accessToken);//null
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.view setNeedsDisplay]; //7
             });
@@ -438,6 +435,12 @@
         //传递授权返回的令牌信息 4
         [authorization getUserInfoWithPlatform:FRONTIA_SOCIAL_PLATFORM_BAIDU failureListener:onFailure resultListener:onUserResult];
     }
+    
+    FrontiaAccount *accountt = [Frontia currentAccount];
+    [[NSUserDefaults standardUserDefaults] setObject:accountt.mediaUid forKey:kUserId];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+//    NSLog(@"medID:%@---accontID:%@--accountName:%@",accountt.mediaUid,accountt.accountId,accountt.accountName);
 }
 
 //退出登录

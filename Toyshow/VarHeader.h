@@ -23,6 +23,7 @@
 #define kUserName               @"userName"
 #define kUserAccessToken        @"userAccessToken"
 #define kUserHeadImage          @"userHeadImage"
+#define kUserId                 @"userID"
 //播放器
 #define kplayerKey              @"playerKey"
 #define kplayerDict             @"playerDict"

@@ -674,18 +674,6 @@
         _loginoutView.hidden = YES;
         [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
     }];
-//    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//        NSDictionary *dict = (NSDictionary*)responseObject;
-//        ////NSLog(@"dict:%@",dict);
-//        stateLightoffON.on = self.lightStatueIndex;
-//        _loginoutView.hidden = YES;
-//        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
-//        
-//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//        stateLightoffON.on = !self.lightStatueIndex;
-//        _loginoutView.hidden = YES;
-//        [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
-//    }];
 
 }
 
@@ -871,34 +859,48 @@
 - (void)logoutMyCamera
 {
     //注销设备
+    [self isLoadingView];
     _loginoutView.mode = 0;
     _loginoutView.labelText = @"注销中……";
     _loginoutView.hidden = NO;
-    NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=drop&deviceid=%@&access_token=%@",self.deviceid,self.access_token];
-    ////NSLog(@"urlStr:%@",urlStr);
-    [[AFHTTPRequestOperationManager manager] POST:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSDictionary *dict = (NSDictionary *)responseObject;
-//        NSString *deviceID = [dict objectForKey:@"deviceid"];
-        ////NSLog(@"deviceid:%@",deviceID);
-        if (self.delegate && [self.delegate respondsToSelector:@selector(logoutCameraAtindex:)]) {
-            [self.delegate logoutCameraAtindex:self.index];
-        }
-        _loginoutView.mode = 4;
-        _loginoutView.labelText = @"注销成功";
-        [_loginoutView hide:YES];
-        
-        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
-//        [self alertViewShowWithTitle:@"注销成功" andMessage:nil];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSDictionary *errorDict = [error userInfo];
-//        NSString *errorMSG = [errorDict objectForKey:@"error_msg"];
-        ////NSLog(@"erroeMSG:%@",errorMSG);
-        _loginoutView.mode = 4;
-        _loginoutView.labelText = @"注销失败";
-        [_loginoutView hide:YES];
-//        [self alertViewShowWithTitle:@"注销失败" andMessage:errorMSG];
-    }];
+//    NSDictionary *localLogoutDict = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"iDeregisterDevice", nil];
+//    NSString *localLogoutString = [localLogoutDict JSONString];
+//    NSString *localLogoutStrWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)localLogoutString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+//    NSString *localLogoutURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,localLogoutStrWithUTF8];
+    //发通道消息注销
+//    [[AFHTTPRequestOperationManager manager] POST:localLogoutURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=drop&deviceid=%@&access_token=%@",self.deviceid,self.access_token];
+        ////NSLog(@"urlStr:%@",urlStr);
+        //服务器注销
+        [[AFHTTPRequestOperationManager manager] POST:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            //        NSDictionary *dict = (NSDictionary *)responseObject;
+            //        NSString *deviceID = [dict objectForKey:@"deviceid"];
+            ////NSLog(@"deviceid:%@",deviceID);
+            if (self.delegate && [self.delegate respondsToSelector:@selector(logoutCameraAtindex:)]) {
+                [self.delegate logoutCameraAtindex:self.index];
+            }
+            _loginoutView.mode = 4;
+            _loginoutView.labelText = @"注销成功";
+            [_loginoutView hide:YES];
+            
+            [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
+            //        [self alertViewShowWithTitle:@"注销成功" andMessage:nil];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            //        NSDictionary *errorDict = [error userInfo];
+            //        NSString *errorMSG = [errorDict objectForKey:@"error_msg"];
+            ////NSLog(@"erroeMSG:%@",errorMSG);
+            _loginoutView.mode = 4;
+            _loginoutView.labelText = @"注销失败";
+            [_loginoutView hide:YES];
+            //        [self alertViewShowWithTitle:@"注销失败" andMessage:errorMSG];
+        }];
+
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        _loginoutView.mode = 4;
+//        _loginoutView.labelText = @"注销失败";
+//        [_loginoutView hide:YES];
+//    }];
 }
 
 //判断输入的值是否介于两者之间
@@ -958,28 +960,6 @@
         [self alertViewShowWithTitle:@"获取设备信息失败" andMessage:[error localizedDescription]];
         //        ////NSLog(@"errorInfo:%@",[error userInfo]);
     }];
-//    [[AFHTTPSessionManager manager] POST:getInfoURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//        NSDictionary *dict = (NSDictionary*)responseObject;
-//        NSArray *arr = [dict objectForKey:@"data"];
-//        NSDictionary *userData = [arr lastObject];
-////        ////NSLog(@"userData:%@",userData);
-//        NSString *userDataString = [userData objectForKey:@"userData"];
-//        ////NSLog(@"userDataDict:%@",userDataString);
-//        NSData *resData = [[NSData alloc] initWithData:[userDataString dataUsingEncoding:NSUTF8StringEncoding]];
-//        //系统自带JSON解析
-//        cameraInfoDict = [NSDictionary dictionary];
-//        cameraInfoDict = [NSJSONSerialization JSONObjectWithData:resData options:NSJSONReadingMutableLeaves error:nil];
-//        count = 8;
-//        _loginoutView.hidden = YES;
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [_tableView reloadData];
-////            [self.view setNeedsDisplay]; //7
-//        });
-//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//        _loginoutView.hidden = YES;
-//        [self alertViewShowWithTitle:@"获取设备信息失败" andMessage:[error localizedDescription]];
-////        ////NSLog(@"errorInfo:%@",[error userInfo]);
-//    }];
 }
 
 - (void)alertViewShowWithTitle:(NSString*)string andMessage:(NSString*)message

@@ -11,7 +11,7 @@
 
 @interface AddDeviceViewController : UIViewController
 @property (nonatomic, copy) NSString *deviceID;
-@property (nonatomic, copy) NSString *userID;
+//@property (nonatomic, copy) NSString *userID;
 @property (nonatomic, copy) NSString *access_token;
 @property (nonatomic, copy) NSString *wifiBssid;
 @property (nonatomic, copy) NSString *security;//加密方式
