@@ -205,24 +205,7 @@
 ////        ////NSLog(@"%@----刷新完毕", refreshView.class);
 //        [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
 //    };
-//    header.refreshStateChangeBlock = ^(MJRefreshBaseView *refreshView, MJRefreshState state) {
-//        // 控件的刷新状态切换了就会调用这个block
-//        switch (state) {
-//            case MJRefreshStateNormal:
-//                ////NSLog(@"%@----切换到：普通状态", refreshView.class);
-//                break;
-//                
-//            case MJRefreshStatePulling:
-//                ////NSLog(@"%@----切换到：松开即可刷新的状态", refreshView.class);
-//                break;
-//                
-//            case MJRefreshStateRefreshing:
-//                ////NSLog(@"%@----切换到：正在刷新状态", refreshView.class);
-//                break;
-//            default:
-//                break;
-//        }
-//    };
+
     _headview = header;
     [header beginRefreshing];
 }
@@ -362,9 +345,9 @@
             shareVC.uk = uk;
             shareVC.deviceId = [dict objectForKey:@"deviceid"];
             shareVC.playerTitle = [[dictResponse objectForKey:@"description"] stringByAppendingString:@"(分享)"];
-            shareVC.url = [dictResponse objectForKey:@"url"];
+//            shareVC.url = [dictResponse objectForKey:@"url"];
             ////NSLog(@"shareVC.url：%@",shareVC.url);
-//            shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
+            shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
             [_loadingView removeFromSuperview];
             [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
