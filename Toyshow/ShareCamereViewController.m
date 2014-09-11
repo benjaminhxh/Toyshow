@@ -26,8 +26,8 @@
     NSTimer *timer,*localTimer,*_timer3;
 //    UIProgressView *progressV;
     UIImageView *topView,*bottomView;
-    BOOL topViewHidden,lightBool;
-    UILabel *titleL,*currentProgress,*remainsProgress;
+    BOOL topViewHidden,lightBool,_isExitFlag;
+    UILabel *titleL,*currentProgress,*remainsProgress,*errorLab;
     MBProgressHUD *_loadingView,*shareHub,*percentHub;
     UILabel *timeL;
     MPVolumeView *volumView;
@@ -314,7 +314,11 @@
         [bottomView addSubview:slider];
 //        [self startPlayback];
 //    }
-
+    errorLab = [[UILabel alloc] initWithFrame:CGRectMake(kHeight/2-50, kWidth/2-12, 100, 24)];
+    errorLab.text = @"服务器错误";
+    errorLab.backgroundColor = [UIColor clearColor];
+    errorLab.textColor = [UIColor whiteColor];
+    [cbPlayerController.view addSubview:errorLab];
 //    indicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(140, 120, 137, 137)];
 //    [self.view addSubview:indicatorView];
 //    indicatorView.backgroundColor = [UIColor lightGrayColor];
@@ -443,10 +447,10 @@
 }
 
 //开始缓冲
-- (void)startCaching:(NSNotification*)botif
+- (void)startCaching:(NSNotification*)notif
 {
 //    [self startTimer];
-    ////NSLog(@"开始缓冲startCachhhhhhhhhhhhhh");
+    NSLog(@"开始缓冲startCachhhhhhhhhhhhhh:%@------%@",[notif object],[notif userInfo]);
 //    [self isLoadingView];
 }
 
@@ -468,6 +472,7 @@
 {
 //    UIAlertView *finishView = [[UIAlertView alloc] initWithTitle:@"播放完成" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
 //    [finishView show];
+    errorLab.hidden = NO;
     NSLog(@"播放完成：%@----%@========%@",[notif userInfo],[notif name],[notif object]);
     if (self.isLive) {
         if(cbPlayerController.playbackState == CBPMoviePlaybackStateInterrupted){
@@ -476,6 +481,10 @@
         }else if (cbPlayerController.playbackState == CBPMoviePlaybackStateStopped)
         {
             NSLog(@"CBPMoviePlaybackStateStopped");
+            if (!_isExitFlag) {
+//                [self startPlayback];
+                NSLog(@"---------------重新播放失败的");
+            }
 
         }else if (cbPlayerController.playbackState == CBPMoviePlaybackStatePaused)
         {
@@ -487,20 +496,11 @@
 //播放失败
 - (void)playerBackError:(NSNotification *)notifa
 {
-    NSLog(@"playerBackError:%@",[notifa userInfo]);
-//    switch (cbPlayerController.CBPErrorCode) {
-//        case <#constant#>:
-//            <#statements#>
-//            break;
-//            
-//        default:
-//            break;
-//    }
-    
+    NSLog(@"播放失败playerBackError:%@-------%@---------%@",[notifa userInfo],[notifa object],[notifa name]);
+    errorLab.hidden = NO;
     [self performSelectorOnMainThread:@selector(hiddenLoadingView) withObject:nil waitUntilDone:NO];
 //    UIAlertView *playError = [[UIAlertView alloc] initWithTitle:@"播放失败" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
 //    [playError show];
-    NSLog(@"播放失败");
 }
 //状态改变
 - (void)stateDidChange:(NSNotification*)notif
@@ -516,6 +516,25 @@
 - (void)GotCachePercent:(NSNotification *)notific
 {
     NSLog(@"GotCachePercent--%@",[notific object]);
+    switch (cbPlayerController.playbackState) {
+        case CBPMoviePlaybackStateInterrupted:
+            NSLog(@"播放器由于内部原因中断播放");
+            break;
+        case CBPMoviePlaybackStatePrepared:
+            NSLog(@"完成适配初始化");
+            break;
+        case CBPMoviePlaybackStatePaused:
+            NSLog(@"处于暂停状态");
+            break;
+        case CBPMoviePlaybackStateStopped:
+            NSLog(@"处于停止状态");
+            break;
+        case CBPMoviePlaybackStatePlaying:
+            NSLog(@"正在播放");
+            break;
+        default:
+            break;
+    }
     [self performSelectorOnMainThread:@selector(loadPercentOnMain:) withObject:[notific object] waitUntilDone:NO];
 }
 
@@ -656,6 +675,7 @@
 - (void)stopPlayback{
     //停止视频播放
     [percentHub hide:YES];
+    _isExitFlag = YES;
     [cbPlayerController stop];
     [startBtn setImage:[UIImage imageNamed:@"zanting_anniu@2x"] forState:UIControlStateNormal];
     [self stopTimer];
@@ -686,6 +706,12 @@
 //弹出或隐藏设置按钮
 - (void)hiddenOrNo:(id)sender
 {
+//    if (cbPlayerController.playbackState == CBPMoviePlaybackStateStopped)
+//    {
+//        _loadingView.hidden = NO;
+//        [self startPlayback];
+//        NSLog(@"刷新之后继续播放");
+//    }
     if (topViewHidden) {
         if (_timer3 && [_timer3 isValid]) {
             [_timer3 invalidate];
@@ -1062,6 +1088,7 @@
     percentHub.square = YES;
     [cbPlayerController.view addSubview:percentHub];
     [percentHub show:YES];
+    NSLog(@"创建percentHub");
 }
 - (void)didReceiveMemoryWarning
 {
@@ -1073,7 +1100,10 @@
     [super viewWillAppear:YES];
     [self adjustIsShareOrVod];
     [self startPlayback];
+    _isExitFlag = NO;
+    errorLab.hidden = YES;
 }
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self stopPlayback];
