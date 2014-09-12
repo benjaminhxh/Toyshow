@@ -472,9 +472,10 @@
 {
 //    UIAlertView *finishView = [[UIAlertView alloc] initWithTitle:@"播放完成" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
 //    [finishView show];
-    errorLab.hidden = NO;
     NSLog(@"播放完成：%@----%@========%@",[notif userInfo],[notif name],[notif object]);
     if (self.isLive) {
+        errorLab.hidden = NO;
+
         if(cbPlayerController.playbackState == CBPMoviePlaybackStateInterrupted){
             [cbPlayerController play];
             NSLog(@"CBPMoviePlaybackStateInterrupted");
@@ -515,26 +516,26 @@
 //缓冲过程
 - (void)GotCachePercent:(NSNotification *)notific
 {
-    NSLog(@"GotCachePercent--%@",[notific object]);
-    switch (cbPlayerController.playbackState) {
-        case CBPMoviePlaybackStateInterrupted:
-            NSLog(@"播放器由于内部原因中断播放");
-            break;
-        case CBPMoviePlaybackStatePrepared:
-            NSLog(@"完成适配初始化");
-            break;
-        case CBPMoviePlaybackStatePaused:
-            NSLog(@"处于暂停状态");
-            break;
-        case CBPMoviePlaybackStateStopped:
-            NSLog(@"处于停止状态");
-            break;
-        case CBPMoviePlaybackStatePlaying:
-            NSLog(@"正在播放");
-            break;
-        default:
-            break;
-    }
+//    NSLog(@"GotCachePercent--%@",[notific object]);
+//    switch (cbPlayerController.playbackState) {
+//        case CBPMoviePlaybackStateInterrupted:
+//            NSLog(@"播放器由于内部原因中断播放");
+//            break;
+//        case CBPMoviePlaybackStatePrepared:
+//            NSLog(@"完成适配初始化");
+//            break;
+//        case CBPMoviePlaybackStatePaused:
+//            NSLog(@"处于暂停状态");
+//            break;
+//        case CBPMoviePlaybackStateStopped:
+//            NSLog(@"处于停止状态");
+//            break;
+//        case CBPMoviePlaybackStatePlaying:
+//            NSLog(@"正在播放");
+//            break;
+//        default:
+//            break;
+//    }
     [self performSelectorOnMainThread:@selector(loadPercentOnMain:) withObject:[notific object] waitUntilDone:NO];
 }
 
@@ -559,6 +560,7 @@
 - (void)startPlayback{
 //    NSURL *url = [NSURL URLWithString:@"rtmp://livertmppc.wasu.cn/live/dfws"];
 //    NSURL *url = [NSURL URLWithString:@"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4"];
+    errorLab.hidden = YES;
     NSURL *url = [NSURL URLWithString:self.url];
     switch (cbPlayerController.playbackState) {
         case CBPMoviePlaybackStateStopped:
