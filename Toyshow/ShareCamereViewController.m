@@ -474,8 +474,8 @@
 //    [finishView show];
     NSLog(@"播放完成：%@----%@========%@",[notif userInfo],[notif name],[notif object]);
     if (self.isLive) {
+        _loadingView.hidden = YES;
         errorLab.hidden = NO;
-
         if(cbPlayerController.playbackState == CBPMoviePlaybackStateInterrupted){
             [cbPlayerController play];
             NSLog(@"CBPMoviePlaybackStateInterrupted");
@@ -483,7 +483,7 @@
         {
             NSLog(@"CBPMoviePlaybackStateStopped");
             if (!_isExitFlag) {
-//                [self startPlayback];
+//
                 NSLog(@"---------------重新播放失败的");
             }
 
@@ -500,8 +500,6 @@
     NSLog(@"播放失败playerBackError:%@-------%@---------%@",[notifa userInfo],[notifa object],[notifa name]);
     errorLab.hidden = NO;
     [self performSelectorOnMainThread:@selector(hiddenLoadingView) withObject:nil waitUntilDone:NO];
-//    UIAlertView *playError = [[UIAlertView alloc] initWithTitle:@"播放失败" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-//    [playError show];
 }
 //状态改变
 - (void)stateDidChange:(NSNotification*)notif
