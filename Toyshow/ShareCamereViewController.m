@@ -817,6 +817,8 @@
         [shareBtn setImage:[UIImage imageNamed:@"publicShare_zhong@2x"] forState:UIControlStateHighlighted];
 
         NSDictionary *dict = (NSDictionary *)responseObject;
+        self.request_id =[NSString stringWithFormat:@"%@",[dict objectForKey:@"request_id"]];
+        
         NSString *shareID = [dict objectForKey:@"shareid"];
         NSString *uk = [dict objectForKey:@"uk"];
         NSString *playURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareID,uk];

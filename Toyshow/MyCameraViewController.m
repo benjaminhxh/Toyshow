@@ -427,8 +427,8 @@
 - (void)playerViewBack:(NSString *)str
 {
     ////NSLog(@"str:%@",str);
-//    [self reloadMyCameraListView];
-    [_headerView beginRefreshing];
+    [self reloadMyCameraListView];
+//    [_headerView beginRefreshing];
 
 }
 
