@@ -289,11 +289,13 @@
     // Configure the cell...
         if (nil == cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"MyCameraCell" owner:self options:nil] lastObject];
+        }
             NSDictionary *cameraUserInfoDict = [_fakeData objectAtIndex:indexPath.row];
 //            self.cameraId.text = [cameraUserInfoDict objectForKey:@"deviceid"];
             self.cameraTitle.text = [cameraUserInfoDict objectForKey:@"description"];
             NSString *status = [cameraUserInfoDict objectForKey:@"status"];
             int stat = [status intValue];
+            int shareStatue = [[cameraUserInfoDict objectForKey:@"share"] intValue];
             if (stat) {
                 self.cameraStatus.text = @"在线";
                 self.cameraStatus.textColor = [UIColor blueColor];
@@ -301,6 +303,19 @@
             {
                 self.cameraStatus.text = @"离线";
                 self.cameraStatus.textColor = [UIColor grayColor];
+            }
+            switch (shareStatue) {
+                case 0:
+                    self.shareStatue.text = @"";
+                    break;
+                case 1:
+                    self.shareStatue.text = @"公开分享";
+                    break;
+                case 2:
+                    self.shareStatue.text = @"私密分享";
+                    break;
+                default:
+                    break;
             }
             NSString *urlImage = [cameraUserInfoDict objectForKey:@"thumbnail"];
             [self.cameraPic setImageWithURL:[NSURL URLWithString:urlImage]];
@@ -312,7 +327,7 @@
 //            button.backgroundColor = [UIColor clearColor ];
             [button addTarget:self action:@selector(accessoryButtonTappedAction:) forControlEvents:UIControlEventTouchUpInside];
             cell. accessoryView = button;
-        }
+        
     return cell;
 }
 

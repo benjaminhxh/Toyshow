@@ -46,7 +46,7 @@
         backHeight = kStatusbarHeight + 25;
     }
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(5, backHeight, 162, 22);
+    backBtn.frame = CGRectMake(5, backHeight, 155, 22);
     [backBtn setTitle:@"IP地址获取方式" forState:UIControlStateNormal];
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];

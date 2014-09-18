@@ -299,8 +299,9 @@
         if (nil == cell) {
             //            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             cell = [[[NSBundle mainBundle] loadNibNamed:@"ShareCameraCell" owner:self options:nil] lastObject];
+        }
             NSDictionary *dict = [_fakeData objectAtIndex:indexPath.row];
-//            ////NSLog(@"公共摄像头列表的dict:%@",dict);
+//            NSLog(@"公共摄像头列表的dict:%@",dict);
             self.cameraName.text = [dict objectForKey:@"description"];
 //            self.cameraId.text = [dict objectForKey:@"deviceid"];
             NSString *imageURL = [dict objectForKey:@"thumbnail"];
@@ -316,7 +317,7 @@
             }
 //            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
-    }
+    
     return cell;
 }
 
