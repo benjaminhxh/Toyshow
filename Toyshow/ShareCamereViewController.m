@@ -163,14 +163,14 @@
     topView.userInteractionEnabled = YES;
     [self.view addSubview:topView];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(12, 12, 36, 20);
+    backBtn.frame = CGRectMake(15, 12, 36, 20);
 //    backBtn.frame = CGRectMake(10, [UIApplication sharedApplication].statusBarFrame.size.height+5, 12, 22);
     [backBtn setImage:[UIImage imageNamed:@"fanhui_jiantou@2x"] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtn:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backBtn];
     
     //标题
-    titleL = [[UILabel alloc] initWithFrame:CGRectMake(45, 12, kWidth-45-20, 20)];
+    titleL = [[UILabel alloc] initWithFrame:CGRectMake(51, 12, kWidth-51-20, 20)];
     titleL.textColor = [UIColor whiteColor];
     titleL.backgroundColor = [UIColor clearColor];
     titleL.font = [UIFont systemFontOfSize:12];
