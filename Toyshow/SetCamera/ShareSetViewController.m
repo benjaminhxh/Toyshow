@@ -203,8 +203,9 @@
         NSString *playURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareID,uk];
         NSURL *shareURL = [NSURL URLWithString:playURL];
         activity = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
-        NSString *title = [NSString stringWithFormat:@"精彩乐现-%@",self.cameraName];
-        NSArray *shareArr = [NSArray arrayWithObjects:title,@"hxh乐现是由北京中和讯飞开发的一款家居类APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，看你所看。", [UIImage imageNamed:@"icon_session"], shareURL,nil];
+        NSString *title = [NSString stringWithFormat:@"%@",self.cameraName];
+        NSArray *shareArr = [NSArray arrayWithObjects:title,@"hxh乐现是由北京精彩乐现开发的一款企业级APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，路面情况，看你所看。", [UIImage imageNamed:@"Icon"], shareURL,nil];
+        
         UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:shareArr applicationActivities:activity];
         activityView.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypePrint,UIActivityTypeSaveToCameraRoll,UIActivityTypeMail];
         [self presentViewController:activityView animated:YES completion:nil];

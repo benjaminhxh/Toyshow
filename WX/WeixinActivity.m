@@ -76,7 +76,7 @@
     [message setThumbImage:image];
     if (url) {
         WXAppExtendObject *extedObj = [WXAppExtendObject object];
-        extedObj.url = [url absoluteString];
+        extedObj.extInfo = [url absoluteString];
         Byte* pBuffer = (Byte *)malloc(BUFSIZ);
         memset(pBuffer, 0, BUFSIZ);
         NSData* data = [NSData dataWithBytes:pBuffer length:BUFSIZ];
