@@ -22,6 +22,7 @@
 @property (assign, nonatomic) int index;
 @property (nonatomic) BOOL isOnline;
 
+@property (nonatomic, assign) int shareIndex;
 @property(nonatomic, assign) NSInteger EnableEventIndex;//事件通知
 @property(nonatomic, assign) NSInteger audioIndex;//音频
 @property(nonatomic, assign) NSInteger videoRecordIndex;//视频录制

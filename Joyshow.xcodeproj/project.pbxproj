@@ -20,6 +20,8 @@
 		2718FCB218D6D05E0094583F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2718FCB118D6D05E0094583F /* AudioToolbox.framework */; };
 		2718FCB418D6D06C0094583F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2718FCB318D6D06C0094583F /* Security.framework */; };
 		2718FCB618D6D08F0094583F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2718FCB518D6D08F0094583F /* MobileCoreServices.framework */; };
+		27269F0519D1563D00975349 /* ShareSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27269F0419D1563D00975349 /* ShareSetViewController.m */; };
+		27269F0919D158D500975349 /* shareSetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27269F0819D158D500975349 /* shareSetCell.xib */; };
 		2732466D18D98B2000F82011 /* MyCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2732466C18D98B2000F82011 /* MyCameraViewController.m */; };
 		2732466F18D99EC400F82011 /* MyCameraCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2732466E18D99EC400F82011 /* MyCameraCell.xib */; };
 		273922491998E63900168533 /* BPushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 273922481998E63900168533 /* BPushConfig.plist */; };
@@ -387,6 +389,9 @@
 		2718FCB118D6D05E0094583F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2718FCB318D6D06C0094583F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2718FCB518D6D08F0094583F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		27269F0319D1563D00975349 /* ShareSetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareSetViewController.h; sourceTree = "<group>"; };
+		27269F0419D1563D00975349 /* ShareSetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareSetViewController.m; sourceTree = "<group>"; };
+		27269F0819D158D500975349 /* shareSetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = shareSetCell.xib; sourceTree = "<group>"; };
 		2732466B18D98B2000F82011 /* MyCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCameraViewController.h; sourceTree = "<group>"; };
 		2732466C18D98B2000F82011 /* MyCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCameraViewController.m; sourceTree = "<group>"; };
 		2732466E18D99EC400F82011 /* MyCameraCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyCameraCell.xib; sourceTree = "<group>"; };
@@ -882,6 +887,8 @@
 			children = (
 				27E5A97D19AB35D0004B5458 /* CameraSetViewController.h */,
 				27E5A97E19AB35D0004B5458 /* CameraSetViewController.m */,
+				27269F0319D1563D00975349 /* ShareSetViewController.h */,
+				27269F0419D1563D00975349 /* ShareSetViewController.m */,
 				27E5A97B19AB35D0004B5458 /* AudioVideoViewController.h */,
 				27E5A97C19AB35D0004B5458 /* AudioVideoViewController.m */,
 				27E5A98B19AB35D0004B5458 /* NightViewController.h */,
@@ -1242,6 +1249,7 @@
 				2732466E18D99EC400F82011 /* MyCameraCell.xib */,
 				27889DD3198A270200FC2688 /* collectCell.xib */,
 				274D771A18E572FA00F352C7 /* thumbCell.xib */,
+				27269F0819D158D500975349 /* shareSetCell.xib */,
 				2713684818BF3659006CF446 /* SiderCell.h */,
 				2713684918BF3659006CF446 /* SiderCell.m */,
 				274D00A018D6E91C00896C79 /* SiderCell.xib */,
@@ -1422,6 +1430,7 @@
 				27E5AB2C19AB39C0004B5458 /* beijing1080@2x.png in Resources */,
 				27E5AB8E19AB39C0004B5458 /* qunaer_da@2x.png in Resources */,
 				27E5ABA019AB39C0004B5458 /* shijian_beijing@2x.png in Resources */,
+				27269F0919D158D500975349 /* shareSetCell.xib in Resources */,
 				27E5AB6219AB39C0004B5458 /* fenxiang_zhong@2x.png in Resources */,
 				27E5ABCC19AB39C0004B5458 /* zhuanfa_zhong@2x.png in Resources */,
 				27E5ABB219AB39C0004B5458 /* xiangjiantou_bai.png in Resources */,
@@ -1611,6 +1620,7 @@
 				2777607A18FB74BD000A5F83 /* UIAlertView+AFNetworking.m in Sources */,
 				27E5A99B19AB35D0004B5458 /* DeviceStatueControlViewController.m in Sources */,
 				27E5A9A319AB35D0004B5458 /* NightViewController.m in Sources */,
+				27269F0519D1563D00975349 /* ShareSetViewController.m in Sources */,
 				2777607718FB74BD000A5F83 /* AFURLSessionManager.m in Sources */,
 				27E5AC2219AB3ECE004B5458 /* qrinput.c in Sources */,
 				2777607018FB74BD000A5F83 /* AFHTTPRequestOperationManager.m in Sources */,

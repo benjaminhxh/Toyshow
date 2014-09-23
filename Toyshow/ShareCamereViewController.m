@@ -222,13 +222,13 @@
             //公共分享、私密分享、截图、对讲
             //公共
             shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [topView addSubview:shareBtn];
+//            [topView addSubview:shareBtn];
             //私密
             secretShareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             [secretShareBtn setImage:[UIImage imageNamed:@"secretShare_wei@2x"] forState:UIControlStateNormal ];
             [secretShareBtn setImage:[UIImage imageNamed:@"secretShare_zhong@2x"] forState:UIControlStateHighlighted];
             [secretShareBtn addTarget:self action:@selector(forwardClick) forControlEvents:UIControlEventTouchUpInside];
-            [topView addSubview:secretShareBtn];
+//            [topView addSubview:secretShareBtn];
             //截图
             cutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             [cutBtn setImage:[UIImage imageNamed:@"jietu_wei@2x"] forState:UIControlStateNormal];

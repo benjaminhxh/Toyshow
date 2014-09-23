@@ -205,6 +205,8 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
 //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle message:strMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
 //        [alert show];
 //    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"modifySuccess" object:nil];
+
 }
 
 +(HXHAppDelegate*)instance

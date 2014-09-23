@@ -402,6 +402,7 @@
         setVC.deviceid = [dict objectForKey:@"deviceid"];
         setVC.index = row;
         setVC.isOnline = [[dict objectForKey:@"status"] intValue];
+    setVC.shareIndex = [[dict objectForKey:@"share"] intValue];
         setVC.delegate = self;
         [[SliderViewController sharedSliderController].navigationController pushViewController:setVC animated:YES];
 //    }else
