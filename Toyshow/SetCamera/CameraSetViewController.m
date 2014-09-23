@@ -392,7 +392,7 @@
                     cell.textLabel.text = @"修改设备名称";
                     cell.selectionStyle = UITableViewCellSelectionStyleBlue;
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    deviceNameL = [[UILabel alloc] initWithFrame:CGRectMake(160, 10, 130, 24)];
+                    deviceNameL = [[UILabel alloc] initWithFrame:CGRectMake(150, 10, 140, 24)];
                     deviceNameL.text = self.deviceDesc;
                     deviceNameL.textAlignment = NSTextAlignmentRight;
                     deviceNameL.textColor = [UIColor grayColor];
