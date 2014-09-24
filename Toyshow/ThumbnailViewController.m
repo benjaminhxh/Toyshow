@@ -17,7 +17,7 @@
 {
     UITableView *_tableView;
     NSMutableArray *_fakeData;
-    NSMutableArray *downloadArr;
+    NSMutableArray *downloadArr,*downloadImageArr;
     MJRefreshFooterView *_footerView;
     MJRefreshHeaderView *_headerView;
     UILabel *noDataLoadL,*noInternetL;
@@ -78,7 +78,8 @@
     _tableView.dataSource = self;
     _tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
-
+    self.thumbTitle.text = self.deviceDesc;
+    
     NSDate *datenow = [NSDate dateWithTimeIntervalSinceNow:0];//现在时间
     et = (long)[datenow timeIntervalSince1970];
     st = et - 7*24*3600;
@@ -197,7 +198,7 @@
             _fakeData = [NSMutableArray array];
             downloadArr = [NSMutableArray array];
             downloadArr = [dict objectForKey:@"results"];
-            NSLog(@"时间段downloadArr。count=====%d",downloadArr.count);
+            NSLog(@"时间段downloadArr.count=====%d",downloadArr.count);
             
             if (downloadArr.count == 0) {
                 [self MBprogressViewHubLoading:@"无录像"];
@@ -221,21 +222,33 @@
                 //获取视频流最后一张缩略图:
 //                NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&latest=%d",self.accessToken,self.deviceID,1];
                 //获取一段时间内的缩略图列表:
-//                NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
+                NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
 //                NSLog(@"imageURL:%@",imageURL);
-//                [[AFHTTPRequestOperationManager manager]POST:imageURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//                    NSDictionary *dict = (NSDictionary *)responseObject;
-////                    NSLog(@"视频流的图像：%@",dict);
-//                    NSArray *imageArr = [NSArray array];
-//                    imageArr = [dict objectForKey:@"list"];
+                [[AFHTTPRequestOperationManager manager]POST:imageURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSDictionary *dict = (NSDictionary *)responseObject;
+//                    NSLog(@"视频流的图像：%@",dict);
+                    NSArray *imageArr = [NSArray array];
+                    imageArr = [dict objectForKey:@"list"];
 //                    NSLog(@"图像imageArr.count:%d",imageArr.count);
+                    downloadImageArr = [NSMutableArray array];
+//                    for (NSDictionary *imagedict in imageArr) {
+//                        NSString *imageurl = [imagedict objectForKey:@"url"];
+//                        [downloadImageArr addObject:imageurl];
+//                    }
+                    for (int a= imageArr.count-1; a>=0; a--) {
+                        NSDictionary *imagedict = [imageArr objectAtIndex:a];
+                        NSString *imageurl = [imagedict objectForKey:@"url"];
+                        [downloadImageArr addObject:imageurl];
+                    }
+//                    NSLog(@"downloadImageArr:%@",downloadImageArr);
+                    
 //                    NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
-////                    NSLog(@"imageURLDict:%@",imageURLDict);
+//                    NSLog(@"imageURLDict:%@",imageURLDict);
 //                    downloadImageURL = [imageURLDict objectForKey:@"url"];
-//                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-////                    NSDictionary *errorDict = [error userInfo];
-//                    ////NSLog(@"errorDict:%@",errorDict);
-//                }];
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                    NSDictionary *errorDict = [error userInfo];
+                    ////NSLog(@"errorDict:%@",errorDict);
+                }];
             }
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -363,9 +376,8 @@
     // Configure the cell...
     if (nil == cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"thumbCell" owner:self options:nil] lastObject];
-    }
-        self.thumbTitle.text = self.deviceDesc;
         NSArray *arr = [_fakeData objectAtIndex:indexPath.row];
+//        NSLog(@"%d-----indexPath.row:%d",_fakeData.count,indexPath.row);
         //得到开始时间
         NSNumber *stt = [arr objectAtIndex:0];
         stf = [stt intValue];
@@ -378,39 +390,49 @@
         NSString *endT = [[self dateFormatterMMddHHmm] stringFromDate:endfTime];
         //显示起始时间
         self.thumbDeadlines.text = [NSString stringWithFormat:@"%@-—%@",startT,[endT substringFromIndex:5]];
+        if (indexPath.row<downloadImageArr.count) {
+            NSString *imageurlstr = [downloadImageArr objectAtIndex:indexPath.row];
+            [self.thumbPic setImageWithURL:[NSURL URLWithString:imageurlstr]];
+        }else
+        {
+            self.thumbPic.image = [UIImage imageNamed:@"Icon@2x"];
+        }
+    }
+    
+
         //缩略图
 //        [self.thumbPic setImageWithURL:[NSURL URLWithString:downloadImageURL]];
-        NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%d&et=%d",self.accessToken,self.deviceID,stf,endtf];
-        NSLog(@"起始imageURL:%@",imageURL);
+//        NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%d&et=%d",self.accessToken,self.deviceID,stf,endtf];
+//        NSLog(@"起始imageURL:%@",imageURL);
     
 //    NSLog(@"stf:%d,endt%d",stf,endtf);
     //拼装URL，并请求得到图像的URL
 //    NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%d&et=%d",self.accessToken,self.deviceID,stf,endtf];
     //        NSLog(@"imageURL:%@",imageURL);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[AFHTTPRequestOperationManager manager] POST:imageURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSDictionary *dict = (NSDictionary *)responseObject;
-            //        NSLog(@"视频流的图像Dict：%@",dict);
-            NSArray *imageArr = [NSArray array];
-            imageArr = [dict objectForKey:@"list"];
-            NSLog(@"imageArr:%@",imageArr);
-            if (imageArr.count) {
-                NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
-                //            NSLog(@"imageURLDict:%@",imageURLDict);
-                NSString *imageURLl = [imageURLDict objectForKey:@"url"];
-                //            NSLog(@"下载的imageURL：%@",imageURL);
-                //下载图像
-                [self.thumbPic setImageWithURL:[NSURL URLWithString:imageURLl]];
-            }else
-            {
-                self.thumbPic.image = [UIImage imageNamed:@"Icon@2x"];
-            }
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            self.thumbPic.image = [UIImage imageNamed:@"Icon@2x"];
-            
-        }];
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [[AFHTTPRequestOperationManager manager] POST:imageURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//            NSDictionary *dict = (NSDictionary *)responseObject;
+//            //        NSLog(@"视频流的图像Dict：%@",dict);
+//            NSArray *imageArr = [NSArray array];
+//            imageArr = [dict objectForKey:@"list"];
+//            NSLog(@"imageArr:%@",imageArr);
+//            if (imageArr.count) {
+//                NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
+//                //            NSLog(@"imageURLDict:%@",imageURLDict);
+//                NSString *imageURLl = [imageURLDict objectForKey:@"url"];
+//                //            NSLog(@"下载的imageURL：%@",imageURL);
+//                //下载图像
+//                [self.thumbPic setImageWithURL:[NSURL URLWithString:imageURLl]];
+//            }else
+//            {
+//                self.thumbPic.image = [UIImage imageNamed:@"Icon@2x"];
+//            }
+//            
+//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//            self.thumbPic.image = [UIImage imageNamed:@"Icon@2x"];
+//            
+//        }];
+//    });
     return cell;
 }
 
@@ -490,7 +512,8 @@
 //        ////NSLog(@"起始时间：%@------%@",[timeIntArr objectAtIndex:pickRow],[timeIntArr objectAtIndex:pickRow-1]);
         et = [[timeIntArr objectAtIndex:pickRow-1] longValue];
     }
-    [self requestDataWithSelectTime];
+//    [self requestDataWithSelectTime];
+    [_headerView beginRefreshing];
 }
 
 - (NSDateFormatter *)dateFormatterMMddHHmm {
@@ -498,7 +521,7 @@
     [dateFormat setDateFormat:@"MM-dd HH:mm:ss"];
     return dateFormat;
 }
-
+/*
 - (void)requestDataWithSelectTime
 {
     __unsafe_unretained ThumbnailViewController *vc = self;
@@ -550,7 +573,7 @@
         [badInternetHub hide:YES afterDelay:1];
     }];
 }
-
+*/
 - (void)MBprogressViewHubLoading:(NSString *)labtext
 {
     if (badInternetHub) {
