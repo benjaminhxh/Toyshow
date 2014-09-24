@@ -133,6 +133,7 @@
     imageResolutionSeg = [[UISegmentedControl alloc] initWithItems:imageResolutionArr];
     imageResolutionSeg.frame = CGRectMake(5, 260, 310, 41);
     imageResolutionSeg.selectedSegmentIndex = self.imageResolutionIndex-1;
+    [imageResolutionSeg addTarget:self action:@selector(imageResolutionSectAction:) forControlEvents:UIControlEventValueChanged];
     [scrollView addSubview:imageResolutionSeg];
     
     
@@ -143,6 +144,25 @@
 
 }
 
+- (void)imageResolutionSectAction:(id)sender
+{
+    switch (imageResolutionSeg.selectedSegmentIndex) {
+        case 0:
+            streamF.text = @"1024";
+            break;
+        case 1:
+            streamF.text = @"512";
+            break;
+        case 2:
+            streamF.text = @"256";
+            break;
+        case 3:
+            streamF.text = @"128";
+            break;
+        default:
+            break;
+    }
+}
 //判断输入的值是否介于两者之间
 - (BOOL)isLegalNum:(int)startNum to:(int)endNum withNumString:(NSString *)numString
 {

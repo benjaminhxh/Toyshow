@@ -219,23 +219,23 @@
                 }
                 //请求点播缩略图
                 //获取视频流最后一张缩略图:
-                NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&latest=%d",self.accessToken,self.deviceID,1];
+//                NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&latest=%d",self.accessToken,self.deviceID,1];
                 //获取一段时间内的缩略图列表:
 //                NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
-                NSLog(@"imageURL:%@",imageURL);
-                [[AFHTTPRequestOperationManager manager]POST:imageURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                    NSDictionary *dict = (NSDictionary *)responseObject;
-//                    NSLog(@"视频流的图像：%@",dict);
-                    NSArray *imageArr = [NSArray array];
-                    imageArr = [dict objectForKey:@"list"];
-                    NSLog(@"图像imageArr.count:%d",imageArr.count);
-                    NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
-//                    NSLog(@"imageURLDict:%@",imageURLDict);
-                    downloadImageURL = [imageURLDict objectForKey:@"url"];
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//                    NSDictionary *errorDict = [error userInfo];
-                    ////NSLog(@"errorDict:%@",errorDict);
-                }];
+//                NSLog(@"imageURL:%@",imageURL);
+//                [[AFHTTPRequestOperationManager manager]POST:imageURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//                    NSDictionary *dict = (NSDictionary *)responseObject;
+////                    NSLog(@"视频流的图像：%@",dict);
+//                    NSArray *imageArr = [NSArray array];
+//                    imageArr = [dict objectForKey:@"list"];
+//                    NSLog(@"图像imageArr.count:%d",imageArr.count);
+//                    NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
+////                    NSLog(@"imageURLDict:%@",imageURLDict);
+//                    downloadImageURL = [imageURLDict objectForKey:@"url"];
+//                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+////                    NSDictionary *errorDict = [error userInfo];
+//                    ////NSLog(@"errorDict:%@",errorDict);
+//                }];
             }
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -378,35 +378,39 @@
         NSString *endT = [[self dateFormatterMMddHHmm] stringFromDate:endfTime];
         //显示起始时间
         self.thumbDeadlines.text = [NSString stringWithFormat:@"%@-—%@",startT,[endT substringFromIndex:5]];
-        [self.thumbPic setImageWithURL:[NSURL URLWithString:downloadImageURL]];
+        //缩略图
+//        [self.thumbPic setImageWithURL:[NSURL URLWithString:downloadImageURL]];
         NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%d&et=%d",self.accessToken,self.deviceID,stf,endtf];
-        NSLog(@"imageURL:%@",imageURL);
+        NSLog(@"起始imageURL:%@",imageURL);
     
 //    NSLog(@"stf:%d,endt%d",stf,endtf);
     //拼装URL，并请求得到图像的URL
 //    NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%d&et=%d",self.accessToken,self.deviceID,stf,endtf];
     //        NSLog(@"imageURL:%@",imageURL);
-//    [[AFHTTPRequestOperationManager manager] POST:imageURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSDictionary *dict = (NSDictionary *)responseObject;
-//        NSLog(@"视频流的图像Dict：%@",dict);
-//        NSArray *imageArr = [NSArray array];
-//        imageArr = [dict objectForKey:@"list"];
-//        NSLog(@"imageArr:%@",imageArr);
-//        if (imageArr.count) {
-//            NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
-//            //            NSLog(@"imageURLDict:%@",imageURLDict);
-//            NSString *imageURLl = [imageURLDict objectForKey:@"url"];
-//            //下载图像
-//            [self.thumbPic setImageWithURL:[NSURL URLWithString:imageURLl]];
-//        }else
-//        {
-//            self.thumbPic.image = [UIImage imageNamed:@"shipinkuang.png"];
-//        }
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        self.thumbPic.image = [UIImage imageNamed:@"Icon@2x"];
-//        
-//    }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[AFHTTPRequestOperationManager manager] POST:imageURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            //        NSLog(@"视频流的图像Dict：%@",dict);
+            NSArray *imageArr = [NSArray array];
+            imageArr = [dict objectForKey:@"list"];
+            NSLog(@"imageArr:%@",imageArr);
+            if (imageArr.count) {
+                NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
+                //            NSLog(@"imageURLDict:%@",imageURLDict);
+                NSString *imageURLl = [imageURLDict objectForKey:@"url"];
+                //            NSLog(@"下载的imageURL：%@",imageURL);
+                //下载图像
+                [self.thumbPic setImageWithURL:[NSURL URLWithString:imageURLl]];
+            }else
+            {
+                self.thumbPic.image = [UIImage imageNamed:@"Icon@2x"];
+            }
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            self.thumbPic.image = [UIImage imageNamed:@"Icon@2x"];
+            
+        }];
+    });
     return cell;
 }
 
