@@ -198,7 +198,7 @@
             _fakeData = [NSMutableArray array];
             downloadArr = [NSMutableArray array];
             downloadArr = [dict objectForKey:@"results"];
-            NSLog(@"时间段downloadArr.count=====%d",downloadArr.count);
+//            NSLog(@"时间段downloadArr.count=====%d",downloadArr.count);
             
             if (downloadArr.count == 0) {
                 [self MBprogressViewHubLoading:@"无录像"];
@@ -372,14 +372,15 @@
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    int stf,endtf;
     // Configure the cell...
     if (nil == cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"thumbCell" owner:self options:nil] lastObject];
+    
         NSArray *arr = [_fakeData objectAtIndex:indexPath.row];
 //        NSLog(@"%d-----indexPath.row:%d",_fakeData.count,indexPath.row);
         //得到开始时间
         NSNumber *stt = [arr objectAtIndex:0];
+        int stf,endtf;
         stf = [stt intValue];
         NSDate *currentTime = [NSDate dateWithTimeIntervalSince1970:stf];
         NSString *startT = [[self dateFormatterMMddHHmm] stringFromDate:currentTime];
@@ -397,8 +398,8 @@
         {
             self.thumbPic.image = [UIImage imageNamed:@"Icon@2x"];
         }
-    }
     
+    }
 
         //缩略图
 //        [self.thumbPic setImageWithURL:[NSURL URLWithString:downloadImageURL]];

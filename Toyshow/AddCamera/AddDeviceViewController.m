@@ -59,6 +59,10 @@
     topView.userInteractionEnabled = YES;
     [self.view addSubview:topView];
     
+    UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(10, 64, 200, 200)];
+    UIImage *image = [UIImage imageWithData:self.imageData];
+    imageV.image = image;
+    [self.view addSubview:imageV];
     float backHeight;
     if (iOS7) {
         backHeight = kStatusbarHeight + 5;

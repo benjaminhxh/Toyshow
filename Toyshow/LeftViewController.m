@@ -259,17 +259,17 @@
     //支持界面旋转
     reader.supportedOrientationsMask = ZBarOrientationMaskAll;
     reader.showsHelpOnFail = NO;
-    reader.scanCrop = CGRectMake(0.1, 0.2, 0.8, 0.8);//扫描的感应框
+    reader.scanCrop = CGRectMake(0.0, 0.0, 1.0, 1.0);//扫描的感应框
     ZBarImageScanner * scanner = reader.scanner;
-    [scanner setSymbology:ZBAR_I25
+    [scanner setSymbology:ZBAR_CODE128  //ZBAR_I25
                    config:ZBAR_CFG_ENABLE
-                       to:0];
+                       to:1];           //0
     UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 420)];
     view.backgroundColor = [UIColor clearColor];
     reader.cameraOverlayView = view;
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 40)];
-    label.text = @"请将设备的二维码置于下面的扫描框内\n谢谢！";
+    label.text = @"请将设备的MAC地址二维码置于扫描框正中间内谢谢！";
     label.textColor = [UIColor whiteColor];
     label.font = [UIFont systemFontOfSize:15];
     label.textAlignment = 1;
@@ -283,7 +283,7 @@
     [view addSubview:image];
     
     
-    _line = [[UIImageView alloc] initWithFrame:CGRectMake(30, 10, 220, 2)];
+    _line = [[UIImageView alloc] initWithFrame:CGRectMake(30, 10, 220, 1)];
     _line.image = [UIImage imageNamed:@"line.png"];
     [image addSubview:_line];
     //定时器，设定时间过1.5秒，
@@ -295,14 +295,14 @@
 {
     if (upOrdown == NO) {
         num ++;
-        _line.frame = CGRectMake(30, 10+2*num, 220, 2);
+        _line.frame = CGRectMake(30, 10+2*num, 220, 1);
         if (2*num == 260) {
             upOrdown = YES;
         }
     }
     else {
         num --;
-        _line.frame = CGRectMake(30, 10+2*num, 220, 2);
+        _line.frame = CGRectMake(30, 10+2*num, 220, 1);
         if (num == 0) {
             upOrdown = NO;
         }
@@ -320,28 +320,37 @@
         [picker removeFromParentViewController];
     }];
 }
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo NS_DEPRECATED_IOS(2_0, 3_0)
+{
+    NSLog(@"editingInfo%@",editingInfo);
+}
+
 //扫描完成
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    NSLog(@"info:%@",info);
     [timer invalidate];
-    _line.frame = CGRectMake(30, 10, 220, 2);
+    _line.frame = CGRectMake(30, 10, 220, 1);
     num = 0;
     upOrdown = NO;
-    [picker dismissViewControllerAnimated:YES completion:^{
+    [picker dismissViewControllerAnimated:NO completion:^{
         [picker removeFromParentViewController];
         UIImage * image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        
         //初始化
-        ZBarReaderController * read = [ZBarReaderController new];
+        ZBarReaderController *read = [ZBarReaderController new];
         //设置代理
         read.readerDelegate = self;
         CGImageRef cgImageRef = image.CGImage;
         ZBarSymbol * symbol = nil;
         id <NSFastEnumeration> results = [read scanImage:cgImageRef];
+        NSLog(@"results:%@",results);
         for (symbol in results)
         {
             break;
         }
         NSString * result;
+        NSLog(@"symbol.data:%@--results:%@",symbol.data,results);
         if ([symbol.data canBeConvertedToEncoding:NSShiftJISStringEncoding])
             
         {
@@ -351,14 +360,18 @@
             AddDeviceViewController *addDeviceVC = [[AddDeviceViewController alloc] init];
             addDeviceVC.deviceID = result;
             addDeviceVC.access_token = self.accessToken;
+//            addDeviceVC.imageData = image;
 //            addDeviceVC.userID = [[NSUserDefaults standardUserDefaults] stringForKey:kUserName];
             [self.navigationController pushViewController:addDeviceVC animated:YES];
         }
         else
         {
-            result = symbol.data;
-            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"扫描失败" message:@"请重新扫描" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [view show];
+            [self scanBtnAction];
+//            self.userImageVIew.image = image;
+//            result = symbol.data;
+//            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"扫描失败" message:@"请重新扫描" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//            [view show];
+            
         }
     }];
 }
