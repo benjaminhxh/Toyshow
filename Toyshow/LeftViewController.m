@@ -320,15 +320,15 @@
         [picker removeFromParentViewController];
     }];
 }
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo NS_DEPRECATED_IOS(2_0, 3_0)
-{
-    NSLog(@"editingInfo%@",editingInfo);
-}
+//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo NS_DEPRECATED_IOS(2_0, 3_0)
+//{
+//    NSLog(@"editingInfo%@",editingInfo);
+//}
 
 //扫描完成
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    NSLog(@"info:%@",info);
+//    NSLog(@"info:%@",info);
     [timer invalidate];
     _line.frame = CGRectMake(30, 10, 220, 1);
     num = 0;
@@ -344,13 +344,13 @@
         CGImageRef cgImageRef = image.CGImage;
         ZBarSymbol * symbol = nil;
         id <NSFastEnumeration> results = [read scanImage:cgImageRef];
-        NSLog(@"results:%@",results);
+//        NSLog(@"results:%@",results);
         for (symbol in results)
         {
             break;
         }
         NSString * result;
-        NSLog(@"symbol.data:%@--results:%@",symbol.data,results);
+//        NSLog(@"symbol.data:%@--results:%@",symbol.data,results);
         if ([symbol.data canBeConvertedToEncoding:NSShiftJISStringEncoding])
             
         {

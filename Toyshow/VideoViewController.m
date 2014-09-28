@@ -25,7 +25,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-//        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(playDidChangeNotif:) name:MPMoviePlayerNowPlayingMovieDidChangeNotification object:nil];
     }
     return self;
 }

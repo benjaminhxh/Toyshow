@@ -161,15 +161,24 @@
 {
     [self progressViewLoading];
     //检测新版本地址
-    NSString *url = @"http://www.51joyshow.com.cn/index.php?m=content&c=banben&type=2";
-    [[AFHTTPRequestOperationManager manager]POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//    NSString *url = @"http://www.51joyshow.com.cn/index.php?m=content&c=banben&type=2";
+    NSString *url = @"http://joy.weichuangkeji.net/sysupdate.php?type=2";
+   AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/plain",@"text/json",@"application/x-javascript",nil];
+//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+//    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//    [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         versionDict = [NSDictionary dictionary];
         versionDict = (NSDictionary *)responseObject;
-        ////NSLog(@"dict:%@",versionDict);
+//        NSLog(@"升级收到的dict:%@",versionDict);
         NSString *version = [versionDict objectForKey:@"version"];
         NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
         NSString *Sysversion = [infoDict objectForKey:@"CFBundleShortVersionString"];
-        if ([Sysversion floatValue]<[version floatValue]) {
+        if ([Sysversion floatValue]<[version floatValue])
+        {
             [progressView hide:YES];
             [self alertViewShowWithTitle:@"检测到新版本,是否升级?" andMessage:[versionDict objectForKey:@"description"] withDelegate:self andCancelButton:@"取消" andOtherButton:@"升级"];
         }else
@@ -182,6 +191,8 @@
         ////NSLog(@"错误%@",[error userInfo]);
         [self alertViewShowWithTitle:@"检测失败" andMessage:nil withDelegate:nil andCancelButton:@"Cancel" andOtherButton:nil];
     }];
+  //responseSerializer有吗..有的话是什么类型?
+    //因为该URL的响应头是Content-Type:text/html;charset=utf-8
 }
 //强制不允许转屏
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {

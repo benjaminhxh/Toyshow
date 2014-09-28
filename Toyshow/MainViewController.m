@@ -29,7 +29,7 @@
     MJRefreshFooterView *_footerView;
     NSMutableArray *_fakeData;
     NSArray *downloadArr;
-    UIActivityIndicatorView *activiView;
+//    UIActivityIndicatorView *activiView;
     UILabel *noInternetL,*noDataLoadL;
     NSString *realSign, __block *sign;
     MBProgressHUD *_loadingView;
@@ -386,10 +386,10 @@
 //    return UIInterfaceOrientationMaskPortrait;
 //}
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [activiView stopAnimating];
-}
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    [activiView stopAnimating];
+//}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

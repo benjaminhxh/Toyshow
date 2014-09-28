@@ -78,7 +78,6 @@
     _tableView.dataSource = self;
     _tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
-    self.thumbTitle.text = self.deviceDesc;
     
     NSDate *datenow = [NSDate dateWithTimeIntervalSinceNow:0];//现在时间
     et = (long)[datenow timeIntervalSince1970];
@@ -375,7 +374,8 @@
     // Configure the cell...
     if (nil == cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"thumbCell" owner:self options:nil] lastObject];
-    
+        self.thumbTitle.text = self.deviceDesc;
+
         NSArray *arr = [_fakeData objectAtIndex:indexPath.row];
 //        NSLog(@"%d-----indexPath.row:%d",_fakeData.count,indexPath.row);
         //得到开始时间
@@ -398,9 +398,7 @@
         {
             self.thumbPic.image = [UIImage imageNamed:@"Icon@2x"];
         }
-    
     }
-
         //缩略图
 //        [self.thumbPic setImageWithURL:[NSURL URLWithString:downloadImageURL]];
 //        NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%d&et=%d",self.accessToken,self.deviceID,stf,endtf];

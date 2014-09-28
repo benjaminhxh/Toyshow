@@ -87,7 +87,8 @@
     [[CyberPlayerController class ]setBAEAPIKey:msAK SecretKey:msSK ];
     //当前只支持CyberPlayerController的单实例
     cbPlayerController = [[CyberPlayerController alloc] init];
-    
+    //清除残留影像
+    cbPlayerController.shouldAutoClearRender = YES;
 //    NSString *SDKVerion = [cbPlayerController getSDKVersion];
 //    ////NSLog(@"SDKVersion:%@",SDKVerion);
     //设置视频显示的位置
@@ -234,7 +235,7 @@
             [cutBtn setImage:[UIImage imageNamed:@"jietu_wei@2x"] forState:UIControlStateNormal];
             [cutBtn setImage:[UIImage imageNamed:@"jietu_zhong@2x"] forState:UIControlStateHighlighted];
             [cutBtn addTarget:self action:@selector(cutPrint) forControlEvents:UIControlEventTouchUpInside];
-            [topView addSubview:cutBtn];
+//            [topView addSubview:cutBtn];
             //音量
             volumeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             [volumeBtn setImage:[UIImage imageNamed:@"yinliang_wei"] forState:UIControlStateNormal];
@@ -723,7 +724,6 @@
             volumView.hidden = YES;
         }];
         topViewHidden = !topViewHidden;
-        return;
     }else{
         [UIView animateWithDuration:0.15 animations:^{
             topView.frame = CGRectMake(0, 0, kHeight, 44);
@@ -731,7 +731,6 @@
         }];
         topViewHidden = !topViewHidden;
         _timer3=[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(didTimer) userInfo:nil repeats:NO];
-        return;
     }
 }
 

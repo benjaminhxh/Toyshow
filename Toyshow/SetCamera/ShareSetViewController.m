@@ -161,7 +161,7 @@
     [self MBprogressViewHubLoading:@"分享……" withMode:0];
     
     [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *dict = (NSDictionary *)responseObject;
+//        NSDictionary *dict = (NSDictionary *)responseObject;
         ////NSLog(@"公共分享的dict:%@",dict);
         //        NSString *shareid = [dict objectForKey:@"shareid"];
         //        ////NSLog(@"shareid:%@",shareid);
