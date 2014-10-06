@@ -111,6 +111,7 @@
     [scrollView addSubview:SSIDL];
     SSIDF = [[UITextField alloc] initWithFrame:CGRectMake(100, 86, 180, 30)];
     SSIDF.borderStyle = UITextBorderStyleRoundedRect;
+    SSIDF.textColor = [UIColor grayColor];
     SSIDF.text = [self fetchSSIDInfo];
 //    SSIDF.text = @"zhonghexunfei";
 //    SSIDF.delegate = self;
@@ -230,10 +231,15 @@
 - (void)startConfigure
 {
     //判断扫描到的二维码是否符合设备ID
-    if ([self.deviceID hasPrefix:@"1100"]) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备ID不合法" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//    if ([self.deviceID hasPrefix:@"1100"]) {
+//        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备ID不合法" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//        [view show];
+//        return ;
+//    }
+    if (SSIDF.text.length == 0) {
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"只允许在WiFi环境下配置" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [view show];
-        return ;
+        return;
     }
     else if ([deviceDetailF.text isEqualToString:@""]||[SSIDPWF.text isEqualToString:@""]||[SSIDPWFconfirm.text isEqualToString:@""]) {
         UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备描述或密码不能为空" message:@"设备描述或密码不能为空" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -372,7 +378,6 @@
             self.gateway = @"";
         }
 //        const char *str2 = [self.userID UTF8String];
-        
 //        NSString *userName = [NSString stringWithCString:str2 encoding:NSUTF8StringEncoding];
         NSString *userID = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
         NSString *dataStr = [NSString stringWithFormat:@"1%@%@%@%@%@%@%@2%@%@%@%@%@",self.wifiBssid,SSIDF.text,self.security,self.identifify,SSIDPWF.text,userID,self.access_token,self.wepStyle,self.dhcp,self.ipaddr,self.mask,self.gateway];
@@ -419,9 +424,7 @@
 //建立基于UDP的Socket连接
 -(void)openUDPServer{
 	//初始化udp
-		self.udpSocket=[[AsyncUdpSocket alloc] initWithDelegate:self];
-//	self.udpSocket=tempSocket;
-    //	[tempSocket release];
+    self.udpSocket=[[AsyncUdpSocket alloc] initWithDelegate:self];
 	//绑定端口
 	NSError *error = nil;
 	[self.udpSocket bindToPort:7860 error:&error];
@@ -511,9 +514,9 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [scrollView endEditing:YES];
+    [self.view endEditing:YES];
+//    [scrollView endEditing:YES];
 }
-
 
 #pragma mark - 高级设置
 //IP模式选择

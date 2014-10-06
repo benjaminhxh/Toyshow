@@ -58,23 +58,6 @@
     [backBtn addTarget:self action:@selector(backBtn) forControlEvents:UIControlEventTouchUpInside];
     [backBtn setTitle:@"帮助" forState:UIControlStateNormal];
     [topView addSubview:backBtn];
-
-//    UIButton *finishBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    finishBtn.frame = CGRectMake(275, backHeight, 36, 22);
-//    [finishBtn setTitle:@"完成" forState:UIControlStateNormal];
-//    [finishBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-//    [finishBtn addTarget:self action:@selector(finishBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-//    [topView addSubview:finishBtn];
-//    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(30, 25, 120, 24)];
-//    title.textColor = [UIColor whiteColor];
-//    title.text = @"帮助";
-////    title.textAlignment = NSTextAlignmentCenter;
-//    [self.view addSubview:title];
-    
-//    UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeContactAdd];
-//    nextBtn.frame = CGRectMake(260, 25, 50, 24);
-//    [nextBtn addTarget:self action:@selector(nextBtnClick) forControlEvents:UIControlEventTouchUpInside];
-//    [topView addSubview:nextBtn];
     
     _tabView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kWidth, 180) style:UITableViewStylePlain];
     _tabView.delegate = self;

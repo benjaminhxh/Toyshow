@@ -167,15 +167,18 @@
 - (void)buyClick
 {
     ////NSLog(@"购买链接");
-    NSURL *url = [NSURL URLWithString:@"openApp.jdMobile://"];
-    if ([[UIApplication sharedApplication]canOpenURL:url]) {
-        [[UIApplication sharedApplication]openURL:url];
-    }else
-    {
-        ////NSLog(@"没安装客户端");
-        NSURL *url1 = [NSURL URLWithString:@"http://www.51joyshow.com.cn"];
-        [[UIApplication sharedApplication]canOpenURL:url1];
-    }
+    NSURL *url = [NSURL URLWithString:@"http://www.51joyshow.com.cn"];
+    [[UIApplication sharedApplication]canOpenURL:url];
+
+//    NSURL *url = [NSURL URLWithString:@"openApp.jdMobile://"];
+//    if ([[UIApplication sharedApplication]canOpenURL:url]) {
+//        [[UIApplication sharedApplication]openURL:url];
+//    }else
+//    {
+//        ////NSLog(@"没安装客户端");
+//        NSURL *url1 = [NSURL URLWithString:@"http://www.51joyshow.com.cn"];
+//        [[UIApplication sharedApplication]canOpenURL:url1];
+//    }
 }
 
 //显示TabBarController

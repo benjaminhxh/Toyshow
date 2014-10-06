@@ -394,12 +394,12 @@
         //授权成功回调函数 登录之后 2（授权中……） 输入密码之后
         FrontiaAuthorizationResultCallback onResult = ^(FrontiaUser *result){
             ////NSLog(@"OnResult account name: %@ account experidDate: %@  account.accessToken:%@", result.accountName, result.experidDate,result.accessToken);
-            NSLog(@"平台信息：%@",result.platform);
+//            NSLog(@"平台信息：%@",result.platform);
             [[NSUserDefaults standardUserDefaults] setObject:result.accountName forKey:kUserName];
             [[NSUserDefaults standardUserDefaults] setObject:result.accessToken forKey:kUserAccessToken];
             [[NSUserDefaults standardUserDefaults] synchronize];
             self.accessToken = result.accessToken;
-            NSLog(@"授权成功的accessToken：%@",result.accessToken);//有
+//            NSLog(@"授权成功的accessToken：%@",result.accessToken);//有
             //设置授权成功的账户为当前使用者账户
             self.userNameL.text = result.accountName;
             [Frontia setCurrentAccount:result];

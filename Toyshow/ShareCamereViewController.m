@@ -1089,7 +1089,6 @@
     percentHub.square = YES;
     [cbPlayerController.view addSubview:percentHub];
     [percentHub show:YES];
-    NSLog(@"创建percentHub");
 }
 - (void)didReceiveMemoryWarning
 {

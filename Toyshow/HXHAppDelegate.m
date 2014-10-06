@@ -67,19 +67,19 @@
 }
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
-    NSLog(@"frontia application deviceToken:%@", deviceToken);
+//    NSLog(@"frontia application deviceToken:%@", deviceToken);
     [FrontiaPush registerDeviceToken: deviceToken];
     
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    NSLog(@"frontia application error:%@", error);
+//    NSLog(@"frontia application error:%@", error);
 }
 
 - (void)application:(UIApplication *)application
 didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    NSLog(@"frontia applciation receive Notify: %@", [userInfo description]);
+//    NSLog(@"frontia applciation receive Notify: %@", [userInfo description]);
     NSString *alert = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
     if (application.applicationState == UIApplicationStateActive) {
         // Nothing to do if applicationState is Inactive, the iOS already displayed an alert view.
@@ -173,7 +173,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
         
         //显示微信传过来的内容
         WXAppExtendObject *obj = msg.mediaObject;
-        NSLog(@"URL:%@",obj.extInfo);
+//        NSLog(@"URL:%@",obj.extInfo);
 //        NSString *strTitle = [NSString stringWithFormat:@"微信请求App显示内容"];
 //        NSString *strMsg = [NSString stringWithFormat:@"标题：%@ \n内容：%@ \n附带信息：%@ \n缩略图:%u bytes\n\n", msg.title, msg.description, obj.extInfo, msg.thumbData.length];
 //        //NSLog(@"strMSG:%@",strMsg);

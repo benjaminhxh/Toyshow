@@ -11,7 +11,7 @@
 
 @interface AboutViewController ()<UIWebViewDelegate>
 {
-    UIActivityIndicatorView *indicatorView;
+//    UIActivityIndicatorView *indicatorView;
 }
 @end
 
@@ -73,11 +73,21 @@
 //    webView.delegate = self;
 //    [self.view addSubview:webView];
     
-    indicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(kWidth/2-40, kHeight/2-84, 80, 80)];
-    [self.view addSubview:indicatorView];
-    indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-    indicatorView.backgroundColor = [UIColor lightGrayColor];
+//    indicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(kWidth/2-40, kHeight/2-84, 80, 80)];
+//    [self.view addSubview:indicatorView];
+//    indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+//    indicatorView.backgroundColor = [UIColor lightGrayColor];
 //    [indicatorView startAnimating];
+    UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth/2-27,94,54,54)];
+    imageview.image = [UIImage imageNamed:@"Icon"];
+    [self.view addSubview:imageview];
+    
+    UILabel *versionL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/2-60, 160, 120, 24)];
+    versionL.textAlignment = NSTextAlignmentCenter;
+    versionL.text = @"Joyshow 1.0";
+    versionL.textColor = [UIColor grayColor];
+    versionL.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:versionL];
     
     UILabel *policyL = [[UILabel alloc] initWithFrame:CGRectMake(10, kHeight-38, kWidth-20, 34)];
     policyL.text = @"精彩乐现 版权所有\nCopyright © 2013 - 2014 Joyshow.All Rights Reserved.";
@@ -115,17 +125,17 @@
 #define mark - webViewDelegate
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    [indicatorView stopAnimating];
+//    [indicatorView stopAnimating];
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"WebKitDiskImageCacheEnabled"];//自己添加的，原文没有提到。
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"WebKitOfflineWebApplicationCacheEnabled"];//自己添加的，原文没有提到。
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"WebKitDiskImageCacheEnabled"];//自己添加的。
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"WebKitOfflineWebApplicationCacheEnabled"];//自己添加的。
     [[NSUserDefaults standardUserDefaults] synchronize];
 
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    [indicatorView stopAnimating];
+//    [indicatorView stopAnimating];
     ////NSLog(@"加载失败error:%@",[error userInfo]);
 }
 //强制不允许转屏
