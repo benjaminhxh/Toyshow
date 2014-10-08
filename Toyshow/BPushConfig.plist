@@ -9,6 +9,6 @@
 	<key>API_KEY</key>
 	<string>ZIAgdlC7Vw7syTjeKG9zS4QP</string>
 	<key>PRODUCTION_MODE</key>
-	<string>NO</string>
+	<string>YES</string>
 </dict>
 </plist>

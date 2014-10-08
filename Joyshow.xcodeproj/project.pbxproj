@@ -66,6 +66,10 @@
 		2777607D18FB74BD000A5F83 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777606A18FB74BD000A5F83 /* UIProgressView+AFNetworking.m */; };
 		2777607E18FB74BD000A5F83 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777606C18FB74BD000A5F83 /* UIRefreshControl+AFNetworking.m */; };
 		2777607F18FB74BD000A5F83 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777606E18FB74BD000A5F83 /* UIWebView+AFNetworking.m */; };
+		277952FF19E52DEB00280390 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 277952FE19E52DEB00280390 /* Icon.png */; };
+		2779530019E52DEB00280390 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 277952FE19E52DEB00280390 /* Icon.png */; };
+		2779530219E5315800280390 /* Icon120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2779530119E5315800280390 /* Icon120@2x.png */; };
+		2779530319E5315800280390 /* Icon120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2779530119E5315800280390 /* Icon120@2x.png */; };
 		27889DD4198A270200FC2688 /* collectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27889DD3198A270200FC2688 /* collectCell.xib */; };
 		2794B6E618E05F09008DCF83 /* ShareCamereViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2794B6E518E05F09008DCF83 /* ShareCamereViewController.m */; };
 		27966A0D18E2EB1A0076423C /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 27966A0318E2EB1A0076423C /* MJRefresh.bundle */; };
@@ -465,6 +469,8 @@
 		2777606C18FB74BD000A5F83 /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		2777606D18FB74BD000A5F83 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		2777606E18FB74BD000A5F83 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		277952FE19E52DEB00280390 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		2779530119E5315800280390 /* Icon120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon120@2x.png"; sourceTree = "<group>"; };
 		27889DD3198A270200FC2688 /* collectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = collectCell.xib; sourceTree = "<group>"; };
 		2794B6E418E05F09008DCF83 /* ShareCamereViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareCamereViewController.h; sourceTree = "<group>"; };
 		2794B6E518E05F09008DCF83 /* ShareCamereViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareCamereViewController.m; sourceTree = "<group>"; };
@@ -991,6 +997,8 @@
 				27E5AAE719AB39C0004B5458 /* goumai_anniuzhong@2x.png */,
 				27E5AAE819AB39C0004B5458 /* guanyu@2x.png */,
 				27E5AAE919AB39C0004B5458 /* Icon@2x.png */,
+				2779530119E5315800280390 /* Icon120@2x.png */,
+				277952FE19E52DEB00280390 /* Icon.png */,
 				27E5AAEA19AB39C0004B5458 /* icon_session.png */,
 				27E5AAEB19AB39C0004B5458 /* icon_session@2x.png */,
 				27E5AAEC19AB39C0004B5458 /* icon_timeline.png */,
@@ -1396,6 +1404,7 @@
 				27E5AB4819AB39C0004B5458 /* Default-Landscape@2x.png in Resources */,
 				27E5ABA419AB39C0004B5458 /* tianjia@2x.png in Resources */,
 				27E5AB2E19AB39C0004B5458 /* beijing720@2x.png in Resources */,
+				2779530219E5315800280390 /* Icon120@2x.png in Resources */,
 				27E5AB2619AB39C0004B5458 /* bantou_beijing@2x.png in Resources */,
 				27E5AB5019AB39C0004B5458 /* fanhui_jiantou@2x.png in Resources */,
 				27E5AC3019AB3ECE004B5458 /* zbar-back.png in Resources */,
@@ -1428,6 +1437,7 @@
 				27E5ABB619AB39C0004B5458 /* xuanzhong_tiao@2x.png in Resources */,
 				27E5AB9619AB39C0004B5458 /* setanniuhei@2x.png in Resources */,
 				27E5AB9419AB39C0004B5458 /* setanniu@2x.png in Resources */,
+				277952FF19E52DEB00280390 /* Icon.png in Resources */,
 				27E5ABA219AB39C0004B5458 /* shipinkuang@2x.png in Resources */,
 				27E5ABC219AB39C0004B5458 /* yinliang_zhong@2x.png in Resources */,
 				27E5ABC019AB39C0004B5458 /* yinliang_wei@2x.png in Resources */,
@@ -1552,6 +1562,7 @@
 				27E5ABAB19AB39C0004B5458 /* touxiang_quan@2x.png in Resources */,
 				27E5ABCD19AB39C0004B5458 /* zhuanfa_zhong@2x.png in Resources */,
 				27ABE49319E2BE58005BE364 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
+				2779530019E52DEB00280390 /* Icon.png in Resources */,
 				27E5AB4F19AB39C0004B5458 /* Default@2x.png in Resources */,
 				27E5AB8F19AB39C0004B5458 /* qunaer_da@2x.png in Resources */,
 				27E5AB4319AB39C0004B5458 /* collection@2x.png in Resources */,
@@ -1562,6 +1573,7 @@
 				27E5AB3F19AB39C0004B5458 /* collect_wei@2x.png in Resources */,
 				27E5AB8D19AB39C0004B5458 /* qunaer@2x.png in Resources */,
 				27E5ABA319AB39C0004B5458 /* shipinkuang@2x.png in Resources */,
+				2779530319E5315800280390 /* Icon120@2x.png in Resources */,
 				27E5ABC119AB39C0004B5458 /* yinliang_wei@2x.png in Resources */,
 				27E5AB5319AB39C0004B5458 /* fenjietiao@2x.png in Resources */,
 				27E5AB8719AB39C0004B5458 /* lishijilu@2x.png in Resources */,
