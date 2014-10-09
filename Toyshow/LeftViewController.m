@@ -31,12 +31,12 @@
     NSArray *_listArr,*_imageArr;
     UILabel *_titleTextL,*loginOrOutL;
     UITableView *tableView1,*tableView2;
-    int num;
+    int num,scanNum;
     BOOL upOrdown,_flag;
     NSTimer *timer;
     BOOL _reloading;
     NSArray *activity;
-    UIAlertView *_loginView;
+    UIAlertView *_loginView,*scanFailView;
     ShareCamereViewController *_playVC;
     NSDictionary *_playDict;
     ZBarReaderViewController *reader;
@@ -351,7 +351,6 @@
         NSString * result;
 //        NSLog(@"symbol.data:%@--results:%@",symbol.data,results);
         if ([symbol.data canBeConvertedToEncoding:NSShiftJISStringEncoding])
-            
         {
             result = [NSString stringWithCString:[symbol.data cStringUsingEncoding: NSShiftJISStringEncoding] encoding:NSUTF8StringEncoding];
 //-----------------------------------------------------------------------------//
@@ -359,17 +358,22 @@
             AddDeviceViewController *addDeviceVC = [[AddDeviceViewController alloc] init];
             addDeviceVC.deviceID = result;
             addDeviceVC.access_token = self.accessToken;
+            addDeviceVC.isScanFlag = YES;
 //            addDeviceVC.imageData = image;
 //            addDeviceVC.userID = [[NSUserDefaults standardUserDefaults] stringForKey:kUserName];
+            scanNum = 0;
             [self.navigationController pushViewController:addDeviceVC animated:YES];
-        }
-        else
+        }else
         {
+            scanNum++;
+            if (scanNum>2) {
+                scanFailView = [[UIAlertView alloc] initWithTitle:@"扫描失败" message:@"已连续扫描3次失败，是否换到手动输入？" delegate:self cancelButtonTitle:@"再扫一次" otherButtonTitles:@"手动输入", nil];
+                [scanFailView show];
+                scanNum = 0;
+            }else
             [self scanBtnAction];
 //            self.userImageVIew.image = image;
 //            result = symbol.data;
-//            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"扫描失败" message:@"请重新扫描" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//            [view show];
             
         }
     }];
@@ -464,7 +468,19 @@
         }else
         {
         }
-    }else
+    }else if (scanFailView == alertView)
+    {
+        if (buttonIndex) {
+            AddDeviceViewController *addDeviceVC = [[AddDeviceViewController alloc] init];
+            addDeviceVC.access_token = self.accessToken;
+            addDeviceVC.isScanFlag = NO;
+            [self.navigationController pushViewController:addDeviceVC animated:YES];
+        }else
+        {
+            [self scanBtnAction];
+        }
+    }
+    else
     {
         if (buttonIndex) {
             [self logout];
@@ -514,15 +530,5 @@
     // 返回新的改变大小后的图片
     return scaledImage;
 }
-
-//-(UIStatusBarStyle)preferredStatusBarStyle
-//{
-//    return UIStatusBarStyleLightContent;
-//}
-//
-//- (BOOL)prefersStatusBarHidden
-//{
-//    return YES;
-//}
 
 @end

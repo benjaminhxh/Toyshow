@@ -40,7 +40,6 @@
 		274F50E8195D8AE500114416 /* WeixinTimelineActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 274F50E4195D8AE500114416 /* WeixinTimelineActivity.m */; };
 		274F50E9195D8AE500114416 /* WeixinSessionActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 274F50E6195D8AE500114416 /* WeixinSessionActivity.m */; };
 		2751C12718C417A9006173B3 /* ShowImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2751C12618C417A9006173B3 /* ShowImageViewController.m */; };
-		2751C13718C42828006173B3 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2751C13618C42828006173B3 /* MediaPlayer.framework */; };
 		2758509018D6999000CCB075 /* ShareCameraCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2758508E18D6999000CCB075 /* ShareCameraCell.xib */; };
 		2758509518D69A1800CCB075 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2758509418D69A1800CCB075 /* HelpViewController.m */; };
 		275C716B18CEC91E00288C83 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275C716A18CEC91E00288C83 /* AboutViewController.m */; };
@@ -52,11 +51,13 @@
 		275D929E19E62F9C00DF77B9 /* 120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 275D929819E62F9C00DF77B9 /* 120@2x.png */; };
 		275D92A019E6309600DF77B9 /* 29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 275D929F19E6309600DF77B9 /* 29@2x.png */; };
 		275D92A119E6309600DF77B9 /* 29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 275D929F19E6309600DF77B9 /* 29@2x.png */; };
+		275D92A319E6464600DF77B9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 275D92A219E6464600DF77B9 /* MediaPlayer.framework */; };
+		275D92A519E6466900DF77B9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 275D92A419E6466900DF77B9 /* AVFoundation.framework */; };
+		275D92AA19E6468D00DF77B9 /* MVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275D92A719E6468D00DF77B9 /* MVViewController.m */; };
+		275D92AB19E6468D00DF77B9 /* MVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275D92A719E6468D00DF77B9 /* MVViewController.m */; };
+		275D92AC19E6468D00DF77B9 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275D92A919E6468D00DF77B9 /* VideoViewController.m */; };
+		275D92AD19E6468D00DF77B9 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275D92A919E6468D00DF77B9 /* VideoViewController.m */; };
 		2769146C18C81F4300B24469 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2769146B18C81F4300B24469 /* CFNetwork.framework */; };
-		276D1B0319ADCA290024BFFC /* MVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276D1B0019ADCA290024BFFC /* MVViewController.m */; };
-		276D1B0419ADCA2A0024BFFC /* MVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276D1B0019ADCA290024BFFC /* MVViewController.m */; };
-		276D1B0519ADCA2A0024BFFC /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276D1B0219ADCA290024BFFC /* VideoViewController.m */; };
-		276D1B0619ADCA2A0024BFFC /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276D1B0219ADCA290024BFFC /* VideoViewController.m */; };
 		2777606F18FB74BD000A5F83 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777604B18FB74BD000A5F83 /* AFHTTPRequestOperation.m */; };
 		2777607018FB74BD000A5F83 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777604D18FB74BD000A5F83 /* AFHTTPRequestOperationManager.m */; };
 		2777607118FB74BD000A5F83 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777604F18FB74BD000A5F83 /* AFHTTPSessionManager.m */; };
@@ -362,7 +363,6 @@
 		2703E51718D97EA500E31DF0 /* SliderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SliderViewController.m; sourceTree = "<group>"; };
 		270C941718C7333700BE56C8 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		270C941918C7336900BE56C8 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
-		270C941B18C733A400BE56C8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2713684818BF3659006CF446 /* SiderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiderCell.h; sourceTree = "<group>"; };
 		2713684918BF3659006CF446 /* SiderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiderCell.m; sourceTree = "<group>"; };
 		2718FCAB18D6D0250094583F /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -398,7 +398,6 @@
 		274F50E6195D8AE500114416 /* WeixinSessionActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeixinSessionActivity.m; sourceTree = "<group>"; };
 		2751C12518C417A8006173B3 /* ShowImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowImageViewController.h; sourceTree = "<group>"; };
 		2751C12618C417A9006173B3 /* ShowImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowImageViewController.m; sourceTree = "<group>"; };
-		2751C13618C42828006173B3 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		2758508E18D6999000CCB075 /* ShareCameraCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareCameraCell.xib; sourceTree = "<group>"; };
 		2758509318D69A1800CCB075 /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
 		2758509418D69A1800CCB075 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
@@ -408,11 +407,13 @@
 		275D929719E62F9C00DF77B9 /* 80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "80@2x.png"; sourceTree = "<group>"; };
 		275D929819E62F9C00DF77B9 /* 120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "120@2x.png"; sourceTree = "<group>"; };
 		275D929F19E6309600DF77B9 /* 29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "29@2x.png"; sourceTree = "<group>"; };
+		275D92A219E6464600DF77B9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		275D92A419E6466900DF77B9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		275D92A619E6468D00DF77B9 /* MVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVViewController.h; sourceTree = "<group>"; };
+		275D92A719E6468D00DF77B9 /* MVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVViewController.m; sourceTree = "<group>"; };
+		275D92A819E6468D00DF77B9 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
+		275D92A919E6468D00DF77B9 /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
 		2769146B18C81F4300B24469 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		276D1AFF19ADCA290024BFFC /* MVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVViewController.h; sourceTree = "<group>"; };
-		276D1B0019ADCA290024BFFC /* MVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVViewController.m; sourceTree = "<group>"; };
-		276D1B0119ADCA290024BFFC /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
-		276D1B0219ADCA290024BFFC /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
 		2777604A18FB74BD000A5F83 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		2777604B18FB74BD000A5F83 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		2777604C18FB74BD000A5F83 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -673,6 +674,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				275D92A519E6466900DF77B9 /* AVFoundation.framework in Frameworks */,
+				275D92A319E6464600DF77B9 /* MediaPlayer.framework in Frameworks */,
 				27E5A94719AB3346004B5458 /* Frontia.framework in Frameworks */,
 				27E5AC0C19AB3ECE004B5458 /* libBase64.a in Frameworks */,
 				27E5ABCE19AB3BA0004B5458 /* FrontiaSource.bundle in Frameworks */,
@@ -692,7 +695,6 @@
 				270C941A18C7336900BE56C8 /* CoreVideo.framework in Frameworks */,
 				27E5AC2A19AB3ECE004B5458 /* libzbar.a in Frameworks */,
 				270C941818C7333700BE56C8 /* libiconv.dylib in Frameworks */,
-				2751C13718C42828006173B3 /* MediaPlayer.framework in Frameworks */,
 				274662C118C030F5004C8DD4 /* libz.dylib in Frameworks */,
 				274662BF18C030EA004C8DD4 /* libstdc++.dylib in Frameworks */,
 				274662BD18C030DD004C8DD4 /* libsqlite3.dylib in Frameworks */,
@@ -1159,6 +1161,8 @@
 		27FFE28318BF287B00AE47FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				275D92A419E6466900DF77B9 /* AVFoundation.framework */,
+				275D92A219E6464600DF77B9 /* MediaPlayer.framework */,
 				2718FCB518D6D08F0094583F /* MobileCoreServices.framework */,
 				2718FCB318D6D06C0094583F /* Security.framework */,
 				2718FCB118D6D05E0094583F /* AudioToolbox.framework */,
@@ -1166,10 +1170,8 @@
 				2718FCAD18D6D0360094583F /* OpenGLES.framework */,
 				2718FCAB18D6D0250094583F /* OpenAL.framework */,
 				2769146B18C81F4300B24469 /* CFNetwork.framework */,
-				270C941B18C733A400BE56C8 /* AVFoundation.framework */,
 				270C941918C7336900BE56C8 /* CoreVideo.framework */,
 				270C941718C7333700BE56C8 /* libiconv.dylib */,
-				2751C13618C42828006173B3 /* MediaPlayer.framework */,
 				274662C018C030F5004C8DD4 /* libz.dylib */,
 				274662BE18C030EA004C8DD4 /* libstdc++.dylib */,
 				274662BC18C030DD004C8DD4 /* libsqlite3.dylib */,
@@ -1220,16 +1222,16 @@
 				2751C12618C417A9006173B3 /* ShowImageViewController.m */,
 				2794B6E418E05F09008DCF83 /* ShareCamereViewController.h */,
 				2794B6E518E05F09008DCF83 /* ShareCamereViewController.m */,
-				276D1AFF19ADCA290024BFFC /* MVViewController.h */,
-				276D1B0019ADCA290024BFFC /* MVViewController.m */,
-				276D1B0119ADCA290024BFFC /* VideoViewController.h */,
-				276D1B0219ADCA290024BFFC /* VideoViewController.m */,
 				2758509318D69A1800CCB075 /* HelpViewController.h */,
 				2758509418D69A1800CCB075 /* HelpViewController.m */,
 				27F0A43C192C984400D02A79 /* HowToUseViewController.h */,
 				27F0A43D192C984400D02A79 /* HowToUseViewController.m */,
 				275C716918CEC91E00288C83 /* AboutViewController.h */,
 				275C716A18CEC91E00288C83 /* AboutViewController.m */,
+				275D92A619E6468D00DF77B9 /* MVViewController.h */,
+				275D92A719E6468D00DF77B9 /* MVViewController.m */,
+				275D92A819E6468D00DF77B9 /* VideoViewController.h */,
+				275D92A919E6468D00DF77B9 /* VideoViewController.m */,
 				27FFE29618BF287B00AE47FF /* Images.xcassets */,
 				27FFE28B18BF287B00AE47FF /* Supporting Files */,
 			);
@@ -1609,12 +1611,12 @@
 				2751C12718C417A9006173B3 /* ShowImageViewController.m in Sources */,
 				27E5A93519AB3346004B5458 /* AsyncUdpSocket.m in Sources */,
 				274D771918E571BF00F352C7 /* ThumbnailViewController.m in Sources */,
-				276D1B0519ADCA2A0024BFFC /* VideoViewController.m in Sources */,
+				275D92AC19E6468D00DF77B9 /* VideoViewController.m in Sources */,
 				274F50E7195D8AE500114416 /* WeixinActivity.m in Sources */,
 				2777607518FB74BD000A5F83 /* AFURLRequestSerialization.m in Sources */,
 				275C716B18CEC91E00288C83 /* AboutViewController.m in Sources */,
 				27E5A99319AB35D0004B5458 /* AudioVideoViewController.m in Sources */,
-				276D1B0319ADCA290024BFFC /* MVViewController.m in Sources */,
+				275D92AA19E6468D00DF77B9 /* MVViewController.m in Sources */,
 				2777607F18FB74BD000A5F83 /* UIWebView+AFNetworking.m in Sources */,
 				2777607618FB74BD000A5F83 /* AFURLResponseSerialization.m in Sources */,
 				27E5AC2819AB3ECE004B5458 /* split.c in Sources */,
@@ -1637,7 +1639,7 @@
 				27E5AC2119AB3ECE004B5458 /* qrencode.c in Sources */,
 				27E5A93619AB3346004B5458 /* AsyncUdpSocket.m in Sources */,
 				27E5A97919AB34ED004B5458 /* SecurtyStyleViewController.m in Sources */,
-				276D1B0619ADCA2A0024BFFC /* VideoViewController.m in Sources */,
+				275D92AD19E6468D00DF77B9 /* VideoViewController.m in Sources */,
 				27E5A9A619AB35D0004B5458 /* NtscOrpalViewController.m in Sources */,
 				27E5A99E19AB35D0004B5458 /* EventNotificationViewController.m in Sources */,
 				27E5A99C19AB35D0004B5458 /* DeviceStatueControlViewController.m in Sources */,
@@ -1652,7 +1654,7 @@
 				27E5A97519AB34ED004B5458 /* AddDeviceViewController.m in Sources */,
 				27E5AC2919AB3ECE004B5458 /* split.c in Sources */,
 				27E5A9A819AB35D0004B5458 /* SceneModeViewController.m in Sources */,
-				276D1B0419ADCA2A0024BFFC /* MVViewController.m in Sources */,
+				275D92AB19E6468D00DF77B9 /* MVViewController.m in Sources */,
 				27E5A99619AB35D0004B5458 /* CameraSetViewController.m in Sources */,
 				27FFE2AA18BF287B00AE47FF /* ToyshowTests.m in Sources */,
 				27E5A97719AB34ED004B5458 /* IPObtainStyleViewController.m in Sources */,

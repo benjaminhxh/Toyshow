@@ -20,7 +20,7 @@
 
 @interface AddDeviceViewController ()<UIAlertViewDelegate,NSURLConnectionDataDelegate,NSURLConnectionDelegate,UITextFieldDelegate,IPObtainStyleViewControllerDelegate,SecurtyStyleViewControllerDelegate,MBProgressHUDDelegate>
 {
-    UITextField *deviceDetailF,*SSIDPWF,*SSIDF,*SSIDPWFconfirm;
+    UITextField  *deviceF,*deviceDetailF,*SSIDPWF,*SSIDF,*SSIDPWFconfirm;
     UIAlertView *nextAlertview,*loginAlterView,*configurationTipView;
     NSArray *securyArr;
     UIScrollView *scrollView;
@@ -86,9 +86,16 @@
     deviceL.backgroundColor = [UIColor clearColor];
 
     [scrollView addSubview:deviceL];
-    UITextField *deviceF = [[UITextField alloc] initWithFrame:CGRectMake(100, 6, 180, 30)];
-    deviceF.text = self.deviceID;
-    deviceF.enabled = NO;
+    deviceF = [[UITextField alloc] initWithFrame:CGRectMake(100, 6, 180, 30)];
+    if (self.isScanFlag) {
+        deviceF.text = self.deviceID;
+        deviceF.enabled = NO;
+    }else
+    {
+        deviceF.enabled = YES;
+        deviceF.returnKeyType = UIReturnKeyNext;
+        deviceF.delegate = self;
+    }
     deviceF.allowsEditingTextAttributes = YES;
     deviceF.borderStyle = UITextBorderStyleRoundedRect;
     [scrollView addSubview:deviceF];
@@ -117,6 +124,17 @@
 //    SSIDF.delegate = self;
     SSIDF.enabled = NO;
     [scrollView addSubview:SSIDF];
+//    NSLog(@"wifi:%@",[self fetchSSIDInfo]);
+//    if (![self fetchSSIDInfo]) {
+//        NSLog(@"wifi没打开");
+//        UIButton *obtainWifiBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        obtainWifiBtn.frame = CGRectMake(100, 86, 180, 30);
+//        obtainWifiBtn.backgroundColor = [UIColor blueColor];
+//        [obtainWifiBtn setTitle:@"获取wifi" forState:UIControlStateNormal];
+//        [obtainWifiBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+//        [scrollView addSubview:obtainWifiBtn];
+//        [obtainWifiBtn addTarget:self action:@selector(obtainWifiAction) forControlEvents:UIControlEventTouchUpInside];
+//    }
     
     UILabel *SSIDPW = [[UILabel alloc] initWithFrame:CGRectMake(10, 126, 100, 30)];
     SSIDPW.text = @"WiFi密码:";
@@ -200,6 +218,10 @@
     [scrollView addSubview:startBtn];
 }
 
+//- (void)obtainWifiAction
+//{
+//    SSIDF.text = [self fetchSSIDInfo];
+//}
 - (void)backBtn:(id)sender
 {
     [self.navigationController popViewControllerAnimated:NO];
@@ -261,7 +283,7 @@
 //    NSString *descc = [NSString stringWithUTF8String:[desc UTF8String]];
     NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)des, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
                                                   //https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=123456&access_token=52.88be325d08d983f7403be8438c0c1eed.2592000.1403337720.1812238483-2271149&device_type=1&desc=摄像头描述
-    NSString *URLstr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=%@&access_token=%@&device_type=1&desc=%@",self.deviceID,self.access_token,strWithUTF8];
+    NSString *URLstr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=%@&access_token=%@&device_type=1&desc=%@",deviceF.text,self.access_token,strWithUTF8];
     ////NSLog(@"urlSTR:%@",URLstr);
 //    return ;
     [self isLoadingView];
@@ -572,7 +594,10 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
 //    [textField resignFirstResponder];
-    if (deviceDetailF == textField) {
+    if (deviceF == textField) {
+        [deviceDetailF becomeFirstResponder];
+    }
+    else if (deviceDetailF == textField) {
         [SSIDPWF becomeFirstResponder];
     }else if(SSIDPWF == textField)
     {

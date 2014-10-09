@@ -10,6 +10,7 @@
 #import "AsyncUdpSocket.h"
 
 @interface AddDeviceViewController : UIViewController
+@property (nonatomic, assign) BOOL isScanFlag;
 @property (nonatomic, copy) NSString *deviceID;
 //@property (nonatomic, copy) NSString *userID;
 @property (nonatomic, copy) NSString *access_token;
