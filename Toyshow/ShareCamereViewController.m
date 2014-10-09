@@ -451,7 +451,7 @@
 - (void)startCaching:(NSNotification*)notif
 {
 //    [self startTimer];
-    NSLog(@"开始缓冲startCachhhhhhhhhhhhhh:%@------%@",[notif object],[notif userInfo]);
+//    NSLog(@"开始缓冲startCachhhhhhhhhhhhhh:%@------%@",[notif object],[notif userInfo]);
 //    [self isLoadingView];
 }
 
@@ -473,32 +473,32 @@
 {
 //    UIAlertView *finishView = [[UIAlertView alloc] initWithTitle:@"播放完成" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
 //    [finishView show];
-    NSLog(@"播放完成：%@----%@========%@",[notif userInfo],[notif name],[notif object]);
+//    NSLog(@"播放完成：%@----%@========%@",[notif userInfo],[notif name],[notif object]);
     if (self.isLive) {
         _loadingView.hidden = YES;
         errorLab.hidden = NO;
-        if(cbPlayerController.playbackState == CBPMoviePlaybackStateInterrupted){
-            [cbPlayerController play];
-            NSLog(@"CBPMoviePlaybackStateInterrupted");
-        }else if (cbPlayerController.playbackState == CBPMoviePlaybackStateStopped)
-        {
-            NSLog(@"CBPMoviePlaybackStateStopped");
-            if (!_isExitFlag) {
+//        if(cbPlayerController.playbackState == CBPMoviePlaybackStateInterrupted){
+//            [cbPlayerController play];
+////            NSLog(@"CBPMoviePlaybackStateInterrupted");
+//        }else if (cbPlayerController.playbackState == CBPMoviePlaybackStateStopped)
+//        {
+////            NSLog(@"CBPMoviePlaybackStateStopped");
+//            if (!_isExitFlag) {
+////
+////                NSLog(@"---------------重新播放失败的");
+//            }
 //
-                NSLog(@"---------------重新播放失败的");
-            }
-
-        }else if (cbPlayerController.playbackState == CBPMoviePlaybackStatePaused)
-        {
-            NSLog(@"CBPMoviePlaybackStatePaused");
-        }
+//        }else if (cbPlayerController.playbackState == CBPMoviePlaybackStatePaused)
+//        {
+//            NSLog(@"CBPMoviePlaybackStatePaused");
+//        }
     }
 }
 
 //播放失败
 - (void)playerBackError:(NSNotification *)notifa
 {
-    NSLog(@"播放失败playerBackError:%@-------%@---------%@",[notifa userInfo],[notifa object],[notifa name]);
+//    NSLog(@"播放失败playerBackError:%@-------%@---------%@",[notifa userInfo],[notifa object],[notifa name]);
     errorLab.hidden = NO;
     [self performSelectorOnMainThread:@selector(hiddenLoadingView) withObject:nil waitUntilDone:NO];
 }

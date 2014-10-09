@@ -130,13 +130,13 @@
         [loginBtn addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
         [view addSubview:loginBtn];
         
-        UIButton *buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        buyBtn.frame = CGRectMake(20, 340, 80, 40);
-        [buyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        //        [buyBtn setTitle:@"购买链接" forState:UIControlStateNormal];
-        [buyBtn setImage:[UIImage imageNamed:@"goumai_anniu@2x"] forState:UIControlStateNormal];
-        [buyBtn addTarget:self action:@selector(buyClick) forControlEvents:UIControlEventTouchUpInside];
-        [view addSubview:buyBtn];
+//        UIButton *buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        buyBtn.frame = CGRectMake(20, 340, 80, 40);
+//        [buyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        //        [buyBtn setTitle:@"购买链接" forState:UIControlStateNormal];
+//        [buyBtn setImage:[UIImage imageNamed:@"goumai_anniu@2x"] forState:UIControlStateNormal];
+//        [buyBtn addTarget:self action:@selector(buyClick) forControlEvents:UIControlEventTouchUpInside];
+//        [view addSubview:buyBtn];
     }
     return view;
 }

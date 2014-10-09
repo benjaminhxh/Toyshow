@@ -78,11 +78,11 @@
 //    indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
 //    indicatorView.backgroundColor = [UIColor lightGrayColor];
 //    [indicatorView startAnimating];
-    UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth/2-27,94,54,54)];
-    imageview.image = [UIImage imageNamed:@"Icon"];
+    UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth/2-60,94,120,120)];
+    imageview.image = [UIImage imageNamed:@"120"];
     [self.view addSubview:imageview];
     
-    UILabel *versionL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/2-60, 160, 120, 24)];
+    UILabel *versionL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/2-60, 220, 120, 24)];
     versionL.textAlignment = NSTextAlignmentCenter;
     versionL.text = @"Joyshow 1.0";
     versionL.textColor = [UIColor grayColor];
