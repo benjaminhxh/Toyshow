@@ -49,9 +49,9 @@
     [self.view addSubview:backgroundView];
     
     if (iphone5) {
-        UIImage *image1 = [UIImage imageNamed:@"laorenxiaohai_da@2x"];
-        UIImage *image2 = [UIImage imageNamed:@"qunaer_da@2x"];
-        UIImage *image3 = [UIImage imageNamed:@"fenshen_da@2x"];
+        UIImage *image1 = [UIImage imageNamed:@"laorenxiaohai4.0@2x"];
+        UIImage *image2 = [UIImage imageNamed:@"qunaer4.0@2x"];
+        UIImage *image3 = [UIImage imageNamed:@"fenshen4.0@2x"];
         UIImage *image4 = [UIImage imageNamed:@"beijing1080@2x"];
         _imageArray = [NSArray arrayWithObjects:image1,image2,image3,image4, nil];
     }else

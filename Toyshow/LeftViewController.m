@@ -61,7 +61,6 @@
     UIImageView *imgV=[[UIImageView alloc] initWithFrame:self.view.bounds];
     [imgV setImage:[UIImage imageNamed:backGroundImage]];
     [self.view addSubview:imgV];
-    _listArr = [NSArray array];
     _listArr = [NSArray arrayWithObjects:@"我的摄像头",@"我的收藏",@"分享的摄像头",@"添加新设备",@"",@"帮助",@"关于", nil];
     UIImage *image1 = [UIImage imageNamed:@"shejingtou@2x"];
     UIImage *image2 = [UIImage imageNamed:@"collection@2x"];
