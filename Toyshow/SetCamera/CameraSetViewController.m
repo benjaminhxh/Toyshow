@@ -24,7 +24,7 @@
 
 @interface CameraSetViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,SceneModeViewControllerDelegate,NtscOrpalViewControllerDelegate,ImageResolutionViewControllerDelegate,DeviceControlViewControlDelegate,SensitivityViewControllerDelegate,MBProgressHUDDelegate>
 {
-    NSArray *cameraInfoArr;
+    NSArray *cameraInfoArr,*cameraInfoArrLow;
     UIButton *codeStream;
     UILabel *deviceIDL,*deviceNameL;
     UIAlertView *codeStreamView,*logOutView;
@@ -33,6 +33,7 @@
     MBProgressHUD *_loginoutView;
     NSDictionary *cameraInfoDict;
     int count;
+    BOOL islow;
     UITableView *_tableView;
     UISwitch *videooffON,*stateLightoffON,*timeHidden;
 }
@@ -78,7 +79,8 @@
     [seeVideoBtn addTarget:self action:@selector(didSeeVideoClick) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:seeVideoBtn];
     self.controlONOrOFFIndex = 3;
-    cameraInfoArr = [NSArray arrayWithObjects:@"音视频设置",@"夜视功能设置",@"事件通知",@"录像控制",@"状态指示灯",@"时间显示",@"设备状态控制",@"设备信息",@"", nil];
+    cameraInfoArr = [NSArray arrayWithObjects:@"音视频设置",@"夜视功能设置",@"事件通知",@"录像控制",@"状态指示灯",@"时间显示",@"设备状态控制",@"设备信息", nil];
+    cameraInfoArrLow = [NSArray arrayWithObjects:@"音视频设置",@"事件通知",@"录像控制",@"状态指示灯",@"时间显示",@"设备状态控制",@"设备信息", nil];
 
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, 320, [UIScreen mainScreen].bounds.size.height-64) style:UITableViewStylePlain];
     _tableView.delegate = self;
@@ -118,15 +120,20 @@
     return 3;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if (indexPath.row<3 || indexPath.row>5) {
-//        return 50;
-//    }else
-//    {
-//        return 64;
-//    }
-//}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (0 == section) {
+        return 1;
+    }else if (1 == section)
+    {
+        return count;
+    }
+    else
+    {
+        return 2;
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdent = @"cell";
@@ -135,7 +142,7 @@
         case 0:
         {
             if (cell==nil) {
-                cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+                cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, kWidth, 44)];
                 cell.textLabel.text = @"分享设置";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
@@ -144,228 +151,99 @@
         case 1:
         {
             if (cell==nil) {
-                cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-                
-                cell.textLabel.text = [cameraInfoArr objectAtIndex:indexPath.row];
+                cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, kWidth, 44)];
+                if (islow) {
+                    cell.textLabel.text = [cameraInfoArrLow objectAtIndex:indexPath.row];
+                }else
+                {
+                    cell.textLabel.text = [cameraInfoArr objectAtIndex:indexPath.row];
+                }
             }
-            switch (indexPath.row) {
-                case 3:
-                {
-                    //            //事件通知
-                    //            UISwitch *offON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
-                    //            [cell addSubview:offON];
-                    //            [offON addTarget:self action:@selector(enaleEventAction:) forControlEvents:UIControlEventTouchUpInside];
-                    //            self.EnableEventIndex = [[cameraInfoDict objectForKey:@"iEnableEvent"] integerValue];
-                    //            offON.on = self.EnableEventIndex;
-                    
-                    //录像控制开关
-                    videooffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
-                    [cell addSubview:videooffON];
-                    //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    self.videoRecordIndex = [[cameraInfoDict objectForKey:@"iEnableRecord"] integerValue];
-                    videooffON.on = self.videoRecordIndex;
-                    [videooffON addTarget:self action:@selector(VideoEventAction:) forControlEvents:UIControlEventTouchUpInside];
-                    //                cell.detailTextLabel.text = @"是否允许录像";
+            if (islow) {
+                switch (indexPath.row) {
+                    case 2:
+                    {
+                        //录像控制开关
+                        videooffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
+                        [cell addSubview:videooffON];
+                        //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                        self.videoRecordIndex = [[cameraInfoDict objectForKey:@"iEnableRecord"] integerValue];
+                        videooffON.on = self.videoRecordIndex;
+                        [videooffON addTarget:self action:@selector(VideoEventAction:) forControlEvents:UIControlEventTouchUpInside];
+                    }
+                        break;
+                    case 3:
+                    {
+                        //状态指示灯
+                        stateLightoffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
+                        [cell addSubview:stateLightoffON];
+                        self.lightStatueIndex = [[cameraInfoDict objectForKey:@"iEnableDeviceStatusLed"] integerValue];
+                        
+                        stateLightoffON.on = self.lightStatueIndex;
+                        [stateLightoffON addTarget:self action:@selector(stateLightEventAction:) forControlEvents:UIControlEventTouchUpInside];
+                        //                cell.detailTextLabel.text = @"设备状态指示灯是否开启";
+                        
+                    }
+                        break;
+                    case 4:
+                    {
+                        //时间显示
+                        timeHidden = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
+                        [cell addSubview:timeHidden];
+                        self.timeShowIndex = [[cameraInfoDict objectForKey:@"iEnableOSDTime"] integerValue];
+                        timeHidden.on = self.timeShowIndex;
+                        [timeHidden addTarget:self action:@selector(timeHiddenEventAction:) forControlEvents:UIControlEventTouchUpInside];
+                        //                cell.detailTextLabel.text = @"播放画面是否显示时间";
+                    }
+                        break;
+                        
+                    default:
+                        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                        break;
                 }
-                    break;
-                case 4:
-                {
-                    //            //音频开关
-                    //            UISwitch *AudiooffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
-                    //            [cell addSubview:AudiooffON];
-                    //            self.audioIndex = [[cameraInfoDict objectForKey:@"iEnableAudioIn"] integerValue];
-                    //            AudiooffON.on = self.audioIndex;
-                    //            [AudiooffON addTarget:self action:@selector(AudioEventAction:) forControlEvents:UIControlEventTouchUpInside];
-                    //状态指示灯
-                    stateLightoffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
-                    [cell addSubview:stateLightoffON];
-                    self.lightStatueIndex = [[cameraInfoDict objectForKey:@"iEnableDeviceStatusLed"] integerValue];
-                    
-                    stateLightoffON.on = self.lightStatueIndex;
-                    [stateLightoffON addTarget:self action:@selector(stateLightEventAction:) forControlEvents:UIControlEventTouchUpInside];
-                    //                cell.detailTextLabel.text = @"设备状态指示灯是否开启";
-                    
+            }else
+            {
+                switch (indexPath.row) {
+                    case 3:
+                    {
+                        //录像控制开关
+                        videooffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
+                        [cell addSubview:videooffON];
+                        //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                        self.videoRecordIndex = [[cameraInfoDict objectForKey:@"iEnableRecord"] integerValue];
+                        videooffON.on = self.videoRecordIndex;
+                        [videooffON addTarget:self action:@selector(VideoEventAction:) forControlEvents:UIControlEventTouchUpInside];
+                    }
+                        break;
+                    case 4:
+                    {
+                        //状态指示灯
+                        stateLightoffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
+                        [cell addSubview:stateLightoffON];
+                        self.lightStatueIndex = [[cameraInfoDict objectForKey:@"iEnableDeviceStatusLed"] integerValue];
+                        
+                        stateLightoffON.on = self.lightStatueIndex;
+                        [stateLightoffON addTarget:self action:@selector(stateLightEventAction:) forControlEvents:UIControlEventTouchUpInside];
+                        //                cell.detailTextLabel.text = @"设备状态指示灯是否开启";
+                        
+                    }
+                        break;
+                    case 5:
+                    {
+                        //时间显示
+                        timeHidden = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
+                        [cell addSubview:timeHidden];
+                        self.timeShowIndex = [[cameraInfoDict objectForKey:@"iEnableOSDTime"] integerValue];
+                        timeHidden.on = self.timeShowIndex;
+                        [timeHidden addTarget:self action:@selector(timeHiddenEventAction:) forControlEvents:UIControlEventTouchUpInside];
+                        //                cell.detailTextLabel.text = @"播放画面是否显示时间";
+                    }
+                        break;
+                        
+                    default:
+                        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                        break;
                 }
-                    break;
-                case 5:
-                {
-                    //时间显示
-                    timeHidden = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
-                    [cell addSubview:timeHidden];
-                    self.timeShowIndex = [[cameraInfoDict objectForKey:@"iEnableOSDTime"] integerValue];
-                    timeHidden.on = self.timeShowIndex;
-                    [timeHidden addTarget:self action:@selector(timeHiddenEventAction:) forControlEvents:UIControlEventTouchUpInside];
-                    //                cell.detailTextLabel.text = @"播放画面是否显示时间";
-                }
-                    break;
-                    //        case 3:
-                    //        {
-                    //            //画面是否旋转
-                    //            UISwitch *flipImageoffON = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
-                    //            [cell addSubview:flipImageoffON];
-                    //            self.flipImageIndex = [[cameraInfoDict objectForKey:@"iFlipImage"] integerValue];
-                    //            flipImageoffON.on = self.flipImageIndex;
-                    //            [flipImageoffON addTarget:self action:@selector(flipImageoffONEventAction:) forControlEvents:UIControlEventTouchUpInside];
-                    //
-                    //        }
-                    //            break;
-                    //        case 4:
-                    //        {
-                    //            //户外室内
-                    //            UISwitch *outdoorOrindoor = [[UISwitch alloc] initWithFrame:CGRectMake(245, 5, 51, 31)];
-                    //            [cell addSubview:outdoorOrindoor];
-                    //            self.screneIndex = [[cameraInfoDict objectForKey:@"iScene"] integerValue];
-                    //
-                    //            outdoorOrindoor.on = self.screneIndex;
-                    //            [outdoorOrindoor addTarget:self action:@selector(outdoorOrindoorEventAction:) forControlEvents:UIControlEventTouchUpInside];
-                    //        }
-                    //            break;
-                    //        case 5:
-                    //        {
-                    //            //拍摄模式
-                    //            //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    //            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    //            NSArray *arr = [NSArray arrayWithObjects:@"自动",@"白天",@"夜间", nil];
-                    //            scenceModeL = [[UILabel alloc] init];
-                    //            scenceModeL.frame = CGRectMake(250, 7, 40, 30);
-                    //            [cell addSubview:scenceModeL];
-                    //            self.lightFilterModeIndex = [[cameraInfoDict objectForKey:@"iLightFilterMode"] integerValue];
-                    //            scenceModeL.text = [arr objectAtIndex:self.lightFilterModeIndex];
-                    //            scenceModeL.textColor = [UIColor grayColor];
-                    //        }
-                    //            break;
-                    //        case 6:
-                    //        {
-                    //
-                    //        }
-                    //            break;
-                    //        case 7:
-                    //        {
-                    //            //码流
-                    ////            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    //
-                    //            codeStream = [UIButton buttonWithType:UIButtonTypeCustom];
-                    //            self.streamBitrateIndex = [[cameraInfoDict objectForKey:@"iStreamBitrate"] integerValue];
-                    //
-                    //            [codeStream setTitle:[NSString stringWithFormat:@"%dkb/s",self.streamBitrateIndex] forState:UIControlStateNormal];
-                    //            codeStream.frame = CGRectMake(220, 5, 100, 34);
-                    //            [codeStream setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-                    //            [cell addSubview:codeStream];
-                    ////            [codeStream addTarget:self action:@selector(codeStreamAction:) forControlEvents:UIControlEventTouchUpInside];
-                    //        }
-                    //            break;
-                    //        case 8:
-                    //        {
-                    //            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-                    //            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    //
-                    //            NSArray *arr = [NSArray arrayWithObjects:@"NTSC",@"PAL", nil];
-                    //            ntscOrpalL = [[UILabel alloc] init];
-                    //            ntscOrpalL.frame = CGRectMake(240, 7, 50, 30);
-                    //            self.ntscOrpalIndex = [[cameraInfoDict objectForKey:@"iNTSCPAL"] integerValue];
-                    //            ntscOrpalL.text = [arr objectAtIndex:self.ntscOrpalIndex-1];
-                    //            ntscOrpalL.textColor = [UIColor grayColor];
-                    //            [cell addSubview:ntscOrpalL];
-                    //        }
-                    //            break;
-                    //        case 9:
-                    //        {
-                    //            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-                    //            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    //
-                    //            NSArray *arr = [NSArray arrayWithObjects:@"1080",@"720",@"4CIF",@"640*480",@"352*288", nil];
-                    //            imageResolutionL = [[UILabel alloc] init];
-                    //            imageResolutionL.frame = CGRectMake(200, 7, 80, 30);
-                    //            [cell addSubview:imageResolutionL];
-                    //            self.imageResolutionIndex = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
-                    //            imageResolutionL.text = [arr objectAtIndex:self.imageResolutionIndex-1];
-                    //            imageResolutionL.textAlignment = NSTextAlignmentRight;
-                    //            imageResolutionL.textColor = [UIColor grayColor];
-                    //        }
-                    //            break;
-                    //        case 10:
-                    //        {
-                    //            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-                    //            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    //
-                    //            NSArray *arr = [NSArray arrayWithObjects:@"睡眠",@"唤醒",@"关闭", nil];
-                    //            cameraControlL = [[UILabel alloc] init];
-                    //            cameraControlL.frame = CGRectMake(240, 7, 50, 30);
-                    //            [cell addSubview:cameraControlL];
-                    //            self.controlONOrOFFIndex = [[cameraInfoDict objectForKey:@"iDeviceControl"] integerValue];
-                    //            //这里未收到信息
-                    ////            cameraControlL.text = [arr objectAtIndex:self.controlONOrOFFIndex-1];
-                    //            cameraControlL.textColor = [UIColor grayColor];
-                    //        }
-                    //            break;
-                    //        case 11:
-                    //        {
-                    //            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-                    //            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    //            NSArray *arr = [NSArray arrayWithObjects:@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",nil];
-                    //            sensitivityL = [[UILabel alloc] init];
-                    //            sensitivityL.frame = CGRectMake(260, 7, 20, 30);
-                    //            self.sensitivityIndex = [[cameraInfoDict objectForKey:@"iObjDetectLevel"] integerValue];
-                    //
-                    //            sensitivityL.text = [arr objectAtIndex:self.sensitivityIndex];
-                    //            sensitivityL.textColor = [UIColor grayColor];
-                    //            [cell addSubview:sensitivityL];
-                    //
-                    //        }
-                    //            break;
-                    //        case 12:
-                    //        {
-                    //
-                    //        }
-                    //            break;
-                    //
-                    //        case 13:
-                    //        {
-                    //            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-                    //            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    //            deviceIDL = [[UILabel alloc] initWithFrame:CGRectMake(130, 10, 160, 24)];
-                    //            //            self.deviceid = [[cameraInfoDict objectForKey:@"i64DeviceId"] integerValue];
-                    //
-                    //            deviceIDL.text = self.deviceid;
-                    //            deviceIDL.textAlignment = NSTextAlignmentRight;
-                    //            deviceIDL.textColor = [UIColor grayColor];
-                    //            [cell addSubview:deviceIDL];
-                    //        }
-                    //            break;
-                    //            case 7:
-                    //            {
-                    //                //修改设备名称
-                    //                cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-                    //                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    //                deviceNameL = [[UILabel alloc] initWithFrame:CGRectMake(160, 10, 130, 24)];
-                    //                deviceNameL.text = self.deviceDesc;
-                    //                deviceNameL.textAlignment = NSTextAlignmentRight;
-                    //                deviceNameL.textColor = [UIColor grayColor];
-                    //                [cell addSubview:deviceNameL];
-                    //            }
-                    //                break;
-                    //        case 15:
-                    //        {
-                    //            UIButton *setFinish = [UIButton buttonWithType:UIButtonTypeCustom];
-                    //            [setFinish setTitle:@"完成设置" forState:UIControlStateNormal];
-                    //            setFinish.frame = CGRectMake(80, 3, 160, 40);
-                    //            [setFinish setBackgroundImage:[UIImage imageNamed:@"kaishipeizhi_anniu@2x"] forState:UIControlStateNormal];
-                    //            //            setFinish.backgroundColor = [UIColor blueColor];
-                    //            [cell addSubview:setFinish];
-                    //            [setFinish addTarget:self action:@selector(setFinishAction:) forControlEvents:UIControlEventTouchUpInside];
-                    //            //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    //        }
-                    //            break;
-                    //        case 9:
-                    //        {
-                    //
-                    //            //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    //
-                    //        }
-                    //            break;
-                default:
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    break;
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
@@ -407,20 +285,6 @@
     return cell;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if (0 == section) {
-        return 1;
-    }else if (1 == section)
-    {
-        return count;
-    }
-    else
-    {
-        return 2;
-    }
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.section) {
@@ -436,59 +300,120 @@
             break;
         case 1:
         {
-            switch (indexPath.row) {
-                case 0:
-                {
-                    AudioVideoViewController *avideoVC = [[AudioVideoViewController alloc] init];
-                    avideoVC.access_token = self.access_token;
-                    avideoVC.deviceid = self.deviceid;
-                    avideoVC.audioIndex = [[cameraInfoDict objectForKey:@"iEnableAudioIn"] integerValue];
-                    avideoVC.streamIndex = [cameraInfoDict objectForKey:@"iStreamBitrate"];
-                    avideoVC.flipImageIndex = [[cameraInfoDict objectForKey:@"iFlipImage"] integerValue];
-                    avideoVC.ntscOrPalIndex = [[cameraInfoDict objectForKey:@"iNTSCPAL"] integerValue];
-                    avideoVC.imageResolutionIndex = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
-                    ////NSLog(@"分辨率：%@",[cameraInfoDict objectForKey:@"iImageResolution"]);
-                    [[SliderViewController sharedSliderController].navigationController pushViewController:avideoVC animated:YES];
+            if (islow) {
+                switch (indexPath.row) {
+                    case 0:
+                    {
+                        AudioVideoViewController *avideoVC = [[AudioVideoViewController alloc] init];
+                        avideoVC.access_token = self.access_token;
+                        avideoVC.deviceid = self.deviceid;
+                        avideoVC.audioIndex = [[cameraInfoDict objectForKey:@"iEnableAudioIn"] integerValue];
+                        avideoVC.streamIndex = [cameraInfoDict objectForKey:@"iStreamBitrate"];
+                        avideoVC.flipImageIndex = [[cameraInfoDict objectForKey:@"iFlipImage"] integerValue];
+                        avideoVC.ntscOrPalIndex = [[cameraInfoDict objectForKey:@"iNTSCPAL"] integerValue];
+                        avideoVC.imageResolutionIndex = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
+                        ////NSLog(@"分辨率：%@",[cameraInfoDict objectForKey:@"iImageResolution"]);
+                        avideoVC.isLow = islow;
+                        [[SliderViewController sharedSliderController].navigationController pushViewController:avideoVC animated:YES];
+                    }
+                        break;
+//                    case 1:
+//                    {
+//                        NightViewController *nightVC = [[NightViewController alloc] init];
+//                        nightVC.access_token = self.access_token;
+//                        nightVC.deviceid = self.deviceid;
+//                        nightVC.isenceIndex = [[cameraInfoDict objectForKey:@"iScene"] integerValue];
+//                        nightVC.filterIndex = [[cameraInfoDict objectForKey:@"iLightFilterMode"] integerValue];
+//                        [[SliderViewController sharedSliderController].navigationController pushViewController:nightVC animated:YES];
+//                    }
+//                        break;
+                    case 1:
+                    {
+                        EventNotificationViewController *eventNotifVC = [[EventNotificationViewController alloc] init];
+                        eventNotifVC.access_token = self.access_token;
+                        eventNotifVC.deviceid = self.deviceid;
+                        eventNotifVC.eventNotifIndex = [[cameraInfoDict objectForKey:@"iEnableEvent"] integerValue];
+                        eventNotifVC.sensityIndex = [[cameraInfoDict objectForKey:@"iObjDetectLevel"] integerValue];
+                        [[SliderViewController sharedSliderController].navigationController pushViewController:eventNotifVC animated:YES];
+                    }
+                        break;
+                    case 5:
+                    {
+                        DeviceStatueControlViewController *statueControlVC = [[DeviceStatueControlViewController alloc] init];
+                        statueControlVC.access_token = self.access_token;
+                        statueControlVC.deviceid = self.deviceid;
+                        [[SliderViewController sharedSliderController].navigationController pushViewController:statueControlVC animated:YES];
+                    }
+                        break;
+                    case 6:
+                    {
+                        DeviceInfoViewController *deviceInfoVC = [[DeviceInfoViewController alloc] init];
+                        deviceInfoVC.deviceInfoDict = cameraInfoDict;
+                        [[SliderViewController sharedSliderController].navigationController pushViewController:deviceInfoVC animated:YES];
+                    }
+                        break;
+                    default:
+                        break;
                 }
-                    break;
-                case 1:
-                {
-                    NightViewController *nightVC = [[NightViewController alloc] init];
-                    nightVC.access_token = self.access_token;
-                    nightVC.deviceid = self.deviceid;
-                    nightVC.isenceIndex = [[cameraInfoDict objectForKey:@"iScene"] integerValue];
-                    nightVC.filterIndex = [[cameraInfoDict objectForKey:@"iLightFilterMode"] integerValue];
-                    [[SliderViewController sharedSliderController].navigationController pushViewController:nightVC animated:YES];
-                }
-                    break;
-                case 2:
-                {
-                    EventNotificationViewController *eventNotifVC = [[EventNotificationViewController alloc] init];
-                    eventNotifVC.access_token = self.access_token;
-                    eventNotifVC.deviceid = self.deviceid;
-                    eventNotifVC.eventNotifIndex = [[cameraInfoDict objectForKey:@"iEnableEvent"] integerValue];
-                    eventNotifVC.sensityIndex = [[cameraInfoDict objectForKey:@"iObjDetectLevel"] integerValue];
-                    [[SliderViewController sharedSliderController].navigationController pushViewController:eventNotifVC animated:YES];
-                }
-                    break;
-                case 6:
-                {
-                    DeviceStatueControlViewController *statueControlVC = [[DeviceStatueControlViewController alloc] init];
-                    statueControlVC.access_token = self.access_token;
-                    statueControlVC.deviceid = self.deviceid;
-                    [[SliderViewController sharedSliderController].navigationController pushViewController:statueControlVC animated:YES];
-                }
-                    break;
-                case 7:
-                {
-                    DeviceInfoViewController *deviceInfoVC = [[DeviceInfoViewController alloc] init];
-                    deviceInfoVC.deviceInfoDict = cameraInfoDict;
-                    [[SliderViewController sharedSliderController].navigationController pushViewController:deviceInfoVC animated:YES];
-                }
-                    break;
-                default:
-                    break;
             }
+            else
+            {
+                switch (indexPath.row) {
+                    case 0:
+                    {
+                        AudioVideoViewController *avideoVC = [[AudioVideoViewController alloc] init];
+                        avideoVC.access_token = self.access_token;
+                        avideoVC.deviceid = self.deviceid;
+                        avideoVC.audioIndex = [[cameraInfoDict objectForKey:@"iEnableAudioIn"] integerValue];
+                        avideoVC.streamIndex = [cameraInfoDict objectForKey:@"iStreamBitrate"];
+                        avideoVC.flipImageIndex = [[cameraInfoDict objectForKey:@"iFlipImage"] integerValue];
+                        avideoVC.ntscOrPalIndex = [[cameraInfoDict objectForKey:@"iNTSCPAL"] integerValue];
+                        avideoVC.imageResolutionIndex = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
+                        ////NSLog(@"分辨率：%@",[cameraInfoDict objectForKey:@"iImageResolution"]);
+                        avideoVC.isLow = islow;
+                        [[SliderViewController sharedSliderController].navigationController pushViewController:avideoVC animated:YES];
+                    }
+                        break;
+                    case 1:
+                    {
+                        NightViewController *nightVC = [[NightViewController alloc] init];
+                        nightVC.access_token = self.access_token;
+                        nightVC.deviceid = self.deviceid;
+                        nightVC.isenceIndex = [[cameraInfoDict objectForKey:@"iScene"] integerValue];
+                        nightVC.filterIndex = [[cameraInfoDict objectForKey:@"iLightFilterMode"] integerValue];
+                        [[SliderViewController sharedSliderController].navigationController pushViewController:nightVC animated:YES];
+                    }
+                        break;
+                    case 2:
+                    {
+                        EventNotificationViewController *eventNotifVC = [[EventNotificationViewController alloc] init];
+                        eventNotifVC.access_token = self.access_token;
+                        eventNotifVC.deviceid = self.deviceid;
+                        eventNotifVC.eventNotifIndex = [[cameraInfoDict objectForKey:@"iEnableEvent"] integerValue];
+                        eventNotifVC.sensityIndex = [[cameraInfoDict objectForKey:@"iObjDetectLevel"] integerValue];
+                        [[SliderViewController sharedSliderController].navigationController pushViewController:eventNotifVC animated:YES];
+                    }
+                        break;
+                    case 6:
+                    {
+                        DeviceStatueControlViewController *statueControlVC = [[DeviceStatueControlViewController alloc] init];
+                        statueControlVC.access_token = self.access_token;
+                        statueControlVC.deviceid = self.deviceid;
+                        [[SliderViewController sharedSliderController].navigationController pushViewController:statueControlVC animated:YES];
+                    }
+                        break;
+                    case 7:
+                    {
+                        DeviceInfoViewController *deviceInfoVC = [[DeviceInfoViewController alloc] init];
+                        deviceInfoVC.deviceInfoDict = cameraInfoDict;
+                        [[SliderViewController sharedSliderController].navigationController pushViewController:deviceInfoVC animated:YES];
+                    }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
         }
             break;
         case 2:
@@ -751,11 +676,19 @@
         //系统自带JSON解析
         cameraInfoDict = [NSDictionary dictionary];
         cameraInfoDict = [NSJSONSerialization JSONObjectWithData:resData options:NSJSONReadingMutableLeaves error:nil];
-        count = 8;
+        NSString *deviceID = [cameraInfoDict objectForKey:@"i64DeviceId"];
+        long long deviceidlong = [deviceID longLongValue];
+        //左移48位，得到为0为高端设备，1为低端设备
+        islow = (deviceidlong >> 48);
+        if (islow) {
+            count = 7;
+        }else
+        {
+            count = 8;
+        }
         _loginoutView.hidden = YES;
         dispatch_async(dispatch_get_main_queue(), ^{
             [_tableView reloadData];
-            //            [self.view setNeedsDisplay]; //7
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         _loginoutView.hidden = YES;

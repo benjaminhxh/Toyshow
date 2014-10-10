@@ -101,7 +101,7 @@
         ntscOrPalSeg.frame = CGRectMake(160, 172, 150, 31);
         ntscOrPalSeg.selectedSegmentIndex = self.ntscOrPalIndex-1;
     
-    if (!self.isLow) {
+    if (self.isLow) {
         //低端设备
         imageResolutionL.frame = CGRectMake(15, 65, 110, 31);
         lineV5.frame = CGRectMake(15, 150, kWidth-30, 0.5);
