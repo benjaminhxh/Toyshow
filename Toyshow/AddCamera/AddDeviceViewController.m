@@ -258,6 +258,35 @@
 //        [view show];
 //        return ;
 //    }
+    int isLow;
+    NSString *hexdeviceID;
+    switch (deviceF.text.length) {
+        case 13:
+        {
+            isLow = 1;
+            hexdeviceID = [deviceF.text substringFromIndex:1];
+        }
+            break;
+        case 12:
+        {
+            isLow = 0;
+            hexdeviceID = deviceF.text;
+        }
+            break;
+    
+        default:
+        {
+            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"该设备ID不合法" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [view show];
+            return;
+        }
+            break;
+    }
+    const char* a = [hexdeviceID cStringUsingEncoding:NSASCIIStringEncoding];
+    NSLog(@"a.length:%d=======%s",deviceF.text.length,a);
+    
+    int64_t deviceIDint64 = MacAddr2DecDeviceID(a, isLow);//
+    
     if (SSIDF.text.length == 0) {
         UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"只允许在WiFi环境下配置" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [view show];
@@ -283,7 +312,7 @@
 //    NSString *descc = [NSString stringWithUTF8String:[desc UTF8String]];
     NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)des, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
                                                   //https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=123456&access_token=52.88be325d08d983f7403be8438c0c1eed.2592000.1403337720.1812238483-2271149&device_type=1&desc=摄像头描述
-    NSString *URLstr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=%@&access_token=%@&device_type=1&desc=%@",deviceF.text,self.access_token,strWithUTF8];
+    NSString *URLstr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=%lld&access_token=%@&device_type=1&desc=%@",deviceIDint64,self.access_token,strWithUTF8];
     ////NSLog(@"urlSTR:%@",URLstr);
 //    return ;
     [self isLoadingView];
@@ -636,4 +665,51 @@
     [self.view setNeedsDisplay];
 }
 
+//16进制的Mac地址转换为10进制的
+int64_t MacAddr2DecDeviceID(const char* pMacAddr, int iDeviceType)
+{
+	if (NULL == pMacAddr)
+		return 0;
+    
+	int i = 0;
+	int iMacAddrDecValue[12];
+	int iSegDecValue[6];
+	int iValidInputFlag = 1;
+	int64_t i64RetValue = 0;
+	
+	for (i = 0; i < 12; i++)
+	{
+		if (pMacAddr[i] >= 0x30 && pMacAddr[i] <= 0x39)
+			iMacAddrDecValue[i] = pMacAddr[i] - 0x30;
+		else if (pMacAddr[i] >= 0x41 && pMacAddr[i] <= 0x46)
+			iMacAddrDecValue[i] = 10 + pMacAddr[i] - 0x41;
+		else if (pMacAddr[i] >= 0x61 && pMacAddr[i] <= 0x66)
+			iMacAddrDecValue[i] = 10 + pMacAddr[i] - 0x61;
+		else
+		{
+			iValidInputFlag = 0;
+			break;
+		}
+	}
+	if (0 == iValidInputFlag)
+		return 0;
+    
+	for (i = 0; i < 6; i++)
+	{
+		iSegDecValue[i] = (iMacAddrDecValue[2*i]<<4) + iMacAddrDecValue[2*i+1];
+	}
+    
+	if (iDeviceType)
+		i64RetValue += 1;
+    
+	for (i = 5; i >= 0; i--)
+	{
+		i64RetValue = (i64RetValue<<8);
+		i64RetValue	+= iSegDecValue[i];
+	}
+    
+	return i64RetValue;
+}
+//154266753377536  8c4e07092500  002509074e8c
+//9223372036854775807
 @end
