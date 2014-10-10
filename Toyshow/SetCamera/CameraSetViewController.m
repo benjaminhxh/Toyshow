@@ -409,19 +409,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    switch (section) {
-//        case 0:
-//            return 1;
-//            break;
-//        case 1:
-//            return count;
-//            break;
-//        case 2:
-//            return 2;
-//            break;
-//        default:
-//            break;
-//    }
     if (0 == section) {
         return 1;
     }else if (1 == section)
@@ -450,54 +437,6 @@
         case 1:
         {
             switch (indexPath.row) {
-                    //        case 5:
-                    //        {
-                    //            SceneModeViewController *modeVC = [[SceneModeViewController alloc] init];
-                    //            modeVC.delegate = self;
-                    //            modeVC.lightFilterIndex = self.lightFilterModeIndex;
-                    //            modeVC.scenceMode = scenceModeL.text;
-                    //            [[SliderViewController sharedSliderController].navigationController pushViewController:modeVC animated:YES];
-                    //        }
-                    //            break;
-                    //          case 7:
-                    //        {
-                    //            [self codeStreamAction:nil];
-                    //        }
-                    //            break;
-                    //        case 8:
-                    //        {
-                    //            NtscOrpalViewController *ntscOrpalVC = [[NtscOrpalViewController alloc] init];
-                    //            ntscOrpalVC.delegate = self;
-                    //            ntscOrpalVC.ntscOrpalIndex = self.ntscOrpalIndex;
-                    //            ntscOrpalVC.ntscOrpalMode = ntscOrpalL.text;
-                    //            [[SliderViewController sharedSliderController].navigationController pushViewController:ntscOrpalVC animated:YES];
-                    //        }
-                    //            break;
-                    //        case 9:
-                    //        {
-                    //            ImageResolutionViewController *resolutionlVC = [[ImageResolutionViewController alloc] init];
-                    //            resolutionlVC.delegate = self;
-                    //            resolutionlVC.imageResolutionIndex = self.imageResolutionIndex;
-                    //            resolutionlVC.resolution = imageResolutionL.text;
-                    //            [[SliderViewController sharedSliderController].navigationController pushViewController:resolutionlVC animated:YES];
-                    //        }
-                    //            break;
-                    //        case 10:
-                    //        {
-                    //            DeviceControlViewController *deviceControlVC = [[DeviceControlViewController alloc] init];
-                    //            deviceControlVC.delegate = self;
-                    //            deviceControlVC.index = self.controlONOrOFFIndex;
-                    //            [[SliderViewController sharedSliderController].navigationController pushViewController:deviceControlVC animated:YES];
-                    //        }
-                    //            break;
-                    //        case 11:
-                    //        {
-                    //            SensitivityViewController *sensitivityVC = [[SensitivityViewController alloc] init];
-                    //            sensitivityVC.delegate = self;
-                    //            sensitivityVC.index = self.sensitivityIndex;
-                    //            [[SliderViewController sharedSliderController].navigationController pushViewController:sensitivityVC animated:YES];
-                    //        }
-                    //            break;
                 case 0:
                 {
                     AudioVideoViewController *avideoVC = [[AudioVideoViewController alloc] init];
@@ -569,64 +508,9 @@
     }
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-//{
-//    if (section) {
-//        return 24;
-//    }else
-//    return 0;
-//}
-
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    if (section) {
-//        return @"";
-//    }else
-//        return nil;
-//}
-#pragma mark - setMethod
-//- (void)enaleEventAction:(id)sender
-//{
-//    UISwitch *offswitch = (UISwitch *)sender;
-//    ////NSLog(@"offswtich.on:%d",offswitch.on);
-//    if (offswitch.on) {
-//        ////NSLog(@"打开的");
-//        self.EnableEventIndex = 1;
-//    }
-//    else
-//    {
-//        self.EnableEventIndex = 0;
-//        ////NSLog(@"关闭的");
-//    }
-//}
-//音频是否打开
-//- (void)AudioEventAction:(id)sender
-//{
-//    UISwitch *offswitch = (UISwitch *)sender;
-//    ////NSLog(@"offswtich.on:%d",offswitch.on);
-//    if (offswitch.on) {
-//        ////NSLog(@"打开的音频");
-//        self.audioIndex = 1;
-//    }
-//    else
-//    {
-//        ////NSLog(@"关闭的");
-//        self.audioIndex = 0;
-//    }
-//}
 //视频录制是否打开
 - (void)VideoEventAction:(id)sender
 {
-//    UISwitch *offswitch = (UISwitch *)sender;
-//    if (offswitch.on) {
-//        ////NSLog(@"打开的视频");
-//        self.videoRecordIndex = 1;
-//    }
-//    else
-//    {
-//        ////NSLog(@"关闭的");
-//        self.videoRecordIndex = 0;
-//    }
     _loginoutView.hidden = NO;
     self.videoRecordIndex = videooffON.on;
 
@@ -647,47 +531,7 @@
         _loginoutView.hidden = YES;
         [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
     }];
-//    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//        NSDictionary *dict = (NSDictionary*)responseObject;
-//        ////NSLog(@"dict:%@",dict);
-//        videooffON.on = self.videoRecordIndex;
-//        _loginoutView.hidden = YES;
-//        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
-//        
-//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//        videooffON.on = !self.videoRecordIndex;
-//        _loginoutView.hidden = YES;
-//        [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
-//    }];
 }
-////画面是否旋转
-//- (void)flipImageoffONEventAction:(id)sender
-//{
-//    UISwitch *offswitch = (UISwitch *)sender;
-//    if (offswitch.on) {
-//        ////NSLog(@"打开的");
-//        self.flipImageIndex = 1;
-//    }
-//    else
-//    {
-//        ////NSLog(@"关闭的");
-//        self.flipImageIndex = 0;
-//    }
-//}
-
-////室内室外
-//- (void)outdoorOrindoorEventAction:(id)sender
-//{
-//    UISwitch *outdoorOrindoor = (UISwitch *)sender;
-//    if (outdoorOrindoor.on) {
-//        self.screneIndex = 1;
-//        
-//    }else
-//    {
-//        self.screneIndex = 0;
-//    }
-//    ////NSLog(@"室内室外");
-//}
 
 //设备状态指示灯
 - (void)stateLightEventAction:(id)sender
@@ -723,27 +567,10 @@
 
 }
 
-//码流设置
-//- (void)codeStreamAction:(id)sender
-//{
-//    codeStreamView = [[UIAlertView alloc] initWithTitle:@"带宽控制" message:@"带宽值应该设为60-3000kb/s" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-//    codeStreamView.alertViewStyle = UIAlertViewStylePlainTextInput;
-//    [codeStreamView show];
-//}
-
 //是否在界面上显示时间
 - (void)timeHiddenEventAction:(id)sender
 {
-    ////NSLog(@"时间是否显示");
     _loginoutView.hidden = NO;
-//    UISwitch *timeStaueSwitch = (UISwitch *)sender;
-//    if (timeStaueSwitch.on) {
-//        self.timeShowIndex = 1;
-//    }
-//    else
-//    {
-//        self.timeShowIndex = 0;
-//    }
 
     self.timeShowIndex = timeHidden.on;
     NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -763,66 +590,7 @@
         _loginoutView.hidden = YES;
         [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
     }];
-//    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//        NSDictionary *dict = (NSDictionary*)responseObject;
-//        ////NSLog(@"dict:%@",dict);
-//        timeHidden.on = self.timeShowIndex;
-//        _loginoutView.hidden = YES;
-//        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
-//        
-//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//        timeHidden.on = !self.timeShowIndex;
-//        _loginoutView.hidden = YES;
-//        [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
-//    }];
 }
-
-//完成设置
-//- (void)setFinishAction:(id)sender
-//{
-//    ////NSLog(@"setFinishAction");
-//    _loginoutView.hidden = NO;
-//    NSString *str = [NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",self.EnableEventIndex,self.audioIndex,self.videoRecordIndex,self.flipImageIndex,self.screneIndex,self.lightFilterModeIndex,self.lightStatueIndex,self.streamBitrateIndex,self.ntscOrpalIndex,self.imageResolutionIndex,self.controlONOrOFFIndex,self.sensitivityIndex,self.timeShowIndex];
-//    ////NSLog(@"str:%@",str);
-//    NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                   [NSNumber numberWithInteger:self.EnableEventIndex],@"iEnableEvent",
-//                                   [NSNumber numberWithInteger:self.audioIndex],@"iEnableAudioIn",
-//                                   [NSNumber numberWithInteger:self.videoRecordIndex],@"iEnableRecord",
-//                                   [NSNumber numberWithInteger:self.flipImageIndex],@"iFlipImage",
-//                                   [NSNumber numberWithInteger:self.screneIndex],@"iScene",
-//                                   [NSNumber numberWithInteger:self.lightFilterModeIndex],@"iLightFilterMode",
-//                                   [NSNumber numberWithInteger:self.lightStatueIndex],@"iEnableDeviceStatusLed",
-//                                   [NSNumber numberWithInteger:self.streamBitrateIndex],@"iStreamBitrate",
-//                                   [NSNumber numberWithInteger:self.ntscOrpalIndex],@"iNTSCPAL",
-//                                   [NSNumber numberWithInteger:self.imageResolutionIndex],@"iEnableAudioIn",
-//                                   [NSNumber numberWithInteger:self.controlONOrOFFIndex],@"iEnableAudioIn",
-//                                   [NSNumber numberWithInteger:self.sensitivityIndex],@"iObjDetectLevel",
-//                                   [NSNumber numberWithInteger:self.timeShowIndex],@"iEnableOSDTime",
-//                                   nil];
-//    ////NSLog(@"setCameraDataDict:%@",setCameraDataDict);
-////    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"iNTSCPAL", nil];
-//    NSString *setCameraDataString = [setCameraDataDict JSONString];
-//    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
-//    NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
-//////    NSString *setURL = @"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4";
-//    NSDictionary *paramDict = [NSDictionary dictionaryWithObjectsAndKeys:@"control",@"method",self.access_token,@"access_token",self.deviceid,@"deviceid",setCameraDataDict,@"command", nil];
-//    ////NSLog(@"paramDict:%@",paramDict);
-//    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//        NSDictionary *dict = (NSDictionary*)responseObject;
-//        ////NSLog(@"dict:%@",dict);
-//        [self alertViewShowWithTitle:@"设置成功" andMessage:nil];
-//        if (self.delegate && [self.delegate respondsToSelector:@selector(logoutCameraAtindex:)]) {
-//            [self.delegate logoutCameraAtindex:self.index];
-//        }
-//        _loginoutView.hidden = YES;
-//        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
-//
-//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//        _loginoutView.hidden = YES;
-//        [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
-//        
-//    }];
-//}
 
 //注销设备
 - (void)LoginOutAction:(id)sender
@@ -909,14 +677,8 @@
     _loginoutView.mode = 0;
     _loginoutView.labelText = @"注销中……";
     _loginoutView.hidden = NO;
-//    NSDictionary *localLogoutDict = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"iDeregisterDevice", nil];
-//    NSString *localLogoutString = [localLogoutDict JSONString];
-//    NSString *localLogoutStrWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)localLogoutString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
-//    NSString *localLogoutURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,localLogoutStrWithUTF8];
     //发通道消息注销
-//    [[AFHTTPRequestOperationManager manager] POST:localLogoutURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=drop&deviceid=%@&access_token=%@",self.deviceid,self.access_token];
-        ////NSLog(@"urlStr:%@",urlStr);
         //服务器注销
         [[AFHTTPRequestOperationManager manager] POST:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             //        NSDictionary *dict = (NSDictionary *)responseObject;
@@ -941,12 +703,6 @@
             [_loginoutView hide:YES];
             //        [self alertViewShowWithTitle:@"注销失败" andMessage:errorMSG];
         }];
-
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        _loginoutView.mode = 4;
-//        _loginoutView.labelText = @"注销失败";
-//        [_loginoutView hide:YES];
-//    }];
 }
 
 //判断输入的值是否介于两者之间
@@ -1018,9 +774,6 @@
     [setError show];
 }
 
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

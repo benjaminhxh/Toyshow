@@ -77,71 +77,87 @@
     lineV.backgroundColor = [UIColor grayColor];
     [scrollView addSubview:lineV];
     
+        UILabel *imageResolutionL = [[UILabel alloc] init];
+        imageResolutionL.text = @"图像分辨率";
+        [scrollView addSubview:imageResolutionL];
+        
+        UIView *lineV5 = [[UIView alloc] init];
+        lineV5.backgroundColor = [UIColor grayColor];
+        [scrollView addSubview:lineV5];
+        
+        streamF = [[UITextField alloc] initWithFrame:CGRectMake(kWidth/3, 65, 160, 31)];
+        streamF.text = self.streamIndex;
+        streamF.keyboardType = UIKeyboardTypeNumberPad;
+        //    streamF.borderStyle = UITextBorderStyleBezel;
+        streamF.textAlignment = NSTextAlignmentRight;
+    
+        NSArray *flipArr = [NSArray arrayWithObjects:@"正常",@"倒置", nil];
+        flipImageSeg = [[UISegmentedControl alloc] initWithItems:flipArr];
+        flipImageSeg.frame = CGRectMake(160, 119, 150, 31);
+        flipImageSeg.selectedSegmentIndex = self.flipImageIndex;
+        
+        NSArray *ntscArr = [NSArray arrayWithObjects:@"NTSC",@"PAL", nil];
+        ntscOrPalSeg = [[UISegmentedControl alloc] initWithItems:ntscArr];
+        ntscOrPalSeg.frame = CGRectMake(160, 172, 150, 31);
+        ntscOrPalSeg.selectedSegmentIndex = self.ntscOrPalIndex-1;
+    
+    if (!self.isLow) {
+        //低端设备
+        imageResolutionL.frame = CGRectMake(15, 65, 110, 31);
+        lineV5.frame = CGRectMake(15, 150, kWidth-30, 0.5);
+        
+        NSArray *imageResolutionArr = [NSArray arrayWithObjects:@"720P",@"标清",@"流畅", nil];
+        imageResolutionSeg = [[UISegmentedControl alloc] initWithItems:imageResolutionArr];
+        imageResolutionSeg.frame = CGRectMake(5, 100, 310, 41);
+        imageResolutionSeg.selectedSegmentIndex = self.imageResolutionIndex-1;
+        [imageResolutionSeg addTarget:self action:@selector(imageResolutionSectAction:) forControlEvents:UIControlEventValueChanged];
+        [scrollView addSubview:imageResolutionSeg];
 
-    UILabel *streamL = [[UILabel alloc] initWithFrame:CGRectMake(15, 65, 110, 31)];
-    streamL.text = @"视频码流";
-    [scrollView addSubview:streamL];
-    
-    streamF = [[UITextField alloc] initWithFrame:CGRectMake(kWidth/3, 65, 160, 31)];
-    streamF.text = self.streamIndex;
-    streamF.keyboardType = UIKeyboardTypeNumberPad;
-//    streamF.borderStyle = UITextBorderStyleBezel;
-    streamF.textAlignment = NSTextAlignmentRight;
-    [scrollView addSubview:streamF];
-    UILabel *streamUnitL = [[UILabel alloc] initWithFrame:CGRectMake(270, 65, 40, 31)];
-    streamUnitL.text = @"kb/s";
-    [scrollView addSubview:streamUnitL];
-    
-    UIView *lineV2 = [[UIView alloc] initWithFrame:CGRectMake(15, 108, kWidth-30, 0.5)];
-    lineV2.backgroundColor = [UIColor grayColor];
-    [scrollView addSubview:lineV2];
-    
-    UILabel *flipImageV = [[UILabel alloc] initWithFrame:CGRectMake(15, 119, 110, 31)];
-    flipImageV.text = @"画面方向";
-    [scrollView addSubview:flipImageV];
-    
-    NSArray *flipArr = [NSArray arrayWithObjects:@"正常",@"倒置", nil];
-    flipImageSeg = [[UISegmentedControl alloc] initWithItems:flipArr];
-    flipImageSeg.frame = CGRectMake(160, 119, 150, 31);
-    flipImageSeg.selectedSegmentIndex = self.flipImageIndex;
-    [scrollView addSubview:flipImageSeg];
-    
-    UIView *lineV3 = [[UIView alloc] initWithFrame:CGRectMake(15, 161, kWidth-30, 0.5)];
-    lineV3.backgroundColor = [UIColor grayColor];
-    [scrollView addSubview:lineV3];
+    }else
+    {
+        //高端设备
+        UILabel *streamL = [[UILabel alloc] initWithFrame:CGRectMake(15, 65, 110, 31)];
+        streamL.text = @"视频码流";
+        [scrollView addSubview:streamL];
+        [scrollView addSubview:streamF];
+        UILabel *streamUnitL = [[UILabel alloc] initWithFrame:CGRectMake(270, 65, 40, 31)];
+        streamUnitL.text = @"kb/s";
+        [scrollView addSubview:streamUnitL];
+        
+        UIView *lineV2 = [[UIView alloc] initWithFrame:CGRectMake(15, 108, kWidth-30, 0.5)];
+        lineV2.backgroundColor = [UIColor grayColor];
+        [scrollView addSubview:lineV2];
+        
+        UILabel *flipImageV = [[UILabel alloc] initWithFrame:CGRectMake(15, 119, 110, 31)];
+        flipImageV.text = @"画面方向";
+        [scrollView addSubview:flipImageV];
 
-    UILabel *ntscOrPalL = [[UILabel alloc] initWithFrame:CGRectMake(15, 172, 110, 31)];
-    ntscOrPalL.text = @"视频制式";
-    [scrollView addSubview:ntscOrPalL];
-    
-    NSArray *ntscArr = [NSArray arrayWithObjects:@"NTSC",@"PAL", nil];
-    ntscOrPalSeg = [[UISegmentedControl alloc] initWithItems:ntscArr];
-    ntscOrPalSeg.frame = CGRectMake(160, 172, 150, 31);
-    ntscOrPalSeg.selectedSegmentIndex = self.ntscOrPalIndex-1;
-    [scrollView addSubview:ntscOrPalSeg];
+        [scrollView addSubview:flipImageSeg];
+        
+        UIView *lineV3 = [[UIView alloc] initWithFrame:CGRectMake(15, 161, kWidth-30, 0.5)];
+        lineV3.backgroundColor = [UIColor grayColor];
+        [scrollView addSubview:lineV3];
+        
+        UILabel *ntscOrPalL = [[UILabel alloc] initWithFrame:CGRectMake(15, 172, 110, 31)];
+        ntscOrPalL.text = @"视频制式";
+        [scrollView addSubview:ntscOrPalL];
+        [scrollView addSubview:ntscOrPalSeg];
+        
+        UIView *lineV4 = [[UIView alloc] initWithFrame:CGRectMake(15, 214, kWidth-30, 0.5)];
+        lineV4.backgroundColor = [UIColor grayColor];
+        [scrollView addSubview:lineV4];
+        
+        imageResolutionL.frame = CGRectMake(15, 220, 110, 31);
+        imageResolutionSeg.frame = CGRectMake(15, 225, 110, 31);
+        NSArray *imageResolutionArr = [NSArray arrayWithObjects:@"1080P",@"720P",@"标清",@"流畅", nil];
+        imageResolutionSeg = [[UISegmentedControl alloc] initWithItems:imageResolutionArr];
+        imageResolutionSeg.frame = CGRectMake(5, 260, 310, 41);
+        imageResolutionSeg.selectedSegmentIndex = self.imageResolutionIndex-1;
+        [imageResolutionSeg addTarget:self action:@selector(imageResolutionSectAction:) forControlEvents:UIControlEventValueChanged];
+        [scrollView addSubview:imageResolutionSeg];
+        lineV5.frame = CGRectMake(15, 310, kWidth-30, 0.5);
 
-    
-    UIView *lineV4 = [[UIView alloc] initWithFrame:CGRectMake(15, 214, kWidth-30, 0.5)];
-    lineV4.backgroundColor = [UIColor grayColor];
-    [scrollView addSubview:lineV4];
-
-    UILabel *imageResolutionL = [[UILabel alloc] initWithFrame:CGRectMake(15, 225, 110, 31)];
-    imageResolutionL.text = @"图像分辨率";
-    [scrollView addSubview:imageResolutionL];
-    
-    NSArray *imageResolutionArr = [NSArray arrayWithObjects:@"1080P",@"720P",@"标清",@"流畅", nil];
-    imageResolutionSeg = [[UISegmentedControl alloc] initWithItems:imageResolutionArr];
-    imageResolutionSeg.frame = CGRectMake(5, 260, 310, 41);
-    imageResolutionSeg.selectedSegmentIndex = self.imageResolutionIndex-1;
-    [imageResolutionSeg addTarget:self action:@selector(imageResolutionSectAction:) forControlEvents:UIControlEventValueChanged];
-    [scrollView addSubview:imageResolutionSeg];
-    
-    
-    UIView *lineV5 = [[UIView alloc] initWithFrame:CGRectMake(15, 310, kWidth-30, 0.5)];
-    lineV5.backgroundColor = [UIColor grayColor];
-    [scrollView addSubview:lineV5];
-
-
+    }
 }
 
 - (void)imageResolutionSectAction:(id)sender

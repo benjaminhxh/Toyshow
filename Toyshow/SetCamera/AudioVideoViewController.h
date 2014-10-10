@@ -10,6 +10,7 @@
 
 @interface AudioVideoViewController : UIViewController
 
+@property (nonatomic, assign) BOOL isLow;
 @property (copy ,nonatomic) NSString *access_token;
 @property (copy ,nonatomic) NSString *deviceid;
 @property (nonatomic, assign) NSInteger audioIndex;
