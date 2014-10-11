@@ -176,9 +176,8 @@
             break;
         case 1://我的收藏
             if ([self accessTokenIsExist]) {
-            [[SliderViewController sharedSliderController] showContentControllerWithModel:@"CollectionViewController" withDictionary:_playDict];
+                [[SliderViewController sharedSliderController] showContentControllerWithModel:@"CollectionViewController" withDictionary:_playDict];
             }
-            break;
             break;
         case 2://分享的设备
             [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MainViewController" withDictionary:_playDict];
@@ -258,12 +257,12 @@
     //支持界面旋转
     reader.supportedOrientationsMask = ZBarOrientationMaskAll;
     reader.showsHelpOnFail = NO;
-    reader.scanCrop = CGRectMake(0.0, 0.0, 1.0, 1.0);//扫描的感应框
+    reader.scanCrop = CGRectMake(0.0, 0.2, 1.0, 0.6);//扫描的感应框
     ZBarImageScanner * scanner = reader.scanner;
     [scanner setSymbology:ZBAR_CODE128  //ZBAR_I25
                    config:ZBAR_CFG_ENABLE
                        to:1];           //0
-    UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 420)];
+    UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 420)];
     view.backgroundColor = [UIColor clearColor];
     reader.cameraOverlayView = view;
     
@@ -278,7 +277,7 @@
     [view addSubview:label];
     
     UIImageView * image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pick_bg.png"]];
-    image.frame = CGRectMake(20, 80, 280, 280);
+    image.frame = CGRectMake(20, 80, kWidth-40, 280);
     [view addSubview:image];
     
     
