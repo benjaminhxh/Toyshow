@@ -59,13 +59,13 @@
     [navBar addSubview:backBtn];
     accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:kUserAccessToken];
 
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, 320, [UIScreen mainScreen].bounds.size.height-65) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, kWidth, [UIScreen mainScreen].bounds.size.height-65) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
     
-    noInternetL = [[UILabel alloc] initWithFrame:CGRectMake(0, 65, 320, 44)];
+    noInternetL = [[UILabel alloc] initWithFrame:CGRectMake(0, 65, kWidth, 44)];
     noInternetL.text = @"当前网络不可用，请检查你的网络设置";
     noInternetL.backgroundColor = [UIColor grayColor];
     noInternetL.font = [UIFont systemFontOfSize:14];
@@ -90,7 +90,7 @@
     };
     [reachab startNotifier];
     
-    noDataLoadL = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-44, 320, 44)];
+    noDataLoadL = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-44, kWidth, 44)];
     noDataLoadL.text = @"无更多数据加载";
     noDataLoadL.backgroundColor = [UIColor grayColor];
     noDataLoadL.font = [UIFont systemFontOfSize:14];

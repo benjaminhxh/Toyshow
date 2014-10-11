@@ -51,8 +51,6 @@
 		275D929E19E62F9C00DF77B9 /* 120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 275D929819E62F9C00DF77B9 /* 120@2x.png */; };
 		275D92A019E6309600DF77B9 /* 29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 275D929F19E6309600DF77B9 /* 29@2x.png */; };
 		275D92A119E6309600DF77B9 /* 29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 275D929F19E6309600DF77B9 /* 29@2x.png */; };
-		275D92A319E6464600DF77B9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 275D92A219E6464600DF77B9 /* MediaPlayer.framework */; };
-		275D92A519E6466900DF77B9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 275D92A419E6466900DF77B9 /* AVFoundation.framework */; };
 		275D92AA19E6468D00DF77B9 /* MVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275D92A719E6468D00DF77B9 /* MVViewController.m */; };
 		275D92AB19E6468D00DF77B9 /* MVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275D92A719E6468D00DF77B9 /* MVViewController.m */; };
 		275D92AC19E6468D00DF77B9 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275D92A919E6468D00DF77B9 /* VideoViewController.m */; };
@@ -328,6 +326,7 @@
 		27F5A7A519E639E0004E2549 /* fenxiang@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F5A7A419E639E0004E2549 /* fenxiang@2x.png */; };
 		27F5A7A619E639E0004E2549 /* fenxiang@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 27F5A7A419E639E0004E2549 /* fenxiang@2x.png */; };
 		27F872F8198759F5002DABA3 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27F872F7198759F5002DABA3 /* CollectionViewController.m */; };
+		27FD185319E92A1D0093BC87 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FD185219E92A1D0093BC87 /* MediaPlayer.framework */; };
 		27FFE28518BF287B00AE47FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FFE28418BF287B00AE47FF /* Foundation.framework */; };
 		27FFE28718BF287B00AE47FF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FFE28618BF287B00AE47FF /* CoreGraphics.framework */; };
 		27FFE28918BF287B00AE47FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FFE28818BF287B00AE47FF /* UIKit.framework */; };
@@ -407,8 +406,6 @@
 		275D929719E62F9C00DF77B9 /* 80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "80@2x.png"; sourceTree = "<group>"; };
 		275D929819E62F9C00DF77B9 /* 120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "120@2x.png"; sourceTree = "<group>"; };
 		275D929F19E6309600DF77B9 /* 29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "29@2x.png"; sourceTree = "<group>"; };
-		275D92A219E6464600DF77B9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		275D92A419E6466900DF77B9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		275D92A619E6468D00DF77B9 /* MVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVViewController.h; sourceTree = "<group>"; };
 		275D92A719E6468D00DF77B9 /* MVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVViewController.m; sourceTree = "<group>"; };
 		275D92A819E6468D00DF77B9 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
@@ -651,6 +648,7 @@
 		27F5A7A419E639E0004E2549 /* fenxiang@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fenxiang@2x.png"; sourceTree = "<group>"; };
 		27F872F6198759F5002DABA3 /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
 		27F872F7198759F5002DABA3 /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
+		27FD185219E92A1D0093BC87 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		27FFE28118BF287B00AE47FF /* Joyshow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Joyshow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27FFE28418BF287B00AE47FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		27FFE28618BF287B00AE47FF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -674,8 +672,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				275D92A519E6466900DF77B9 /* AVFoundation.framework in Frameworks */,
-				275D92A319E6464600DF77B9 /* MediaPlayer.framework in Frameworks */,
+				27FD185319E92A1D0093BC87 /* MediaPlayer.framework in Frameworks */,
 				27E5A94719AB3346004B5458 /* Frontia.framework in Frameworks */,
 				27E5AC0C19AB3ECE004B5458 /* libBase64.a in Frameworks */,
 				27E5ABCE19AB3BA0004B5458 /* FrontiaSource.bundle in Frameworks */,
@@ -1161,8 +1158,7 @@
 		27FFE28318BF287B00AE47FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				275D92A419E6466900DF77B9 /* AVFoundation.framework */,
-				275D92A219E6464600DF77B9 /* MediaPlayer.framework */,
+				27FD185219E92A1D0093BC87 /* MediaPlayer.framework */,
 				2718FCB518D6D08F0094583F /* MobileCoreServices.framework */,
 				2718FCB318D6D06C0094583F /* Security.framework */,
 				2718FCB118D6D05E0094583F /* AudioToolbox.framework */,
@@ -1777,7 +1773,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yiping hong (X56K7HERP9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1796,7 +1792,7 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Joyshow;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "f66b2a61-19fa-42bd-88f6-750697f7f91f";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -1808,7 +1804,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yiping hong (X56K7HERP9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1827,7 +1823,7 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Joyshow;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "f66b2a61-19fa-42bd-88f6-750697f7f91f";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

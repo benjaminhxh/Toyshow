@@ -257,7 +257,7 @@
     //支持界面旋转
     reader.supportedOrientationsMask = ZBarOrientationMaskAll;
     reader.showsHelpOnFail = NO;
-    reader.scanCrop = CGRectMake(0.0, 0.2, 1.0, 0.6);//扫描的感应框
+    reader.scanCrop = CGRectMake(0.0, 0.2, 1.0, 0.6);//扫描的感应框（0，0，1，1）full image
     ZBarImageScanner * scanner = reader.scanner;
     [scanner setSymbology:ZBAR_CODE128  //ZBAR_I25
                    config:ZBAR_CFG_ENABLE
@@ -266,7 +266,7 @@
     view.backgroundColor = [UIColor clearColor];
     reader.cameraOverlayView = view;
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 40)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, kWidth-40, 40)];
     label.text = @"请将设备的MAC地址二维码置于扫描框正中间内谢谢！";
     label.textColor = [UIColor whiteColor];
     label.font = [UIFont systemFontOfSize:15];
@@ -279,7 +279,6 @@
     UIImageView * image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pick_bg.png"]];
     image.frame = CGRectMake(20, 80, kWidth-40, 280);
     [view addSubview:image];
-    
     
     _line = [[UIImageView alloc] initWithFrame:CGRectMake(30, 10, 220, 1)];
     _line.image = [UIImage imageNamed:@"line.png"];
@@ -364,6 +363,7 @@
             [self.navigationController pushViewController:addDeviceVC animated:YES];
         }else
         {
+            //扫描失败3次后提示是否手输
             scanNum++;
             if (scanNum>2) {
                 scanFailView = [[UIAlertView alloc] initWithTitle:@"扫描失败" message:@"已连续扫描3次失败，是否换到手动输入？" delegate:self cancelButtonTitle:@"再扫一次" otherButtonTitles:@"手动输入", nil];
@@ -371,9 +371,6 @@
                 scanNum = 0;
             }else
             [self scanBtnAction];
-//            self.userImageVIew.image = image;
-//            result = symbol.data;
-            
         }
     }];
 }

@@ -82,7 +82,7 @@
     cameraInfoArr = [NSArray arrayWithObjects:@"音视频设置",@"夜视功能设置",@"事件通知",@"录像控制",@"状态指示灯",@"时间显示",@"设备状态控制",@"设备信息", nil];
     cameraInfoArrLow = [NSArray arrayWithObjects:@"音视频设置",@"事件通知",@"录像控制",@"状态指示灯",@"时间显示",@"设备状态控制",@"设备信息", nil];
 
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, 320, [UIScreen mainScreen].bounds.size.height-64) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kWidth, [UIScreen mainScreen].bounds.size.height-64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
@@ -252,12 +252,12 @@
         case 2:
         {
             if (cell==nil) {
-                cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+                cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, kWidth, 44)];
                 
                 if (indexPath.row) {
                     UIButton *loggout = [UIButton buttonWithType:UIButtonTypeCustom];
                     [loggout setTitle:@"注销设备" forState:UIControlStateNormal];
-                    loggout.frame = CGRectMake(80, 3, 160, 40);
+                    loggout.frame = CGRectMake(80, 2, 160, 40);
                     [loggout setBackgroundImage:[UIImage imageNamed:@"kaishipeizhi_anniu@2x"] forState:UIControlStateNormal];
                     //            loggout.backgroundColor = [UIColor blueColor];
                     [cell addSubview:loggout];
@@ -301,6 +301,7 @@
         case 1:
         {
             if (islow) {
+                //低端
                 switch (indexPath.row) {
                     case 0:
                     {
@@ -311,7 +312,7 @@
                         avideoVC.streamIndex = [cameraInfoDict objectForKey:@"iStreamBitrate"];
                         avideoVC.flipImageIndex = [[cameraInfoDict objectForKey:@"iFlipImage"] integerValue];
                         avideoVC.ntscOrPalIndex = [[cameraInfoDict objectForKey:@"iNTSCPAL"] integerValue];
-                        avideoVC.imageResolutionIndex = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
+                        avideoVC.iMainStreamUserOption = [[cameraInfoDict objectForKey:@"iMainStreamUserOption"] integerValue];
                         ////NSLog(@"分辨率：%@",[cameraInfoDict objectForKey:@"iImageResolution"]);
                         avideoVC.isLow = islow;
                         [[SliderViewController sharedSliderController].navigationController pushViewController:avideoVC animated:YES];
@@ -358,6 +359,7 @@
             }
             else
             {
+                //高端
                 switch (indexPath.row) {
                     case 0:
                     {
@@ -368,8 +370,8 @@
                         avideoVC.streamIndex = [cameraInfoDict objectForKey:@"iStreamBitrate"];
                         avideoVC.flipImageIndex = [[cameraInfoDict objectForKey:@"iFlipImage"] integerValue];
                         avideoVC.ntscOrPalIndex = [[cameraInfoDict objectForKey:@"iNTSCPAL"] integerValue];
-                        avideoVC.imageResolutionIndex = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
-                        ////NSLog(@"分辨率：%@",[cameraInfoDict objectForKey:@"iImageResolution"]);
+//                        avideoVC.imageResolutionIndex = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
+                        avideoVC.iMainStreamUserOption = [[cameraInfoDict objectForKey:@"iMainStreamUserOption"] integerValue];
                         avideoVC.isLow = islow;
                         [[SliderViewController sharedSliderController].navigationController pushViewController:avideoVC animated:YES];
                     }
@@ -591,7 +593,6 @@
             }
         }
     }
-    
 }
 
 #pragma mark - logoutMyCamera

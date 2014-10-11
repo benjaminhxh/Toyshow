@@ -12,7 +12,7 @@
 {
     UISwitch *audioSw;
     UITextField *streamF;
-    UISegmentedControl *flipImageSeg,*ntscOrPalSeg,*imageResolutionSeg;
+    UISegmentedControl *flipImageSeg,*ntscOrPalSeg,*iMainStreamUserOptionSeg;
     MBProgressHUD *_progressView;
 }
 @end
@@ -78,7 +78,7 @@
     [scrollView addSubview:lineV];
     
         UILabel *imageResolutionL = [[UILabel alloc] init];
-        imageResolutionL.text = @"图像分辨率";
+        imageResolutionL.text = @"清晰度";
         [scrollView addSubview:imageResolutionL];
         
         UIView *lineV5 = [[UIView alloc] init];
@@ -107,11 +107,11 @@
         lineV5.frame = CGRectMake(15, 150, kWidth-30, 0.5);
         
         NSArray *imageResolutionArr = [NSArray arrayWithObjects:@"720P",@"标清",@"流畅", nil];
-        imageResolutionSeg = [[UISegmentedControl alloc] initWithItems:imageResolutionArr];
-        imageResolutionSeg.frame = CGRectMake(5, 100, 310, 41);
-        imageResolutionSeg.selectedSegmentIndex = self.imageResolutionIndex-1;
-        [imageResolutionSeg addTarget:self action:@selector(imageResolutionSectAction:) forControlEvents:UIControlEventValueChanged];
-        [scrollView addSubview:imageResolutionSeg];
+        iMainStreamUserOptionSeg = [[UISegmentedControl alloc] initWithItems:imageResolutionArr];
+        iMainStreamUserOptionSeg.frame = CGRectMake(5, 100, 310, 41);
+        iMainStreamUserOptionSeg.selectedSegmentIndex = self.iMainStreamUserOption-1;
+        [iMainStreamUserOptionSeg addTarget:self action:@selector(iMainStreamUserOptionSegAction:) forControlEvents:UIControlEventValueChanged];
+        [scrollView addSubview:iMainStreamUserOptionSeg];
 
     }else
     {
@@ -148,21 +148,20 @@
         [scrollView addSubview:lineV4];
         
         imageResolutionL.frame = CGRectMake(15, 220, 110, 31);
-        imageResolutionSeg.frame = CGRectMake(15, 225, 110, 31);
         NSArray *imageResolutionArr = [NSArray arrayWithObjects:@"1080P",@"720P",@"标清",@"流畅", nil];
-        imageResolutionSeg = [[UISegmentedControl alloc] initWithItems:imageResolutionArr];
-        imageResolutionSeg.frame = CGRectMake(5, 260, 310, 41);
-        imageResolutionSeg.selectedSegmentIndex = self.imageResolutionIndex-1;
-        [imageResolutionSeg addTarget:self action:@selector(imageResolutionSectAction:) forControlEvents:UIControlEventValueChanged];
-        [scrollView addSubview:imageResolutionSeg];
+        iMainStreamUserOptionSeg = [[UISegmentedControl alloc] initWithItems:imageResolutionArr];
+        iMainStreamUserOptionSeg.frame = CGRectMake(5, 260, 310, 41);
+        iMainStreamUserOptionSeg.selectedSegmentIndex = self.iMainStreamUserOption-1;
+        [iMainStreamUserOptionSeg addTarget:self action:@selector(iMainStreamUserOptionSegAction:) forControlEvents:UIControlEventValueChanged];
+        [scrollView addSubview:iMainStreamUserOptionSeg];
         lineV5.frame = CGRectMake(15, 310, kWidth-30, 0.5);
 
     }
 }
 
-- (void)imageResolutionSectAction:(id)sender
+- (void)iMainStreamUserOptionSegAction:(id)sender
 {
-    switch (imageResolutionSeg.selectedSegmentIndex) {
+    switch (iMainStreamUserOptionSeg.selectedSegmentIndex) {
         case 0:
             streamF.text = @"1024";
             break;
@@ -206,7 +205,7 @@
                                        streamF.text,@"iStreamBitrate",
                                        [NSNumber numberWithInteger:flipImageSeg.selectedSegmentIndex],@"iFlipImage",
                                        [NSNumber numberWithInteger:ntscOrPalSeg.selectedSegmentIndex+1],@"iNTSCPAL",
-                                       [NSNumber numberWithInteger:imageResolutionSeg.selectedSegmentIndex+1],@"iImageResolution",nil];
+                                       [NSNumber numberWithInteger:iMainStreamUserOptionSeg.selectedSegmentIndex+1],@"iMainStreamUserOption",nil];
     NSString *setCameraDataString = [setCameraDataDict JSONString];
     NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
     //
