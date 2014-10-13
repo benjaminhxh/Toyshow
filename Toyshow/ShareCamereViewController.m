@@ -9,7 +9,7 @@
 
 #import "ShareCamereViewController.h"
 #import "CyberPlayerController.h"
-#import <MediaPlayer/MediaPlayer.h>
+//#import <MediaPlayer/MediaPlayer.h>
 #import <QuartzCore/QuartzCore.h>
 #import "UIProgressView+AFNetworking.h"
 #import "WXApi.h"
@@ -30,7 +30,7 @@
     UILabel *titleL,*currentProgress,*remainsProgress,*errorLab;
     MBProgressHUD *_loadingView,*shareHub,*percentHub;
     UILabel *timeL;
-    MPVolumeView *volumView;
+//    MPVolumeView *volumView;
     UIView *tapView;
     UIAlertView *publicView,*cancelShareView,*resultView, *cutimageView;
     NSArray *activity;
@@ -139,7 +139,7 @@
 
     
     //系统音量
-    volumView = [[MPVolumeView alloc] initWithFrame:CGRectMake(-55, 140, 200, 34)];
+//    volumView = [[MPVolumeView alloc] initWithFrame:CGRectMake(-55, 140, 200, 34)];
 //    volumView.showsRouteButton=NO;
 //    UISlider *volumeSlider=nil;
     
@@ -151,11 +151,11 @@
 //            break;
 //        }
 //    }
-    [volumView setVolumeThumbImage:[UIImage imageNamed:@"anniu_huagan16x16@2x"] forState:UIControlStateNormal];
-    volumView.transform = CGAffineTransformMakeRotation(3*M_PI_2);
+//    [volumView setVolumeThumbImage:[UIImage imageNamed:@"anniu_huagan16x16@2x"] forState:UIControlStateNormal];
+//    volumView.transform = CGAffineTransformMakeRotation(3*M_PI_2);
 //    volumView.backgroundColor = [UIColor blueColor];
-    [self.view addSubview:volumView];
-    volumView.hidden = YES;
+//    [self.view addSubview:volumView];
+//    volumView.hidden = YES;
     
     //顶部条
     topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kHeight, 44)];
@@ -345,7 +345,7 @@
     localTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
     self.request_id = @"";
     [self isLoadingView];
-    volumView.hidden = YES;
+//    volumView.hidden = YES;
     //直播
     if (self.isLive) {
         if (self.isShare) {
@@ -721,7 +721,7 @@
         [UIView animateWithDuration:0.15 animations:^{
             topView.frame = CGRectMake(0, -44, kHeight, 44);
             bottomView.frame = CGRectMake(0, kWidth+60, kHeight, 60);
-            volumView.hidden = YES;
+//            volumView.hidden = YES;
         }];
         topViewHidden = !topViewHidden;
     }else{
@@ -748,7 +748,7 @@
     } completion:^(BOOL finished) {
         
     }];
-    volumView.hidden = YES;
+//    volumView.hidden = YES;
     topViewHidden = !topViewHidden;
 }
 
@@ -881,11 +881,11 @@
 }
 - (void)volumeBtnClick  //音量
 {
-    if (volumView.hidden) {
-        volumView.hidden = NO;
-    }else
+//    if (volumView.hidden) {
+//        volumView.hidden = NO;
+//    }else
     {
-        volumView.hidden = YES;
+//        volumView.hidden = YES;
     }
 }
 
