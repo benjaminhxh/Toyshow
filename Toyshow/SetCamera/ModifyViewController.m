@@ -8,6 +8,7 @@
 
 #import "ModifyViewController.h"
 #import "MyCameraViewController.h"
+#import "NSString+encodeChinese.h"
 
 @interface ModifyViewController ()<MBProgressHUDDelegate,UITextFieldDelegate>
 {
@@ -88,7 +89,9 @@
 //    NSString *modifyT = [[NSString alloc] initWithUTF8String:[modifyText.text UTF8String]];
     //    ////NSLog(@"desc:%@",desc);
     NSString *des = [modifyText.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-    NSString *desWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)des, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+    NSString *desWithUTF8 = [des encodeChinese];
+
+//    NSString *desWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)des, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
 
     NSString *URLstr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=update&deviceid=%@&access_token=%@&device_type=1&desc=%@&Need_stream_id_when_exists=1",self.deviceId,self.accessToken,desWithUTF8];
     ////NSLog(@"URLstr:%@",URLstr);

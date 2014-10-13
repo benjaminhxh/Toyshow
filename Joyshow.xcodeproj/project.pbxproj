@@ -55,6 +55,7 @@
 		275D92AB19E6468D00DF77B9 /* MVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275D92A719E6468D00DF77B9 /* MVViewController.m */; };
 		275D92AC19E6468D00DF77B9 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275D92A919E6468D00DF77B9 /* VideoViewController.m */; };
 		275D92AD19E6468D00DF77B9 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275D92A919E6468D00DF77B9 /* VideoViewController.m */; };
+		2762FFAF19EBD26600E773AB /* NSString+encodeChinese.m in Sources */ = {isa = PBXBuildFile; fileRef = 2762FFAE19EBD26600E773AB /* NSString+encodeChinese.m */; };
 		2769146C18C81F4300B24469 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2769146B18C81F4300B24469 /* CFNetwork.framework */; };
 		2777606F18FB74BD000A5F83 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777604B18FB74BD000A5F83 /* AFHTTPRequestOperation.m */; };
 		2777607018FB74BD000A5F83 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777604D18FB74BD000A5F83 /* AFHTTPRequestOperationManager.m */; };
@@ -410,6 +411,8 @@
 		275D92A719E6468D00DF77B9 /* MVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVViewController.m; sourceTree = "<group>"; };
 		275D92A819E6468D00DF77B9 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
 		275D92A919E6468D00DF77B9 /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
+		2762FFAD19EBD26600E773AB /* NSString+encodeChinese.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+encodeChinese.h"; sourceTree = "<group>"; };
+		2762FFAE19EBD26600E773AB /* NSString+encodeChinese.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+encodeChinese.m"; sourceTree = "<group>"; };
 		2769146B18C81F4300B24469 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		2777604A18FB74BD000A5F83 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		2777604B18FB74BD000A5F83 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
@@ -729,6 +732,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2762FFAC19EBD22F00E773AB /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				2762FFAD19EBD26600E773AB /* NSString+encodeChinese.h */,
+				2762FFAE19EBD26600E773AB /* NSString+encodeChinese.m */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
 		2777604918FB74BC000A5F83 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -1125,6 +1137,7 @@
 		27FFE27818BF287B00AE47FF = {
 			isa = PBXGroup;
 			children = (
+				2762FFAC19EBD22F00E773AB /* Tool */,
 				27ABE48319E2BE58005BE364 /* QQ */,
 				27E5ABCF19AB3ECE004B5458 /* BaiduT5Player */,
 				27E5ABD919AB3ECE004B5458 /* ZBarSDK */,
@@ -1552,6 +1565,7 @@
 				274F50E9195D8AE500114416 /* WeixinSessionActivity.m in Sources */,
 				27E5AC1C19AB3ECE004B5458 /* mask.c in Sources */,
 				27E5A9A919AB35D0004B5458 /* SensitivityViewController.m in Sources */,
+				2762FFAF19EBD26600E773AB /* NSString+encodeChinese.m in Sources */,
 				2777607C18FB74BD000A5F83 /* UIImageView+AFNetworking.m in Sources */,
 				27E5A94B19AB3346004B5458 /* iCarousel.m in Sources */,
 				27FFE29118BF287B00AE47FF /* main.m in Sources */,

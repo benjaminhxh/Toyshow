@@ -7,6 +7,7 @@
 //
 
 #import "AudioVideoViewController.h"
+#import "NSString+encodeChinese.h"
 
 @interface AudioVideoViewController ()<MBProgressHUDDelegate>
 {
@@ -207,7 +208,8 @@
                                        [NSNumber numberWithInteger:ntscOrPalSeg.selectedSegmentIndex+1],@"iNTSCPAL",
                                        [NSNumber numberWithInteger:iMainStreamUserOptionSeg.selectedSegmentIndex+1],@"iMainStreamUserOption",nil];
     NSString *setCameraDataString = [setCameraDataDict JSONString];
-    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+    NSString *strWithUTF8 = [setCameraDataString encodeChinese];
+//    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
     //
     NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
 //    NSDictionary *paramDict = [NSDictionary dictionaryWithObjectsAndKeys:@"control",@"method",self.access_token,@"access_token",self.deviceid,@"deviceid",setCameraDataDict,@"command", nil];
@@ -222,16 +224,7 @@
         _progressView.hidden = YES;
         [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
     }];
-//    [[AFHTTPSessionManager manager] POST:setURL parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//        NSDictionary *dict = (NSDictionary*)responseObject;
-//        ////NSLog(@"dict:%@",dict);
-//        _progressView.hidden = YES;
-//        [self alertViewShowWithTitle:@"设置成功" andMessage:nil];
-//        [self backToRootViewController];
-//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//        _progressView.hidden = YES;
-//        [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
-//    }];
+
 }
 
 - (void)backAction:(id)sender

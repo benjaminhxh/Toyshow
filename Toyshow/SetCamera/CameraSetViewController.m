@@ -21,6 +21,7 @@
 #import "DeviceStatueControlViewController.h"
 #import "DeviceInfoViewController.h"
 #import "ModifyViewController.h"
+#import "NSString+encodeChinese.h"
 
 @interface CameraSetViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,SceneModeViewControllerDelegate,NtscOrpalViewControllerDelegate,ImageResolutionViewControllerDelegate,DeviceControlViewControlDelegate,SensitivityViewControllerDelegate,MBProgressHUDDelegate>
 {
@@ -444,7 +445,9 @@
     NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                        [NSNumber numberWithInteger:self.videoRecordIndex],@"iEnableRecord",nil];
     NSString *setCameraDataString = [setCameraDataDict JSONString];
-    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+    NSString *strWithUTF8 = [setCameraDataString encodeChinese];
+
+//    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
     NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
     [[AFHTTPRequestOperationManager manager] POST:setURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        NSDictionary *dict = (NSDictionary*)responseObject;
@@ -477,7 +480,9 @@
     NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                        [NSNumber numberWithInteger:self.lightStatueIndex],@"iEnableDeviceStatusLed",nil];
     NSString *setCameraDataString = [setCameraDataDict JSONString];
-    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+    NSString *strWithUTF8 = [setCameraDataString encodeChinese];
+
+//    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
     NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
     [[AFHTTPRequestOperationManager manager] POST:setURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        NSDictionary *dict = (NSDictionary*)responseObject;
@@ -503,7 +508,9 @@
     NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                        [NSNumber numberWithInteger:self.timeShowIndex],@"iEnableOSDTime",nil];
     NSString *setCameraDataString = [setCameraDataDict JSONString];
-    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+    NSString *strWithUTF8 = [setCameraDataString encodeChinese];
+
+//    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
     NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
     [[AFHTTPRequestOperationManager manager] POST:setURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        NSDictionary *dict = (NSDictionary*)responseObject;
@@ -662,7 +669,9 @@
 //    NSDictionary *getInfoparamDict = [NSDictionary dictionaryWithObjectsAndKeys:dict,@"command", nil];
     NSString *requestStr = [dict JSONString];
 //    ////NSLog(@"requestStr:%@",requestStr);
-    NSString *strWithUTF8 = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)requestStr, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+    NSString *strWithUTF8 = [requestStr encodeChinese];
+
+//    NSString *strWithUTF8 = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)requestStr, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
 
     NSString *getInfoURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
     ////NSLog(@"getInfoURL:%@",getInfoURL);

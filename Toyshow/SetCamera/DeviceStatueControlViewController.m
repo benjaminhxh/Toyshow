@@ -7,6 +7,7 @@
 //
 
 #import "DeviceStatueControlViewController.h"
+#import "NSString+encodeChinese.h"
 
 @interface DeviceStatueControlViewController ()<UIAlertViewDelegate,MBProgressHUDDelegate>
 {
@@ -118,7 +119,9 @@
     NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                        [NSNumber numberWithInteger:statueSw.on ],@"iDeviceControl",nil];
     NSString *setCameraDataString = [setCameraDataDict JSONString];
-    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+    NSString *strWithUTF8 = [setCameraDataString encodeChinese];
+
+//    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
     NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
 //    NSDictionary *paramDict = [NSDictionary dictionaryWithObjectsAndKeys:@"control",@"method",self.access_token,@"access_token",self.deviceid,@"deviceid",setCameraDataDict,@"command", nil];
     ////NSLog(@"paramDict:%@",paramDict);
