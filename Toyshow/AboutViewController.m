@@ -35,7 +35,7 @@
 //    background.image = [UIImage imageNamed:backGroundImage];
 //    [self.view addSubview:background];
 //    background.userInteractionEnabled = YES;
-    UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 64)];
+    UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 64)];
     topView.image = [UIImage imageNamed:navigationBarImageiOS7];
     topView.userInteractionEnabled = YES;
     [self.view addSubview:topView];
@@ -107,9 +107,6 @@
 }
 
 - (void)backBtn{
-//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.baidu.com"]];
-//    [self dismissViewControllerAnimated:YES completion:^{
-//    }];
     [[SliderViewController sharedSliderController]leftItemClick];
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=WIFI"]];
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:1001011"]];

@@ -121,10 +121,6 @@
     [[SliderViewController sharedSliderController] leftItemClick];
 }
 
--(void)btnNextClick:(id)sender{
-    //    [[SliderViewController sharedSliderController].navigationController pushViewController:[[ViewController1 alloc] init] animated:YES];
-}
-
 - (void)addheader{
     __unsafe_unretained CollectionViewController *vc = self;
     
@@ -173,24 +169,24 @@
 //        // 刷新完毕就会回调这个Block
 //        //NSLog(@"%@----刷新完毕", refreshView.class);
 //    };
-    header.refreshStateChangeBlock = ^(MJRefreshBaseView *refreshView, MJRefreshState state) {
-        // 控件的刷新状态切换了就会调用这个block
-        switch (state) {
-            case MJRefreshStateNormal:
-                //NSLog(@"%@----切换到：普通状态", refreshView.class);
-                break;
-                
-            case MJRefreshStatePulling:
-                //NSLog(@"%@----切换到：松开即可刷新的状态", refreshView.class);
-                break;
-                
-            case MJRefreshStateRefreshing:
-                //NSLog(@"%@----切换到：正在刷新状态", refreshView.class);
-                break;
-            default:
-                break;
-        }
-    };
+//    header.refreshStateChangeBlock = ^(MJRefreshBaseView *refreshView, MJRefreshState state) {
+//        // 控件的刷新状态切换了就会调用这个block
+//        switch (state) {
+//            case MJRefreshStateNormal:
+//                //NSLog(@"%@----切换到：普通状态", refreshView.class);
+//                break;
+//                
+//            case MJRefreshStatePulling:
+//                //NSLog(@"%@----切换到：松开即可刷新的状态", refreshView.class);
+//                break;
+//                
+//            case MJRefreshStateRefreshing:
+//                //NSLog(@"%@----切换到：正在刷新状态", refreshView.class);
+//                break;
+//            default:
+//                break;
+//        }
+//    };
     _headview = header;
     [header beginRefreshing];
 }

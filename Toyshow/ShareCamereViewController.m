@@ -1107,7 +1107,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self stopPlayback];
-    
     [super viewWillDisappear:YES];
 }
 - (void)dealloc
