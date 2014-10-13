@@ -405,15 +405,6 @@
     setVC.shareIndex = [[dict objectForKey:@"share"] intValue];
         setVC.delegate = self;
         [[SliderViewController sharedSliderController].navigationController pushViewController:setVC animated:YES];
-//    }else
-//    {
-//        ThumbnailViewController *thumbVC = [[ThumbnailViewController alloc] init];
-//        thumbVC.deviceID = [dict objectForKey:@"deviceid"];
-//        thumbVC.accessToken = self.accessToken;
-//        thumbVC.deviceDesc = [dict objectForKey:@"description"];
-//        [[SliderViewController sharedSliderController].navigationController pushViewController:thumbVC animated:YES];
-//
-//    }
 }
 
 #pragma mark - cameraSetDelegate
@@ -427,7 +418,6 @@
 #pragma mark - PlayerViewDelegate
 - (void)playerViewBack:(NSString *)str
 {
-    ////NSLog(@"str:%@",str);
     [self reloadMyCameraListView];
 //    [_headerView beginRefreshing];
 
@@ -465,20 +455,12 @@
         [_loadingView hide:YES];
     }];
     
-    //Url示例:https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=46192376&access_token=52.458ff6f376002020f442208e094ca7b7.2592000.1405677428.906252268-2271149&device_type=1&desc=都是测试数据
 }
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-//- (void)userInfoNotification:(NSNotification *)notif
-//{
-//    NSDictionary *userinfoDict = [notif userInfo];
-//    ////NSLog(@"userInfoDict:%@",userinfoDict);
-//    self.accessToken = [userinfoDict objectForKey:@"accessToken"];
-//}
 
 //强制不允许转屏
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
@@ -494,12 +476,6 @@
     //移除观察者
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:YES];
-//
-//}
 
 - (void)viewDidAppear:(BOOL)animated
 {
