@@ -239,8 +239,6 @@
                         NSString *imageurl = [imagedict objectForKey:@"url"];
                         [downloadImageArr addObject:imageurl];
                     }
-//                    NSLog(@"downloadImageArr:%@",downloadImageArr);
-                    
 //                    NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
 //                    NSLog(@"imageURLDict:%@",imageURLDict);
 //                    downloadImageURL = [imageURLDict objectForKey:@"url"];
@@ -264,28 +262,6 @@
         [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationFail];
         ////NSLog(@"%@----开始进入刷新状态", refreshView.class);
     };
-//    header.endStateChangeBlock = ^(MJRefreshBaseView *refreshView) {
-//        // 刷新完毕就会回调这个Block
-//        ////NSLog(@"%@----刷新完毕", refreshView.class);
-//    };
-//    header.refreshStateChangeBlock = ^(MJRefreshBaseView *refreshView, MJRefreshState state) {
-//        // 控件的刷新状态切换了就会调用这个block
-//        switch (state) {
-//            case MJRefreshStateNormal:
-//                ////NSLog(@"%@----切换到：普通状态", refreshView.class);
-//                break;
-//                
-//            case MJRefreshStatePulling:
-//                ////NSLog(@"%@----切换到：松开即可刷新的状态", refreshView.class);
-//                break;
-//                
-//            case MJRefreshStateRefreshing:
-//                ////NSLog(@"%@----切换到：正在刷新状态", refreshView.class);
-//                break;
-//            default:
-//                break;
-//        }
-//    };
     [header beginRefreshing];
     _headerView = header;
 }

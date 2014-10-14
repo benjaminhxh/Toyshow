@@ -396,15 +396,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-//-(UIStatusBarStyle)preferredStatusBarStyle
-//{
-//    return UIStatusBarStyleLightContent;
-//}
-
-//- (BOOL)prefersStatusBarHidden
-//{
-//    return YES;
-//}
 //微信分享后回调返回的数据
 - (void)receivesComeFromWeixin:(NSNotification *)notif
 {
