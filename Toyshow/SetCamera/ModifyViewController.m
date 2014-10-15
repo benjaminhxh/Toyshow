@@ -74,12 +74,12 @@
 - (void)modifyDevice:(id)sender
 {
     if ([modifyText.text isEqualToString:self.deviceName]) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备未作修改" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备未作修改" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
         [view show];
         return;
     }
     else if (modifyText.text.length > 12) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备名称不能超过12个字符" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备名称不能超过12个字符" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
         [view show];
         return;
     }
@@ -100,7 +100,7 @@
         NSDictionary *dict = (NSDictionary *)responseObject;
         NSString *desc = [dict objectForKey:@"description"];
         if ([desc isEqualToString:modifyText.text]) {
-            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备修改成功" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备修改成功" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
             [view show];
 //            [self backBtn];
 //            if (self.delegate && [self.delegate respondsToSelector:@selector(modifySuccessWith:)]) {

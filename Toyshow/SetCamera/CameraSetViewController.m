@@ -529,7 +529,7 @@
 //注销设备
 - (void)LoginOutAction:(id)sender
 {
-    logOutView = [[UIAlertView alloc] initWithTitle:@"注销设备？" message:@"确定要注销设备吗？注销之后该设备的录像等信息将全部被清除" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    logOutView = [[UIAlertView alloc] initWithTitle:@"注销设备？" message:@"确定要注销设备吗？注销之后该设备的录像等信息将全部被清除" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"注销", nil];
     logOutView.delegate = self;
     [logOutView show];
 }
@@ -645,7 +645,7 @@
     if (bandw >= startNum && bandw <= endNum) {
         return YES;
     }else{
-        UIAlertView *errorV = [[UIAlertView alloc] initWithTitle:@"错误" message:[NSString stringWithFormat:@"带宽值应该设为%d-%dkb/s",startNum,endNum] delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        UIAlertView *errorV = [[UIAlertView alloc] initWithTitle:@"错误" message:[NSString stringWithFormat:@"带宽值应该设为%d-%dkb/s",startNum,endNum] delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
         [errorV show];
         return NO;
     }
@@ -712,7 +712,7 @@
     UIAlertView *setError = [[UIAlertView alloc] initWithTitle:string
                                                        message:message
                                                       delegate:nil
-                                             cancelButtonTitle:@"Cancel"
+                                             cancelButtonTitle:@"好"
                                              otherButtonTitles:nil, nil];
     [setError show];
 }

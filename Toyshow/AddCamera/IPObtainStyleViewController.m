@@ -179,7 +179,7 @@
         if(![self isLegalIP:ipAddressF.text]||![self isLegalIP:subnetmaskF.text]||![self isLegalIP:routerF.text])
        {
            ////NSLog(@"不合法的IP");
-           UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入合法的地址" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+           UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入合法的地址" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
            [view show];
            return;
        }

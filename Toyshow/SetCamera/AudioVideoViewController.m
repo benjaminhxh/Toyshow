@@ -186,7 +186,7 @@
     if (bandw >= startNum && bandw <= endNum) {
         return YES;
     }else{
-        UIAlertView *errorV = [[UIAlertView alloc] initWithTitle:@"错误" message:[NSString stringWithFormat:@"带宽值应该设为%d-%dkb/s",startNum,endNum] delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        UIAlertView *errorV = [[UIAlertView alloc] initWithTitle:@"错误" message:[NSString stringWithFormat:@"带宽值应该设为%d-%dkb/s",startNum,endNum] delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
         [errorV show];
         return NO;
     }
@@ -258,7 +258,7 @@
     UIAlertView *setError = [[UIAlertView alloc] initWithTitle:string
                                                        message:message
                                                       delegate:nil
-                                             cancelButtonTitle:@"OK"
+                                             cancelButtonTitle:@"好"
                                              otherButtonTitles:nil, nil];
     [setError show];
 }

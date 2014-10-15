@@ -277,7 +277,7 @@
     
         default:
         {
-            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"该设备ID不合法" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"该设备ID不合法" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
             [view show];
             return;
         }
@@ -289,21 +289,21 @@
     int64_t deviceIDint64 = MacAddr2DecDeviceID(a, isLow);//
     
     if (SSIDF.text.length == 0) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"只允许在WiFi环境下配置" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"只允许在WiFi环境下配置" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
         [view show];
         return;
     }
     else if ([deviceDetailF.text isEqualToString:@""]||[SSIDPWF.text isEqualToString:@""]||[SSIDPWFconfirm.text isEqualToString:@""]) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备描述或密码不能为空" message:@"设备描述或密码不能为空" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备描述或密码不能为空" message:@"设备描述或密码不能为空" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
         [view show];
         return ;
     }else if (![SSIDPWF.text isEqualToString:SSIDPWFconfirm.text])
     {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"密码输入不一致" message:@"密码输入不一致" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"密码输入不一致" message:@"密码输入不一致" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
         [view show];
         return ;
     }else if (deviceDetailF.text.length > 12) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备名称不能超过12个字符" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备名称不能超过12个字符" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
         [view show];
         return;
     }
@@ -341,17 +341,17 @@
         NSString *NSLocalizedDescription = [errorDict objectForKey:@"NSLocalizedDescription"];
         ////NSLog(@"NSLocalizedDescription:%@",NSLocalizedDescription);//Request failed: forbidden (403)
         if ([NSLocalizedDescription rangeOfString:@"403"].location) {
-            UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"错误信息" message:@"设备已经注册过了" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"错误信息" message:@"设备已经注册过了" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
             [errorView show];
             return ;
         }else if ([NSLocalizedDescription rangeOfString:@"503"].location)
         {
-            UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"错误信息" message:@"添加设备出错或网络问题" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"错误信息" message:@"添加设备出错或网络问题" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
             [errorView show];
             return ;
         }else if ([NSLocalizedDescription rangeOfString:@"400"].location)
         {
-            UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"错误信息" message:@"访问的参数错误" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"错误信息" message:@"访问的参数错误" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
             [errorView show];
             return ;
         }
@@ -525,8 +525,8 @@
     ////NSLog(@"host---->%@",host);
     _loadingView.hidden = YES;
    	//接收到数据回调，显示出来
-	NSString *info=[[NSString alloc] initWithData:data encoding: NSUTF8StringEncoding];
-	NSLog(@"UDP代理接收到的数据：%@",info);
+//	NSString *info=[[NSString alloc] initWithData:data encoding: NSUTF8StringEncoding];
+//	NSLog(@"UDP代理接收到的数据：%@",info);
 	//已经处理完毕
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"配置成功"
 													message:@"1.请切换到“系统设置”>>“无线局域网”\n2.断开Joyshow_cam开头的摄像头热点\n3.连接到可上网的WiFi热点\n4.切换回此页面，再次刷新页面"

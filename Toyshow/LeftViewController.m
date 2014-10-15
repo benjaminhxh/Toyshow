@@ -198,7 +198,7 @@
         {
             if ([self accessTokenIsExist]) {
                 //5
-                UIAlertView *logoutView = [[UIAlertView alloc] initWithTitle:@"退出提醒" message:@"确定要注销登录？" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+                UIAlertView *logoutView = [[UIAlertView alloc] initWithTitle:@"退出提醒" message:@"确定要注销登录？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"退出", nil];
                 [logoutView show];
                 //------------------------退出登录
             }else
@@ -232,7 +232,7 @@
 {
     NSString *userAccessToken = [[NSUserDefaults standardUserDefaults]stringForKey:kUserAccessToken];
     if (userAccessToken == nil) {
-        _loginView = [[UIAlertView alloc] initWithTitle:@"请登陆" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        _loginView = [[UIAlertView alloc] initWithTitle:@"请登陆" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"登录", nil];
         [_loginView show];
         return NO;
     }else

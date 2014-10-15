@@ -56,7 +56,7 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(SensitivityleWithIndex:)]) {
         [self.delegate SensitivityleWithIndex:self.index];
     }else{
-        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"设置不成功" message:@"设置失败，请重新设置" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"设置不成功" message:@"设置失败，请重新设置" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
         [errorView show];
     }
     [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];

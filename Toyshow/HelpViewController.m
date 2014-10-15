@@ -167,12 +167,12 @@
         }else
         {
             [progressView hide:YES];
-            [self alertViewShowWithTitle:@"当前版本已是最新版本" andMessage:nil withDelegate:nil andCancelButton:@"Cancel" andOtherButton:nil];
+            [self alertViewShowWithTitle:@"当前版本已是最新版本" andMessage:nil withDelegate:nil andCancelButton:@"好" andOtherButton:nil];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [progressView hide:YES];
         ////NSLog(@"错误%@",[error userInfo]);
-        [self alertViewShowWithTitle:@"检测失败" andMessage:nil withDelegate:nil andCancelButton:@"Cancel" andOtherButton:nil];
+        [self alertViewShowWithTitle:@"检测失败" andMessage:nil withDelegate:nil andCancelButton:@"好" andOtherButton:nil];
     }];
   //responseSerializer有吗..有的话是什么类型?
     //因为该URL的响应头是Content-Type:text/html;charset=utf-8

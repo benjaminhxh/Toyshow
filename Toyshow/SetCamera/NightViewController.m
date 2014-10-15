@@ -165,7 +165,7 @@
     UIAlertView *setError = [[UIAlertView alloc] initWithTitle:string
                                                        message:message
                                                       delegate:nil
-                                             cancelButtonTitle:@"OK"
+                                             cancelButtonTitle:@"好"
                                              otherButtonTitles:nil, nil];
     [setError show];
 }

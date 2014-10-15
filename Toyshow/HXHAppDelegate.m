@@ -94,7 +94,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Joyshow"
                                                             message:[NSString stringWithFormat:@"%@", alert]
                                                            delegate:self
-                                                  cancelButtonTitle:@"OK"
+                                                  cancelButtonTitle:@"好"
                                                   otherButtonTitles:nil];
         [alertView show];
     }
@@ -171,7 +171,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
         NSString *strTitle = [NSString stringWithFormat:@"微信请求App提供内容"];
         NSString *strMsg = @"微信请求App提供内容，App要调用sendResp:GetMessageFromWXResp返回给微信";
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle message:strMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle message:strMsg delegate:self cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
         alert.tag = 1000;
         [alert show];
     }
@@ -198,7 +198,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
         NSString *strTitle = [NSString stringWithFormat:@"从微信启动"];
         NSString *strMsg = @"这是从微信启动的消息";
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle message:strMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle message:strMsg delegate:self cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
         [alert show];
     }
 }

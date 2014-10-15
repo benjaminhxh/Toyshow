@@ -142,7 +142,7 @@
 - (void)finishBtnAction:(id)sender
 {
     if (1 == self.selectIndex && [pwdField.text isEqual:@""]) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"用户名不能为空" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"用户名不能为空" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
         [view show];
         return ;
     }

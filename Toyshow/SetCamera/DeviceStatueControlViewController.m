@@ -107,7 +107,7 @@
 - (void)finishBtn:(id)sender
 {
     if (statueSw.on) {
-        UIAlertView *tipView = [[UIAlertView alloc] initWithTitle:@"设备状态开启" message:@"设备状态控制若开启的话，摄像头将断电，再次开启需手动给摄像头上电，请慎用！" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        UIAlertView *tipView = [[UIAlertView alloc] initWithTitle:@"设备状态开启" message:@"设备状态控制若开启的话，摄像头将断电，再次开启需手动给摄像头上电，请慎用！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [tipView show];
     }
 }
@@ -173,7 +173,7 @@
     UIAlertView *setError = [[UIAlertView alloc] initWithTitle:string
                                                        message:message
                                                       delegate:nil
-                                             cancelButtonTitle:@"OK"
+                                             cancelButtonTitle:@"好"
                                              otherButtonTitles:nil, nil];
     [setError show];
 }
