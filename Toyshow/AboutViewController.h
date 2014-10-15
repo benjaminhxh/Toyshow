@@ -10,4 +10,5 @@
 
 @interface AboutViewController : UIViewController
 @property (nonatomic, copy) NSString *access_token;
+@property (nonatomic, copy) UIWebView *aboutWebView;
 @end

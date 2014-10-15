@@ -57,6 +57,8 @@
 		275D92AD19E6468D00DF77B9 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275D92A919E6468D00DF77B9 /* VideoViewController.m */; };
 		2762FFAF19EBD26600E773AB /* NSString+encodeChinese.m in Sources */ = {isa = PBXBuildFile; fileRef = 2762FFAE19EBD26600E773AB /* NSString+encodeChinese.m */; };
 		2769146C18C81F4300B24469 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2769146B18C81F4300B24469 /* CFNetwork.framework */; };
+		2775DF1F19EE62F700024928 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 2775DF1E19EE62F700024928 /* about.html */; };
+		2775DF2019EE62F700024928 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 2775DF1E19EE62F700024928 /* about.html */; };
 		2777606F18FB74BD000A5F83 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777604B18FB74BD000A5F83 /* AFHTTPRequestOperation.m */; };
 		2777607018FB74BD000A5F83 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777604D18FB74BD000A5F83 /* AFHTTPRequestOperationManager.m */; };
 		2777607118FB74BD000A5F83 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777604F18FB74BD000A5F83 /* AFHTTPSessionManager.m */; };
@@ -414,6 +416,7 @@
 		2762FFAD19EBD26600E773AB /* NSString+encodeChinese.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+encodeChinese.h"; sourceTree = "<group>"; };
 		2762FFAE19EBD26600E773AB /* NSString+encodeChinese.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+encodeChinese.m"; sourceTree = "<group>"; };
 		2769146B18C81F4300B24469 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		2775DF1E19EE62F700024928 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
 		2777604A18FB74BD000A5F83 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		2777604B18FB74BD000A5F83 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		2777604C18FB74BD000A5F83 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -1241,6 +1244,7 @@
 				275D92A719E6468D00DF77B9 /* MVViewController.m */,
 				275D92A819E6468D00DF77B9 /* VideoViewController.h */,
 				275D92A919E6468D00DF77B9 /* VideoViewController.m */,
+				2775DF1E19EE62F700024928 /* about.html */,
 				27FFE29618BF287B00AE47FF /* Images.xcassets */,
 				27FFE28B18BF287B00AE47FF /* Supporting Files */,
 			);
@@ -1423,6 +1427,7 @@
 				27FFE29718BF287B00AE47FF /* Images.xcassets in Resources */,
 				27E5AB9A19AB39C0004B5458 /* shejingtou@2x.png in Resources */,
 				27E5AB3819AB39C0004B5458 /* cehuajiantou@2x.png in Resources */,
+				2775DF1F19EE62F700024928 /* about.html in Resources */,
 				2732466F18D99EC400F82011 /* MyCameraCell.xib in Resources */,
 				27E5ABB019AB39C0004B5458 /* xiang_jiantou.png in Resources */,
 				27E5AB9E19AB39C0004B5458 /* shezhi_anniu.png in Resources */,
@@ -1493,6 +1498,7 @@
 				27E5ABBB19AB39C0004B5458 /* xuanzhongtiao@2x.png in Resources */,
 				27E5AB8319AB39C0004B5458 /* laorenxiaohai@2x.png in Resources */,
 				27E5AB2919AB39C0004B5458 /* bantou_di@2x.png in Resources */,
+				2775DF2019EE62F700024928 /* about.html in Resources */,
 				27E5ABAF19AB39C0004B5458 /* tuichudenglu@2x.png in Resources */,
 				27E5AB5519AB39C0004B5458 /* fenjiexian@2x.png in Resources */,
 				27E5AB6D19AB39C0004B5458 /* Icon@2x.png in Resources */,

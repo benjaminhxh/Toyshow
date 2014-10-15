@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/AboutViewController.m"
-            timestampString = "434099296.117785"
+            timestampString = "435055985.263758"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -153,11 +153,11 @@
                   symbolName = "-[LeftViewController signonButtonClicked]"
                   moduleName = "Joyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/LeftViewController.m"
-                  timestampString = "434709306.822273"
+                  timestampString = "435038294.974962"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "386"
-                  endingLineNumber = "386"
+                  startingLineNumber = "380"
+                  endingLineNumber = "380"
                   offsetFromSymbolStart = "86">
                </Location>
                <Location
@@ -167,11 +167,11 @@
                   symbolName = "__41-[LeftViewController signonButtonClicked]_block_invoke"
                   moduleName = "Joyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/LeftViewController.m"
-                  timestampString = "434709306.822479"
+                  timestampString = "435038294.975301"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "386"
-                  endingLineNumber = "386"
+                  startingLineNumber = "380"
+                  endingLineNumber = "380"
                   offsetFromSymbolStart = "6">
                </Location>
             </Locations>
@@ -632,11 +632,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/HXHAppDelegate.m"
-            timestampString = "431428099.640518"
+            timestampString = "435037985.042191"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "-application:openURL:sourceApplication:annotation:"
             landmarkType = "5">
          </BreakpointContent>
@@ -648,11 +648,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/HXHAppDelegate.m"
-            timestampString = "431428099.640518"
+            timestampString = "435037985.042191"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
             landmarkName = "-onReq:"
             landmarkType = "5">
          </BreakpointContent>
@@ -865,7 +865,7 @@
                   symbolName = "__31-[MainViewController addheader]_block_invoke"
                   moduleName = "Joyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/MainViewController.m"
-                  timestampString = "434709306.82574"
+                  timestampString = "435038294.980028"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "167"
@@ -879,7 +879,7 @@
                   symbolName = "__31-[MainViewController addheader]_block_invoke_2"
                   moduleName = "Joyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/MainViewController.m"
-                  timestampString = "434709306.825925"
+                  timestampString = "435038294.980501"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "167"
@@ -2060,11 +2060,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/HXHAppDelegate.m"
-            timestampString = "431428099.640518"
+            timestampString = "435037985.042191"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "-application:openURL:sourceApplication:annotation:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2330,11 +2330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MainViewController.m"
-            timestampString = "432718004.962292"
+            timestampString = "434970366.410671"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "437"
-            endingLineNumber = "437"
+            startingLineNumber = "428"
+            endingLineNumber = "428"
             landmarkName = "-MBprogressViewHubLoading:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2554,11 +2554,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MainViewController.m"
-            timestampString = "432718004.962292"
+            timestampString = "434970366.410671"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "469"
-            endingLineNumber = "469">
+            startingLineNumber = "460"
+            endingLineNumber = "460">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2632,11 +2632,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/HXHAppDelegate.m"
-            timestampString = "431428099.640518"
+            timestampString = "435038088.243792"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
             landmarkName = "-application:handleOpenURL:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2712,11 +2712,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/HXHAppDelegate.m"
-            timestampString = "431339743.390761"
+            timestampString = "434970405.727511"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "-application:didReceiveRemoteNotification:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2728,11 +2728,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/HXHAppDelegate.m"
-            timestampString = "431339743.390761"
+            timestampString = "434970405.727511"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "-application:didRegisterForRemoteNotificationsWithDeviceToken:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2744,11 +2744,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/HXHAppDelegate.m"
-            timestampString = "431339743.390761"
+            timestampString = "434970405.727511"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
             landmarkName = "-application:didFailToRegisterForRemoteNotificationsWithError:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3016,11 +3016,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MainViewController.m"
-            timestampString = "432718004.962292"
+            timestampString = "434970366.410671"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "465"
-            endingLineNumber = "465">
+            startingLineNumber = "456"
+            endingLineNumber = "456">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3157,7 +3157,7 @@
                   symbolName = "__36-[ThumbnailViewController addheader]_block_invoke"
                   moduleName = "Joyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/ThumbnailViewController.m"
-                  timestampString = "434709306.842913"
+                  timestampString = "435038295.005297"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "193"
@@ -3171,7 +3171,7 @@
                   symbolName = "__36-[ThumbnailViewController addheader]_block_invoke_2"
                   moduleName = "Joyshow"
                   urlString = "file:///Users/zhxf/project/Toyshow/Toyshow/ThumbnailViewController.m"
-                  timestampString = "434709306.84305"
+                  timestampString = "435038295.0055"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "193"
@@ -3284,11 +3284,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/HXHAppDelegate.m"
-            timestampString = "433153886.900835"
+            timestampString = "435037985.042191"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "-onReq:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3300,11 +3300,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/HXHAppDelegate.m"
-            timestampString = "433153894.708547"
+            timestampString = "435037985.042191"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
+            startingLineNumber = "209"
+            endingLineNumber = "209"
             landmarkName = "-onResp:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3467,6 +3467,38 @@
             endingLineNumber = "555"
             landmarkName = "@implementation CameraSetViewController"
             landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/HXHAppDelegate.m"
+            timestampString = "435038079.347151"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "-applicationWillResignActive:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Toyshow/HXHAppDelegate.m"
+            timestampString = "435038081.215932"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "-applicationDidEnterBackground:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

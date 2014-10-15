@@ -8,6 +8,7 @@
 
 #import "AboutViewController.h"
 #import "ShowImageViewController.h"
+//#import "AboutWebView.h"
 
 @interface AboutViewController ()<UIWebViewDelegate>
 {
@@ -15,7 +16,10 @@
 }
 @end
 
+
 @implementation AboutViewController
+
+@synthesize aboutWebView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,10 +35,6 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-//    UIImageView *background = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-//    background.image = [UIImage imageNamed:backGroundImage];
-//    [self.view addSubview:background];
-//    background.userInteractionEnabled = YES;
     UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 64)];
     topView.image = [UIImage imageNamed:navigationBarImageiOS7];
     topView.userInteractionEnabled = YES;
@@ -78,16 +78,23 @@
 //    indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
 //    indicatorView.backgroundColor = [UIColor lightGrayColor];
 //    [indicatorView startAnimating];
+    UIButton *imageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    imageButton.frame = CGRectMake(kWidth/2-60,94,120,120);
+    [imageButton setImage:[UIImage imageNamed:@"120"] forState:UIControlStateNormal];
+    [imageButton addTarget:self action:@selector(aboutJoyshow) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:imageButton];
+    
+    
     UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth/2-60,94,120,120)];
     imageview.image = [UIImage imageNamed:@"120"];
-    [self.view addSubview:imageview];
+//    [self.view addSubview:imageview];
     
     UILabel *versionL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/2-60, 220, 120, 24)];
     versionL.textAlignment = NSTextAlignmentCenter;
     versionL.text = @"Joyshow 1.0";
     versionL.textColor = [UIColor grayColor];
     versionL.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:versionL];
+//    [self.view addSubview:versionL];
     
     UILabel *policyL = [[UILabel alloc] initWithFrame:CGRectMake(10, kHeight-38, kWidth-20, 34)];
     policyL.text = @"精彩乐现 版权所有\nCopyright © 2013 - 2014 Joyshow.All Rights Reserved.";
@@ -96,20 +103,70 @@
     policyL.font = [UIFont systemFontOfSize:11];
     policyL.backgroundColor = [UIColor clearColor];
     policyL.textColor = [UIColor grayColor];
-    [self.view addSubview:policyL];
+//    [self.view addSubview:policyL];
     
     //右滑回到上一个页面
-    UISwipeGestureRecognizer *recognizer;
-    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(backBtn)];
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [self.view addGestureRecognizer:recognizer];
+//    UISwipeGestureRecognizer *recognizer;
+//    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(backBtn)];
+//    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+//    [self.view addGestureRecognizer:recognizer];
 
+    aboutWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
+    [aboutWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect='none';"];
+    NSString *resourcePath = [ [NSBundle mainBundle] resourcePath];
+    NSString *filePath = [resourcePath stringByAppendingPathComponent:@"about.html"];
+    NSString *htmlstring=[[NSString alloc] initWithContentsOfFile:filePath  encoding:NSUTF8StringEncoding error:nil];
+    
+    [aboutWebView loadHTMLString:htmlstring baseURL:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name: UIKeyboardWillShowNotification object:nil];
+    for (UIView *subView in [aboutWebView subviews]) {
+        if ([subView isKindOfClass:[UIScrollView class]]) {
+            for (UIView *shadowView in [subView subviews]) {
+                if ([shadowView isKindOfClass:[UIImageView class]]) {
+                    shadowView.hidden = YES;
+                }
+            }
+        }
+    }
+    [self.view addSubview:aboutWebView];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    //给网页增加css样式
+    [webView stringByEvaluatingJavaScriptFromString:
+     @"var tagHead =document.documentElement.firstChild;"
+     "var tagStyle = document.createElement(\"style\");"
+     "tagStyle.setAttribute(\"type\", \"text/css\");"
+     "tagStyle.appendChild(document.createTextNode(\"BODY{padding: -10pt -20pt}\"));"
+     "var tagHeadAdd = tagHead.appendChild(tagStyle);"];
+    
+    
+    [webView stringByEvaluatingJavaScriptFromString:@"myFunction();"];
+    [webView stringByEvaluatingJavaScriptFromString:@"document.activeElement.blur()"];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [self.aboutWebView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '96%'"];
+    
+    //    // 禁用用户选择
+    //
+    //    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect='none';"];
+    //
+    //    // 禁用长按弹出框
+    //    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout='none';"];
+    //    self.navigationItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    
 }
 
 - (void)backBtn{
     [[SliderViewController sharedSliderController]leftItemClick];
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=WIFI"]];
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:1001011"]];
+}
+
+- (void)aboutJoyshow
+{
+//    AboutWebView *aboutWeb = [[AboutWebView alloc] init];
+//    [[SliderViewController sharedSliderController].navigationController pushViewController:aboutWeb animated:YES];
 }
 
 - (void)showScrollImage
@@ -120,15 +177,15 @@
 }
 
 #define mark - webViewDelegate
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-//    [indicatorView stopAnimating];
-    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"WebKitDiskImageCacheEnabled"];//自己添加的。
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"WebKitOfflineWebApplicationCacheEnabled"];//自己添加的。
-    [[NSUserDefaults standardUserDefaults] synchronize];
-
-}
+//- (void)webViewDidFinishLoad:(UIWebView *)webView
+//{
+////    [indicatorView stopAnimating];
+//    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
+//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"WebKitDiskImageCacheEnabled"];//自己添加的。
+//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"WebKitOfflineWebApplicationCacheEnabled"];//自己添加的。
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//
+//}
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {

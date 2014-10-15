@@ -60,6 +60,14 @@
 //    statTracker.shortAppVersion  = IosAppVersion; //参数为NSString * 类型,自定义app版本信息，如果不设置，默认从CFBundleVersion里取
 //    [statTracker startWithReportId:REPORT_ID];//设置您在mtj网站上添加的app的appkey
     
+//    int badge = [UIApplication sharedApplication].applicationIconBadgeNumber;
+//    NSLog(@"badge:%d",badge);
+//
+//    if (badge>0) {
+//        badge--;
+//        NSLog(@"badge:%d",badge);
+//        [UIApplication sharedApplication].applicationIconBadgeNumber = badge;
+//    }
      [UIApplication sharedApplication].idleTimerDisabled = YES;//app在后台不锁屏
     [WXApi registerApp:@"wx70162e2c344d4c79" withDescription:nil];
     
@@ -98,10 +106,11 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
 //    {
 //        NSLog(@"UIApplicationStateInactive");
 //    }
+//    int badge = [UIApplication sharedApplication].applicationIconBadgeNumber;
+//    NSLog(@"didReceiveRemoteNotification badge:%d",badge);
     [application setApplicationIconBadgeNumber:0];
     
     [FrontiaPush handleNotification:userInfo];
-    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
