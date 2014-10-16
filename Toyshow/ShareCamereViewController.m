@@ -121,10 +121,10 @@
 
     
     //注册监听，当播放器开始缓冲时发送通知
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(startCaching:)
-                                                 name:CyberPlayerStartCachingNotification
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(startCaching:)
+//                                                 name:CyberPlayerStartCachingNotification
+//                                               object:nil];
     //播放状态发生改变
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(stateDidChange:)
@@ -170,63 +170,63 @@
 
     //直播
 
-                //收藏
-                collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-                if (self.isCollect) {
-                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelwei"] forState:UIControlStateNormal];
-                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelzhong"] forState:UIControlStateHighlighted];
-                }else{
-                    [collectionBtn setImage:[UIImage imageNamed:@"collect_wei"] forState:UIControlStateNormal];
-                    [collectionBtn setImage:[UIImage imageNamed:@"collect_zhong"] forState:UIControlStateHighlighted];
-                }
-                [collectionBtn addTarget:self action:@selector(collectClick) forControlEvents:UIControlEventTouchUpInside];
-                [topView addSubview:collectionBtn];
-                if (iphone5) {
-                    collectionBtn.frame = CGRectMake(kHeight*29/32, 11, 46, 24);
-                }else
-                {
-                    collectionBtn.frame = CGRectMake(kHeight/2+30+150, 11, 46, 24);
-                }
+    //收藏
+    collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    if (self.isCollect) {
+        [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelwei"] forState:UIControlStateNormal];
+        [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelzhong"] forState:UIControlStateHighlighted];
+    }else{
+        [collectionBtn setImage:[UIImage imageNamed:@"collect_wei"] forState:UIControlStateNormal];
+        [collectionBtn setImage:[UIImage imageNamed:@"collect_zhong"] forState:UIControlStateHighlighted];
+    }
+    [collectionBtn addTarget:self action:@selector(collectClick) forControlEvents:UIControlEventTouchUpInside];
+    [topView addSubview:collectionBtn];
+    if (iphone5) {
+        collectionBtn.frame = CGRectMake(kHeight*29/32, 11, 46, 24);
+    }else
+    {
+        collectionBtn.frame = CGRectMake(kHeight/2+30+150, 11, 46, 24);
+    }
 
-        //点播(看录像)
-        //底部条
-        bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kWidth-60, kHeight, 60)];
-        bottomView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
-        bottomView.userInteractionEnabled = YES;
-        [self.view addSubview:bottomView];
-        //开始暂停按钮
-        startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        startBtn.frame = CGRectMake(kHeight/2-14, 5, 27, 27);
-        [startBtn setImage:[UIImage imageNamed:@"bofang_anniu@2x"] forState:UIControlStateNormal];
-        [startBtn addTarget:self action:@selector(onClickPlay:) forControlEvents:UIControlEventTouchUpInside];
-        //        [startBtn setImage:[UIImage imageNamed:@"bofang_zhong@2x"] forState:UIControlStateHighlighted];
-        [bottomView addSubview:startBtn];
-        //当前播放的时刻
-        currentProgress = [[UILabel alloc] initWithFrame:CGRectMake(20, 43, 40, 10)];
+    //点播(看录像)
+    //底部条
+    bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kWidth-60, kHeight, 60)];
+    bottomView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
+    bottomView.userInteractionEnabled = YES;
+    [self.view addSubview:bottomView];
+    //开始暂停按钮
+    startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    startBtn.frame = CGRectMake(kHeight/2-14, 5, 27, 27);
+    [startBtn setImage:[UIImage imageNamed:@"bofang_anniu@2x"] forState:UIControlStateNormal];
+    [startBtn addTarget:self action:@selector(onClickPlay:) forControlEvents:UIControlEventTouchUpInside];
+    //        [startBtn setImage:[UIImage imageNamed:@"bofang_zhong@2x"] forState:UIControlStateHighlighted];
+    [bottomView addSubview:startBtn];
+    //当前播放的时刻
+    currentProgress = [[UILabel alloc] initWithFrame:CGRectMake(20, 43, 40, 10)];
 //        currentProgress.backgroundColor = [UIColor redColor];
-        currentProgress.textColor = [UIColor whiteColor];
-        currentProgress.text = @"00:00:00";
+    currentProgress.textColor = [UIColor whiteColor];
+    currentProgress.text = @"00:00:00";
     currentProgress.backgroundColor = [UIColor clearColor];
-        currentProgress.font = [UIFont systemFontOfSize:8];
-        [bottomView addSubview:currentProgress];
-        //剩余时长
-        remainsProgress = [[UILabel alloc] initWithFrame:CGRectMake(kHeight-45, 43, 40, 10)];
-        remainsProgress.textColor = [UIColor whiteColor];
+    currentProgress.font = [UIFont systemFontOfSize:8];
+    [bottomView addSubview:currentProgress];
+    //剩余时长
+    remainsProgress = [[UILabel alloc] initWithFrame:CGRectMake(kHeight-45, 43, 40, 10)];
+    remainsProgress.textColor = [UIColor whiteColor];
 //        remainsProgress.backgroundColor = [UIColor grayColor];
 //        remainsProgress.text = @"01:52:10";
-        remainsProgress.font = [UIFont systemFontOfSize:8];
+    remainsProgress.font = [UIFont systemFontOfSize:8];
     remainsProgress.backgroundColor = [UIColor clearColor];
-        [bottomView addSubview:remainsProgress];
+    [bottomView addSubview:remainsProgress];
 
-        //快进快退滑动条
-        slider = [[UISlider alloc] initWithFrame:CGRectMake(60, 35, kHeight - 105, 25)];
+    //快进快退滑动条
+    slider = [[UISlider alloc] initWithFrame:CGRectMake(60, 35, kHeight - 105, 25)];
 //        slider.continuous = NO;
-        [slider setThumbImage:[UIImage imageNamed:@"anniu_huagan16x16@2x"] forState:UIControlStateNormal];
-        [slider addTarget:self action:@selector(onDragSlideValueChanged:) forControlEvents:UIControlEventValueChanged];
-        [slider addTarget:self action:@selector(onDragSlideStart:) forControlEvents:UIControlEventTouchDown];
-        [slider addTarget:self action:@selector(onDragSlideDone:) forControlEvents:UIControlEventTouchUpInside];
+    [slider setThumbImage:[UIImage imageNamed:@"anniu_huagan16x16@2x"] forState:UIControlStateNormal];
+    [slider addTarget:self action:@selector(onDragSlideValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [slider addTarget:self action:@selector(onDragSlideStart:) forControlEvents:UIControlEventTouchDown];
+    [slider addTarget:self action:@selector(onDragSlideDone:) forControlEvents:UIControlEventTouchUpInside];
 //        slider.backgroundColor = [UIColor blueColor];
-        [bottomView addSubview:slider];
+    [bottomView addSubview:slider];
 
     errorLab = [[UILabel alloc] initWithFrame:CGRectMake(kHeight/2-50, kWidth/2-12, 100, 24)];
     errorLab.text = @"服务器错误";
@@ -266,7 +266,6 @@
                     [collectionBtn setImage:[UIImage imageNamed:@"collect_wei@2x"] forState:UIControlStateNormal];
                     [collectionBtn setImage:[UIImage imageNamed:@"collect_zhong@2x"] forState:UIControlStateHighlighted];
                 }
-//                forwardBtn.hidden = NO;
                 if (self.isWeixinShare) {
                     collectionBtn.hidden = YES;
                 }else
@@ -274,22 +273,16 @@
                     collectionBtn.hidden = NO;
                 }
             }else{
-//                forwardBtn.hidden = YES;
                 collectionBtn.hidden = YES;
             }
-
-            
             bottomView.hidden = YES;
         }else{
             //我的摄像头直播
-
-//            forwardBtn.hidden = YES;
             collectionBtn.hidden = YES;
             bottomView.hidden = YES;
         }
     }else{
         //点播
-//        forwardBtn.hidden = YES;
         collectionBtn.hidden = YES;
         bottomView.hidden = NO;
         currentProgress.text = @"00:00:00";
@@ -337,14 +330,6 @@
     [self startTimer];
 }
 
-//开始缓冲
-- (void)startCaching:(NSNotification*)notif
-{
-//    [self startTimer];
-//    NSLog(@"开始缓冲startCachhhhhhhhhhhhhh:%@------%@",[notif object],[notif userInfo]);
-//    [self isLoadingView];
-}
-
 - (void)hiddenLoadingView
 {
     _loadingView.hidden = YES;
@@ -361,27 +346,9 @@
 //播放完成
 - (void)playerBackDidFinish:(NSNotification *)notif
 {
-//    UIAlertView *finishView = [[UIAlertView alloc] initWithTitle:@"播放完成" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-//    [finishView show];
-//    NSLog(@"播放完成：%@----%@========%@",[notif userInfo],[notif name],[notif object]);
     if (self.isLive) {
         _loadingView.hidden = YES;
         errorLab.hidden = NO;
-//        if(cbPlayerController.playbackState == CBPMoviePlaybackStateInterrupted){
-//            [cbPlayerController play];
-////            NSLog(@"CBPMoviePlaybackStateInterrupted");
-//        }else if (cbPlayerController.playbackState == CBPMoviePlaybackStateStopped)
-//        {
-////            NSLog(@"CBPMoviePlaybackStateStopped");
-//            if (!_isExitFlag) {
-////
-////                NSLog(@"---------------重新播放失败的");
-//            }
-//
-//        }else if (cbPlayerController.playbackState == CBPMoviePlaybackStatePaused)
-//        {
-//            NSLog(@"CBPMoviePlaybackStatePaused");
-//        }
     }
 }
 
@@ -405,26 +372,6 @@
 //缓冲过程
 - (void)GotCachePercent:(NSNotification *)notific
 {
-//    NSLog(@"GotCachePercent--%@",[notific object]);
-//    switch (cbPlayerController.playbackState) {
-//        case CBPMoviePlaybackStateInterrupted:
-//            NSLog(@"播放器由于内部原因中断播放");
-//            break;
-//        case CBPMoviePlaybackStatePrepared:
-//            NSLog(@"完成适配初始化");
-//            break;
-//        case CBPMoviePlaybackStatePaused:
-//            NSLog(@"处于暂停状态");
-//            break;
-//        case CBPMoviePlaybackStateStopped:
-//            NSLog(@"处于停止状态");
-//            break;
-//        case CBPMoviePlaybackStatePlaying:
-//            NSLog(@"正在播放");
-//            break;
-//        default:
-//            break;
-//    }
     [self performSelectorOnMainThread:@selector(loadPercentOnMain:) withObject:[notific object] waitUntilDone:NO];
 }
 
@@ -447,7 +394,6 @@
     [self stopPlayback];
 }
 - (void)startPlayback{
-//    NSURL *url = [NSURL URLWithString:@"rtmp://livertmppc.wasu.cn/live/dfws"];
 //    NSURL *url = [NSURL URLWithString:@"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4"];
     errorLab.hidden = YES;
     NSURL *url = [NSURL URLWithString:self.url];
