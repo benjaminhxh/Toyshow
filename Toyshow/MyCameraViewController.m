@@ -385,7 +385,9 @@
 {
     UIButton *button = (UIButton *)sender;
     UITableViewCell  *cell;
-    if (iOS7) {
+    if (iOS8) {
+        cell = (UITableViewCell *)button.superview;
+    }else if (iOS7) {
         cell = (UITableViewCell *)button.superview.superview;
     }else
     {

@@ -21,7 +21,7 @@
 {
 //    UIView *cbdPlayerView;
     CyberPlayerController *cbPlayerController;
-    UIButton *startBtn, *shareBtn,*secretShareBtn,*collectionBtn,*cutBtn,*volumeBtn;
+    UIButton *startBtn,*collectionBtn;
     UISlider *lightSlider,*slider;
     NSTimer *timer,*localTimer,*_timer3;
 //    UIProgressView *progressV;
@@ -138,24 +138,6 @@
                                                object:nil];
 
     
-    //系统音量
-    volumView = [[MPVolumeView alloc] initWithFrame:CGRectMake(-55, 140, 200, 34)];
-//    volumView.showsRouteButton=NO;
-//    UISlider *volumeSlider=nil;
-    
-//    for (id aView in volumView.subviews) {
-//        
-//        if ([[[aView class] description] isEqualToString:@"MPVolumeSlider"]) {
-//            
-//            volumeSlider=(UISlider *)aView;
-//            break;
-//        }
-//    }
-    [volumView setVolumeThumbImage:[UIImage imageNamed:@"anniu_huagan16x16@2x"] forState:UIControlStateNormal];
-    volumView.transform = CGAffineTransformMakeRotation(3*M_PI_2);
-//    volumView.backgroundColor = [UIColor blueColor];
-    [self.view addSubview:volumView];
-    volumView.hidden = YES;
     
     //顶部条
     topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kHeight, 44)];
@@ -187,17 +169,7 @@
     [topView addSubview:timeL];
 
     //直播
-//    if (self.isLive) {
-//        if (self.isShare) {
-            //分享和收藏的摄像头
-            //收藏、转发
-//            if ([self checkAccessTokenIsExist]) {
-                //转发
-//                forwardBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//                [forwardBtn setImage:[UIImage imageNamed:@"zhuanfa_wei@2x"] forState:UIControlStateNormal ];
-//                [forwardBtn setImage:[UIImage imageNamed:@"zhuanfa_zhong@2x"] forState:UIControlStateHighlighted];
-//                [forwardBtn addTarget:self action:@selector(forwardClick) forControlEvents:UIControlEventTouchUpInside];
-//                [topView addSubview:forwardBtn];
+
                 //收藏
                 collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
                 if (self.isCollect) {
@@ -210,62 +182,12 @@
                 [collectionBtn addTarget:self action:@selector(collectClick) forControlEvents:UIControlEventTouchUpInside];
                 [topView addSubview:collectionBtn];
                 if (iphone5) {
-//                    forwardBtn.frame = CGRectMake(kHeight*23/32, 11, 46, 24);
-                    collectionBtn.frame = CGRectMake(kHeight*26/32, 11, 46, 24);
+                    collectionBtn.frame = CGRectMake(kHeight*29/32, 11, 46, 24);
                 }else
                 {
-//                    forwardBtn.frame = CGRectMake(kHeight/2+30+50, 11, 46, 24);
-                    collectionBtn.frame = CGRectMake(kHeight/2+30+100, 11, 46, 24);
+                    collectionBtn.frame = CGRectMake(kHeight/2+30+150, 11, 46, 24);
                 }
-//            }
-//        }else{
-            //我的摄像头直播
-            //公共分享、私密分享、截图、对讲
-            //公共
-            shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//            [topView addSubview:shareBtn];
-            //私密
-            secretShareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [secretShareBtn setImage:[UIImage imageNamed:@"secretShare_wei@2x"] forState:UIControlStateNormal ];
-            [secretShareBtn setImage:[UIImage imageNamed:@"secretShare_zhong@2x"] forState:UIControlStateHighlighted];
-            [secretShareBtn addTarget:self action:@selector(forwardClick) forControlEvents:UIControlEventTouchUpInside];
-//            [topView addSubview:secretShareBtn];
-            //截图
-            cutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [cutBtn setImage:[UIImage imageNamed:@"jietu_wei@2x"] forState:UIControlStateNormal];
-            [cutBtn setImage:[UIImage imageNamed:@"jietu_zhong@2x"] forState:UIControlStateHighlighted];
-            [cutBtn addTarget:self action:@selector(cutPrint) forControlEvents:UIControlEventTouchUpInside];
-//            [topView addSubview:cutBtn];
-            //音量
-            volumeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [volumeBtn setImage:[UIImage imageNamed:@"yinliang_wei"] forState:UIControlStateNormal];
-            [volumeBtn setImage:[UIImage imageNamed:@"yinliang_zhong"] forState:UIControlStateHighlighted];
-            [volumeBtn addTarget:self action:@selector(volumeBtnClick) forControlEvents:UIControlEventTouchUpInside];
-            [topView addSubview:volumeBtn];
-            if (iphone5) {
-                shareBtn.frame = CGRectMake(kHeight*5/8, 11, 46, 24);
-                secretShareBtn.frame = CGRectMake(kHeight*23/32, 11, 46, 24);
-                cutBtn.frame = CGRectMake(kHeight*26/32, 11, 46, 24);
-                volumeBtn.frame = CGRectMake(kHeight*29/32, 11, 46, 24);
-            }else
-            {
-                shareBtn.frame = CGRectMake(kHeight/2+30, 11, 46, 24);
-                secretShareBtn.frame = CGRectMake(kHeight/2+30+50, 11, 46, 24);
-                cutBtn.frame = CGRectMake(kHeight/2+30+100, 11, 46, 24);
-                volumeBtn.frame = CGRectMake(kHeight/2+30+150, 11, 46, 24);
-            }
-            if (self.shareStaue) {
-                [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelwei@2x"] forState:UIControlStateNormal];
-                [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelzhong@2x"] forState:UIControlStateHighlighted];
-                
-            }else{
-                [shareBtn setImage:[UIImage imageNamed:@"publicShare_wei@2x"] forState:UIControlStateNormal];
-                [shareBtn setImage:[UIImage imageNamed:@"publicShare_zhong@2x"] forState:UIControlStateHighlighted];
-            }
-            [shareBtn addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchUpInside];
-//        }
-//    }
-//    else{
+
         //点播(看录像)
         //底部条
         bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kWidth-60, kHeight, 60)];
@@ -295,14 +217,6 @@
         remainsProgress.font = [UIFont systemFontOfSize:8];
     remainsProgress.backgroundColor = [UIColor clearColor];
         [bottomView addSubview:remainsProgress];
-        
-        //下载进度条
-//        progressV = [[UIProgressView alloc] initWithFrame:CGRectMake(60, 47, kHeight - 105, 2)];
-//        progressV.progressViewStyle = UIProgressViewStyleBar;
-////        progressV.progress = 0.5;
-//        //        progressV.trackTintColor = [UIColor redColor];//未缓冲的
-//        progressV.progressTintColor = [UIColor grayColor];
-//        [bottomView addSubview:progressV];
 
         //快进快退滑动条
         slider = [[UISlider alloc] initWithFrame:CGRectMake(60, 35, kHeight - 105, 25)];
@@ -313,22 +227,13 @@
         [slider addTarget:self action:@selector(onDragSlideDone:) forControlEvents:UIControlEventTouchUpInside];
 //        slider.backgroundColor = [UIColor blueColor];
         [bottomView addSubview:slider];
-//        [self startPlayback];
-//    }
+
     errorLab = [[UILabel alloc] initWithFrame:CGRectMake(kHeight/2-50, kWidth/2-12, 100, 24)];
     errorLab.text = @"服务器错误";
     errorLab.backgroundColor = [UIColor clearColor];
     errorLab.textColor = [UIColor whiteColor];
     [cbPlayerController.view addSubview:errorLab];
-//    indicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(140, 120, 137, 137)];
-//    [self.view addSubview:indicatorView];
-//    indicatorView.backgroundColor = [UIColor lightGrayColor];
-//    [indicatorView startAnimating];
-//    [self isLoadingView];
 
-//    tapView = [[UIView alloc] initWithFrame:CGRectMake(70, 50, kHeight-80, kWidth-60-60)];
-//    tapView.backgroundColor = [UIColor redColor];
-//    [cbPlayerController.view addSubview:tapView];
     UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenOrNo:)];
     [cbPlayerController.view addGestureRecognizer:tapGest];
 //    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)];
@@ -373,34 +278,19 @@
                 collectionBtn.hidden = YES;
             }
 
-            shareBtn.hidden = YES;
-            secretShareBtn.hidden = YES;
-            cutBtn.hidden = YES;
+            
             bottomView.hidden = YES;
         }else{
             //我的摄像头直播
-            if (self.shareStaue) {
-                [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelwei@2x"] forState:UIControlStateNormal];
-                [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelzhong@2x"] forState:UIControlStateHighlighted];
-                
-            }else{
-                [shareBtn setImage:[UIImage imageNamed:@"publicShare_wei@2x"] forState:UIControlStateNormal];
-                [shareBtn setImage:[UIImage imageNamed:@"publicShare_zhong@2x"] forState:UIControlStateHighlighted];
-            }
+
 //            forwardBtn.hidden = YES;
             collectionBtn.hidden = YES;
-            shareBtn.hidden = NO;
-            secretShareBtn.hidden = NO;
-            cutBtn.hidden = NO;
             bottomView.hidden = YES;
         }
     }else{
         //点播
 //        forwardBtn.hidden = YES;
         collectionBtn.hidden = YES;
-        shareBtn.hidden = YES;
-        secretShareBtn.hidden = YES;
-        cutBtn.hidden = YES;
         bottomView.hidden = NO;
         currentProgress.text = @"00:00:00";
         remainsProgress.text = @"00:00:00";
@@ -805,89 +695,6 @@
     }
 }
 
-#pragma mark - 转发（私密分享）
-- (void)forwardClick    //转发
-{
-//    _loadingView.hidden = NO;
-    NSString *userAccessToken = [[NSUserDefaults standardUserDefaults]stringForKey:kUserAccessToken];
-    NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=%@&deviceid=%@&share=2",userAccessToken,self.deviceId];//share=2为加密分享
-    [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [shareBtn setImage:[UIImage imageNamed:@"publicShare_wei@2x"] forState:UIControlStateNormal];
-        [shareBtn setImage:[UIImage imageNamed:@"publicShare_zhong@2x"] forState:UIControlStateHighlighted];
-
-        NSDictionary *dict = (NSDictionary *)responseObject;
-        self.request_id =[NSString stringWithFormat:@"%@",[dict objectForKey:@"request_id"]];
-        
-        NSString *shareID = [dict objectForKey:@"shareid"];
-        NSString *uk = [dict objectForKey:@"uk"];
-        NSString *playURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareID,uk];
-        NSURL *shareURL = [NSURL URLWithString:playURL];
-        activity = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
-        NSString *title = [NSString stringWithFormat:@"精彩乐现-%@",self.playerTitle];
-        NSArray *shareArr = [NSArray arrayWithObjects:title,@"hxh乐现是由北京中和讯飞开发的一款家居类APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，看你所看。", [UIImage imageNamed:@"icon_session"], shareURL,nil];
-        UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:shareArr applicationActivities:activity];
-        activityView.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypePrint,UIActivityTypeSaveToCameraRoll,UIActivityTypeMail];
-        [self presentViewController:activityView animated:YES completion:nil];
-        self.shareStaue = 2;
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        ////NSLog(@"error++++++++");
-    }];
-}
-
-- (void)cutPrint    //截图
-{
-    if (cutimageView) {
-        [cutimageView show];
-        return;
-    }
-    cutimageView = [[UIAlertView alloc] initWithTitle:@"截图" message:@"请同时按住电源键和home键来截屏" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    [cutimageView show];
-//    UIGraphicsBeginImageContext(cbPlayerController.view.bounds.size);
-//    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
-//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-//    //自动保存到图片库
-//    UIImage *image2 = [self screenshot:UIDeviceOrientationPortrait
-//            isOpaque:YES
-//usePresentationLayer:YES];
-//    UIGraphicsBeginImageContext(cbPlayerController.view.bounds.size);
-//    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
-////    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    UIImageWriteToSavedPhotosAlbum(image2, nil, nil, nil);
-}
-
-////新增截屏代码（未测试）
-- (UIImage *)screenshot:(UIDeviceOrientation)orientation isOpaque:(BOOL)isOpaque usePresentationLayer:(BOOL)usePresentationLayer
-{
-    CGSize size;
-    
-    if (orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown) {
-        size = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
-    } else {
-        size = CGSizeMake(self.view.frame.size.height, self.view.frame.size.width);
-    }
-    
-    UIGraphicsBeginImageContextWithOptions(size, isOpaque, 0.0);
-    if (usePresentationLayer) {
-        [self.view.layer.presentationLayer renderInContext:UIGraphicsGetCurrentContext()];
-    } else {
-        [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    }
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-}
-- (void)volumeBtnClick  //音量
-{
-    if (volumView.hidden) {
-        volumView.hidden = NO;
-    }else
-    {
-        volumView.hidden = YES;
-    }
-}
 
 - (void)hiddenView
 {
@@ -921,84 +728,6 @@
     NSString *localTime = [formate stringFromDate:timeDate];
 //    ////NSLog(@"localTime:%@",localTime);
     timeL.text = localTime;
-}
-
-#pragma mark - alertViewDelegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (publicView == alertView) {
-        if (buttonIndex) {
-            ////NSLog(@"公共分享alertView");
-            //https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=123456&access_token=52.68c5177d0382475c0162e3aa5b3d5a22.2592000.1403763927.1812238483-2271149&device_type=1&desc=hello
-            [self publicShareCamera];
-        }
-    }else{
-        //取消分享
-        if (buttonIndex) {
-            [self cancelShareCamera];
-        }
-    }
-}
-
-#pragma mark - 公共分享
-- (void)publicShareCamera
-{
-    NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=createshare&access_token=%@&deviceid=%@&share=1",self.accecc_token,self.deviceId];//share=1为公共分享
-    [self MBprogressViewHubLoading:@"分享……" withMode:0];
-
-    [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *dict = (NSDictionary *)responseObject;
-        ////NSLog(@"公共分享的dict:%@",dict);
-//        NSString *shareid = [dict objectForKey:@"shareid"];
-//        ////NSLog(@"shareid:%@",shareid);
-        self.request_id =[NSString stringWithFormat:@"%@",[dict objectForKey:@"request_id"]];
-        self.shareStaue = 1;
-        [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelwei@2x"] forState:UIControlStateNormal];
-        [shareBtn setImage:[UIImage imageNamed:@"fenxiang_cancelzhong@2x"] forState:UIControlStateHighlighted];
-        [self MBprogressViewHubLoading:@"分享成功" withMode:4];
-        [shareHub hide:YES afterDelay:1];
-        //{“shareid”:SHARE_ID, “uk”:UK, “request_id”:12345678}
-        /*
-         {
-         "request_id" = 2869117991;
-         share = 1;
-         shareid = 39337debf90f3edfc3374ccfca12fbcb;
-         2 = 474433575;
-         }
-         */
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        ////NSLog(@"error:%@",[error userInfo]);
-        [self MBprogressViewHubLoading:@"分享失败" withMode:4];
-        [shareHub hide:YES afterDelay:1];
-//        self.shareStaue = 0;
-    }];
-}
-
-#pragma mark - 取消分享
-- (void)cancelShareCamera
-{
-    NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=cancelshare&access_token=%@&deviceid=%@",self.accecc_token,self.deviceId];
-    [self MBprogressViewHubLoading:@"取消分享……" withMode:0];
-    [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        ////NSLog(@"取消分享之后:%@",responseObject);
-        NSDictionary *dict = (NSDictionary *)responseObject;
-        self.request_id =[NSString stringWithFormat:@"%@",[dict objectForKey:@"request_id"]];
-        [self MBprogressViewHubLoading:@"成功取消分享" withMode:4];
-        [shareHub hide:YES afterDelay:1];
-
-        self.shareStaue = 0;
-        [shareBtn setImage:[UIImage imageNamed:@"publicShare_wei@2x"] forState:UIControlStateNormal];
-        [shareBtn setImage:[UIImage imageNamed:@"publicShare_zhong@2x"] forState:UIControlStateHighlighted];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.view setNeedsDisplay];
-        });
-
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        ////NSLog(@"error:%@",[error userInfo]);
-        [self MBprogressViewHubLoading:@"取消分享失败" withMode:4];
-        [shareHub hide:YES afterDelay:1];
-
-    }];
 }
 
 #pragma mark - scaleView

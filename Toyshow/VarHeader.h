@@ -29,6 +29,7 @@
 #define kplayerDict             @"playerDict"
 #define kplayerObj              @"playerObjctNotif"
 
+#define iOS8 [[UIDevice currentDevice].systemVersion integerValue]>=8
 #define iOS7 [[UIDevice currentDevice].systemVersion integerValue]>=7
 #define iphone5     [UIScreen mainScreen].bounds.size.height > 480
 #define KdurationFail 8.0

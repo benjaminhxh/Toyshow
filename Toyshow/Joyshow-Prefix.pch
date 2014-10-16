@@ -10,13 +10,13 @@
 #warning "This project uses features only available in iOS SDK 3.0 and later."
 #endif
 
-#ifdef DEBUG
-#define NSLog(...) NSLog(__VA_ARGS__)
-#define debugMethod() NSLog(@"%s", __func__)
-#else
-#define NSLog(...)
-#define debugMethod()
-#endif
+//#ifdef DEBUG
+//#define NSLog(...) NSLog(__VA_ARGS__)
+//#define debugMethod() NSLog(@"%s", __func__)
+//#else
+//#define NSLog(...)
+//#define debugMethod()
+//#endif
 
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
