@@ -68,12 +68,8 @@
 
     self.scrollv = [[UIScrollView alloc] init];
     self.scrollv.backgroundColor = [UIColor blackColor];
-    if (iOS7) {
-        self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
-    }else
-    {
-        self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
-    }
+    self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
+    self.scrollv.scrollEnabled = NO;
     self.scrollv.delegate = self;
     [self.view addSubview: self.scrollv ];
     self.imagev = [[UIImageView alloc] initWithFrame:self.view.frame];
@@ -248,6 +244,9 @@
 {
     titleL.text = self.playerTitle;
     localTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
+    self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
+
+//    [cbPlayerController.view setFrame:self.view.frame];
     self.request_id = @"";
     [self isLoadingView];
     volumView.hidden = YES;

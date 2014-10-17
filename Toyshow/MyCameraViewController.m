@@ -380,7 +380,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 #pragma mark - cellAccessory
-////点击右边附件触发的方法
+////点击右边自定义附件触发的方法
 - (void)accessoryButtonTappedAction:(id)sender
 {
     UIButton *button = (UIButton *)sender;
@@ -404,7 +404,7 @@
         setVC.deviceid = [dict objectForKey:@"deviceid"];
         setVC.index = row;
         setVC.isOnline = [[dict objectForKey:@"status"] intValue];
-    setVC.shareIndex = [[dict objectForKey:@"share"] intValue];
+        setVC.shareIndex = [[dict objectForKey:@"share"] intValue];
         setVC.delegate = self;
         [[SliderViewController sharedSliderController].navigationController pushViewController:setVC animated:YES];
 }
