@@ -6,7 +6,7 @@
 //  Copyright (c) 2013年 Zhao Yiqi. All rights reserved.
 //
 
-#define k30Days 30*24*3600
+#define k30Days 28*24*3600
 #define kloginDate @"firstDate"
 
 #import "LeftViewController.h"
@@ -102,17 +102,18 @@
     _playDict = [NSDictionary dictionaryWithObjectsAndKeys:_playVC,kplayerKey, nil];
     [SliderViewController sharedSliderController].dict = _playDict;
     [[NSNotificationCenter defaultCenter] postNotificationName:kplayerObj object:nil userInfo:_playDict];
-    //每次启动的时候判断登录时间是否超过30天
-    if([self compareCurrentAndFirstTimeIsbeyond30Day])
-    {
-        //超过30天之后
-        [self logout];
-    }else{
+
         if(![self checkAccessTokenIsExist]) {
             self.userNameL.text = @"请登录";
             self.userImageVIew.image = [UIImage imageNamed:@"touxiang_n@2x"];
         }else
         {
+            //每次启动的时候判断登录时间是否超过30天
+            if([self compareCurrentAndFirstTimeIsbeyond30Day])
+            {
+                //超过30天之后
+                [self logout];
+            }else{
             self.userNameL.text = [[NSUserDefaults standardUserDefaults] stringForKey:kUserName];
             self.userImageVIew.clipsToBounds = YES;
             NSData *imageData = [[NSUserDefaults standardUserDefaults] objectForKey:kUserHeadImage];
@@ -121,8 +122,6 @@
             self.accessToken = [[NSUserDefaults standardUserDefaults]stringForKey:kUserAccessToken];
         }
     }
-    
-	// Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
@@ -177,10 +176,7 @@
         case 0://我的摄像头
         {
             if ([self accessTokenIsExist]) {
-                
                 NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] stringForKey:kUserName],@"userID",self.accessToken,@"accessToken",_playDict,kplayerDict,nil];
-                ////NSLog(@"my camera dict:%@",dict);
-//                [[NSNotificationCenter defaultCenter] postNotificationName:kUserInfoNotification object:nil userInfo:dict];
                 [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MyCameraViewController" withDictionary:dict];
             }
         }
@@ -196,13 +192,6 @@
         case 3://添加设备、扫描二维码
             if ([self accessTokenIsExist]) {
                 [self scanBtnAction];
-                ////NSLog(@"扫描二维码");
-//                AddDeviceViewController *addDeviceVC = [[AddDeviceViewController alloc] init];
-////                addDeviceVC.deviceID = result;
-//                addDeviceVC.access_token = self.accessToken;
-//                addDeviceVC.userID = [[NSUserDefaults standardUserDefaults] stringForKey:kUserName];
-//                [self.navigationController pushViewController:addDeviceVC animated:YES];
-
             }
             break;
         case 4://登录or退出
@@ -287,7 +276,7 @@
     label.backgroundColor = [UIColor clearColor];
     [view addSubview:label];
     
-    UIImageView * image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pick_bg.png"]];
+    UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pick_bg.png"]];
     image.frame = CGRectMake(20, 80, kWidth-40, 280);
     [view addSubview:image];
     
@@ -397,8 +386,6 @@
         
         //授权成功回调函数 登录之后 2（授权中……） 输入密码之后
         FrontiaAuthorizationResultCallback onResult = ^(FrontiaUser *result){
-            ////NSLog(@"OnResult account name: %@ account experidDate: %@  account.accessToken:%@", result.accountName, result.experidDate,result.accessToken);
-//            NSLog(@"平台信息：%@",result.platform);
             [[NSUserDefaults standardUserDefaults] setObject:result.accountName forKey:kUserName];
             [[NSUserDefaults standardUserDefaults] setObject:result.accessToken forKey:kUserAccessToken];
             [[NSUserDefaults standardUserDefaults] synchronize];
