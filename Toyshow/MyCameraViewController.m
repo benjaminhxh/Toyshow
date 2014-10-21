@@ -26,6 +26,7 @@
     UILabel *noDataLoadL,*noInternetL;
     ShareCamereViewController *liveVC;
     BOOL notFirstFlag;
+    UIImage *setBtnImage;
 }
 
 @end
@@ -65,6 +66,8 @@
     [backBtn addTarget:self action:@selector(leftClick) forControlEvents:UIControlEventTouchUpInside];
     [navBar addSubview:backBtn];
     
+    setBtnImage= [ UIImage imageNamed:@"setanniuhei@2x"];
+
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, kWidth, [UIScreen mainScreen].bounds.size.height-65) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -108,7 +111,7 @@
     [self addheader];
     [self addFooter];
     liveVC = [[[SliderViewController sharedSliderController].dict objectForKey:kplayerDict] objectForKey:kplayerKey];
-
+//    liveVC = [[ShareCamereViewController alloc] init];
 }
 
 - (void)isLoadingView
@@ -319,11 +322,10 @@
             }
             NSString *urlImage = [cameraUserInfoDict objectForKey:@"thumbnail"];
             [self.cameraPic setImageWithURL:[NSURL URLWithString:urlImage]];
-            UIImage *image= [ UIImage imageNamed:@"setanniuhei@2x"];
             UIButton *button = [ UIButton buttonWithType:UIButtonTypeCustom ];
             CGRect frame = CGRectMake( 0.0 , 0.0 , 40 , 34 );
             button.frame = frame;
-            [button setImage:image forState:UIControlStateNormal ];
+            [button setImage:setBtnImage forState:UIControlStateNormal ];
 //            button.backgroundColor = [UIColor clearColor ];
             [button addTarget:self action:@selector(accessoryButtonTappedAction:) forControlEvents:UIControlEventTouchUpInside];
             cell. accessoryView = button;

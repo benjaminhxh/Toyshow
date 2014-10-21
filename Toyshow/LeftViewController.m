@@ -6,6 +6,9 @@
 //  Copyright (c) 2013年 Zhao Yiqi. All rights reserved.
 //
 
+#define k30Days 30*24*3600
+#define kloginDate @"firstDate"
+
 #import "LeftViewController.h"
 #import "ZBarSDK.h"
 #import <Frontia/Frontia.h>
@@ -94,23 +97,31 @@
     tableV.delegate=self;
     tableV.dataSource=self;
     [self.view addSubview:tableV];
-    if (![self checkAccessTokenIsExist]) {
-        self.userNameL.text = @"请登录";
-        self.userImageVIew.image = [UIImage imageNamed:@"touxiang_n@2x"];
-    }else
-    {
-        self.userNameL.text = [[NSUserDefaults standardUserDefaults] stringForKey:kUserName];
-        self.userImageVIew.clipsToBounds = YES;
-        NSData *imageData = [[NSUserDefaults standardUserDefaults] objectForKey:kUserHeadImage];
-        self.userImageVIew.image = [UIImage imageWithData:imageData];
-        self.userImageVIew.image = [self scaleToSize:self.userImageVIew.image size:self.userImageVIew.frame.size];
-        self.accessToken = [[NSUserDefaults standardUserDefaults]stringForKey:kUserAccessToken];
-    }
     //创建播放器对象
     _playVC = [[ShareCamereViewController alloc] init];
     _playDict = [NSDictionary dictionaryWithObjectsAndKeys:_playVC,kplayerKey, nil];
     [SliderViewController sharedSliderController].dict = _playDict;
     [[NSNotificationCenter defaultCenter] postNotificationName:kplayerObj object:nil userInfo:_playDict];
+    //每次启动的时候判断登录时间是否超过30天
+    if([self compareCurrentAndFirstTimeIsbeyond30Day])
+    {
+        //超过30天之后
+        [self logout];
+    }else{
+        if(![self checkAccessTokenIsExist]) {
+            self.userNameL.text = @"请登录";
+            self.userImageVIew.image = [UIImage imageNamed:@"touxiang_n@2x"];
+        }else
+        {
+            self.userNameL.text = [[NSUserDefaults standardUserDefaults] stringForKey:kUserName];
+            self.userImageVIew.clipsToBounds = YES;
+            NSData *imageData = [[NSUserDefaults standardUserDefaults] objectForKey:kUserHeadImage];
+            self.userImageVIew.image = [UIImage imageWithData:imageData];
+            self.userImageVIew.image = [self scaleToSize:self.userImageVIew.image size:self.userImageVIew.frame.size];
+            self.accessToken = [[NSUserDefaults standardUserDefaults]stringForKey:kUserAccessToken];
+        }
+    }
+    
 	// Do any additional setup after loading the view.
 }
 
@@ -429,6 +440,8 @@
             self.userImageVIew.image = [self scaleToSize:userImage size:self.userImageVIew.frame.size];
             self.userImageVIew.layer.cornerRadius = self.userImageVIew.bounds.size.width/2;
             [[NSUserDefaults standardUserDefaults] setObject:data forKey:kUserHeadImage];
+            //保存登录时间在本地
+            [self saveLoginDate];
             [[NSUserDefaults standardUserDefaults] synchronize];
             loginOrOutL.text = @"退出";
 //            self.userNameL.text = result.accountName;
@@ -483,7 +496,9 @@
 - (void)logout
 {
     FrontiaAuthorization *auth = [Frontia getAuthorization];
-    if ([auth clearAllAuthorizationInfo]) {
+//    if ([auth clearAllAuthorizationInfo]) {
+    [auth clearAllAuthorizationInfo];
+    {
         self.userImageVIew.image = [UIImage imageNamed:@"touxiang_n@2x"];
         self.userNameL.text = @"请登录";
         loginOrOutL.text = @"登陆";
@@ -521,4 +536,24 @@
     return scaledImage;
 }
 
+//
+- (void)saveLoginDate
+{
+    NSDate *firstDate = [NSDate dateWithTimeIntervalSinceNow:0];
+    [[NSUserDefaults standardUserDefaults] setObject:firstDate forKey:kloginDate];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (BOOL)compareCurrentAndFirstTimeIsbeyond30Day
+{
+    NSDate *firstDate = [[NSUserDefaults standardUserDefaults] objectForKey:kloginDate];
+    NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval currentT = [date timeIntervalSinceDate:firstDate];
+    int resuklt = currentT-k30Days;
+    if (resuklt>=0) {
+        return YES;
+    }else{
+        return NO;
+    }
+}
 @end

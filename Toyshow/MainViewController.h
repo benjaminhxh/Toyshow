@@ -20,5 +20,4 @@
 //- (void)reloadTableViewDataSource;
 //- (void)doneLoadingTableViewData;
 //- (IBAction)clickMOreAction:(id)sender;
-//@property (strong, nonatomic) IBOutlet UITableViewCell *tableView;
 @end

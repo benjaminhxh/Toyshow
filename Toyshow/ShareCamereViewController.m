@@ -60,8 +60,8 @@
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:duration];
     //设置视图旋转
-    self.view.bounds = CGRectMake(0, 0, kWidth,kHeight);
-    ////NSLog(@"kwidth:%f===========,kheight:%f",kWidth,kHeight);
+//    self.view.bounds = CGRectMake(0, 0, kWidth,kHeight);
+    NSLog(@"kwidth:%f===========,kheight:%f",kWidth,kHeight);
     self.view.transform = CGAffineTransformMakeRotation(M_PI_2);
     [UIView commitAnimations];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -69,7 +69,7 @@
     self.scrollv = [[UIScrollView alloc] init];
     self.scrollv.backgroundColor = [UIColor blackColor];
     self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
-    self.scrollv.scrollEnabled = NO;
+    self.scrollv.contentSize = CGSizeMake(kHeight+20, kWidth+20);
     self.scrollv.delegate = self;
     [self.view addSubview: self.scrollv ];
     self.imagev = [[UIImageView alloc] initWithFrame:self.view.frame];
@@ -85,8 +85,6 @@
     cbPlayerController = [[CyberPlayerController alloc] init];
     //清除残留影像
     cbPlayerController.shouldAutoClearRender = YES;
-//    NSString *SDKVerion = [cbPlayerController getSDKVersion];
-//    ////NSLog(@"SDKVersion:%@",SDKVerion);
     //设置视频显示的位置
     [cbPlayerController.view setFrame: self.imagev.frame];
 //    cbPlayerController.scalingMode = CBPMovieScalingModeFill;
@@ -142,7 +140,7 @@
     topView.userInteractionEnabled = YES;
     [self.view addSubview:topView];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(15, 12, 36, 20);
+    backBtn.frame = CGRectMake(10, 12, 41, 20);
 //    backBtn.frame = CGRectMake(10, [UIApplication sharedApplication].statusBarFrame.size.height+5, 12, 22);
     [backBtn setImage:[UIImage imageNamed:@"fanhui_jiantou@2x"] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -244,7 +242,7 @@
 {
     titleL.text = self.playerTitle;
     localTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
-    self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
+//    self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
 
 //    [cbPlayerController.view setFrame:self.view.frame];
     self.request_id = @"";
@@ -479,21 +477,18 @@
 
 - (void)startTimer{
     //为了保证UI播放进度刷新在主线程中完成
-    ////NSLog(@"startTimer：isLive：%d",self.isLive);
     if (_isLive) {
         return;
     }else
     {
         [self performSelectorOnMainThread:@selector(startTimeroOnMainThread) withObject:nil waitUntilDone:NO];
     }
-//    ////NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);
 }
 
 //缓冲完也会进这个函数
 //只有这里主线程可以停掉loading
 - (void)startTimeroOnMainThread{
     timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(timerHandler:) userInfo:nil repeats:YES];
-//    ////NSLog(@"公共摄像头当前下载速度：%f",cbPlayerController.downloadSpeed);3
 }
 
 - (void)stopTimer{
@@ -542,12 +537,6 @@
 //弹出或隐藏设置按钮
 - (void)hiddenOrNo:(id)sender
 {
-//    if (cbPlayerController.playbackState == CBPMoviePlaybackStateStopped)
-//    {
-//        _loadingView.hidden = NO;
-//        [self startPlayback];
-//        NSLog(@"刷新之后继续播放");
-//    }
     if (topViewHidden) {
         if (_timer3 && [_timer3 isValid]) {
             [_timer3 invalidate];
@@ -694,12 +683,12 @@
     [self.scrollv setZoomScale:initialZoom];
 }
 
-- (void)doubleTapAction:(UITapGestureRecognizer *)tapGest
-{
-    [UIView animateWithDuration:0.3 animations:^{
-        self.imagev.frame = CGRectMake(0,0,kHeight,kWidth);
-    }];
-}
+//- (void)doubleTapAction:(UITapGestureRecognizer *)tapGest
+//{
+//    [UIView animateWithDuration:0.3 animations:^{
+//        self.imagev.frame = CGRectMake(0,0,kHeight,kWidth);
+//    }];
+//}
 // 设置UIScrollView中要缩放的视图
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
