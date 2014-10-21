@@ -425,7 +425,7 @@
         [badInternetHub show:YES];
         return;
     }
-    badInternetHub = [[MBProgressHUD alloc] initWithView:_tableView];
+    badInternetHub = [[MBProgressHUD alloc] initWithView:self.view];
     badInternetHub.labelText = labtext;
     badInternetHub.mode = 4;
     badInternetHub.square = YES;

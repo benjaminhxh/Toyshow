@@ -155,7 +155,7 @@
     [topView addSubview:titleL];
     
     //显示实时时间
-    timeL = [[UILabel alloc] initWithFrame:CGRectMake(kHeight/2-20, 10, 40, 15)];
+    timeL = [[UILabel alloc] initWithFrame:CGRectMake(kHeight/2-20, 5, 40, 15)];
     timeL.text = @"12:12:12";
     timeL.font = [UIFont systemFontOfSize:9];
     timeL.textColor = [UIColor whiteColor];

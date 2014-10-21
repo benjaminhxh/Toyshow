@@ -59,9 +59,10 @@
     [backBtn setTitle:@"帮助" forState:UIControlStateNormal];
     [topView addSubview:backBtn];
     
-    _tabView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kWidth, 180) style:UITableViewStylePlain];
+    _tabView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64) style:UITableViewStylePlain];
     _tabView.delegate = self;
     _tabView.dataSource = self;
+//    _tabView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tabView];
 }
 
