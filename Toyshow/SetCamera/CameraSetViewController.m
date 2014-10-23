@@ -301,8 +301,8 @@
             break;
         case 1:
         {
+            //低端
             if (islow) {
-                //低端
                 switch (indexPath.row) {
                     case 0:
                     {
@@ -434,6 +434,7 @@
         default:
             break;
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 //视频录制是否打开
