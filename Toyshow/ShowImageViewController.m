@@ -74,6 +74,7 @@
         icaView.delegate = self;
         icaView.dataSource = self;
 //        icaView.bounces = YES;
+    //设置类型
         icaView.type = iCarouselTypeRotary;
         icaView.pagingEnabled = YES;
         [backgroundView addSubview:icaView];

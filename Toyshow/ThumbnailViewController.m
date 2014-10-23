@@ -29,6 +29,7 @@
     NSString *downloadImageURL;
     MBProgressHUD *badInternetHub;
     ShareCamereViewController *vodVC;
+    NSInteger index;
 }
 @end
 
@@ -435,6 +436,33 @@
     vodVC.accecc_token = self.accessToken;
     vodVC.startTimeInt = startT;
     [[SliderViewController sharedSliderController].navigationController pushViewController:vodVC animated:YES];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删除";
+}
+//删除某段录像
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIAlertView *deleteVodView = [[UIAlertView alloc] initWithTitle:nil message:@"录像删除之后将不能恢复"
+                                                           delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"删除", nil];
+    [deleteVodView show];
+    index = indexPath.row;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex) {
+        NSString *deleteURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=dropvideo&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
+        [[AFHTTPRequestOperationManager manager] POST:deleteURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"response:%@",responseObject);
+            [_fakeData removeObjectAtIndex:index];
+            [_tableView reloadData];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//            NSLog(@"errror:%@",error);
+        }];
+    }
 }
 
 #pragma mark - pickViewDelegate
