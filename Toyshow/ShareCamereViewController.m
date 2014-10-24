@@ -71,6 +71,7 @@
     self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
     self.scrollv.contentSize = CGSizeMake(kHeight+20, kWidth+20);
     self.scrollv.delegate = self;
+    self.scrollv.showsVerticalScrollIndicator = NO;
     [self.view addSubview: self.scrollv ];
     self.imagev = [[UIImageView alloc] initWithFrame:self.view.frame];
 //    self.imagev.backgroundColor = [UIColor redColor];

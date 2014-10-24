@@ -96,6 +96,8 @@
     tableV.backgroundColor=[UIColor clearColor];
     tableV.delegate=self;
     tableV.dataSource=self;
+    //不显示垂直滑动线
+    tableV.showsVerticalScrollIndicator = NO;
     [self.view addSubview:tableV];
     //创建播放器对象
     _playVC = [[ShareCamereViewController alloc] init];

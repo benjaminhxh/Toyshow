@@ -442,7 +442,7 @@
 {
     return @"删除";
 }
-//删除某段录像
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIAlertView *deleteVodView = [[UIAlertView alloc] initWithTitle:nil message:@"录像删除之后将不能恢复"
