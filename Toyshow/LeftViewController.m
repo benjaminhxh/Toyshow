@@ -259,7 +259,7 @@
     //支持界面旋转
     reader.supportedOrientationsMask = ZBarOrientationMaskAll;
     reader.showsHelpOnFail = NO;
-    reader.scanCrop = CGRectMake(0.0, 0.2, 1.0, 0.6);//扫描的感应框（0，0，1，1）full image
+    reader.scanCrop = CGRectMake(0.1, 0.2, 0.8, 0.6);//扫描的感应框（0，0，1，1）full image
     ZBarImageScanner * scanner = reader.scanner;
     [scanner setSymbology:ZBAR_CODE128  //ZBAR_I25
                    config:ZBAR_CFG_ENABLE

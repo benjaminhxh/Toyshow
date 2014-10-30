@@ -6,6 +6,7 @@
 //  Copyright (c) 2014年 zhxf. All rights reserved.
 //
 //摄像头直播
+#define kpickViewHeight 202
 
 #import "ShareCamereViewController.h"
 #import "CyberPlayerController.h"
@@ -21,7 +22,7 @@
 {
 //    UIView *cbdPlayerView;
     CyberPlayerController *cbPlayerController;
-    UIButton *startBtn,*collectionBtn;
+    UIButton *startBtn,*collectionBtn,*clipVODBtn;
     UISlider *lightSlider,*slider;
     NSTimer *timer,*localTimer,*_timer3;
 //    UIProgressView *progressV;
@@ -35,6 +36,13 @@
     UIAlertView *publicView,*cancelShareView,*resultView, *cutimageView;
     NSArray *activity;
     UIActivityIndicatorView *indicatorView;
+    UIView *foreGrounp;
+    UIView *timeView;
+    UIDatePicker *datePick;
+    UIButton *startF,*endT;
+    BOOL isStart;
+    NSDate *startDate,*endDate;
+    UITextField *fileName;
 }
 @end
 
@@ -164,7 +172,14 @@
     [topView addSubview:timeL];
 
     //直播
-
+    //剪辑视频
+    clipVODBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [clipVODBtn setImage:[UIImage imageNamed:@"clip"] forState:UIControlStateNormal];
+    [clipVODBtn setImage:[UIImage imageNamed:@"clip_no"] forState:UIControlStateHighlighted];
+    [clipVODBtn addTarget:self action:@selector(clipVODAction) forControlEvents:UIControlEventTouchUpInside];
+//    clipVODBtn.backgroundColor = [UIColor blueColor];
+    [topView addSubview:clipVODBtn];
+    
     //收藏
     collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     if (self.isCollect) {
@@ -176,12 +191,15 @@
     }
     [collectionBtn addTarget:self action:@selector(collectClick) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:collectionBtn];
-    if (iphone5) {
-        collectionBtn.frame = CGRectMake(kHeight*29/32, 11, 46, 24);
-    }else
-    {
-        collectionBtn.frame = CGRectMake(kHeight/2+30+150, 11, 46, 24);
-    }
+//    if (iphone5) {
+        collectionBtn.frame = CGRectMake(kHeight-56, 11, 46, 24);
+        clipVODBtn.frame = CGRectMake(kHeight-56, 11, 46, 24);
+//    }
+//    else
+//    {
+//        collectionBtn.frame = CGRectMake(kHeight/2+30+150, 11, 46, 24);
+//        collectionBtn.frame = CGRectMake(kHeight/2+30+150, 11, 46, 24);
+//    }
 
     //点播(看录像)
     //底部条
@@ -231,6 +249,9 @@
 
     UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenOrNo:)];
     [cbPlayerController.view addGestureRecognizer:tapGest];
+    
+    [self addclipView];
+
 //    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)];
 //    doubleTap.numberOfTapsRequired = 2;
 //    [cbPlayerController.view addGestureRecognizer:doubleTap];
@@ -239,6 +260,88 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willBackToHomeNotification:) name:kAPPWillResignActivenotif object:nil];
 }
 
+#pragma mark - addclipView
+- (void)addclipView
+{
+    foreGrounp = [[UIView alloc] initWithFrame:CGRectMake(kHeight-kWidth, 0, kWidth, kWidth)];
+    foreGrounp.alpha = 0.9;
+    foreGrounp.backgroundColor = [UIColor grayColor];
+//    foreGrounp.contentSize = CGSizeMake(kWidth, kWidth+40);
+    [cbPlayerController.view addSubview:foreGrounp];
+    foreGrounp.hidden = YES;
+    
+    UIButton *clipCancelBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    clipCancelBtn.frame = CGRectMake(10, 0, 65, 30);
+    [clipCancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [clipCancelBtn setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
+
+//    clipCancelBtn.backgroundColor = [UIColor grayColor];
+    [clipCancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [clipCancelBtn addTarget:self action:@selector(clipCancelBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [foreGrounp addSubview:clipCancelBtn];
+    
+    UIButton *clipFinishBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    clipFinishBtn.frame = CGRectMake(kWidth-75, 0, 65, 30);
+    [clipFinishBtn setTitle:@"完成" forState:UIControlStateNormal];
+    [clipFinishBtn setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
+
+//    clipFinishBtn.backgroundColor = [UIColor grayColor];
+    [clipFinishBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [clipFinishBtn addTarget:self action:@selector(clipFinishBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [foreGrounp addSubview:clipFinishBtn];
+    
+    
+    
+    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 32, kWidth-20, 50)];
+    tipLabel.numberOfLines = 3;
+    tipLabel.backgroundColor = [UIColor clearColor];
+    tipLabel.font = [UIFont systemFontOfSize:13];
+    tipLabel.textColor = [UIColor whiteColor];
+    [foreGrounp addSubview:tipLabel];
+    tipLabel.text = @"请输入剪辑的起始时间，最多只能剪辑半小时视频，结束时间最晚为当前时刻，并且确保剪辑的时间段内有录像，录像保存在该账号的百度云盘中。";
+    
+    startF = [[UIButton alloc] initWithFrame:CGRectMake(10, 85, 125, 30)];
+    [startF setTitle:@"起始时间" forState:UIControlStateNormal] ;
+    [startF setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
+    [startF addTarget:self action:@selector(startTimeSelect) forControlEvents:UIControlEventTouchUpInside];
+    [foreGrounp addSubview:startF];
+    
+    endT = [[UIButton alloc] initWithFrame:CGRectMake(kWidth-140, 85, 125, 30)];
+    [endT setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
+    [endT setTitle:@"结束时间" forState:UIControlStateNormal] ;
+    [endT addTarget:self action:@selector(endTimeSelect) forControlEvents:UIControlEventTouchUpInside];
+    [foreGrounp addSubview:endT];
+    
+    fileName = [[UITextField alloc] initWithFrame:CGRectMake(10, 116, kWidth-20, 34)];
+    fileName.placeholder = @"请输入文件名";
+    fileName.borderStyle = UITextBorderStyleBezel;
+    [foreGrounp addSubview:fileName];
+    
+    timeView = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight, kWidth, kpickViewHeight)];
+    [foreGrounp addSubview:timeView];
+    timeView.backgroundColor = [UIColor grayColor];
+    
+    UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    cancelBtn.frame = CGRectMake(10, 0, 60, 30);
+    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+//    cancelBtn.backgroundColor = [UIColor blueColor];
+    [cancelBtn setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
+    [cancelBtn addTarget:self action:@selector(cancelDatePickSelectAction:) forControlEvents:UIControlEventTouchUpInside];
+    [timeView addSubview:cancelBtn];
+    
+    UIButton *OKBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    OKBtn.frame = CGRectMake(kWidth-70, 0, 60, 30);
+    [OKBtn setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
+    [OKBtn setTitle:@"确定" forState:UIControlStateNormal];
+    [OKBtn addTarget:self action:@selector(OKBtnDatePickSelectAction:) forControlEvents:UIControlEventTouchUpInside];
+    [timeView addSubview:OKBtn];
+    
+    datePick = [[UIDatePicker alloc] initWithFrame:CGRectMake(10, 30, kWidth-20, 162)];
+    datePick.datePickerMode = UIDatePickerModeDateAndTime;
+//    datePick.backgroundColor = [UIColor redColor];
+    [timeView addSubview:datePick];
+}
+#pragma mark - adjustIsShare
 - (void)adjustIsShareOrVod
 {
     titleL.text = self.playerTitle;
@@ -249,6 +352,7 @@
     self.request_id = @"";
     [self isLoadingView];
     volumView.hidden = YES;
+    clipVODBtn.hidden = YES;
     //直播
     if (self.isLive) {
         if (self.isShare) {
@@ -278,6 +382,7 @@
             //我的摄像头直播
             collectionBtn.hidden = YES;
             bottomView.hidden = YES;
+            clipVODBtn.hidden = NO;
         }
     }else{
         //点播
@@ -617,6 +722,13 @@
     }];
 }
 
+- (void)clipVODAction
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        //        timeView.frame = CGRectMake(0, kHeight-202, kWidth, 202);
+        foreGrounp.hidden = NO;
+    }];
+}
 - (void)shareClick  //分享
 {
     if (self.shareStaue) {
@@ -754,6 +866,123 @@
     [cbPlayerController.view addSubview:percentHub];
     [percentHub show:YES];
 }
+
+- (void)clipCancelBtnAction:(id)sender
+{
+    foreGrounp.hidden = YES;
+}
+
+- (void)clipFinishBtnAction:(id)sender
+{
+    //    NSLog(@"---------%@", startF.titleLabel.text);
+    
+    NSTimeInterval t = [endDate timeIntervalSinceDate:startDate];
+    NSLog(@"========:%f",t);
+    if (t>1800) {
+        NSLog(@"超出30分钟了");
+        UIAlertView *tipview = [[UIAlertView alloc] initWithTitle:@"视频区间不能超过30分钟" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
+        [tipview show];
+        return;
+    }
+    else if (t<=0)
+    {
+        UIAlertView *tipview = [[UIAlertView alloc] initWithTitle:@"结束时间不能小于开始时间" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
+        [tipview show];
+        return;
+    }else if (!fileName.text.length)
+    {
+        UIAlertView *tipview = [[UIAlertView alloc] initWithTitle:@"录像名不能为空" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
+        [tipview show];
+        return;
+    }
+    NSTimeInterval st = [startDate timeIntervalSince1970];
+    NSTimeInterval et = [endDate timeIntervalSince1970];
+    NSLog(@"st:%f-----------et:%f",st,et);
+    
+    NSLog(@"st:%d-----------et:%d",(int)st,(int)et);
+    
+    NSString *url = [NSString stringWithFormat:@"￼https://pcs.baidu.com/rest/2.0/pcs/device?method=clip&access_token=&deviceid=&st=%d&et=%d&name=%@",(int)st,(int)et,fileName.text];
+    [self.view endEditing:YES];
+    foreGrounp.hidden = YES;
+}
+
+- (void)startTimeSelect
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        timeView.frame = CGRectMake(0, kWidth-202, kWidth, 202);
+    }];
+    isStart = YES;
+}
+
+- (void)endTimeSelect
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        timeView.frame = CGRectMake(0, kWidth-202, kWidth, 202);
+    }];
+    isStart = NO;
+}
+
+- (void)OKBtnDatePickSelectAction:(id)sender
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        timeView.frame = CGRectMake(0, kHeight, kWidth, kpickViewHeight);
+    }];
+    datePick.maximumDate = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSString *startT = [[self dateFormatterMMddHHmm] stringFromDate:datePick.date];
+    NSLog(@"startT:%@",startT);
+    if (isStart) {
+        [startF setTitle:startT forState:UIControlStateNormal];
+        startDate = [self adjustLocalDateWith:datePick.date];
+        NSTimeInterval tt = [startDate timeIntervalSince1970];
+        NSLog(@"tt:%f",tt);
+    }else
+    {
+        [endT setTitle:startT forState:UIControlStateNormal];
+        endDate  = [self adjustLocalDateWith:datePick.date];
+        NSTimeInterval eett = [endDate timeIntervalSince1970];
+        NSLog(@"eett:%f",eett);
+        NSDate *et = [NSDate dateWithTimeIntervalSince1970:eett];
+        NSLog(@"et:%@",et);
+    }
+}
+
+- (void)cancelDatePickSelectAction:(id)sender
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        timeView.frame = CGRectMake(0, kHeight, kWidth, kpickViewHeight);
+    }];
+}
+
+- (NSDate *)adjustLocalDateWith:(NSDate *)datenow
+{
+    NSTimeZone *zone = [NSTimeZone localTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate:datenow];
+    NSDate *localeDate = [datenow  dateByAddingTimeInterval: interval];
+    return localeDate;
+}
+
+- (NSDateFormatter *)dateFormatterMMddHHmm {
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"MM/dd HH:mm:ss"];
+    return dateFormat;
+}
+
+#pragma mark - textFiledDelegate
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        timeView.frame = CGRectMake(0, kHeight, kWidth, kpickViewHeight);
+    }];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+    [UIView animateWithDuration:0.3 animations:^{
+        timeView.frame = CGRectMake(0, kHeight, kWidth, kpickViewHeight);
+    }];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

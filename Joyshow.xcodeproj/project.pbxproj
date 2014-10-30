@@ -77,6 +77,8 @@
 		277952FF19E52DEB00280390 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 277952FE19E52DEB00280390 /* Icon.png */; };
 		2779530019E52DEB00280390 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 277952FE19E52DEB00280390 /* Icon.png */; };
 		27889DD4198A270200FC2688 /* collectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27889DD3198A270200FC2688 /* collectCell.xib */; };
+		2792B1F71A0249CB00B549A3 /* clip_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2792B1F51A0249CB00B549A3 /* clip_on@2x.png */; };
+		2792B1F81A0249CB00B549A3 /* clip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2792B1F61A0249CB00B549A3 /* clip@2x.png */; };
 		2794B6E618E05F09008DCF83 /* ShareCamereViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2794B6E518E05F09008DCF83 /* ShareCamereViewController.m */; };
 		27966A0D18E2EB1A0076423C /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 27966A0318E2EB1A0076423C /* MJRefresh.bundle */; };
 		27966A0E18E2EB1A0076423C /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27966A0618E2EB1A0076423C /* MJRefreshBaseView.m */; };
@@ -458,6 +460,8 @@
 		2777606E18FB74BD000A5F83 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		277952FE19E52DEB00280390 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		27889DD3198A270200FC2688 /* collectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = collectCell.xib; sourceTree = "<group>"; };
+		2792B1F51A0249CB00B549A3 /* clip_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clip_on@2x.png"; sourceTree = "<group>"; };
+		2792B1F61A0249CB00B549A3 /* clip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clip@2x.png"; sourceTree = "<group>"; };
 		2794B6E418E05F09008DCF83 /* ShareCamereViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareCamereViewController.h; sourceTree = "<group>"; };
 		2794B6E518E05F09008DCF83 /* ShareCamereViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareCamereViewController.m; sourceTree = "<group>"; };
 		27966A0318E2EB1A0076423C /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
@@ -926,6 +930,8 @@
 		27E5AABF19AB39C0004B5458 /* imageResource */ = {
 			isa = PBXGroup;
 			children = (
+				2792B1F51A0249CB00B549A3 /* clip_on@2x.png */,
+				2792B1F61A0249CB00B549A3 /* clip@2x.png */,
 				27F5A7A419E639E0004E2549 /* fenxiang@2x.png */,
 				27E5AADE19AB39C0004B5458 /* fenshen@2x.png */,
 				27F5A79B19E6361A004E2549 /* fenshen4.0@2x.png */,
@@ -1376,6 +1382,7 @@
 				275D929919E62F9C00DF77B9 /* 58@2x.png in Resources */,
 				27E5AB2019AB39C0004B5458 /* baijiantou@2x.png in Resources */,
 				27E5ABAC19AB39C0004B5458 /* touxiang_w@2x.png in Resources */,
+				2792B1F71A0249CB00B549A3 /* clip_on@2x.png in Resources */,
 				27E5ABAA19AB39C0004B5458 /* touxiang_quan@2x.png in Resources */,
 				27E5AB7219AB39C0004B5458 /* icon_timeline.png in Resources */,
 				27E5AB2419AB39C0004B5458 /* bangzhu@2x.png in Resources */,
@@ -1418,6 +1425,7 @@
 				27E5AC3219AB3ECE004B5458 /* zbar-help.html in Resources */,
 				27E5ABAE19AB39C0004B5458 /* tuichudenglu@2x.png in Resources */,
 				27FFE29718BF287B00AE47FF /* Images.xcassets in Resources */,
+				2792B1F81A0249CB00B549A3 /* clip@2x.png in Resources */,
 				27E5AB9A19AB39C0004B5458 /* shejingtou@2x.png in Resources */,
 				27E5AB3819AB39C0004B5458 /* cehuajiantou@2x.png in Resources */,
 				2775DF1F19EE62F700024928 /* about.html in Resources */,
