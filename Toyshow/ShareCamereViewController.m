@@ -78,7 +78,8 @@
     //view旋转
     [self.view setTransform:CGAffineTransformMakeRotation(M_PI/2)];
     self.view.backgroundColor = [UIColor whiteColor];
-
+    [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+    
     self.scrollv = [[UIScrollView alloc] init];
     self.scrollv.backgroundColor = [UIColor blackColor];
     self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
@@ -651,6 +652,8 @@
 //弹出或隐藏设置按钮
 - (void)hiddenOrNo:(id)sender
 {
+    [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+
     if (topViewHidden) {
         if (_timer3 && [_timer3 isValid]) {
             [_timer3 invalidate];
@@ -880,6 +883,7 @@
     foreGrounp.hidden = YES;
 }
 
+//剪辑视频
 - (void)clipFinishBtnAction:(id)sender
 {
     //    NSLog(@"---------%@", startF.titleLabel.text);
@@ -909,7 +913,7 @@
     
     NSLog(@"st:%d-----------et:%d",(int)st,(int)et);
     
-    NSString *url = [NSString stringWithFormat:@"￼https://pcs.baidu.com/rest/2.0/pcs/device?method=clip&access_token=&deviceid=&st=%d&et=%d&name=%@",(int)st,(int)et,fileName.text];
+//    NSString *url = [NSString stringWithFormat:@"￼https://pcs.baidu.com/rest/2.0/pcs/device?method=clip&access_token=&deviceid=&st=%d&et=%d&name=%@",(int)st,(int)et,fileName.text];
     [self.view endEditing:YES];
     foreGrounp.hidden = YES;
 }
@@ -1003,6 +1007,7 @@
     [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
     //view旋转
     [self.view setTransform:CGAffineTransformMakeRotation(M_PI/2)];
+    [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 
     [self adjustIsShareOrVod];
     [self startPlayback];
@@ -1013,6 +1018,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self stopPlayback];
+//    [[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+
     [super viewWillDisappear:YES];
 }
 - (void)dealloc
@@ -1034,6 +1041,13 @@
 -(NSUInteger)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskLandscapeRight;
+}
+
+
+//iOS7隐藏状态栏
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 @end

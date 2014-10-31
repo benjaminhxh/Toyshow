@@ -43,13 +43,22 @@
     [Frontia initWithApiKey:APP_KEY];
     [Frontia getPush];
     [FrontiaPush setupChannel:launchOptions];
-    UIRemoteNotificationType  mytype =
-    UIRemoteNotificationTypeAlert|
-    UIRemoteNotificationTypeBadge|
-    UIRemoteNotificationTypeNewsstandContentAvailability|
-    UIRemoteNotificationTypeSound;
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:mytype];
-
+    if (iOS8) {
+        UIUserNotificationType myTypes = UIRemoteNotificationTypeBadge |
+        UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+        UIUserNotificationSettings *settings =
+        [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];
+        [[UIApplication sharedApplication]
+         registerUserNotificationSettings:settings];
+    }else
+    {
+        UIRemoteNotificationType  mytype =
+        UIRemoteNotificationTypeAlert|
+        UIRemoteNotificationTypeBadge|
+        UIRemoteNotificationTypeNewsstandContentAvailability|
+        UIRemoteNotificationTypeSound;
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:mytype];
+    }
 //    FrontiaStatistics* statTracker = [Frontia getStatistics];//集成百度云集成服务
 //    statTracker.enableExceptionLog = YES; // 是否允许截获并发送崩溃信息，请设置YES或者NO
 //    statTracker.channelId = @"this_is_a_invalid_channel_ID";//设置您的app的发布渠道
