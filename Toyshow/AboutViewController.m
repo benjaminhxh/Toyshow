@@ -197,8 +197,18 @@
     return (toInterfaceOrientation == UIInterfaceOrientationMaskPortrait);
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+-(NSUInteger)supportedInterfaceOrientations{
     return UIInterfaceOrientationMaskPortrait;
+}
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
 }
 
 - (void)didReceiveMemoryWarning

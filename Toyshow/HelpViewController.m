@@ -183,10 +183,6 @@
     return (toInterfaceOrientation == UIInterfaceOrientationMaskPortrait);
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
-}
-
 - (void)alertViewShowWithTitle:(NSString*)title andMessage:(NSString*)message withDelegate:(id)delegate andCancelButton:(NSString*)cancelBtn andOtherButton:(NSString*)otherBtn
 {
     UIAlertView *viersionView = [[UIAlertView alloc] initWithTitle:title
@@ -224,6 +220,21 @@
 //    progressView.backgroundColor = [UIColor grayColor];
     [progressView show:YES];
 }
+
+-(NSUInteger)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

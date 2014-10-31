@@ -163,7 +163,7 @@
         // 进入刷新状态就会回调这个Block
         //向服务器发起请求
         NSString *sharelistURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listshare&sign=%@&expire=%@&start=%d&num=100",sign,expire,0];
-//        ////NSLog(@"shareListUrl:%@",sharelistURL);
+        NSLog(@"shareListUrl:%@",sharelistURL);
         [[AFHTTPRequestOperationManager manager] GET:sharelistURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
             //2、初始化数据
@@ -350,6 +350,8 @@
             ////NSLog(@"shareVC.url：%@",shareVC.url);
 //            shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
             [_loadingView removeFromSuperview];
+//            [self presentViewController:testVC animated:YES completion:nil];
+//            [self.navigationController pushViewController:testVC animated:YES];
             [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             ////NSLog(@"error++++++++");
@@ -410,6 +412,7 @@
             shareVC.isWeixinShare = YES;
             shareVC.url = [dict objectForKey:@"url"];
             shareVC.playerTitle = [dictFromWeixin objectForKey:@"weixinTitle"];
+//        [self presentViewController:shareVC animated:YES completion:nil];
             [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //            ////NSLog(@"error++++++++%@-------%@",[error userInfo],[error localizedDescription]);
@@ -441,6 +444,20 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(NSUInteger)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
 }
 
 @end

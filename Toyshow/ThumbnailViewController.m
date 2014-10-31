@@ -597,10 +597,6 @@
     return (toInterfaceOrientation == UIInterfaceOrientationMaskPortrait);
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [UIView animateWithDuration:0.3 animations:^{
@@ -608,6 +604,21 @@
     }];
     [super viewWillDisappear:animated];
 }
+
+-(NSUInteger)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

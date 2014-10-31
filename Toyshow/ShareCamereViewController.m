@@ -17,7 +17,6 @@
 #import "WeixinSessionActivity.h"
 #import "WeixinTimelineActivity.h"
 
-//6227 0000 1616 0056 890
 @interface ShareCamereViewController ()<MBProgressHUDDelegate,UIAlertViewDelegate,UIActionSheetDelegate>
 {
 //    UIView *cbdPlayerView;
@@ -61,17 +60,23 @@
 {
     [super viewDidLoad];
     //隐藏状态条
-//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];  
-//    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade]; 
-    CGFloat duration = [UIApplication sharedApplication].statusBarOrientationAnimationDuration;
-    //设置旋转动画
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:duration];
-    //设置视图旋转
-//    self.view.bounds = CGRectMake(0, 0, kWidth,kHeight);
-    NSLog(@"kwidth:%f===========,kheight:%f",kWidth,kHeight);
-    self.view.transform = CGAffineTransformMakeRotation(M_PI_2);
-    [UIView commitAnimations];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+//    [[UIApplication sharedApplication]setStatusBarHidden:YES];
+//    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+//    CGFloat duration = [UIApplication sharedApplication].statusBarOrientationAnimationDuration;
+//    //设置旋转动画
+//    [UIView beginAnimations:nil context:nil];
+//    [UIView setAnimationDuration:duration];
+//    //设置视图旋转
+////    self.view.bounds = CGRectMake(0, 0, kWidth,kHeight);
+//    NSLog(@"kwidth:%f===========,kheight:%f",kWidth,kHeight);
+//    self.view.transform = CGAffineTransformMakeRotation(M_PI_2);
+//    [UIView commitAnimations];
+    self.navigationController.navigationBarHidden = YES;
+    //设置应用程序的状态栏到指定的方向
+    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
+    //view旋转
+    [self.view setTransform:CGAffineTransformMakeRotation(M_PI/2)];
     self.view.backgroundColor = [UIColor whiteColor];
 
     self.scrollv = [[UIScrollView alloc] init];
@@ -267,7 +272,7 @@
     foreGrounp.alpha = 0.9;
     foreGrounp.backgroundColor = [UIColor grayColor];
 //    foreGrounp.contentSize = CGSizeMake(kWidth, kWidth+40);
-    [cbPlayerController.view addSubview:foreGrounp];
+    [self.view addSubview:foreGrounp];
     foreGrounp.hidden = YES;
     
     UIButton *clipCancelBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -637,7 +642,10 @@
     }else
     {
     }
-    [self.navigationController popViewControllerAnimated:YES];
+    //状态栏旋转
+    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
+    [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
+//    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 //弹出或隐藏设置按钮
@@ -991,6 +999,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    //设置应用程序的状态栏到指定的方向
+    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
+    //view旋转
+    [self.view setTransform:CGAffineTransformMakeRotation(M_PI/2)];
+
     [self adjustIsShareOrVod];
     [self startPlayback];
     _isExitFlag = NO;
@@ -1007,4 +1020,20 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 //    [super dealloc];
 }
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationLandscapeRight;
+}
+
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskLandscapeRight;
+}
+
 @end
