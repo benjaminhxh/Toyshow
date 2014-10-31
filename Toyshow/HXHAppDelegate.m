@@ -227,6 +227,11 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
 
 }
 
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    //register to receive notifications
+    [application registerForRemoteNotifications];
+}
 +(HXHAppDelegate*)instance
 {
 	return (HXHAppDelegate *)[[UIApplication sharedApplication] delegate];
