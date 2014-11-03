@@ -163,7 +163,7 @@
         // 进入刷新状态就会回调这个Block
         //向服务器发起请求
         NSString *sharelistURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listshare&sign=%@&expire=%@&start=%d&num=100",sign,expire,0];
-        NSLog(@"shareListUrl:%@",sharelistURL);
+//        NSLog(@"shareListUrl:%@",sharelistURL);
         [[AFHTTPRequestOperationManager manager] GET:sharelistURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
             //2、初始化数据

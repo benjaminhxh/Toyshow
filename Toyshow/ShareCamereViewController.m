@@ -16,6 +16,7 @@
 #import "WXApi.h"
 #import "WeixinSessionActivity.h"
 #import "WeixinTimelineActivity.h"
+#import "NSString+encodeChinese.h"
 
 @interface ShareCamereViewController ()<MBProgressHUDDelegate,UIAlertViewDelegate,UIActionSheetDelegate>
 {
@@ -155,7 +156,7 @@
     topView.userInteractionEnabled = YES;
     [self.view addSubview:topView];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(10, 12, 41, 20);
+    backBtn.frame = CGRectMake(5, 10, 46, 24);
 //    backBtn.frame = CGRectMake(10, [UIApplication sharedApplication].statusBarFrame.size.height+5, 12, 22);
     [backBtn setImage:[UIImage imageNamed:@"fanhui_jiantou@2x"] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -247,8 +248,8 @@
 //        slider.backgroundColor = [UIColor blueColor];
     [bottomView addSubview:slider];
 
-    errorLab = [[UILabel alloc] initWithFrame:CGRectMake(kHeight/2-50, kWidth/2-12, 100, 24)];
-    errorLab.text = @"服务器错误";
+    errorLab = [[UILabel alloc] initWithFrame:CGRectMake(kHeight/2-85, kWidth/2-12, 170, 24)];
+    errorLab.text = @"设备离线或服务器错误";
     errorLab.backgroundColor = [UIColor clearColor];
     errorLab.textColor = [UIColor whiteColor];
     [cbPlayerController.view addSubview:errorLab];
@@ -325,7 +326,7 @@
     
     timeView = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight, kWidth, kpickViewHeight)];
     [foreGrounp addSubview:timeView];
-    timeView.backgroundColor = [UIColor grayColor];
+    timeView.backgroundColor = [UIColor whiteColor];
     
     UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     cancelBtn.frame = CGRectMake(10, 0, 60, 30);
@@ -341,11 +342,12 @@
     [OKBtn setTitle:@"确定" forState:UIControlStateNormal];
     [OKBtn addTarget:self action:@selector(OKBtnDatePickSelectAction:) forControlEvents:UIControlEventTouchUpInside];
     [timeView addSubview:OKBtn];
-    
-    datePick = [[UIDatePicker alloc] initWithFrame:CGRectMake(10, 30, kWidth-20, 162)];
+//    NSLog(@"===========================================kwidth:%f",kWidth);
+    datePick = [[UIDatePicker alloc] initWithFrame:CGRectMake(-kWidth/3, 35, kWidth, 162)];
     datePick.datePickerMode = UIDatePickerModeDateAndTime;
-//    datePick.backgroundColor = [UIColor redColor];
+    datePick.backgroundColor = [UIColor clearColor];
     [timeView addSubview:datePick];
+    //11187977700/3600/24/365=44.86
 }
 #pragma mark - adjustIsShare
 - (void)adjustIsShareOrVod
@@ -889,7 +891,7 @@
     //    NSLog(@"---------%@", startF.titleLabel.text);
     
     NSTimeInterval t = [endDate timeIntervalSinceDate:startDate];
-    NSLog(@"========:%f",t);
+//    NSLog(@"========:%f",t);
     if (t>1800) {
         NSLog(@"超出30分钟了");
         UIAlertView *tipview = [[UIAlertView alloc] initWithTitle:@"视频区间不能超过30分钟" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
@@ -909,11 +911,44 @@
     }
     NSTimeInterval st = [startDate timeIntervalSince1970];
     NSTimeInterval et = [endDate timeIntervalSince1970];
-    NSLog(@"st:%f-----------et:%f",st,et);
+//    NSLog(@"st:%f-----------et:%f",st,et);
     
-    NSLog(@"st:%d-----------et:%d",(int)st,(int)et);
-    
-//    NSString *url = [NSString stringWithFormat:@"￼https://pcs.baidu.com/rest/2.0/pcs/device?method=clip&access_token=&deviceid=&st=%d&et=%d&name=%@",(int)st,(int)et,fileName.text];
+//    NSLog(@"st:%d-----------et:%d",(int)st,(int)et);
+    NSString *desWithUTF8 = [fileName.text encodeChinese];
+
+    NSString *url = [NSString stringWithFormat:@"￼https://pcs.baidu.com/rest/2.0/pcs/device?method=clip&access_token=%@&deviceid=%@&st=%d&et=%d&name=%@",self.accecc_token,self.deviceId,(int)st,(int)et,desWithUTF8];
+    NSLog(@"url:%@",url);
+    NSURL *urlq = [NSURL URLWithString:url];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlq];
+    [request setHTTPMethod:@"POST"];
+    NSOperationQueue *operation = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:request queue:operation completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//        NSLog(@"data:%@-------error:%@",data,connectionError);
+        if (data.length>0 && connectionError == nil) {
+//            NSLog(@"data:%@",data);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIAlertView *tipview = [[UIAlertView alloc] initWithTitle:@"剪辑成功" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
+                [tipview show];
+            });
+            
+        }else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+            UIAlertView *tipview = [[UIAlertView alloc] initWithTitle:@"剪辑失败" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
+            [tipview show];
+            });
+        }
+    }];
+//    [[AFHTTPRequestOperationManager manager] GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        
+//    }];
+//    [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+////        NSDictionary *dict = (NSDictionary *)responseObject;
+//        NSLog(@"剪辑:%@",responseObject);
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"error:%@",error);
+//    }];
     [self.view endEditing:YES];
     foreGrounp.hidden = YES;
 }
@@ -921,7 +956,7 @@
 - (void)startTimeSelect
 {
     [UIView animateWithDuration:0.3 animations:^{
-        timeView.frame = CGRectMake(0, kWidth-202, kWidth, 202);
+        timeView.frame = CGRectMake(0, kWidth-kpickViewHeight, kWidth, kpickViewHeight);
     }];
     isStart = YES;
 }
@@ -929,7 +964,7 @@
 - (void)endTimeSelect
 {
     [UIView animateWithDuration:0.3 animations:^{
-        timeView.frame = CGRectMake(0, kWidth-202, kWidth, 202);
+        timeView.frame = CGRectMake(0, kWidth-kpickViewHeight, kWidth, kpickViewHeight);
     }];
     isStart = NO;
 }
@@ -941,20 +976,20 @@
     }];
     datePick.maximumDate = [NSDate dateWithTimeIntervalSinceNow:0];
     NSString *startT = [[self dateFormatterMMddHHmm] stringFromDate:datePick.date];
-    NSLog(@"startT:%@",startT);
+//    NSLog(@"startT:%@",startT);
     if (isStart) {
         [startF setTitle:startT forState:UIControlStateNormal];
         startDate = [self adjustLocalDateWith:datePick.date];
         NSTimeInterval tt = [startDate timeIntervalSince1970];
-        NSLog(@"tt:%f",tt);
+//        NSLog(@"tt:%f",tt);
     }else
     {
         [endT setTitle:startT forState:UIControlStateNormal];
         endDate  = [self adjustLocalDateWith:datePick.date];
         NSTimeInterval eett = [endDate timeIntervalSince1970];
-        NSLog(@"eett:%f",eett);
+//        NSLog(@"eett:%f",eett);
         NSDate *et = [NSDate dateWithTimeIntervalSince1970:eett];
-        NSLog(@"et:%@",et);
+//        NSLog(@"et:%@",et);
     }
 }
 
@@ -1019,7 +1054,7 @@
 {
     [self stopPlayback];
 //    [[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
-
+    foreGrounp.hidden = YES;
     [super viewWillDisappear:YES];
 }
 - (void)dealloc
@@ -1042,7 +1077,6 @@
 {
     return UIInterfaceOrientationMaskLandscapeRight;
 }
-
 
 //iOS7隐藏状态栏
 - (BOOL)prefersStatusBarHidden
