@@ -297,8 +297,6 @@
     [clipFinishBtn addTarget:self action:@selector(clipFinishBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [foreGrounp addSubview:clipFinishBtn];
     
-    
-    
     UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 32, kWidth-20, 50)];
     tipLabel.numberOfLines = 3;
     tipLabel.backgroundColor = [UIColor clearColor];
@@ -880,6 +878,7 @@
     [percentHub show:YES];
 }
 
+//取消剪辑
 - (void)clipCancelBtnAction:(id)sender
 {
     foreGrounp.hidden = YES;
@@ -888,10 +887,7 @@
 //剪辑视频
 - (void)clipFinishBtnAction:(id)sender
 {
-    //    NSLog(@"---------%@", startF.titleLabel.text);
-    
     NSTimeInterval t = [endDate timeIntervalSinceDate:startDate];
-//    NSLog(@"========:%f",t);
     if (t>1800) {
         NSLog(@"超出30分钟了");
         UIAlertView *tipview = [[UIAlertView alloc] initWithTitle:@"视频区间不能超过30分钟" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
@@ -911,21 +907,24 @@
     }
     NSTimeInterval st = [startDate timeIntervalSince1970];
     NSTimeInterval et = [endDate timeIntervalSince1970];
-//    NSLog(@"st:%f-----------et:%f",st,et);
     
-//    NSLog(@"st:%d-----------et:%d",(int)st,(int)et);
     NSString *desWithUTF8 = [fileName.text encodeChinese];
-
-    NSString *url = [NSString stringWithFormat:@"￼https://pcs.baidu.com/rest/2.0/pcs/device?method=clip&access_token=%@&deviceid=%@&st=%d&et=%d&name=%@",self.accecc_token,self.deviceId,(int)st,(int)et,desWithUTF8];
-    NSLog(@"url:%@",url);
+    NSInteger stt = (NSInteger)st;
+    NSInteger ett = (NSInteger)et;
+ 
+    NSString *accessToken = [self.accecc_token stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *deviceId    = [self.deviceId     stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=clip&access_token=%@&deviceid=%@&st=%d&et=%d&name=%@",accessToken,deviceId,stt,ett,desWithUTF8];
     NSURL *urlq = [NSURL URLWithString:url];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlq];
-    [request setHTTPMethod:@"POST"];
+    [request setHTTPMethod:@"GET"];
+//    [request setHTTPBody:dataParam];
     NSOperationQueue *operation = [[NSOperationQueue alloc] init];
     [NSURLConnection sendAsynchronousRequest:request queue:operation completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-//        NSLog(@"data:%@-------error:%@",data,connectionError);
-        if (data.length>0 && connectionError == nil) {
-//            NSLog(@"data:%@",data);
+//        NSString *dataSTR = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//        NSLog(@"剪辑结果：%@",dataSTR);
+        if (data.length > 0 && connectionError == nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 UIAlertView *tipview = [[UIAlertView alloc] initWithTitle:@"剪辑成功" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
                 [tipview show];
@@ -938,21 +937,12 @@
             });
         }
     }];
-//    [[AFHTTPRequestOperationManager manager] GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        
-//    }];
-//    [[AFHTTPRequestOperationManager manager] POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-////        NSDictionary *dict = (NSDictionary *)responseObject;
-//        NSLog(@"剪辑:%@",responseObject);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"error:%@",error);
-//    }];
+    
     [self.view endEditing:YES];
     foreGrounp.hidden = YES;
 }
 
+//起始时间
 - (void)startTimeSelect
 {
     [UIView animateWithDuration:0.3 animations:^{
@@ -960,7 +950,7 @@
     }];
     isStart = YES;
 }
-
+//结束时间
 - (void)endTimeSelect
 {
     [UIView animateWithDuration:0.3 animations:^{
@@ -968,7 +958,7 @@
     }];
     isStart = NO;
 }
-
+//确定时间
 - (void)OKBtnDatePickSelectAction:(id)sender
 {
     [UIView animateWithDuration:0.3 animations:^{
@@ -979,20 +969,17 @@
 //    NSLog(@"startT:%@",startT);
     if (isStart) {
         [startF setTitle:startT forState:UIControlStateNormal];
-        startDate = [self adjustLocalDateWith:datePick.date];
-        NSTimeInterval tt = [startDate timeIntervalSince1970];
+        startDate = datePick.date;
+//        startDate = [self adjustLocalDateWith:datePick.date];
+//        NSTimeInterval tt = [startDate timeIntervalSince1970];
 //        NSLog(@"tt:%f",tt);
     }else
     {
         [endT setTitle:startT forState:UIControlStateNormal];
-        endDate  = [self adjustLocalDateWith:datePick.date];
-        NSTimeInterval eett = [endDate timeIntervalSince1970];
-//        NSLog(@"eett:%f",eett);
-        NSDate *et = [NSDate dateWithTimeIntervalSince1970:eett];
-//        NSLog(@"et:%@",et);
+        endDate = datePick.date;
     }
 }
-
+//取消时间
 - (void)cancelDatePickSelectAction:(id)sender
 {
     [UIView animateWithDuration:0.3 animations:^{
