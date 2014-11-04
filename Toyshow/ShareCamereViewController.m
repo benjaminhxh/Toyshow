@@ -319,6 +319,7 @@
     
     fileName = [[UITextField alloc] initWithFrame:CGRectMake(10, 116, kWidth-20, 34)];
     fileName.placeholder = @"请输入文件名";
+    fileName.textColor = [UIColor whiteColor];
     fileName.borderStyle = UITextBorderStyleBezel;
     [foreGrounp addSubview:fileName];
     
