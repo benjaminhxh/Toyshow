@@ -178,10 +178,6 @@
   //responseSerializer有吗..有的话是什么类型?
     //因为该URL的响应头是Content-Type:text/html;charset=utf-8
 }
-//强制不允许转屏
-- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-    return (toInterfaceOrientation == UIInterfaceOrientationMaskPortrait);
-}
 
 - (void)alertViewShowWithTitle:(NSString*)title andMessage:(NSString*)message withDelegate:(id)delegate andCancelButton:(NSString*)cancelBtn andOtherButton:(NSString*)otherBtn
 {
@@ -219,6 +215,10 @@
     progressView.alpha = 0.1;
 //    progressView.backgroundColor = [UIColor grayColor];
     [progressView show:YES];
+}
+//强制不允许转屏
+- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    return (toInterfaceOrientation == UIInterfaceOrientationMaskPortrait);
 }
 
 -(NSUInteger)supportedInterfaceOrientations{

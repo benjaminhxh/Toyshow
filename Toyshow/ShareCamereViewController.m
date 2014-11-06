@@ -136,10 +136,10 @@
 //                                                 name:CyberPlayerStartCachingNotification
 //                                               object:nil];
     //播放状态发生改变
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(stateDidChange:)
-                                                 name:CyberPlayerPlaybackStateDidChangeNotification
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(stateDidChange:)
+//                                                 name:CyberPlayerPlaybackStateDidChangeNotification
+//                                               object:nil];
 
     //注册监听，当播放器缓冲视频过程中不断发送该通知。
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -297,27 +297,27 @@
     [clipFinishBtn addTarget:self action:@selector(clipFinishBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [foreGrounp addSubview:clipFinishBtn];
     
-    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 32, kWidth-20, 50)];
-    tipLabel.numberOfLines = 3;
+    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 32, kWidth-20, 78)];
+    tipLabel.numberOfLines = 5;
     tipLabel.backgroundColor = [UIColor clearColor];
     tipLabel.font = [UIFont systemFontOfSize:13];
     tipLabel.textColor = [UIColor whiteColor];
     [foreGrounp addSubview:tipLabel];
-    tipLabel.text = @"请输入剪辑的起始时间，最多只能剪辑半小时视频，结束时间最晚为当前时刻，并且确保剪辑的时间段内有录像，录像保存在该账号的百度云盘中。";
+    tipLabel.text = @"1、最多只能剪辑半小时视频\n2、每个账号每个月剪辑时间不能超过10小时\n3、结束时间最晚为当前时刻\n4、并且确保剪辑的时间段内有录像\n5、录像保存在该账号的百度云盘中。";
     
-    startF = [[UIButton alloc] initWithFrame:CGRectMake(10, 85, 125, 30)];
+    startF = [[UIButton alloc] initWithFrame:CGRectMake(10, 115, 125, 30)];
     [startF setTitle:@"起始时间" forState:UIControlStateNormal] ;
     [startF setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
     [startF addTarget:self action:@selector(startTimeSelect) forControlEvents:UIControlEventTouchUpInside];
     [foreGrounp addSubview:startF];
     
-    endT = [[UIButton alloc] initWithFrame:CGRectMake(kWidth-140, 85, 125, 30)];
+    endT = [[UIButton alloc] initWithFrame:CGRectMake(kWidth-140, 115, 125, 30)];
     [endT setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
     [endT setTitle:@"结束时间" forState:UIControlStateNormal] ;
     [endT addTarget:self action:@selector(endTimeSelect) forControlEvents:UIControlEventTouchUpInside];
     [foreGrounp addSubview:endT];
     
-    fileName = [[UITextField alloc] initWithFrame:CGRectMake(10, 116, kWidth-20, 34)];
+    fileName = [[UITextField alloc] initWithFrame:CGRectMake(10, 146, kWidth-20, 34)];
     fileName.placeholder = @"请输入文件名";
     fileName.textColor = [UIColor whiteColor];
     fileName.borderStyle = UITextBorderStyleBezel;
@@ -470,15 +470,15 @@
     [self performSelectorOnMainThread:@selector(hiddenLoadingView) withObject:nil waitUntilDone:NO];
 }
 //状态改变
-- (void)stateDidChange:(NSNotification*)notif
-{
-    ////NSLog(@"播放状态发送改变stateDidChange--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
-    if (self.isLive) {
-       if(cbPlayerController.playbackState == CBPMoviePlaybackStatePaused){
-           [cbPlayerController play];
-        }
-    }
-}
+//- (void)stateDidChange:(NSNotification*)notif
+//{
+//    ////NSLog(@"播放状态发送改变stateDidChange--%@",[NSThread isMainThread]?@"isMainThread":@"Not mainThread");
+//    if (self.isLive) {
+//       if(cbPlayerController.playbackState == CBPMoviePlaybackStatePaused){
+//           [cbPlayerController play];
+//        }
+//    }
+//}
 //缓冲过程
 - (void)GotCachePercent:(NSNotification *)notific
 {
@@ -906,6 +906,8 @@
         [tipview show];
         return;
     }
+    [self MBprogressViewHubLoading:@"正在剪辑" withMode:4];
+
     NSTimeInterval st = [startDate timeIntervalSince1970];
     NSTimeInterval et = [endDate timeIntervalSince1970];
     
@@ -927,12 +929,16 @@
 //        NSLog(@"剪辑结果：%@",dataSTR);
         if (data.length > 0 && connectionError == nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
+                [shareHub hide:YES afterDelay:0.5];
+
                 UIAlertView *tipview = [[UIAlertView alloc] initWithTitle:@"剪辑成功" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
                 [tipview show];
             });
             
         }else{
             dispatch_async(dispatch_get_main_queue(), ^{
+                [shareHub hide:YES afterDelay:0.5];
+
             UIAlertView *tipview = [[UIAlertView alloc] initWithTitle:@"剪辑失败" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
             [tipview show];
             });
