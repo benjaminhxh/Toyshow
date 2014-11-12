@@ -25,7 +25,6 @@
 @property (nonatomic, copy) NSString *url;
 @property (nonatomic, copy) NSString *reserved;
 
-@property (nonatomic,copy) NSData *imageData;
 @property (nonatomic, retain) AsyncUdpSocket         *udpSocket;
 
 @end

@@ -404,7 +404,7 @@
 {
     NSDictionary *dictFromWeixin = (NSDictionary *)[notif userInfo];
     NSString *shareURL = [dictFromWeixin objectForKey:@"weixinInfo"];
-    NSLog(@"url come from weixin:%@",shareURL);
+//    NSLog(@"url come from weixin:%@",shareURL);
     [[AFHTTPRequestOperationManager manager] POST:shareURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
 //            ////NSLog(@"公共摄像头url:%@",[dict objectForKey:@"url"]);

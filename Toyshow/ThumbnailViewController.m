@@ -385,9 +385,9 @@
         NSNumber *ett = [arr objectAtIndex:1];
         endtf = [ett intValue];
         NSDate *endfTime = [NSDate dateWithTimeIntervalSince1970:endtf];
-        NSString *endT = [[self dateFormatterMMddHHmm] stringFromDate:endfTime];
+        NSString *endTime = [[self dateFormatterMMddHHmm] stringFromDate:endfTime];
         //显示起始时间
-        self.thumbDeadlines.text = [NSString stringWithFormat:@"%@-—%@",startT,[endT substringFromIndex:5]];
+        self.thumbDeadlines.text = [NSString stringWithFormat:@"%@-—%@",startT,[endTime substringFromIndex:5]];
         if (indexPath.row<downloadImageArr.count) {
             NSString *imageurlstr = [downloadImageArr objectAtIndex:indexPath.row];
             [self.thumbPic setImageWithURL:[NSURL URLWithString:imageurlstr]];

@@ -353,7 +353,6 @@
             addDeviceVC.deviceID = result;
             addDeviceVC.access_token = self.accessToken;
             addDeviceVC.isScanFlag = YES;
-//            addDeviceVC.imageData = image;
 //            addDeviceVC.userID = [[NSUserDefaults standardUserDefaults] stringForKey:kUserName];
             scanNum = 0;
             [self.navigationController pushViewController:addDeviceVC animated:YES];

@@ -60,10 +60,6 @@
     topView.userInteractionEnabled = YES;
     [self.view addSubview:topView];
     
-    UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(10, 64, 200, 200)];
-    UIImage *image = [UIImage imageWithData:self.imageData];
-    imageV.image = image;
-    [self.view addSubview:imageV];
     float backHeight;
     if (iOS7) {
         backHeight = kStatusbarHeight + 5;
@@ -95,6 +91,7 @@
     {
         deviceF.enabled = YES;
         deviceF.returnKeyType = UIReturnKeyNext;
+        deviceF.placeholder = @"设备MAC不区分大小写";
         deviceF.delegate = self;
     }
     deviceF.allowsEditingTextAttributes = YES;
@@ -284,7 +281,7 @@
             break;
     }
     const char* a = [hexdeviceID cStringUsingEncoding:NSASCIIStringEncoding];
-    NSLog(@"a.length:%d=======%s",deviceF.text.length,a);
+//    NSLog(@"a.length:%d=======%s",deviceF.text.length,a);
     
     int64_t deviceIDint64 = MacAddr2DecDeviceID(a, isLow);//
     
