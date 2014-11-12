@@ -131,10 +131,10 @@
 
     
     //注册监听，当播放器开始缓冲时发送通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(startCaching:)
-//                                                 name:CyberPlayerStartCachingNotification
-//                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(startCaching:)
+                                                 name:CyberPlayerStartCachingNotification
+                                               object:nil];
     //播放状态发生改变
 //    [[NSNotificationCenter defaultCenter] addObserver:self
 //                                             selector:@selector(stateDidChange:)
@@ -354,7 +354,6 @@
     titleL.text = self.playerTitle;
     localTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
 //    self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
-
 //    [cbPlayerController.view setFrame:self.view.frame];
     self.request_id = @"";
     [self isLoadingView];
@@ -479,17 +478,31 @@
 //        }
 //    }
 //}
+
+- (void)startCaching:(NSNotification *)notif
+{
+//    NSLog(@"开始缓冲satrtCatch:%@-------%@---------%@",[notif userInfo],[notif object],[notif name]);
+    if(![[notif object] intValue])
+    {
+//        NSLog(@"00000000");
+        [percentHub hide:YES];
+    }
+
+}
 //缓冲过程
 - (void)GotCachePercent:(NSNotification *)notific
 {
+//    NSLog(@"正在缓冲：%@------%@",[notific userInfo],[notific object]);
     [self performSelectorOnMainThread:@selector(loadPercentOnMain:) withObject:[notific object] waitUntilDone:NO];
 }
 
 - (void)loadPercentOnMain:(id)sender
 {
+    [self stopTimer];
     if(100 == [sender intValue])
     {
         [percentHub hide:YES];
+        [self startTimer];
     }else
     {
         [self loadPercent:[sender intValue]];
@@ -503,6 +516,7 @@
 - (void)onClickStop:(id)sender {
     [self stopPlayback];
 }
+
 - (void)startPlayback{
 //    NSURL *url = [NSURL URLWithString:@"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4"];
     errorLab.hidden = YES;
@@ -1033,10 +1047,10 @@
 {
     [super viewWillAppear:YES];
     //设置应用程序的状态栏到指定的方向
-    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
-    //view旋转
-    [self.view setTransform:CGAffineTransformMakeRotation(M_PI/2)];
-    [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+//    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
+//    //view旋转
+//    [self.view setTransform:CGAffineTransformMakeRotation(M_PI/2)];
+//    [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 
     [self adjustIsShareOrVod];
     [self startPlayback];
