@@ -26,7 +26,8 @@
     UISlider *lightSlider,*slider;
     NSTimer *timer,*localTimer,*_timer3;
 //    UIProgressView *progressV;
-    UIImageView *topView,*bottomView;
+    UIImageView *bottomView;
+    UIImageView *topView;
     BOOL topViewHidden,lightBool,_isExitFlag;
     UILabel *titleL,*currentProgress,*remainsProgress,*errorLab;
     MBProgressHUD *_loadingView,*shareHub,*percentHub;
@@ -83,8 +84,14 @@
     
     self.scrollv = [[UIScrollView alloc] init];
     self.scrollv.backgroundColor = [UIColor blackColor];
-    self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
-    self.scrollv.contentSize = CGSizeMake(kHeight+20, kWidth+20);
+    if(iOS8){
+        self.scrollv.frame = CGRectMake( 0, 0, kWidth, kHeight );
+        self.scrollv.contentSize = CGSizeMake(kWidth+20, kHeight+20);
+    }else
+    {
+        self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
+        self.scrollv.contentSize = CGSizeMake(kHeight+20, kWidth+20);
+    }
     self.scrollv.delegate = self;
     self.scrollv.showsVerticalScrollIndicator = NO;
     [self.view addSubview: self.scrollv ];
@@ -147,11 +154,24 @@
                                                  name:CyberPlayerGotCachePercentNotification
                                                object:nil];
 
-    
-    
-    //顶部条
-    topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kHeight, 44)];
-    //    topView.image = [UIImage imageNamed:@"keyboard_number_bg@2x"];
+    NSLog(@"宽度：------%f----%f",kWidth,kHeight);
+    topView = [[UIImageView alloc] init];
+    if (iOS8) {
+        //顶部条
+        topView.frame = CGRectMake(0, 0, kWidth, 44);
+        //标题
+        titleL = [[UILabel alloc] initWithFrame:CGRectMake(51, 12, kHeight-51-20, 20)];
+        //显示实时时间
+        timeL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/2-20, 5, 40, 15)];
+    }else
+    {
+        //顶部条
+        topView.frame = CGRectMake(0, 0, kHeight, 44);
+        //标题
+        titleL = [[UILabel alloc] initWithFrame:CGRectMake(51, 12, kWidth-51-20, 20)];
+        //显示实时时间
+        timeL = [[UILabel alloc] initWithFrame:CGRectMake(kHeight/2-20, 5, 40, 15)];
+    }
     topView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     topView.userInteractionEnabled = YES;
     [self.view addSubview:topView];
@@ -162,16 +182,13 @@
     [backBtn addTarget:self action:@selector(backBtn:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backBtn];
     
-    //标题
-    titleL = [[UILabel alloc] initWithFrame:CGRectMake(51, 12, kWidth-51-20, 20)];
     titleL.textColor = [UIColor whiteColor];
     titleL.backgroundColor = [UIColor clearColor];
     titleL.font = [UIFont systemFontOfSize:12];
     titleL.text = self.playerTitle;
     [topView addSubview:titleL];
     
-    //显示实时时间
-    timeL = [[UILabel alloc] initWithFrame:CGRectMake(kHeight/2-20, 5, 40, 15)];
+   
     timeL.text = @"12:12:12";
     timeL.font = [UIFont systemFontOfSize:9];
     timeL.textColor = [UIColor whiteColor];
@@ -181,42 +198,63 @@
     //直播
     //剪辑视频
     clipVODBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    //收藏
+    collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+   
+    if (iOS8) {
+        collectionBtn.frame = CGRectMake(kWidth/4*3-23, 1, 146, 44);
+        clipVODBtn.frame = CGRectMake(kWidth-56, 11, 46, 24);
+    }
+    else
+    {
+        collectionBtn.frame = CGRectMake(kHeight-56, 11, 46, 24);
+        clipVODBtn.frame = CGRectMake(kHeight-56, 11, 46, 24);
+    }
+//    if (self.isCollect) {
+//        [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelwei"] forState:UIControlStateNormal];
+//        [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelzhong"] forState:UIControlStateHighlighted];
+//    }else{
+//        [collectionBtn setImage:[UIImage imageNamed:@"collect_wei"] forState:UIControlStateNormal];
+//        [collectionBtn setImage:[UIImage imageNamed:@"collect_zhong"] forState:UIControlStateHighlighted];
+//    }
+    collectionBtn.backgroundColor = [UIColor redColor];
+    [collectionBtn addTarget:self action:@selector(collectClick) forControlEvents:UIControlEventTouchUpInside];
+//    [topView addSubview:collectionBtn];
+
     [clipVODBtn setImage:[UIImage imageNamed:@"clip"] forState:UIControlStateNormal];
     [clipVODBtn setImage:[UIImage imageNamed:@"clip_no"] forState:UIControlStateHighlighted];
     [clipVODBtn addTarget:self action:@selector(clipVODAction) forControlEvents:UIControlEventTouchUpInside];
 //    clipVODBtn.backgroundColor = [UIColor blueColor];
-    [topView addSubview:clipVODBtn];
-    
-    //收藏
-    collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    if (self.isCollect) {
-        [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelwei"] forState:UIControlStateNormal];
-        [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelzhong"] forState:UIControlStateHighlighted];
-    }else{
-        [collectionBtn setImage:[UIImage imageNamed:@"collect_wei"] forState:UIControlStateNormal];
-        [collectionBtn setImage:[UIImage imageNamed:@"collect_zhong"] forState:UIControlStateHighlighted];
-    }
-    [collectionBtn addTarget:self action:@selector(collectClick) forControlEvents:UIControlEventTouchUpInside];
-    [topView addSubview:collectionBtn];
-//    if (iphone5) {
-        collectionBtn.frame = CGRectMake(kHeight-56, 11, 46, 24);
-        clipVODBtn.frame = CGRectMake(kHeight-56, 11, 46, 24);
-//    }
-//    else
-//    {
-//        collectionBtn.frame = CGRectMake(kHeight/2+30+150, 11, 46, 24);
-//        collectionBtn.frame = CGRectMake(kHeight/2+30+150, 11, 46, 24);
-//    }
-
+//    [topView addSubview:clipVODBtn];
     //点播(看录像)
-    //底部条
-    bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kWidth-60, kHeight, 60)];
+    //开始暂停按钮
+    startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    if (iOS8) {
+        startBtn.frame = CGRectMake(kWidth/2-14, 5, 27, 27);
+        //底部条
+        bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kWidth-60, kWidth, 60)];
+        //剩余时长
+        remainsProgress = [[UILabel alloc] initWithFrame:CGRectMake(kWidth-45, 43, 40, 10)];
+        //快进快退滑动条
+        slider = [[UISlider alloc] initWithFrame:CGRectMake(60, 35, kWidth - 105, 25)];
+        errorLab = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/2-85, kHeight/2-12, 170, 24)];
+
+    }else
+    {
+        startBtn.frame = CGRectMake(kHeight/2-14, 5, 27, 27);
+        //底部条
+        bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kWidth-60, kHeight, 60)];
+        //剩余时长
+        remainsProgress = [[UILabel alloc] initWithFrame:CGRectMake(kHeight-45, 43, 40, 10)];
+        //快进快退滑动条
+        slider = [[UISlider alloc] initWithFrame:CGRectMake(60, 35, kHeight - 105, 25)];
+        errorLab = [[UILabel alloc] initWithFrame:CGRectMake(kHeight/2-85, kWidth/2-12, 170, 24)];
+    }
     bottomView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
     bottomView.userInteractionEnabled = YES;
     [self.view addSubview:bottomView];
     //开始暂停按钮
-    startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    startBtn.frame = CGRectMake(kHeight/2-14, 5, 27, 27);
     [startBtn setImage:[UIImage imageNamed:@"bofang_anniu@2x"] forState:UIControlStateNormal];
     [startBtn addTarget:self action:@selector(onClickPlay:) forControlEvents:UIControlEventTouchUpInside];
     //        [startBtn setImage:[UIImage imageNamed:@"bofang_zhong@2x"] forState:UIControlStateHighlighted];
@@ -229,8 +267,6 @@
     currentProgress.backgroundColor = [UIColor clearColor];
     currentProgress.font = [UIFont systemFontOfSize:8];
     [bottomView addSubview:currentProgress];
-    //剩余时长
-    remainsProgress = [[UILabel alloc] initWithFrame:CGRectMake(kHeight-45, 43, 40, 10)];
     remainsProgress.textColor = [UIColor whiteColor];
 //        remainsProgress.backgroundColor = [UIColor grayColor];
 //        remainsProgress.text = @"01:52:10";
@@ -238,9 +274,9 @@
     remainsProgress.backgroundColor = [UIColor clearColor];
     [bottomView addSubview:remainsProgress];
 
-    //快进快退滑动条
-    slider = [[UISlider alloc] initWithFrame:CGRectMake(60, 35, kHeight - 105, 25)];
 //        slider.continuous = NO;
+    if (iOS8) {
+    }else
     [slider setThumbImage:[UIImage imageNamed:@"anniu_huagan16x16@2x"] forState:UIControlStateNormal];
     [slider addTarget:self action:@selector(onDragSlideValueChanged:) forControlEvents:UIControlEventValueChanged];
     [slider addTarget:self action:@selector(onDragSlideStart:) forControlEvents:UIControlEventTouchDown];
@@ -248,7 +284,6 @@
 //        slider.backgroundColor = [UIColor blueColor];
     [bottomView addSubview:slider];
 
-    errorLab = [[UILabel alloc] initWithFrame:CGRectMake(kHeight/2-85, kWidth/2-12, 170, 24)];
     errorLab.text = @"设备离线或服务器错误";
     errorLab.backgroundColor = [UIColor clearColor];
     errorLab.textColor = [UIColor whiteColor];
@@ -257,8 +292,8 @@
     UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenOrNo:)];
     [cbPlayerController.view addGestureRecognizer:tapGest];
     
-    [self addclipView];
-
+//    [self addclipView];
+   
 //    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)];
 //    doubleTap.numberOfTapsRequired = 2;
 //    [cbPlayerController.view addGestureRecognizer:doubleTap];
@@ -270,7 +305,14 @@
 #pragma mark - addclipView
 - (void)addclipView
 {
-    foreGrounp = [[UIView alloc] initWithFrame:CGRectMake(kHeight-kWidth, 0, kWidth, kWidth)];
+    if (iOS8) {
+        foreGrounp = [[UIView alloc] initWithFrame:CGRectMake(kWidth-kHeight, 0, kHeight, kHeight)];
+
+    }else
+    {
+        foreGrounp = [[UIView alloc] initWithFrame:CGRectMake(kHeight-kWidth, 0, kWidth, kWidth)];
+
+    }
     foreGrounp.alpha = 0.9;
     foreGrounp.backgroundColor = [UIColor grayColor];
 //    foreGrounp.contentSize = CGSizeMake(kWidth, kWidth+40);
@@ -367,13 +409,13 @@
             if ([self checkAccessTokenIsExist]) {
                 self.isCancelCollect = NO;
                 //已经登录
-                if (self.isCollect) {
-                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelwei@2x"] forState:UIControlStateNormal];
-                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelzhong@2x"] forState:UIControlStateHighlighted];
-                }else{
-                    [collectionBtn setImage:[UIImage imageNamed:@"collect_wei@2x"] forState:UIControlStateNormal];
-                    [collectionBtn setImage:[UIImage imageNamed:@"collect_zhong@2x"] forState:UIControlStateHighlighted];
-                }
+//                if (self.isCollect) {
+//                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelwei@2x"] forState:UIControlStateNormal];
+//                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelzhong@2x"] forState:UIControlStateHighlighted];
+//                }else{
+//                    [collectionBtn setImage:[UIImage imageNamed:@"collect_wei@2x"] forState:UIControlStateNormal];
+//                    [collectionBtn setImage:[UIImage imageNamed:@"collect_zhong@2x"] forState:UIControlStateHighlighted];
+//                }
                 if (self.isWeixinShare) {
                     collectionBtn.hidden = YES;
                 }else
@@ -660,7 +702,7 @@
     }
     //状态栏旋转
     [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
-    [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
+    [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:NO];
 //    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
@@ -675,31 +717,52 @@
         }
         _timer3 = nil;
         [UIView animateWithDuration:0.15 animations:^{
-            topView.frame = CGRectMake(0, -44, kHeight, 44);
-            bottomView.frame = CGRectMake(0, kWidth+60, kHeight, 60);
+            if (iOS8) {
+                topView.frame = CGRectMake(0, -44, kWidth, 44);
+                bottomView.frame = CGRectMake(0, kHeight+60, kWidth, 60);
+            }else
+            {
+                topView.frame = CGRectMake(0, -44, kHeight, 44);
+                bottomView.frame = CGRectMake(0, kWidth+60, kHeight, 60);
+            }
             volumView.hidden = YES;
         }];
-        topViewHidden = !topViewHidden;
     }else{
         [UIView animateWithDuration:0.15 animations:^{
-            topView.frame = CGRectMake(0, 0, kHeight, 44);
-            bottomView.frame = CGRectMake(0, kWidth-60, kHeight, 60);
+            if (iOS8) {
+                topView.frame = CGRectMake(0, 0, kWidth, 44);
+                bottomView.frame = CGRectMake(0, kHeight-60, kWidth, 60);
+            }else
+            {
+                topView.frame = CGRectMake(0, 0, kHeight, 44);
+                bottomView.frame = CGRectMake(0, kWidth-60, kHeight, 60);
+            }
+            
         }];
-        topViewHidden = !topViewHidden;
         _timer3=[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(didTimer) userInfo:nil repeats:NO];
     }
+    topViewHidden = !topViewHidden;
+
 }
 
 //自动隐藏菜单栏和播放控制条
 - (void)didTimer
 {
     [UIView transitionWithView:bottomView duration:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        if (iOS8) {
+            bottomView.frame = CGRectMake(0, kHeight+44, kWidth, 44);
+
+        }else
         bottomView.frame = CGRectMake(0, kWidth+44, kHeight, 44);
     } completion:^(BOOL finished) {
 
     }];
     
     [UIView transitionWithView:topView duration:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        if (iOS8) {
+            topView.frame = CGRectMake(0, -44, kWidth, 44);
+
+        }else
         topView.frame = CGRectMake(0, -44, kHeight, 44);
     } completion:^(BOOL finished) {
         
@@ -711,41 +774,42 @@
 #define mark - SetMethod
 - (void)collectClick    //收藏
 {
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:kUserAccessToken];
-    NSString *method;
-    if (self.isCollect) {
-        method = @"unsubscribe";
-        [self MBprogressViewHubLoading:@"取消收藏" withMode:4];
-
-    }else
-    {
-        method = @"subscribe";
-        [self MBprogressViewHubLoading:@"正在收藏" withMode:4];
-
-    }
-    NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=%@&access_token=%@&shareid=%@&uk=%@",method,accessToken,self.shareId,self.uk];
-    ////NSLog(@"收藏的URL：%@",url);
-    [[AFHTTPRequestOperationManager manager]POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSDictionary *dict = (NSDictionary*)responseObject;
-        ////NSLog(@"收藏的dict:%@",dict);
-        if (self.isCollect) {
-//            [self MBprogressViewHubLoading:@"已取消收藏" withMode:4];
-            [self showResultAlertView:@"已取消收藏"];
-            self.isCancelCollect = YES;
-        }else
-        {
-//            [self MBprogressViewHubLoading:@"收藏成功" withMode:4];
-            [self showResultAlertView:@"收藏成功"];
-        }
-        [shareHub hide:YES afterDelay:0.5];
-
-//        self.isCollect = !self.isCollect;
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        ////NSLog(@"收藏的error：%@",[error userInfo]);
-//        [self MBprogressViewHubLoading:@"操作失败" withMode:4];
-        [self showResultAlertView:@"操作失败"];
-        [shareHub hide:YES afterDelay:0.5];
-    }];
+    NSLog(@"收藏=============");
+//    NSString *accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:kUserAccessToken];
+//    NSString *method;
+//    if (self.isCollect) {
+//        method = @"unsubscribe";
+//        [self MBprogressViewHubLoading:@"取消收藏" withMode:4];
+//
+//    }else
+//    {
+//        method = @"subscribe";
+//        [self MBprogressViewHubLoading:@"正在收藏" withMode:4];
+//
+//    }
+//    NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=%@&access_token=%@&shareid=%@&uk=%@",method,accessToken,self.shareId,self.uk];
+//    ////NSLog(@"收藏的URL：%@",url);
+//    [[AFHTTPRequestOperationManager manager]POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+////        NSDictionary *dict = (NSDictionary*)responseObject;
+//        ////NSLog(@"收藏的dict:%@",dict);
+//        if (self.isCollect) {
+////            [self MBprogressViewHubLoading:@"已取消收藏" withMode:4];
+//            [self showResultAlertView:@"已取消收藏"];
+//            self.isCancelCollect = YES;
+//        }else
+//        {
+////            [self MBprogressViewHubLoading:@"收藏成功" withMode:4];
+//            [self showResultAlertView:@"收藏成功"];
+//        }
+//        [shareHub hide:YES afterDelay:0.5];
+//
+////        self.isCollect = !self.isCollect;
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        ////NSLog(@"收藏的error：%@",[error userInfo]);
+////        [self MBprogressViewHubLoading:@"操作失败" withMode:4];
+//        [self showResultAlertView:@"操作失败"];
+//        [shareHub hide:YES afterDelay:0.5];
+//    }];
 }
 
 - (void)clipVODAction
@@ -772,8 +836,14 @@
 - (void)hiddenView
 {
     [UIView animateWithDuration:0.3 animations:^{
-        topView.frame = CGRectMake(0, -44, kHeight, 44);
-        bottomView.frame = CGRectMake(0, kWidth+44, kHeight, 44);
+        if (iOS8) {
+            topView.frame = CGRectMake(0, -44, kWidth, 44);
+            bottomView.frame = CGRectMake(0, kHeight+44, kWidth, 44);
+        }else
+        {
+            topView.frame = CGRectMake(0, -44, kHeight, 44);
+            bottomView.frame = CGRectMake(0, kWidth+44, kHeight, 44);
+        }
     }];
 }
 
@@ -1047,10 +1117,10 @@
 {
     [super viewWillAppear:YES];
     //设置应用程序的状态栏到指定的方向
-//    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
-//    //view旋转
-//    [self.view setTransform:CGAffineTransformMakeRotation(M_PI/2)];
-//    [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
+    //view旋转
+    [self.view setTransform:CGAffineTransformMakeRotation(M_PI/2)];
+    [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 
     [self adjustIsShareOrVod];
     [self startPlayback];

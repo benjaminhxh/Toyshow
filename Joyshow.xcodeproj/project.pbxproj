@@ -1747,7 +1747,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)/**";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1797,7 +1797,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: yiping hong (Y8SQTZPRUY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yiping hong (X56K7HERP9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yiping hong (X56K7HERP9)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1817,9 +1817,9 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Joyshow;
-				PROVISIONING_PROFILE = "2926534b-40c4-4a75-9dc5-caf0b2a22676";
+				PROVISIONING_PROFILE = "3588cbc6-eac2-404e-ad80-4a98b58e8be2";
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = armv7;
+				VALID_ARCHS = "i386 armv7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1849,9 +1849,9 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Joyshow;
-				PROVISIONING_PROFILE = "2926534b-40c4-4a75-9dc5-caf0b2a22676";
+				PROVISIONING_PROFILE = "3588cbc6-eac2-404e-ad80-4a98b58e8be2";
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = armv7;
+				VALID_ARCHS = "i386 armv7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
