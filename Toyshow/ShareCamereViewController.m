@@ -156,13 +156,18 @@
 
     NSLog(@"宽度：------%f----%f",kWidth,kHeight);
     topView = [[UIImageView alloc] init];
+    //收藏
+    collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+
     if (iOS8) {
         //顶部条
         topView.frame = CGRectMake(0, 0, kWidth, 44);
         //标题
-        titleL = [[UILabel alloc] initWithFrame:CGRectMake(51, 12, kHeight-51-20, 20)];
+        titleL = [[UILabel alloc] initWithFrame:CGRectMake(51, 12, kWidth-51-20-56, 24)];
         //显示实时时间
         timeL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/2-20, 5, 40, 15)];
+        collectionBtn.frame = CGRectMake(kHeight, 11, (kWidth-kHeight-23-10)*2, 24);
+
     }else
     {
         //顶部条
@@ -171,6 +176,8 @@
         titleL = [[UILabel alloc] initWithFrame:CGRectMake(51, 12, kWidth-51-20, 20)];
         //显示实时时间
         timeL = [[UILabel alloc] initWithFrame:CGRectMake(kHeight/2-20, 5, 40, 15)];
+        collectionBtn.frame = CGRectMake(kHeight-56, 11, 46, 24);
+
     }
     topView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     topView.userInteractionEnabled = YES;
@@ -186,45 +193,34 @@
     titleL.backgroundColor = [UIColor clearColor];
     titleL.font = [UIFont systemFontOfSize:12];
     titleL.text = self.playerTitle;
-    [topView addSubview:titleL];
     
    
     timeL.text = @"12:12:12";
     timeL.font = [UIFont systemFontOfSize:9];
     timeL.textColor = [UIColor whiteColor];
     timeL.backgroundColor = [UIColor clearColor];
-    [topView addSubview:timeL];
 
     //直播
     //剪辑视频
-    clipVODBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    clipVODBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    //收藏
-    collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-   
-    if (iOS8) {
-        collectionBtn.frame = CGRectMake(kWidth/4*3-23, 1, 146, 44);
-        clipVODBtn.frame = CGRectMake(kWidth-56, 11, 46, 24);
-    }
-    else
-    {
-        collectionBtn.frame = CGRectMake(kHeight-56, 11, 46, 24);
-        clipVODBtn.frame = CGRectMake(kHeight-56, 11, 46, 24);
-    }
-//    if (self.isCollect) {
-//        [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelwei"] forState:UIControlStateNormal];
-//        [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelzhong"] forState:UIControlStateHighlighted];
-//    }else{
-//        [collectionBtn setImage:[UIImage imageNamed:@"collect_wei"] forState:UIControlStateNormal];
-//        [collectionBtn setImage:[UIImage imageNamed:@"collect_zhong"] forState:UIControlStateHighlighted];
-//    }
-    collectionBtn.backgroundColor = [UIColor redColor];
-    [collectionBtn addTarget:self action:@selector(collectClick) forControlEvents:UIControlEventTouchUpInside];
-//    [topView addSubview:collectionBtn];
 
-    [clipVODBtn setImage:[UIImage imageNamed:@"clip"] forState:UIControlStateNormal];
-    [clipVODBtn setImage:[UIImage imageNamed:@"clip_no"] forState:UIControlStateHighlighted];
-    [clipVODBtn addTarget:self action:@selector(clipVODAction) forControlEvents:UIControlEventTouchUpInside];
+    if (self.isCollect) {
+        [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelwei"] forState:UIControlStateNormal];
+        [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelzhong"] forState:UIControlStateHighlighted];
+    }else{
+        [collectionBtn setImage:[UIImage imageNamed:@"collect_wei"] forState:UIControlStateNormal];
+        [collectionBtn setImage:[UIImage imageNamed:@"collect_zhong"] forState:UIControlStateHighlighted];
+    }
+    collectionBtn.backgroundColor = [UIColor clearColor];
+    [collectionBtn addTarget:self action:@selector(collectClick) forControlEvents:UIControlEventTouchUpInside];
+    [topView addSubview:collectionBtn];
+    [topView addSubview:titleL];
+    [topView addSubview:timeL];
+
+//    [clipVODBtn setImage:[UIImage imageNamed:@"clip"] forState:UIControlStateNormal];
+//    [clipVODBtn setImage:[UIImage imageNamed:@"clip_no"] forState:UIControlStateHighlighted];
+//    [clipVODBtn addTarget:self action:@selector(clipVODAction) forControlEvents:UIControlEventTouchUpInside];
 //    clipVODBtn.backgroundColor = [UIColor blueColor];
 //    [topView addSubview:clipVODBtn];
     //点播(看录像)
@@ -305,12 +301,24 @@
 #pragma mark - addclipView
 - (void)addclipView
 {
+    UIButton *clipFinishBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton *OKBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     if (iOS8) {
         foreGrounp = [[UIView alloc] initWithFrame:CGRectMake(kWidth-kHeight, 0, kHeight, kHeight)];
+        clipFinishBtn.frame = CGRectMake(kHeight-75, 0, 65, 30);
+        endT = [[UIButton alloc] initWithFrame:CGRectMake(kHeight-140, 115, 125, 30)];
+        timeView = [[UIView alloc] initWithFrame:CGRectMake(0, kWidth, kHeight, kpickViewHeight)];
+        OKBtn.frame = CGRectMake(kHeight-70, 0, 60, 30);
+        datePick = [[UIDatePicker alloc] initWithFrame:CGRectMake(10-kHeight/3, 35, kHeight, 162)];
 
     }else
     {
         foreGrounp = [[UIView alloc] initWithFrame:CGRectMake(kHeight-kWidth, 0, kWidth, kWidth)];
+        clipFinishBtn.frame = CGRectMake(kWidth-75, 0, 65, 30);
+        endT = [[UIButton alloc] initWithFrame:CGRectMake(kWidth-140, 115, 125, 30)];
+        timeView = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight, kWidth, kpickViewHeight)];
+        OKBtn.frame = CGRectMake(kWidth-70, 0, 60, 30);
+        datePick = [[UIDatePicker alloc] initWithFrame:CGRectMake(-kWidth/3, 35, kWidth, 162)];
 
     }
     foreGrounp.alpha = 0.9;
@@ -329,8 +337,7 @@
     [clipCancelBtn addTarget:self action:@selector(clipCancelBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [foreGrounp addSubview:clipCancelBtn];
     
-    UIButton *clipFinishBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    clipFinishBtn.frame = CGRectMake(kWidth-75, 0, 65, 30);
+   
     [clipFinishBtn setTitle:@"完成" forState:UIControlStateNormal];
     [clipFinishBtn setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
 
@@ -353,7 +360,6 @@
     [startF addTarget:self action:@selector(startTimeSelect) forControlEvents:UIControlEventTouchUpInside];
     [foreGrounp addSubview:startF];
     
-    endT = [[UIButton alloc] initWithFrame:CGRectMake(kWidth-140, 115, 125, 30)];
     [endT setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
     [endT setTitle:@"结束时间" forState:UIControlStateNormal] ;
     [endT addTarget:self action:@selector(endTimeSelect) forControlEvents:UIControlEventTouchUpInside];
@@ -365,7 +371,6 @@
     fileName.borderStyle = UITextBorderStyleBezel;
     [foreGrounp addSubview:fileName];
     
-    timeView = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight, kWidth, kpickViewHeight)];
     [foreGrounp addSubview:timeView];
     timeView.backgroundColor = [UIColor whiteColor];
     
@@ -377,14 +382,11 @@
     [cancelBtn addTarget:self action:@selector(cancelDatePickSelectAction:) forControlEvents:UIControlEventTouchUpInside];
     [timeView addSubview:cancelBtn];
     
-    UIButton *OKBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    OKBtn.frame = CGRectMake(kWidth-70, 0, 60, 30);
     [OKBtn setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
     [OKBtn setTitle:@"确定" forState:UIControlStateNormal];
     [OKBtn addTarget:self action:@selector(OKBtnDatePickSelectAction:) forControlEvents:UIControlEventTouchUpInside];
     [timeView addSubview:OKBtn];
 //    NSLog(@"===========================================kwidth:%f",kWidth);
-    datePick = [[UIDatePicker alloc] initWithFrame:CGRectMake(-kWidth/3, 35, kWidth, 162)];
     datePick.datePickerMode = UIDatePickerModeDateAndTime;
     datePick.backgroundColor = [UIColor clearColor];
     [timeView addSubview:datePick];
@@ -400,7 +402,7 @@
     self.request_id = @"";
     [self isLoadingView];
     volumView.hidden = YES;
-    clipVODBtn.hidden = YES;
+//    clipVODBtn.hidden = YES;
     //直播
     if (self.isLive) {
         if (self.isShare) {
@@ -409,13 +411,13 @@
             if ([self checkAccessTokenIsExist]) {
                 self.isCancelCollect = NO;
                 //已经登录
-//                if (self.isCollect) {
-//                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelwei@2x"] forState:UIControlStateNormal];
-//                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelzhong@2x"] forState:UIControlStateHighlighted];
-//                }else{
-//                    [collectionBtn setImage:[UIImage imageNamed:@"collect_wei@2x"] forState:UIControlStateNormal];
-//                    [collectionBtn setImage:[UIImage imageNamed:@"collect_zhong@2x"] forState:UIControlStateHighlighted];
-//                }
+                if (self.isCollect) {
+                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelwei@2x"] forState:UIControlStateNormal];
+                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelzhong@2x"] forState:UIControlStateHighlighted];
+                }else{
+                    [collectionBtn setImage:[UIImage imageNamed:@"collect_wei@2x"] forState:UIControlStateNormal];
+                    [collectionBtn setImage:[UIImage imageNamed:@"collect_zhong@2x"] forState:UIControlStateHighlighted];
+                }
                 if (self.isWeixinShare) {
                     collectionBtn.hidden = YES;
                 }else
@@ -430,7 +432,7 @@
             //我的摄像头直播
             collectionBtn.hidden = YES;
             bottomView.hidden = YES;
-            clipVODBtn.hidden = NO;
+//            clipVODBtn.hidden = NO;
         }
     }else{
         //点播
@@ -774,42 +776,42 @@
 #define mark - SetMethod
 - (void)collectClick    //收藏
 {
-    NSLog(@"收藏=============");
-//    NSString *accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:kUserAccessToken];
-//    NSString *method;
-//    if (self.isCollect) {
-//        method = @"unsubscribe";
-//        [self MBprogressViewHubLoading:@"取消收藏" withMode:4];
-//
-//    }else
-//    {
-//        method = @"subscribe";
-//        [self MBprogressViewHubLoading:@"正在收藏" withMode:4];
-//
-//    }
-//    NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=%@&access_token=%@&shareid=%@&uk=%@",method,accessToken,self.shareId,self.uk];
-//    ////NSLog(@"收藏的URL：%@",url);
-//    [[AFHTTPRequestOperationManager manager]POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-////        NSDictionary *dict = (NSDictionary*)responseObject;
-//        ////NSLog(@"收藏的dict:%@",dict);
-//        if (self.isCollect) {
-////            [self MBprogressViewHubLoading:@"已取消收藏" withMode:4];
+//    NSLog(@"收藏=============");
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:kUserAccessToken];
+    NSString *method;
+    if (self.isCollect) {
+        method = @"unsubscribe";
+        [self MBprogressViewHubLoading:@"取消收藏" withMode:4];
+
+    }else
+    {
+        method = @"subscribe";
+        [self MBprogressViewHubLoading:@"正在收藏" withMode:4];
+
+    }
+    NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=%@&access_token=%@&shareid=%@&uk=%@",method,accessToken,self.shareId,self.uk];
+    ////NSLog(@"收藏的URL：%@",url);
+    [[AFHTTPRequestOperationManager manager]POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSDictionary *dict = (NSDictionary*)responseObject;
+        ////NSLog(@"收藏的dict:%@",dict);
+        if (self.isCollect) {
+            [self MBprogressViewHubLoading:@"已取消收藏" withMode:4];
 //            [self showResultAlertView:@"已取消收藏"];
-//            self.isCancelCollect = YES;
-//        }else
-//        {
-////            [self MBprogressViewHubLoading:@"收藏成功" withMode:4];
+            self.isCancelCollect = YES;
+        }else
+        {
+            [self MBprogressViewHubLoading:@"收藏成功" withMode:4];
 //            [self showResultAlertView:@"收藏成功"];
-//        }
-//        [shareHub hide:YES afterDelay:0.5];
-//
-////        self.isCollect = !self.isCollect;
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        ////NSLog(@"收藏的error：%@",[error userInfo]);
-////        [self MBprogressViewHubLoading:@"操作失败" withMode:4];
+        }
+        [shareHub hide:YES afterDelay:1.5];
+
+//        self.isCollect = !self.isCollect;
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        ////NSLog(@"收藏的error：%@",[error userInfo]);
+        [self MBprogressViewHubLoading:@"操作失败" withMode:4];
 //        [self showResultAlertView:@"操作失败"];
-//        [shareHub hide:YES afterDelay:0.5];
-//    }];
+        [shareHub hide:YES afterDelay:1.5];
+    }];
 }
 
 - (void)clipVODAction
@@ -1037,6 +1039,10 @@
 - (void)startTimeSelect
 {
     [UIView animateWithDuration:0.3 animations:^{
+        if (iOS8) {
+            timeView.frame = CGRectMake(0, kHeight-kpickViewHeight, kHeight, kpickViewHeight);
+
+        }else
         timeView.frame = CGRectMake(0, kWidth-kpickViewHeight, kWidth, kpickViewHeight);
     }];
     isStart = YES;
@@ -1045,6 +1051,10 @@
 - (void)endTimeSelect
 {
     [UIView animateWithDuration:0.3 animations:^{
+        if (iOS8) {
+            timeView.frame = CGRectMake(0, kHeight-kpickViewHeight, kHeight, kpickViewHeight);
+
+        }else
         timeView.frame = CGRectMake(0, kWidth-kpickViewHeight, kWidth, kpickViewHeight);
     }];
     isStart = NO;
@@ -1053,6 +1063,10 @@
 - (void)OKBtnDatePickSelectAction:(id)sender
 {
     [UIView animateWithDuration:0.3 animations:^{
+        if (iOS8) {
+            timeView.frame = CGRectMake(0, kWidth, kHeight, kpickViewHeight);
+
+        }else
         timeView.frame = CGRectMake(0, kHeight, kWidth, kpickViewHeight);
     }];
     datePick.maximumDate = [NSDate dateWithTimeIntervalSinceNow:0];
@@ -1074,7 +1088,11 @@
 - (void)cancelDatePickSelectAction:(id)sender
 {
     [UIView animateWithDuration:0.3 animations:^{
-        timeView.frame = CGRectMake(0, kHeight, kWidth, kpickViewHeight);
+        if (iOS8) {
+            timeView.frame = CGRectMake(0, kWidth, kHeight, kpickViewHeight);
+            
+        }else
+            timeView.frame = CGRectMake(0, kHeight, kWidth, kpickViewHeight);
     }];
 }
 

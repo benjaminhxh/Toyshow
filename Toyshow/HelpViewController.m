@@ -87,7 +87,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellI];
         switch (indexPath.row) {
             case 0:
-                cell.textLabel.text = @"如何使用乐现";
+                cell.textLabel.text = @"使用帮助和常见问题";
 
                 break;
             case 1:
@@ -114,7 +114,11 @@
 {
     switch (indexPath.row) {
         case 0:
-            [self alertViewShowWithTitle:@"请详细阅读说明书或者前往官网" andMessage:nil withDelegate:self andCancelButton:@"好" andOtherButton:nil];
+//            [self alertViewShowWithTitle:@"请详细阅读说明书或者前往官网" andMessage:nil withDelegate:self andCancelButton:@"好" andOtherButton:nil];
+        {
+            HowToUseViewController *howtouseVC = [[HowToUseViewController alloc]init];
+            [[SliderViewController sharedSliderController].navigationController pushViewController:howtouseVC animated:YES];
+        }
             break;
         case 1:
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.51joyshow.com.cn"]];
@@ -146,7 +150,9 @@
     [self progressViewLoading];
     //检测新版本地址
 //    NSString *url = @"http://www.51joyshow.com.cn/index.php?m=content&c=banben&type=2";
-    NSString *url = @"http://joy.weichuangkeji.net/sysupdate.php?type=2";
+//    NSString *url = @"http://joy.weichuangkeji.net/sysupdate.php?type=2";
+    NSString *url = @"http://www.51joyshow.com/index.php?m=content&c=lx_down&a=app_sj&type=2";
+
    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
 //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"text/plain",@"text/json",@"application/x-javascript",nil];
 //    manager.requestSerializer = [AFJSONRequestSerializer serializer];
