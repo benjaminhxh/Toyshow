@@ -762,9 +762,17 @@
         if (data.length > 0 && connectionError == nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [badInternetHub hide:YES afterDelay:0.5];
-
-                UIAlertView *tipview = [[UIAlertView alloc] initWithTitle:@"剪辑成功" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
-                [tipview show];
+                NSDictionary *dictt = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+                NSString *error_code = [dictt objectForKey:@"error_code"];
+                if (error_code) {
+                    UIAlertView *tipview = [[UIAlertView alloc] initWithTitle:@"剪辑失败" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
+                    [tipview show];
+ 
+                }else
+                {
+                    UIAlertView *tipview = [[UIAlertView alloc] initWithTitle:@"剪辑成功" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil]   ;
+                    [tipview show];
+                }
             });
             
         }else{
