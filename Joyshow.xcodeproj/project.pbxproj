@@ -85,6 +85,7 @@
 		27966A0F18E2EB1A0076423C /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 27966A0818E2EB1A0076423C /* MJRefreshConst.m */; };
 		27966A1018E2EB1A0076423C /* MJRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27966A0A18E2EB1A0076423C /* MJRefreshFooterView.m */; };
 		27966A1118E2EB1A0076423C /* MJRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27966A0C18E2EB1A0076423C /* MJRefreshHeaderView.m */; };
+		27B370D71A1DCC8F005E19EF /* howtouse.html in Resources */ = {isa = PBXBuildFile; fileRef = 27B370D61A1DCC8F005E19EF /* howtouse.html */; };
 		27D8CBBE19EFCD6600F88505 /* MVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D8CBBB19EFCD6600F88505 /* MVViewController.m */; };
 		27D8CBBF19EFCD6600F88505 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D8CBBD19EFCD6600F88505 /* VideoViewController.m */; };
 		27DEAAFC1A03624700995E57 /* UINavigationController+Autorotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DEAAFB1A03624700995E57 /* UINavigationController+Autorotate.m */; };
@@ -475,6 +476,7 @@
 		27966A0A18E2EB1A0076423C /* MJRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshFooterView.m; sourceTree = "<group>"; };
 		27966A0B18E2EB1A0076423C /* MJRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshHeaderView.h; sourceTree = "<group>"; };
 		27966A0C18E2EB1A0076423C /* MJRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshHeaderView.m; sourceTree = "<group>"; };
+		27B370D61A1DCC8F005E19EF /* howtouse.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = howtouse.html; sourceTree = "<group>"; };
 		27BA304519737C6E00F98042 /* VarHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VarHeader.h; sourceTree = "<group>"; };
 		27D8CBBA19EFCD6600F88505 /* MVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVViewController.h; sourceTree = "<group>"; };
 		27D8CBBB19EFCD6600F88505 /* MVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVViewController.m; sourceTree = "<group>"; };
@@ -1249,6 +1251,7 @@
 				275C716918CEC91E00288C83 /* AboutViewController.h */,
 				275C716A18CEC91E00288C83 /* AboutViewController.m */,
 				2775DF1E19EE62F700024928 /* about.html */,
+				27B370D61A1DCC8F005E19EF /* howtouse.html */,
 				27FFE29618BF287B00AE47FF /* Images.xcassets */,
 				27FFE28B18BF287B00AE47FF /* Supporting Files */,
 			);
@@ -1408,6 +1411,7 @@
 				27E5ABB619AB39C0004B5458 /* xuanzhong_tiao@2x.png in Resources */,
 				27E5AB9619AB39C0004B5458 /* setanniuhei@2x.png in Resources */,
 				27E5AB9419AB39C0004B5458 /* setanniu@2x.png in Resources */,
+				27B370D71A1DCC8F005E19EF /* howtouse.html in Resources */,
 				277952FF19E52DEB00280390 /* Icon.png in Resources */,
 				27E5ABA219AB39C0004B5458 /* shipinkuang@2x.png in Resources */,
 				27E5ABC219AB39C0004B5458 /* yinliang_zhong@2x.png in Resources */,

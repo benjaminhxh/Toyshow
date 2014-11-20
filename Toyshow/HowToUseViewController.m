@@ -40,6 +40,19 @@
     [backBtn addTarget:self action:@selector(backBtn) forControlEvents:UIControlEventTouchUpInside];
     [backBtn setTitle:@"如何使用" forState:UIControlStateNormal];
     [topView addSubview:backBtn];
+    
+    UIWebView *howtouseV = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"howtouse.html" ofType:nil];
+    NSURL *url = [NSURL URLWithString:path];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [howtouseV loadRequest:request];
+    [self.view addSubview:howtouseV];
+    
+    //右滑回到上一个页面
+    UISwipeGestureRecognizer *recognizer;
+    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(backBtn)];
+    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    [howtouseV addGestureRecognizer:recognizer];
 }
 
 - (void)backBtn
