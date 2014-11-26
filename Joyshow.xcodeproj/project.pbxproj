@@ -86,6 +86,7 @@
 		27966A1018E2EB1A0076423C /* MJRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27966A0A18E2EB1A0076423C /* MJRefreshFooterView.m */; };
 		27966A1118E2EB1A0076423C /* MJRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27966A0C18E2EB1A0076423C /* MJRefreshHeaderView.m */; };
 		27B370D71A1DCC8F005E19EF /* howtouse.html in Resources */ = {isa = PBXBuildFile; fileRef = 27B370D61A1DCC8F005E19EF /* howtouse.html */; };
+		27B990161A2320980013F1A8 /* LoginBaiduViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B990151A2320980013F1A8 /* LoginBaiduViewController.m */; };
 		27D8CBBE19EFCD6600F88505 /* MVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D8CBBB19EFCD6600F88505 /* MVViewController.m */; };
 		27D8CBBF19EFCD6600F88505 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D8CBBD19EFCD6600F88505 /* VideoViewController.m */; };
 		27DEAAFC1A03624700995E57 /* UINavigationController+Autorotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DEAAFB1A03624700995E57 /* UINavigationController+Autorotate.m */; };
@@ -477,6 +478,8 @@
 		27966A0B18E2EB1A0076423C /* MJRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshHeaderView.h; sourceTree = "<group>"; };
 		27966A0C18E2EB1A0076423C /* MJRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshHeaderView.m; sourceTree = "<group>"; };
 		27B370D61A1DCC8F005E19EF /* howtouse.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = howtouse.html; sourceTree = "<group>"; };
+		27B990141A2320980013F1A8 /* LoginBaiduViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginBaiduViewController.h; sourceTree = "<group>"; };
+		27B990151A2320980013F1A8 /* LoginBaiduViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginBaiduViewController.m; sourceTree = "<group>"; };
 		27BA304519737C6E00F98042 /* VarHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VarHeader.h; sourceTree = "<group>"; };
 		27D8CBBA19EFCD6600F88505 /* MVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVViewController.h; sourceTree = "<group>"; };
 		27D8CBBB19EFCD6600F88505 /* MVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVViewController.m; sourceTree = "<group>"; };
@@ -1218,6 +1221,8 @@
 				27FFE29418BF287B00AE47FF /* HXHAppDelegate.m */,
 				2703E50718D97E8C00E31DF0 /* MainViewController.h */,
 				2703E50818D97E8C00E31DF0 /* MainViewController.m */,
+				27B990141A2320980013F1A8 /* LoginBaiduViewController.h */,
+				27B990151A2320980013F1A8 /* LoginBaiduViewController.m */,
 				2703E50D18D97E8C00E31DF0 /* LeftViewController.h */,
 				2703E50E18D97E8C00E31DF0 /* LeftViewController.m */,
 				2732466B18D98B2000F82011 /* MyCameraViewController.h */,
@@ -1611,6 +1616,7 @@
 				2777607818FB74BD000A5F83 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				27E5A99F19AB35D0004B5458 /* ImageResolutionViewController.m in Sources */,
 				2777607D18FB74BD000A5F83 /* UIProgressView+AFNetworking.m in Sources */,
+				27B990161A2320980013F1A8 /* LoginBaiduViewController.m in Sources */,
 				27D8CBBF19EFCD6600F88505 /* VideoViewController.m in Sources */,
 				2703E51818D97EA500E31DF0 /* SliderViewController.m in Sources */,
 				27E5A97419AB34ED004B5458 /* AddDeviceViewController.m in Sources */,

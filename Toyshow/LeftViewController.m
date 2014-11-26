@@ -403,7 +403,7 @@
         NSMutableArray *scope = [[NSMutableArray alloc] init];
         [scope addObject:FRONTIA_PERMISSION_USER_INFO];
         [scope addObject:FRONTIA_PERMISSION_PCS];
-//        ////NSLog(@"-------fengexian---------scope:%@",scope);
+//        NSLog(@"-------fengexian---------scope:%@",scope);
         [authorization authorizeWithPlatform:FRONTIA_SOCIAL_PLATFORM_BAIDU scope:scope supportedInterfaceOrientations:UIInterfaceOrientationMaskPortrait isStatusBarHidden:NO cancelListener:onCancel failureListener:onFailure resultListener:onResult];
     }
 }

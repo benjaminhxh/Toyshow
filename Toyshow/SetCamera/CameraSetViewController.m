@@ -313,7 +313,9 @@
                         avideoVC.streamIndex = [cameraInfoDict objectForKey:@"iStreamBitrate"];
                         avideoVC.flipImageIndex = [[cameraInfoDict objectForKey:@"iFlipImage"] integerValue];
                         avideoVC.ntscOrPalIndex = [[cameraInfoDict objectForKey:@"iNTSCPAL"] integerValue];
-                        avideoVC.iMainStreamUserOption = [[cameraInfoDict objectForKey:@"iMainStreamUserOption"] integerValue];
+//                        avideoVC.iMainStreamUserOption = [[cameraInfoDict objectForKey:@"iMainStreamUserOption"] integerValue];
+                        avideoVC.iMainStreamUserOption = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
+
                         ////NSLog(@"分辨率：%@",[cameraInfoDict objectForKey:@"iImageResolution"]);
                         avideoVC.isLow = islow;
                         [[SliderViewController sharedSliderController].navigationController pushViewController:avideoVC animated:YES];
@@ -372,7 +374,9 @@
                         avideoVC.flipImageIndex = [[cameraInfoDict objectForKey:@"iFlipImage"] integerValue];
                         avideoVC.ntscOrPalIndex = [[cameraInfoDict objectForKey:@"iNTSCPAL"] integerValue];
 //                        avideoVC.imageResolutionIndex = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
-                        avideoVC.iMainStreamUserOption = [[cameraInfoDict objectForKey:@"iMainStreamUserOption"] integerValue];
+//                        avideoVC.iMainStreamUserOption = [[cameraInfoDict objectForKey:@"iMainStreamUserOption"] integerValue];
+                        avideoVC.iMainStreamUserOption = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
+
                         avideoVC.isLow = islow;
                         [[SliderViewController sharedSliderController].navigationController pushViewController:avideoVC animated:YES];
                     }

@@ -151,7 +151,7 @@
         imageResolutionL.frame = CGRectMake(15, 220, 110, 31);
         NSArray *imageResolutionArr = [NSArray arrayWithObjects:@"1080P",@"720P",@"标清",@"流畅", nil];
         iMainStreamUserOptionSeg = [[UISegmentedControl alloc] initWithItems:imageResolutionArr];
-        iMainStreamUserOptionSeg.frame = CGRectMake(5, 260, 310, 41);
+        iMainStreamUserOptionSeg.frame = CGRectMake(5, 260, kWidth-10, 41);
         iMainStreamUserOptionSeg.selectedSegmentIndex = self.iMainStreamUserOption-1;
         [iMainStreamUserOptionSeg addTarget:self action:@selector(iMainStreamUserOptionSegAction:) forControlEvents:UIControlEventValueChanged];
         [scrollView addSubview:iMainStreamUserOptionSeg];
@@ -206,7 +206,9 @@
                                        streamF.text,@"iStreamBitrate",
                                        [NSNumber numberWithInteger:flipImageSeg.selectedSegmentIndex],@"iFlipImage",
                                        [NSNumber numberWithInteger:ntscOrPalSeg.selectedSegmentIndex+1],@"iNTSCPAL",
-                                       [NSNumber numberWithInteger:iMainStreamUserOptionSeg.selectedSegmentIndex+1],@"iMainStreamUserOption",nil];
+                                       [NSNumber numberWithInteger:iMainStreamUserOptionSeg.selectedSegmentIndex+1],@"iImageResolution",nil];
+
+//                                       [NSNumber numberWithInteger:iMainStreamUserOptionSeg.selectedSegmentIndex+1],@"iMainStreamUserOption",nil];
     NSString *setCameraDataString = [setCameraDataDict JSONString];
     NSString *strWithUTF8 = [setCameraDataString encodeChinese];
 //    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));

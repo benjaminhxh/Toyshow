@@ -17,6 +17,6 @@
 @property (nonatomic, copy) NSString *streamIndex;
 @property (nonatomic, assign) NSInteger flipImageIndex;
 @property (nonatomic, assign) NSInteger ntscOrPalIndex;
-@property (nonatomic, assign) NSInteger imageResolutionIndex;
+//@property (nonatomic, assign) NSInteger imageResolutionIndex;
 @property (nonatomic, assign) NSInteger iMainStreamUserOption;
 @end

@@ -19,6 +19,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "Reachability1.h"
 #import <CommonCrypto/CommonDigest.h> //md5加密需要的头文件
+#import "LoginBaiduViewController.h"
 
 @interface MainViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate>
 {
@@ -98,6 +99,12 @@
     [backBtn addTarget:self action:@selector(leftItemClick) forControlEvents:UIControlEventTouchUpInside];
     [navBar addSubview:backBtn];
 
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBtn.frame = CGRectMake(kWidth-140, backHeight, 126, 22);
+    [rightBtn setTitle:@"登陆" forState:UIControlStateNormal];
+    [rightBtn addTarget:self action:@selector(rightItemClick) forControlEvents:UIControlEventTouchUpInside];
+    [navBar addSubview:rightBtn];
+    
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, 320, [UIScreen mainScreen].bounds.size.height-65) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -241,6 +248,7 @@
     _footerView = footer;
 }
 
+
 - (void)didDismissNoDataload
 {
     noDataLoadL.hidden = YES;
@@ -264,10 +272,22 @@
     [[SliderViewController sharedSliderController] leftItemClick];
 }
 
-//- (void)rightItemClick
-//{
-//    [[SliderViewController sharedSliderController]rightItemClick];
-//}
+- (void)rightItemClick
+{
+    
+//    [[AFHTTPRequestOperationManager manager] POST:url
+//                                       parameters:nil
+//                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//                                              NSLog(@"response:%@",responseObject);
+//    }
+//                                          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                                              NSLog(@"error:%@",error);
+//    }];
+    LoginBaiduViewController *loginVC = [[LoginBaiduViewController alloc] init];
+    [[SliderViewController sharedSliderController].navigationController pushViewController:loginVC animated:YES];
+    
+}
+
 
 #pragma mark - Table view data source
 
