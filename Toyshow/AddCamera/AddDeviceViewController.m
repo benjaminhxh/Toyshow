@@ -430,7 +430,7 @@
 //        const char *str2 = [self.userID UTF8String];
 //        NSString *userName = [NSString stringWithCString:str2 encoding:NSUTF8StringEncoding];
         NSString *userID = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
-        NSString *dataStr = [NSString stringWithFormat:@"1%@%@%@%@%@%@%@2%@%@%@%@%@",self.wifiBssid,SSIDF.text,self.security,self.identifify,SSIDPWF.text,userID,self.access_token,self.wepStyle,self.dhcp,self.ipaddr,self.mask,self.gateway];
+        NSString *dataStr = [NSString stringWithFormat:@"1%@%@%@%@%@%@%@%@2%@%@%@%@%@",self.wifiBssid,SSIDF.text,self.security,self.identifify,SSIDPWF.text,userID,self.access_token,[[NSUserDefaults standardUserDefaults] objectForKey:kUserRefreshToken],self.wepStyle,self.dhcp,self.ipaddr,self.mask,self.gateway];
         ////NSLog(@"dataStr:%@",dataStr);
         NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                   @"1",@"opcode",//1为注册
@@ -441,6 +441,7 @@
                                   SSIDPWF.text,@"pwd",//WiFi密码
                                   userID,@"userId",//登录的用户名
                                   self.access_token,@"accessToken",//accessToken
+                                  [[NSUserDefaults standardUserDefaults] objectForKey:kUserRefreshToken],@"refreshToken",
                                   @"2",@"osType",//2为iOS平台
                                   self.wepStyle,@"hexAscii",//16进制或ascll
                                   self.dhcp,@"dhcp",//1为自动

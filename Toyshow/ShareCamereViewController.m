@@ -154,7 +154,6 @@
                                                  name:CyberPlayerGotCachePercentNotification
                                                object:nil];
 
-//    NSLog(@"宽度：------%f----%f",kWidth,kHeight);
     topView = [[UIImageView alloc] init];
     //收藏
     collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -22,6 +22,7 @@
 //百度用户信息
 #define kUserName               @"userName"
 #define kUserAccessToken        @"userAccessToken"
+#define kUserRefreshToken        @"userRefreshToken"
 #define kUserHeadImage          @"userHeadImage"
 #define kUserId                 @"userID"
 //播放器

@@ -28,8 +28,15 @@
 #import "WeixinTimelineActivity.h"
 #import "UIImageView+AFNetworking.h"
 #import "ShareCamereViewController.h"
+#import "Baidu.h"
+#import "BaiduAuthorizeViewController.h"
+//#import "BaiduAPIRequest.h"
+//#import "BaiduConfig.h"
+#import "BaiduUserSession.h"
+#import "BaiduUserSessionManager.h"
 
-@interface LeftViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,WXApiDelegate,ZBarReaderDelegate>
+
+@interface LeftViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,WXApiDelegate,ZBarReaderDelegate,BaiduAuthorizeDelegate,BaiduAPIRequestDelegate>
 {
     NSArray *_listArr,*_imageArr;
     UILabel *_titleTextL,*loginOrOutL;
@@ -43,6 +50,8 @@
     ShareCamereViewController *_playVC;
     NSDictionary *_playDict;
     ZBarReaderViewController *reader;
+    Baidu *baidu;
+
 }
 @end
 
@@ -372,6 +381,27 @@
 
 #pragma mark - baidu登陆
 //登录按钮
+- (void)loginBaidu
+{
+    BaiduAuthorizeViewController *baiduAuthVC = [[BaiduAuthorizeViewController alloc] init];
+    baiduAuthVC.delegate = self;
+    [baidu authorizeWithTargetViewController:baiduAuthVC scope:@"netdisk" andDelegate:self];
+    [self presentViewController:baiduAuthVC animated:YES completion:nil];
+}
+
+- (void)loginDidSuccess
+{
+    BaiduUserSession *session = [BaiduUserSessionManager shareUserSessionManager].currentUserSession;
+    NSLog(@"1session.accessToken:%@-----------%@",session.accessToken,session.refreshToken);
+
+    [baidu refreshUserToken];
+    NSLog(@"3session.accessToken:%@-----------%@",session.accessToken,session.refreshToken);
+    [[NSUserDefaults standardUserDefaults] setObject:session.refreshToken forKey:kUserRefreshToken];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self signonButtonClicked];
+    
+}
+
 - (void)signonButtonClicked {
     FrontiaAuthorization* authorization = [Frontia getAuthorization];
     if(authorization) {
@@ -391,7 +421,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:result.accessToken forKey:kUserAccessToken];
             [[NSUserDefaults standardUserDefaults] synchronize];
             self.accessToken = result.accessToken;
-//            NSLog(@"授权成功的accessToken：%@",result.accessToken);//有
+            NSLog(@"授权成功的accessToken：%@",result.accessToken);//有
             //设置授权成功的账户为当前使用者账户
             self.userNameL.text = result.accountName;
             [Frontia setCurrentAccount:result];
@@ -455,7 +485,8 @@
 {
     if (_loginView == alertView) {
         if (buttonIndex) {
-            [self signonButtonClicked];
+//            [self signonButtonClicked];
+            [self loginBaidu];
         }else
         {
         }
