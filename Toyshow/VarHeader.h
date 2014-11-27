@@ -10,9 +10,11 @@
 #define Joyshow_VarHeader_h
 
 #define leftWidth 220
-//#define APIKEY                  @"ZIAgdlC7Vw7syTjeKG9zS4QP"
 #define msAK                    @"ZIAgdlC7Vw7syTjeKG9zS4QP"
 #define msSK                    @"pavlqfU4mzYQ1dH0NG3b7LyXNBy5SYk6"
+#define APP_KEY @"ZIAgdlC7Vw7syTjeKG9zS4QP"
+#define APP_ID @"2271149"
+
 #define backGroundImage         @"beijing@2x"
 #define navigationBarImageiOS7  @"bantou_dida@2x"
 #define navigationBarImage      @"bantou_di@2x"

@@ -19,7 +19,6 @@
 #import "UIImageView+AFNetworking.h"
 #import "Reachability1.h"
 #import <CommonCrypto/CommonDigest.h> //md5加密需要的头文件
-#import "LoginBaiduViewController.h"
 
 @interface MainViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate>
 {

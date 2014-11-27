@@ -383,6 +383,7 @@
 //登录按钮
 - (void)loginBaidu
 {
+    baidu = [[Baidu alloc] initWithAPIKey:APP_KEY appId:APP_ID];
     BaiduAuthorizeViewController *baiduAuthVC = [[BaiduAuthorizeViewController alloc] init];
     baiduAuthVC.delegate = self;
     [baidu authorizeWithTargetViewController:baiduAuthVC scope:@"netdisk" andDelegate:self];
