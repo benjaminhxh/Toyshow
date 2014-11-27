@@ -392,12 +392,15 @@
 - (void)loginDidSuccess
 {
     BaiduUserSession *session = [BaiduUserSessionManager shareUserSessionManager].currentUserSession;
-    NSLog(@"1session.accessToken:%@-----------%@",session.accessToken,session.refreshToken);
+//    NSLog(@"1session.accessToken:%@-----------%@",session.accessToken,session.refreshToken);
 
     [baidu refreshUserToken];
-    NSLog(@"3session.accessToken:%@-----------%@",session.accessToken,session.refreshToken);
+//    NSLog(@"3session.accessToken:%@-----------%@",session.accessToken,session.refreshToken);
     [[NSUserDefaults standardUserDefaults] setObject:session.refreshToken forKey:kUserRefreshToken];
+    [[NSUserDefaults standardUserDefaults] setObject:session.accessToken forKey:kUserAccessToken];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    self.accessToken = session.accessToken;
+
     [self signonButtonClicked];
     
 }
@@ -418,10 +421,8 @@
         //授权成功回调函数 登录之后 2（授权中……） 输入密码之后
         FrontiaAuthorizationResultCallback onResult = ^(FrontiaUser *result){
             [[NSUserDefaults standardUserDefaults] setObject:result.accountName forKey:kUserName];
-            [[NSUserDefaults standardUserDefaults] setObject:result.accessToken forKey:kUserAccessToken];
             [[NSUserDefaults standardUserDefaults] synchronize];
-            self.accessToken = result.accessToken;
-            NSLog(@"授权成功的accessToken：%@",result.accessToken);//有
+//            NSLog(@"授权成功的accessToken：%@",result.accessToken);//有
             //设置授权成功的账户为当前使用者账户
             self.userNameL.text = result.accountName;
             [Frontia setCurrentAccount:result];
