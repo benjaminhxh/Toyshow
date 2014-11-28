@@ -12,4 +12,5 @@
 
 - (NSString *)encodeChinese;
 
++ (NSString *)getMd5_32Bit_String:(NSString *)inputString;
 @end

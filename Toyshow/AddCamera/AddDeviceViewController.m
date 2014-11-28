@@ -250,7 +250,7 @@
 //开始配置
 - (void)startConfigure
 {
-    //判断扫描到的二维码是否符合设备ID
+    //判断扫描到的条形码是否符合设备ID
 //    if ([self.deviceID hasPrefix:@"1100"]) {
 //        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备ID不合法" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
 //        [view show];
@@ -372,15 +372,15 @@
 //}
 
 //32位MD5加密方式
-- (NSString *)getMd5_32Bit_String:(NSString *)srcString{
-    const char *cStr = [srcString UTF8String];
-    unsigned char digest[CC_MD5_DIGEST_LENGTH];
-    CC_MD5( cStr, strlen(cStr), digest );
-    NSMutableString *result = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
-    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
-        [result appendFormat:@"%02x", digest[i]];
-    return result;
-}
+//- (NSString *)getMd5_32Bit_String:(NSString *)srcString{
+//    const char *cStr = [srcString UTF8String];
+//    unsigned char digest[CC_MD5_DIGEST_LENGTH];
+//    CC_MD5( cStr, strlen(cStr), digest );
+//    NSMutableString *result = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+//    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+//        [result appendFormat:@"%02x", digest[i]];
+//    return result;
+//}
 
 - (NSMutableString *)exchangeString:(NSString *)string
 {
@@ -451,7 +451,9 @@
                                   @"",@"url",//保留URL
                                   @"",@"reserved",nil];//保留参数
         ////NSLog(@"dataDict:%@",dataDict);
-        NSString *md5String = [self getMd5_32Bit_String:dataStr];//得到md5加密后的32位字符串
+        NSString *md5String = [NSString getMd5_32Bit_String:dataStr];//得到md5加密后的32位字符串
+
+//        NSString *md5String = [self getMd5_32Bit_String:dataStr];//得到md5加密后的32位字符串
 //        ////NSLog(@"md5String:%@",md5String);//0ea7ccca8f7eeefb255e1931cb1409aa
         
         NSMutableString *md5exchangeString = [self exchangeString:md5String];//1,6;4,13;21,29;20,25交换

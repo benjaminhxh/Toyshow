@@ -63,7 +63,6 @@
 
 - (void)viewDidLoad
 {
-    
     [super viewDidLoad];
     //先拼接再MD5加密
     NSString *string = [NSString stringWithFormat:@"%@%@%@%@",APP_ID,expire,APP_KEY,APP_SecrectKey];

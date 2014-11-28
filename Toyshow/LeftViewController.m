@@ -200,7 +200,7 @@
         case 2://分享的设备
             [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MainViewController" withDictionary:_playDict];
             break;
-        case 3://添加设备、扫描二维码
+        case 3://添加设备、扫描条形码
             if ([self accessTokenIsExist]) {
                 [self scanBtnAction];
             }
@@ -250,8 +250,8 @@
     return YES;
 }
 
-#pragma mark - ZBar 二维码扫描
-//扫描二维码
+#pragma mark - ZBar 条形码扫描
+//扫描条形码
 -(void)scanBtnAction
 {
     num = 0;
@@ -278,7 +278,7 @@
     reader.cameraOverlayView = view;
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, kWidth-40, 40)];
-    label.text = @"请将设备的MAC地址二维码置于扫描框正中间内谢谢！";
+    label.text = @"请将设备的MAC地址条形码置于扫描框正中间内谢谢！";
     label.textColor = [UIColor whiteColor];
     label.font = [UIFont systemFontOfSize:15];
     label.textAlignment = 1;
@@ -357,7 +357,7 @@
         {
             result = [NSString stringWithCString:[symbol.data cStringUsingEncoding: NSShiftJISStringEncoding] encoding:NSUTF8StringEncoding];
 //-----------------------------------------------------------------------------//
-            //扫描成功获得设备二维码--->跳转到WiFi设置页面
+            //扫描成功获得设备条形码--->跳转到WiFi设置页面
             AddDeviceViewController *addDeviceVC = [[AddDeviceViewController alloc] init];
             addDeviceVC.deviceID = result;
             addDeviceVC.access_token = self.accessToken;
