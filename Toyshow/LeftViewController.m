@@ -36,7 +36,7 @@
 #import "BaiduUserSessionManager.h"
 
 
-@interface LeftViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,WXApiDelegate,ZBarReaderDelegate,BaiduAuthorizeDelegate,BaiduAPIRequestDelegate>
+@interface LeftViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,WXApiDelegate,ZBarReaderDelegate,BaiduAuthorizeDelegate,BaiduAPIRequestDelegate,UIActionSheetDelegate>
 {
     NSArray *_listArr,*_imageArr;
     UILabel *_titleTextL,*loginOrOutL;
@@ -202,7 +202,7 @@
             break;
         case 3://添加设备、扫描条形码
             if ([self accessTokenIsExist]) {
-                [self scanBtnAction];
+                [self addDeviceStyle];
             }
             break;
         case 4://登录or退出
@@ -248,6 +248,41 @@
         return NO;
     }else
     return YES;
+}
+
+#pragma mark - addDeviceStyle
+- (void)addDeviceStyle
+{
+    UIActionSheet *addDevice = [[UIActionSheet alloc] initWithTitle:@"请选择你要获取设备MAC的方式" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"手动输入" otherButtonTitles:@"扫描MAC条形码", nil];
+    [addDevice showInView:self.view];
+}
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+        {
+            //手动输入
+            [self inputDeviceID];
+        }
+            break;
+        case 1:
+        {
+            //条码扫描
+            [self scanBtnAction];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+#pragma mark - inputDeviceID
+- (void)inputDeviceID
+{
+    AddDeviceViewController *addDeviceVC = [[AddDeviceViewController alloc] init];
+    addDeviceVC.access_token = self.accessToken;
+    addDeviceVC.isScanFlag = NO;
+    [self.navigationController pushViewController:addDeviceVC animated:YES];
 }
 
 #pragma mark - ZBar 条形码扫描
@@ -495,10 +530,8 @@
     }else if (scanFailView == alertView)
     {
         if (buttonIndex) {
-            AddDeviceViewController *addDeviceVC = [[AddDeviceViewController alloc] init];
-            addDeviceVC.access_token = self.accessToken;
-            addDeviceVC.isScanFlag = NO;
-            [self.navigationController pushViewController:addDeviceVC animated:YES];
+            //手动输入ID
+            [self inputDeviceID];
         }else
         {
             [self scanBtnAction];

@@ -78,12 +78,12 @@
     scrollView.contentSize = CGSizeMake(kWidth, kHeight);
     [self.view addSubview:scrollView];
 
-    UILabel *deviceL = [[UILabel alloc] initWithFrame:CGRectMake(10, 6, 100, 30)];
+    UILabel *deviceL = [[UILabel alloc] initWithFrame:CGRectMake(10, 6, 80, 30)];
     deviceL.text = @"设备ID:";
     deviceL.backgroundColor = [UIColor clearColor];
 
     [scrollView addSubview:deviceL];
-    deviceF = [[UITextField alloc] initWithFrame:CGRectMake(100, 6, 180, 30)];
+    deviceF = [[UITextField alloc] initWithFrame:CGRectMake(90, 6, kWidth-100, 30)];
     if (self.isScanFlag) {
         deviceF.text = self.deviceID;
         deviceF.enabled = NO;
@@ -91,30 +91,31 @@
     {
         deviceF.enabled = YES;
         deviceF.returnKeyType = UIReturnKeyNext;
-        deviceF.placeholder = @"设备MAC不区分大小写";
+        deviceF.placeholder = @"输入设备MAC地址，不区分大小写";
+        deviceF.font = [UIFont systemFontOfSize:13];
         deviceF.delegate = self;
     }
     deviceF.allowsEditingTextAttributes = YES;
     deviceF.borderStyle = UITextBorderStyleRoundedRect;
     [scrollView addSubview:deviceF];
     
-    UILabel *deviceDetail = [[UILabel alloc] initWithFrame:CGRectMake(10, 46, 100, 30)];
+    UILabel *deviceDetail = [[UILabel alloc] initWithFrame:CGRectMake(10, 46, 80, 30)];
     deviceDetail.text = @"设备描述:";
     deviceDetail.backgroundColor = [UIColor clearColor];
 
     [scrollView addSubview:deviceDetail];
-    deviceDetailF = [[UITextField alloc] initWithFrame:CGRectMake(100, 46, 180, 30)];
+    deviceDetailF = [[UITextField alloc] initWithFrame:CGRectMake(90, 46, kWidth-100, 30)];
     deviceDetailF.borderStyle = UITextBorderStyleRoundedRect;
     deviceDetailF.returnKeyType = UIReturnKeyNext;
     deviceDetailF.delegate = self;
     [scrollView addSubview:deviceDetailF];
     
-    UILabel *SSIDL = [[UILabel alloc] initWithFrame:CGRectMake(10, 86, 100, 30)];
+    UILabel *SSIDL = [[UILabel alloc] initWithFrame:CGRectMake(10, 86, 80, 30)];
     SSIDL.text = @"WiFi名称:";
     SSIDL.backgroundColor = [UIColor clearColor];
 
     [scrollView addSubview:SSIDL];
-    SSIDF = [[UITextField alloc] initWithFrame:CGRectMake(100, 86, 180, 30)];
+    SSIDF = [[UITextField alloc] initWithFrame:CGRectMake(90, 86, kWidth-100, 30)];
     SSIDF.borderStyle = UITextBorderStyleRoundedRect;
     SSIDF.textColor = [UIColor grayColor];
     SSIDF.text = [self fetchSSIDInfo];
@@ -134,12 +135,12 @@
 //        [obtainWifiBtn addTarget:self action:@selector(obtainWifiAction) forControlEvents:UIControlEventTouchUpInside];
 //    }
     
-    UILabel *SSIDPW = [[UILabel alloc] initWithFrame:CGRectMake(10, 126, 100, 30)];
+    UILabel *SSIDPW = [[UILabel alloc] initWithFrame:CGRectMake(10, 126, 80, 30)];
     SSIDPW.text = @"WiFi密码:";
     SSIDPW.backgroundColor = [UIColor clearColor];
 
     [scrollView addSubview:SSIDPW];
-    SSIDPWF = [[UITextField alloc] initWithFrame:CGRectMake(100, 126, 180, 30)];
+    SSIDPWF = [[UITextField alloc] initWithFrame:CGRectMake(90, 126, kWidth-100, 30)];
     SSIDPWF.borderStyle = UITextBorderStyleRoundedRect;
     SSIDPWF.returnKeyType = UIReturnKeyNext;
 //    SSIDPWF.text = @"zhxf0602";
@@ -150,9 +151,8 @@
     UILabel *SSIDPWconfirm = [[UILabel alloc] initWithFrame:CGRectMake(10, 166, 80, 30)];
     SSIDPWconfirm.text = @"确认密码:";
     SSIDPWconfirm.backgroundColor = [UIColor clearColor];
-
     [scrollView addSubview:SSIDPWconfirm];
-    SSIDPWFconfirm = [[UITextField alloc] initWithFrame:CGRectMake(100, 166, 180, 30)];
+    SSIDPWFconfirm = [[UITextField alloc] initWithFrame:CGRectMake(90, 166, kWidth-100, 30)];
     SSIDPWFconfirm.borderStyle = UITextBorderStyleRoundedRect;
     SSIDPWFconfirm.returnKeyType = UIReturnKeyDone;
 //    SSIDPWFconfirm.text = @"zhxf0602";
