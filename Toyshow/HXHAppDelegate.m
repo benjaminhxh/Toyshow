@@ -213,7 +213,6 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
 //        [alert show];
 //    }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"modifySuccess" object:nil];
-
 }
 
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings

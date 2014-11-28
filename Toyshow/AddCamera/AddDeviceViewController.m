@@ -271,7 +271,6 @@
             hexdeviceID = deviceF.text;
         }
             break;
-    
         default:
         {
             UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"该设备ID不合法" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
@@ -282,7 +281,6 @@
     }
     const char* a = [hexdeviceID cStringUsingEncoding:NSASCIIStringEncoding];
 //    NSLog(@"a.length:%d=======%s",deviceF.text.length,a);
-    
     int64_t deviceIDint64 = MacAddr2DecDeviceID(a, isLow);//
     
     if (SSIDF.text.length == 0) {
