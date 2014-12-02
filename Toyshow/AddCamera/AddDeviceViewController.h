@@ -11,6 +11,7 @@
 
 @interface AddDeviceViewController : UIViewController
 @property (nonatomic, assign) BOOL isScanFlag;
+@property (nonatomic, assign) BOOL isAddDevice;//1为添加设备，0为更换网络
 @property (nonatomic, copy) NSString *deviceID;
 //@property (nonatomic, copy) NSString *userID;
 @property (nonatomic, copy) NSString *access_token;

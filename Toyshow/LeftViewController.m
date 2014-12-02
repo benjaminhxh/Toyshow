@@ -282,6 +282,7 @@
     AddDeviceViewController *addDeviceVC = [[AddDeviceViewController alloc] init];
     addDeviceVC.access_token = self.accessToken;
     addDeviceVC.isScanFlag = NO;
+    addDeviceVC.isAddDevice = YES;
     [self.navigationController pushViewController:addDeviceVC animated:YES];
 }
 
@@ -397,6 +398,7 @@
             addDeviceVC.deviceID = result;
             addDeviceVC.access_token = self.accessToken;
             addDeviceVC.isScanFlag = YES;
+            addDeviceVC.isAddDevice = YES;
 //            addDeviceVC.userID = [[NSUserDefaults standardUserDefaults] stringForKey:kUserName];
             scanNum = 0;
             [self.navigationController pushViewController:addDeviceVC animated:YES];
@@ -428,19 +430,61 @@
 - (void)loginDidSuccess
 {
     BaiduUserSession *session = [BaiduUserSessionManager shareUserSessionManager].currentUserSession;
-//    NSLog(@"1session.accessToken:%@-----------%@",session.accessToken,session.refreshToken);
-
-    [baidu refreshUserToken];
-//    NSLog(@"3session.accessToken:%@-----------%@",session.accessToken,session.refreshToken);
-    [[NSUserDefaults standardUserDefaults] setObject:session.refreshToken forKey:kUserRefreshToken];
-    [[NSUserDefaults standardUserDefaults] setObject:session.accessToken forKey:kUserAccessToken];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    self.accessToken = session.accessToken;
-
     [self signonButtonClicked];
-    
+//    [baidu refreshUserToken];
+//    NSLog(@"session.accessToken:%@-----------%@",session.accessToken,session.refreshToken);
+    [[NSUserDefaults standardUserDefaults] setObject:session.refreshToken forKey:kUserRefreshToken];
+//    [[NSUserDefaults standardUserDefaults] setObject:session.accessToken forKey:kUserAccessToken];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+//    self.accessToken = session.accessToken;
+//    NSLog(@"success_session.accessToken:%@-----------%@",session.accessToken,session.refreshToken);
+//    [self getUserInformation];
+
+//    NSString *refreshTokenURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?&method=addusertoken&refresh_token=%@&access_token=%@",session.accessToken,session.refreshToken];
+//    [[AFHTTPRequestOperationManager manager]GET:refreshTokenURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSLog(@"response:%@",responseObject);
+//        [[NSUserDefaults standardUserDefaults] setObject:session.refreshToken forKey:kUserRefreshToken];
+//        [[NSUserDefaults standardUserDefaults] setObject:session.accessToken forKey:kUserAccessToken];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//        self.accessToken = session.accessToken;
+//        NSLog(@"success_session.accessToken:%@-----------%@",session.accessToken,session.refreshToken);
+//        [self getUserInformation];
+//
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"error:%@",error);
+//    }];
 }
 
+- (void)getUserInformation
+{
+    NSString *url = [NSString stringWithFormat:@"https://openapi.baidu.com/rest/2.0/passport/users/getLoggedInUser?access_token=%@",self.accessToken ];
+    [[AFHTTPRequestOperationManager manager] GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *dict = (NSDictionary *)responseObject;
+//        NSLog(@"dict:%@",dict);
+        self.userNameL.text = [dict objectForKey:@"uname"];
+        NSString *head = [dict objectForKey:@"portrait"];
+        //拼接用户头像URL
+        NSString *headURL = [NSString stringWithFormat:@"http://tb.himg.baidu.com/sys/portraitn/item/%@",head];
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:headURL]];
+        //            NSLog(@"result.url:%@",result.headUrl);
+        UIImage *userImage = [UIImage imageWithData:data];
+        self.userImageVIew.clipsToBounds = YES;
+        self.userImageVIew.image = [self scaleToSize:userImage size:self.userImageVIew.frame.size];
+        self.userImageVIew.layer.cornerRadius = self.userImageVIew.bounds.size.width/2;
+        [[NSUserDefaults standardUserDefaults] setObject:data forKey:kUserHeadImage];
+        //保存登录时间在本地
+        [self saveLoginDate];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        loginOrOutL.text = @"退出";
+        //保存用户uid
+        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"uid"] forKey:kUserId];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error:%@",error);
+        [baidu currentUserLogout];
+    }];
+}
 - (void)signonButtonClicked {
     FrontiaAuthorization* authorization = [Frontia getAuthorization];
     if(authorization) {
@@ -457,8 +501,10 @@
         //授权成功回调函数 登录之后 2（授权中……） 输入密码之后
         FrontiaAuthorizationResultCallback onResult = ^(FrontiaUser *result){
             [[NSUserDefaults standardUserDefaults] setObject:result.accountName forKey:kUserName];
+            [[NSUserDefaults standardUserDefaults] setObject:result.accessToken forKey:kUserAccessToken];
             [[NSUserDefaults standardUserDefaults] synchronize];
-//            NSLog(@"授权成功的accessToken：%@",result.accessToken);//有
+            self.accessToken = result.accessToken;
+            NSLog(@"授权成功的accessToken：%@",result.accessToken);//有
             //设置授权成功的账户为当前使用者账户
             self.userNameL.text = result.accountName;
             [Frontia setCurrentAccount:result];

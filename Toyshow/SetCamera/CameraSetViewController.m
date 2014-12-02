@@ -14,6 +14,7 @@
 #import "ImageResolutionViewController.h"
 #import "DeviceControlViewController.h"
 #import "SensitivityViewController.h"
+#import "AddDeviceViewController.h"
 
 #import "AudioVideoViewController.h"
 #import "NightViewController.h"
@@ -131,7 +132,7 @@
     }
     else
     {
-        return 2;
+        return 3;
     }
 }
 
@@ -254,28 +255,47 @@
         {
             if (cell==nil) {
                 cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, kWidth, 44)];
-                
-                if (indexPath.row) {
-                    UIButton *loggout = [UIButton buttonWithType:UIButtonTypeCustom];
-                    [loggout setTitle:@"注销设备" forState:UIControlStateNormal];
-                    loggout.frame = CGRectMake(80, 2, 160, 40);
-                    [loggout setBackgroundImage:[UIImage imageNamed:@"kaishipeizhi_anniu@2x"] forState:UIControlStateNormal];
-                    //            loggout.backgroundColor = [UIColor blueColor];
-                    [cell addSubview:loggout];
-                    [loggout addTarget:self action:@selector(LoginOutAction:) forControlEvents:UIControlEventTouchUpInside];
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    
-                }else
-                {
-                    //修改设备名称
-                    cell.textLabel.text = @"修改设备名称";
-                    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    deviceNameL = [[UILabel alloc] initWithFrame:CGRectMake(150, 10, 140, 24)];
-                    deviceNameL.text = self.deviceDesc;
-                    deviceNameL.textAlignment = NSTextAlignmentRight;
-                    deviceNameL.textColor = [UIColor grayColor];
-                    [cell addSubview:deviceNameL];
+                switch (indexPath.row) {
+                    case 0:
+                    {
+                        //修改设备名称
+                        cell.textLabel.text = @"修改设备名称";
+                        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                        deviceNameL = [[UILabel alloc] initWithFrame:CGRectMake(150, 10, 140, 24)];
+                        deviceNameL.text = self.deviceDesc;
+                        deviceNameL.textAlignment = NSTextAlignmentRight;
+                        deviceNameL.textColor = [UIColor grayColor];
+                        [cell addSubview:deviceNameL];
+                    }
+                        break;
+                    case 1:
+                    {
+                        //更换网络
+                        cell.textLabel.text = @"设备更换网络";
+                        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//                        deviceNameL = [[UILabel alloc] initWithFrame:CGRectMake(150, 10, 140, 24)];
+//                        deviceNameL.text = self.deviceDesc;
+//                        deviceNameL.textAlignment = NSTextAlignmentRight;
+//                        deviceNameL.textColor = [UIColor grayColor];
+//                        [cell addSubview:deviceNameL];
+                    }
+                        break;
+                    case 2:
+                    {
+                        UIButton *loggout = [UIButton buttonWithType:UIButtonTypeCustom];
+                        [loggout setTitle:@"注销设备" forState:UIControlStateNormal];
+                        loggout.frame = CGRectMake(80, 2, 160, 40);
+                        [loggout setBackgroundImage:[UIImage imageNamed:@"kaishipeizhi_anniu@2x"] forState:UIControlStateNormal];
+                        //            loggout.backgroundColor = [UIColor blueColor];
+                        [cell addSubview:loggout];
+                        [loggout addTarget:self action:@selector(LoginOutAction:) forControlEvents:UIControlEventTouchUpInside];
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    }
+                        break;
+                    default:
+                        break;
                 }
             }
         }
@@ -425,13 +445,26 @@
             break;
         case 2:
         {
-            if (0 == indexPath.row) {
-                ModifyViewController *modifyVC = [[ModifyViewController alloc] init];
-                modifyVC.deviceId = self.deviceid;
-                modifyVC.deviceName = self.deviceDesc;
-                modifyVC.accessToken = self.access_token;
-                //            modifyVC.delegate = self;
-                [[SliderViewController sharedSliderController].navigationController pushViewController:modifyVC animated:YES];
+            switch (indexPath.row) {
+                case 0:
+                {
+                    ModifyViewController *modifyVC = [[ModifyViewController alloc] init];
+                    modifyVC.deviceId = self.deviceid;
+                    modifyVC.deviceName = self.deviceDesc;
+                    modifyVC.accessToken = self.access_token;
+                    //            modifyVC.delegate = self;
+                    [[SliderViewController sharedSliderController].navigationController pushViewController:modifyVC animated:YES];
+                }
+                    break;
+                case 1:
+                {
+                    AddDeviceViewController *exchangeNetVC = [[AddDeviceViewController alloc] init];
+                    exchangeNetVC.isAddDevice = NO;
+                    [self.navigationController pushViewController:exchangeNetVC animated:YES];
+                }
+                    break;
+                default:
+                    break;
             }
         }
             break;

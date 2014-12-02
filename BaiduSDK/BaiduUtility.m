@@ -41,6 +41,7 @@
         
         NSString* query = [pairs componentsJoinedByString:@"&"];
         NSString* url = [NSString stringWithFormat:@"%@?%@", baseURL, query];
+        NSLog(@"urllllllllll:%@",url);
         return [NSURL URLWithString:url];
     } else {
         return [NSURL URLWithString:baseURL];
