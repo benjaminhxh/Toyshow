@@ -187,7 +187,8 @@
         case 0://我的摄像头
         {
             if ([self accessTokenIsExist]) {
-                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[[NSUserDefaults standardUserDefaults] stringForKey:kUserName],@"userID",self.accessToken,@"accessToken",_playDict,kplayerDict,nil];
+                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:self.accessToken,@"accessToken",_playDict,kplayerDict,[[NSUserDefaults standardUserDefaults] stringForKey:kUserName],@"userID",nil];
+                NSLog(@"穿过去的dict:%@",dict);
                 [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MyCameraViewController" withDictionary:dict];
             }
         }
@@ -430,31 +431,34 @@
 - (void)loginDidSuccess
 {
     BaiduUserSession *session = [BaiduUserSessionManager shareUserSessionManager].currentUserSession;
-    [self signonButtonClicked];
-//    [baidu refreshUserToken];
 //    NSLog(@"session.accessToken:%@-----------%@",session.accessToken,session.refreshToken);
-    [[NSUserDefaults standardUserDefaults] setObject:session.refreshToken forKey:kUserRefreshToken];
+
+//    [self signonButtonClicked];
+    
+//    [baidu refreshUserToken];
+//    [[NSUserDefaults standardUserDefaults] setObject:session.refreshToken forKey:kUserRefreshToken];
 //    [[NSUserDefaults standardUserDefaults] setObject:session.accessToken forKey:kUserAccessToken];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
 //    self.accessToken = session.accessToken;
 //    NSLog(@"success_session.accessToken:%@-----------%@",session.accessToken,session.refreshToken);
 //    [self getUserInformation];
-
-//    NSString *refreshTokenURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?&method=addusertoken&refresh_token=%@&access_token=%@",session.accessToken,session.refreshToken];
-//    [[AFHTTPRequestOperationManager manager]GET:refreshTokenURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    //刷新accessToken
+    NSString *refreshTokenURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?&method=addusertoken&refresh_token=%@&access_token=%@",session.accessToken,session.refreshToken];
+    [[AFHTTPRequestOperationManager manager]GET:refreshTokenURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        NSLog(@"response:%@",responseObject);
-//        [[NSUserDefaults standardUserDefaults] setObject:session.refreshToken forKey:kUserRefreshToken];
-//        [[NSUserDefaults standardUserDefaults] setObject:session.accessToken forKey:kUserAccessToken];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-//        self.accessToken = session.accessToken;
+        [[NSUserDefaults standardUserDefaults] setObject:session.refreshToken forKey:kUserRefreshToken];
+        [[NSUserDefaults standardUserDefaults] setObject:session.accessToken forKey:kUserAccessToken];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        self.accessToken = session.accessToken;
 //        NSLog(@"success_session.accessToken:%@-----------%@",session.accessToken,session.refreshToken);
-//        [self getUserInformation];
+        [self getUserInformation];
 //
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        NSLog(@"error:%@",error);
-//    }];
+    }];
 }
 
+//获取用户简单信息
 - (void)getUserInformation
 {
     NSString *url = [NSString stringWithFormat:@"https://openapi.baidu.com/rest/2.0/passport/users/getLoggedInUser?access_token=%@",self.accessToken ];
@@ -462,6 +466,8 @@
         NSDictionary *dict = (NSDictionary *)responseObject;
 //        NSLog(@"dict:%@",dict);
         self.userNameL.text = [dict objectForKey:@"uname"];
+        [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"uname"] forKey:kUserName];
+
         NSString *head = [dict objectForKey:@"portrait"];
         //拼接用户头像URL
         NSString *headURL = [NSString stringWithFormat:@"http://tb.himg.baidu.com/sys/portraitn/item/%@",head];
@@ -481,7 +487,7 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"error:%@",error);
+//        NSLog(@"error:%@",error);
         [baidu currentUserLogout];
     }];
 }
@@ -563,7 +569,7 @@
 //    NSLog(@"medID:%@---accontID:%@--accountName:%@",accountt.mediaUid,accountt.accountId,accountt.accountName);
 }
 
-//退出登录
+//退出或登录
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (_loginView == alertView) {

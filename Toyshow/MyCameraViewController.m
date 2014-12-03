@@ -47,7 +47,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.accessToken = [[SliderViewController sharedSliderController].dict objectForKey:@"accessToken"];
-    
+    NSLog(@"我的摄像头：%@",self.accessToken);
     UIImageView *imgV=[[UIImageView alloc] initWithFrame:self.view.bounds];
     [imgV setImage:[UIImage imageNamed:@"dabeijing@2x"]];
     [self.view addSubview:imgV];
