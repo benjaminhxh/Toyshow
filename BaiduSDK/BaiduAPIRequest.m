@@ -52,7 +52,7 @@ static const NSString* kUserAgent = @"Baidu iOS SDK";
         }
     }
     NSString *url = [self serializeURL:requestUrl params:params httpMethod:httpMethod];
-    NSLog(@"url:%@",url);
+//    NSLog(@"url:%@",url);
     NSMutableURLRequest* urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:kTimeoutInterval];
     
 	[urlRequest setHTTPMethod:httpMethod];

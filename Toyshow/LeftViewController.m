@@ -188,7 +188,7 @@
         {
             if ([self accessTokenIsExist]) {
                 NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:self.accessToken,@"accessToken",_playDict,kplayerDict,[[NSUserDefaults standardUserDefaults] stringForKey:kUserName],@"userID",nil];
-                NSLog(@"穿过去的dict:%@",dict);
+//                NSLog(@"穿过去的dict:%@",dict);
                 [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MyCameraViewController" withDictionary:dict];
             }
         }
@@ -510,7 +510,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:result.accessToken forKey:kUserAccessToken];
             [[NSUserDefaults standardUserDefaults] synchronize];
             self.accessToken = result.accessToken;
-            NSLog(@"授权成功的accessToken：%@",result.accessToken);//有
+//            NSLog(@"授权成功的accessToken：%@",result.accessToken);//有
             //设置授权成功的账户为当前使用者账户
             self.userNameL.text = result.accountName;
             [Frontia setCurrentAccount:result];
