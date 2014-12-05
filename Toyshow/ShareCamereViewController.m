@@ -252,7 +252,6 @@
     //开始暂停按钮
     [startBtn setImage:[UIImage imageNamed:@"bofang_anniu@2x"] forState:UIControlStateNormal];
     [startBtn addTarget:self action:@selector(onClickPlay:) forControlEvents:UIControlEventTouchUpInside];
-    //        [startBtn setImage:[UIImage imageNamed:@"bofang_zhong@2x"] forState:UIControlStateHighlighted];
     [bottomView addSubview:startBtn];
     //当前播放的时刻
     currentProgress = [[UILabel alloc] initWithFrame:CGRectMake(20, 43, 40, 10)];
