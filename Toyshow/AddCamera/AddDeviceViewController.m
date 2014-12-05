@@ -79,7 +79,7 @@
         setHeight = 0;
         [backBtn setTitle:@"配置摄像头" forState:UIControlStateNormal];
         UILabel *deviceL = [[UILabel alloc] initWithFrame:CGRectMake(10, 6, 80, 30)];
-        deviceL.text = @"设备ID:";
+        deviceL.text = @"MAC地址:";
         deviceL.backgroundColor = [UIColor clearColor];
         
         [scrollView addSubview:deviceL];
@@ -100,13 +100,14 @@
         [scrollView addSubview:deviceF];
         
         UILabel *deviceDetail = [[UILabel alloc] initWithFrame:CGRectMake(10, 46, 80, 30)];
-        deviceDetail.text = @"设备描述:";
+        deviceDetail.text = @"起个名吧:";
         deviceDetail.backgroundColor = [UIColor clearColor];
         [scrollView addSubview:deviceDetail];
         deviceDetailF = [[UITextField alloc] initWithFrame:CGRectMake(90, 46, kWidth-100, 30)];
         deviceDetailF.borderStyle = UITextBorderStyleRoundedRect;
         deviceDetailF.returnKeyType = UIReturnKeyNext;
         deviceDetailF.delegate = self;
+        deviceDetailF.text = @"我的乐现";
         [scrollView addSubview:deviceDetailF];
     }else
     {
@@ -223,6 +224,12 @@
     }
     [startBtn addTarget:self action:@selector(startConfigure) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:startBtn];
+    
+    //右滑回到上一个页面
+    UISwipeGestureRecognizer *recognizer;
+    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(backBtn:)];
+    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    [self.view addGestureRecognizer:recognizer];
 }
 
 //- (void)obtainWifiAction
@@ -231,7 +238,7 @@
 //}
 - (void)backBtn:(id)sender
 {
-    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 //获取WiFi名称

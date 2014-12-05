@@ -36,12 +36,12 @@
 #import "BaiduUserSessionManager.h"
 
 
-@interface LeftViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,WXApiDelegate,ZBarReaderDelegate,BaiduAuthorizeDelegate,BaiduAPIRequestDelegate,UIActionSheetDelegate>
+@interface LeftViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,WXApiDelegate,ZBarReaderDelegate,BaiduAuthorizeDelegate,UIActionSheetDelegate>
 {
     NSArray *_listArr,*_imageArr;
     UILabel *_titleTextL,*loginOrOutL;
     UITableView *tableView1,*tableView2;
-    int num,scanNum;
+    int num;
     BOOL upOrdown,_flag;
     NSTimer *timer;
     BOOL _reloading;
@@ -50,7 +50,7 @@
     ShareCamereViewController *_playVC;
     NSDictionary *_playDict;
     ZBarReaderViewController *reader;
-    Baidu *baidu;
+//    Baidu *baidu;
 
 }
 @end
@@ -401,18 +401,18 @@
             addDeviceVC.isScanFlag = YES;
             addDeviceVC.isAddDevice = YES;
 //            addDeviceVC.userID = [[NSUserDefaults standardUserDefaults] stringForKey:kUserName];
-            scanNum = 0;
+//            scanNum = 0;
             [self.navigationController pushViewController:addDeviceVC animated:YES];
         }else
         {
             //扫描失败3次后提示是否手输
-            scanNum++;
-            if (scanNum>2) {
-                scanFailView = [[UIAlertView alloc] initWithTitle:@"扫描失败" message:@"已连续扫描3次失败，是否换到手动输入？" delegate:self cancelButtonTitle:@"再扫一次" otherButtonTitles:@"手动输入", nil];
+//            scanNum++;
+//            if (scanNum>2) {
+                scanFailView = [[UIAlertView alloc] initWithTitle:@"扫描失败" message:@"扫描失败，是否换到手动输入？" delegate:self cancelButtonTitle:@"再扫一次" otherButtonTitles:@"手动输入", nil];
                 [scanFailView show];
-                scanNum = 0;
-            }else
-            [self scanBtnAction];
+//                scanNum = 0;
+//            }else
+//            [self scanBtnAction];
         }
     }];
 }
@@ -421,7 +421,7 @@
 //登录按钮
 - (void)loginBaidu
 {
-    baidu = [[Baidu alloc] initWithAPIKey:APP_KEY appId:APP_ID];
+    Baidu *baidu = [[Baidu alloc] initWithAPIKey:APP_KEY appId:APP_ID];
     BaiduAuthorizeViewController *baiduAuthVC = [[BaiduAuthorizeViewController alloc] init];
     baiduAuthVC.delegate = self;
     [baidu authorizeWithTargetViewController:baiduAuthVC scope:@"netdisk" andDelegate:self];
@@ -465,6 +465,7 @@
     [[AFHTTPRequestOperationManager manager] GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
 //        NSLog(@"dict:%@",dict);
+        //保存用户昵称
         self.userNameL.text = [dict objectForKey:@"uname"];
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"uname"] forKey:kUserName];
 
@@ -488,7 +489,8 @@
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        NSLog(@"error:%@",error);
-        [baidu currentUserLogout];
+//        [baidu currentUserLogout];
+        [self logout];
     }];
 }
 - (void)signonButtonClicked {

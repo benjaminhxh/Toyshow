@@ -123,13 +123,13 @@
         [lookAroundBtn addTarget:self action:@selector(lookAroundClick) forControlEvents:UIControlEventTouchUpInside];
         [view addSubview:lookAroundBtn];
         
-        UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        loginBtn.frame = CGRectMake(15, 260, 95, 40);
-        [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-        [loginBtn setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
-        [loginBtn addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
-        [view addSubview:loginBtn];
+//        UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        loginBtn.frame = CGRectMake(15, 260, 95, 40);
+//        [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+//        [loginBtn setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
+//        [loginBtn addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
+//        [view addSubview:loginBtn];
         
 //        UIButton *buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //        buyBtn.frame = CGRectMake(20, 340, 80, 40);
@@ -156,14 +156,14 @@
 //    backgroundView.hidden = YES;
 }
 
-- (void)loginClick
-{
-    ////NSLog(@"登录按钮");
-//    icaView.hidden = YES;
-//    backgroundView.hidden = YES;
-    loginFlag = YES;
-    [self showTabBarController];
-}
+//- (void)loginClick
+//{
+//    ////NSLog(@"登录按钮");
+////    icaView.hidden = YES;
+////    backgroundView.hidden = YES;
+//    loginFlag = YES;
+//    [self showTabBarController];
+//}
 
 - (void)buyClick
 {
@@ -200,10 +200,11 @@
     [SliderViewController sharedSliderController].RightSOpenDuration=0.8;
     [SliderViewController sharedSliderController].RightSCloseDuration=0.8;
     [SliderViewController sharedSliderController].RightSJudgeOffset=160;
-    if (loginFlag) {
-        LeftViewController *left = (LeftViewController *)[SliderViewController sharedSliderController].LeftVC;
-        [left signonButtonClicked];
-    }
+//    if (loginFlag) {
+//        LeftViewController *left = (LeftViewController *)[SliderViewController sharedSliderController].LeftVC;
+////        [left signonButtonClicked];
+//        [left loginBaidu];
+//    }
    
     
     delegate.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[SliderViewController sharedSliderController]];

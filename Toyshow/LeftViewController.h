@@ -18,6 +18,6 @@
 @property (nonatomic, strong) UIImageView *userImageVIew;
 @property (nonatomic, strong) UILabel *userNameL;
 
-- (void)signonButtonClicked;
-
+//- (void)signonButtonClicked;
+- (void)loginBaidu;
 @end

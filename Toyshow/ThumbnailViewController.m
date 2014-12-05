@@ -89,6 +89,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     [self.view addSubview:_tableView];
     
     NSDate *datenow = [NSDate dateWithTimeIntervalSinceNow:0];//现在时间
