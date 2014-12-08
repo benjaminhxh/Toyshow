@@ -345,31 +345,18 @@
     if (stat) {
         [self isLoadingView];
         NSString *liveUrl = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&access_token=%@&deviceid=%@",self.accessToken,deviceid];
-        [[AFHTTPRequestOperationManager manager] POST:liveUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [_loadingView hide:YES];
-            NSDictionary *dict = (NSDictionary *)responseObject;
-            ////NSLog(@"播放摄像头的dict:%@",dict);
-            //获取直播rtmp地址
-            NSString *rtmp = [dict objectForKey:@"url"];
-            NSString *share = [cameraDict objectForKey:@"share"];
-            liveVC.delegate = self;
-            liveVC.isLive = YES;
-            liveVC.isShare = NO;
-            liveVC.shareStaue = [share intValue];
-            ////NSLog(@"live.share:%d",liveVC.shareStaue);
-            ////NSLog(@"shareStaue:%d",liveVC.shareStaue);
-            //        liveVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
-            liveVC.url = rtmp;
-            liveVC.accecc_token = self.accessToken;//
-            liveVC.deviceId = deviceid;//设备ID
-            liveVC.playerTitle = [[dict objectForKey:@"description"] stringByAppendingString:@"(直播)"];
-            [[SliderViewController sharedSliderController].navigationController pushViewController:liveVC animated:YES];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            ////NSLog(@"失败了");
-            [_loadingView hide:YES];
-            [self MBprogressViewHubLoading:@"网络延时"];
-            [badInternetHub hide:YES afterDelay:1];
-        }];
+        NSString *share = [cameraDict objectForKey:@"share"];
+        liveVC.delegate = self;
+        liveVC.isLive = YES;
+        liveVC.isShare = NO;
+        liveVC.shareStaue = [share intValue];
+        ////NSLog(@"live.share:%d",liveVC.shareStaue);
+        //        liveVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
+        liveVC.url = liveUrl;
+        liveVC.accecc_token = self.accessToken;//
+        liveVC.deviceId = deviceid;//设备ID
+        liveVC.playerTitle = [[cameraDict objectForKey:@"description"] stringByAppendingString:@"(直播)"];
+        [[SliderViewController sharedSliderController].navigationController pushViewController:liveVC animated:YES];
     }else
     {
         //设备不在线,跳到录像列表

@@ -17,7 +17,7 @@
 {
     UITableView *_tableView;
     UILabel *noInternetL,*noDataLoadL;
-    MBProgressHUD *_loadingView,*badInternetHub;
+    MBProgressHUD *badInternetHub;
     NSMutableArray *_fakeData,*downloadArr;
     NSString *accessToken;
     MJRefreshHeaderView *_headview;
@@ -103,18 +103,6 @@
     [self addheader];
     [self addFooter];
     liveVC = [[SliderViewController sharedSliderController].dict objectForKey:kplayerKey];
-}
-
-- (void)isLoadingView
-{
-    _loadingView = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:_loadingView];
-    
-    _loadingView.delegate = self;
-    _loadingView.labelText = @"loading";
-    _loadingView.detailsLabelText = @"正在加载，请稍后……";
-    _loadingView.square = YES;
-    [_loadingView show:YES];
 }
 
 - (void)leftClick
@@ -305,36 +293,21 @@
     int stat = [status intValue];
     //判断是被是否在线，在线则可以看直播
     if (stat) {
-        [self isLoadingView];
         NSString *liveUrl = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareid,uk];
-        //NSLog(@"collectURL:%@",liveUrl);
-        [[AFHTTPRequestOperationManager manager] POST:liveUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [_loadingView hide:YES];
-            NSDictionary *dict = (NSDictionary *)responseObject;
-            //NSLog(@"播放摄像头的dict:%@",dict);
-            //获取直播rtmp地址
-            NSString *rtmp = [dict objectForKey:@"url"];
-            NSString *share = [cameraDict objectForKey:@"share"];
-            liveVC.isLive = YES;
-            liveVC.isShare = YES;
-            liveVC.shareId = shareid;
-            liveVC.uk = uk;
-            liveVC.shareStaue = [share intValue];
-//            //NSLog(@"shareStaue:%d",liveVC.shareStaue);
-            liveVC.url = rtmp;
-            liveVC.isCollect = YES;
-            liveVC.isWeixinShare = NO;
-            liveVC.delegate = self;
-            liveVC.accecc_token = accessToken;//
-            liveVC.deviceId = deviceId;//设备ID
-            liveVC.playerTitle = [[dict objectForKey:@"description"] stringByAppendingString:@"(收藏)"];
-            [[SliderViewController sharedSliderController].navigationController pushViewController:liveVC animated:YES];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            //NSLog(@"失败了");
-            [_loadingView hide:YES];
-            [self MBprogressViewHubLoading:@"网络延时"withMode:4];
-            [badInternetHub hide:YES afterDelay:1];
-        }];
+        NSString *share = [cameraDict objectForKey:@"share"];
+        liveVC.isLive = YES;
+        liveVC.isShare = YES;
+        liveVC.shareId = shareid;
+        liveVC.uk = uk;
+        liveVC.shareStaue = [share intValue];
+        liveVC.url = liveUrl;
+        liveVC.isCollect = YES;
+        liveVC.isWeixinShare = NO;
+        liveVC.delegate = self;
+        liveVC.accecc_token = accessToken;//
+        liveVC.deviceId = deviceId;//设备ID
+        liveVC.playerTitle = [[cameraDict objectForKey:@"description"] stringByAppendingString:@"(收藏)"];
+        [[SliderViewController sharedSliderController].navigationController pushViewController:liveVC animated:YES];
     }else
     {
         [self MBprogressViewHubLoading:@"设备不在线" withMode:4];

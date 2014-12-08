@@ -22,14 +22,14 @@
 {
 //    UIView *cbdPlayerView;
     CyberPlayerController *cbPlayerController;
-    UIButton *startBtn,*collectionBtn,*clipVODBtn;
+    UIButton *startBtn,*collectionBtn,*clipVODBtn,*refreshBtn;
     UISlider *lightSlider,*slider;
     NSTimer *timer,*localTimer,*_timer3;
 //    UIProgressView *progressV;
     UIImageView *bottomView;
     UIImageView *topView;
     BOOL topViewHidden,lightBool,_isExitFlag;
-    UILabel *titleL,*currentProgress,*remainsProgress,*errorLab;
+    UILabel *titleL,*currentProgress,*remainsProgress;
     MBProgressHUD *_loadingView,*shareHub,*percentHub;
     UILabel *timeL;
     MPVolumeView *volumView;
@@ -44,6 +44,7 @@
     BOOL isStart;
     NSDate *startDate,*endDate;
     UITextField *fileName;
+    NSString *playerURL;
 }
 @end
 
@@ -233,7 +234,7 @@
         remainsProgress = [[UILabel alloc] initWithFrame:CGRectMake(kWidth-45, 43, 40, 10)];
         //快进快退滑动条
         slider = [[UISlider alloc] initWithFrame:CGRectMake(60, 35, kWidth - 105, 25)];
-        errorLab = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/2-85, kHeight/2-12, 170, 24)];
+        refreshBtn = [[UIButton alloc] initWithFrame:CGRectMake(kWidth/2-90, kHeight/2-20, 180, 40)];
 
     }else
     {
@@ -244,7 +245,8 @@
         remainsProgress = [[UILabel alloc] initWithFrame:CGRectMake(kHeight-45, 43, 40, 10)];
         //快进快退滑动条
         slider = [[UISlider alloc] initWithFrame:CGRectMake(60, 35, kHeight - 105, 25)];
-        errorLab = [[UILabel alloc] initWithFrame:CGRectMake(kHeight/2-85, kWidth/2-12, 170, 24)];
+        refreshBtn = [[UIButton alloc] initWithFrame:CGRectMake(kHeight/2-90, kWidth/2-20, 180, 40)];
+
     }
     bottomView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
     bottomView.userInteractionEnabled = YES;
@@ -278,10 +280,11 @@
 //        slider.backgroundColor = [UIColor blueColor];
     [bottomView addSubview:slider];
 
-    errorLab.text = @"设备离线或服务器错误";
-    errorLab.backgroundColor = [UIColor clearColor];
-    errorLab.textColor = [UIColor whiteColor];
-    [cbPlayerController.view addSubview:errorLab];
+    [refreshBtn setTitle:@"设备离线或服务器错误" forState:UIControlStateNormal];
+    refreshBtn.backgroundColor = [UIColor clearColor];
+    [refreshBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [refreshBtn addTarget:self action:@selector(refreshURL) forControlEvents:UIControlEventTouchUpInside];
+    [cbPlayerController.view addSubview:refreshBtn];
 
     UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenOrNo:)];
     [cbPlayerController.view addGestureRecognizer:tapGest];
@@ -296,6 +299,24 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willBackToHomeNotification:) name:kAPPWillResignActivenotif object:nil];
 }
 
+- (void)refreshURL
+{
+    [self isLoadingView];
+    [[AFHTTPRequestOperationManager manager] GET:self.url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *dict = (NSDictionary *)responseObject;
+//        titleL.text = [dict objectForKey:@"description"];
+        int status = [[dict objectForKey:@"status"] integerValue];
+        if (status) {
+            playerURL = [dict objectForKey:@"url"];
+            [self startPlayback];
+        }else
+        {
+            refreshBtn.hidden = NO;
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        refreshBtn.hidden = NO;
+    }];
+}
 #pragma mark - addclipView
 - (void)addclipView
 {
@@ -499,7 +520,7 @@
 {
     if (self.isLive) {
         _loadingView.hidden = YES;
-        errorLab.hidden = NO;
+        refreshBtn.hidden = NO;
     }
 }
 
@@ -507,7 +528,7 @@
 - (void)playerBackError:(NSNotification *)notifa
 {
 //    NSLog(@"播放失败playerBackError:%@-------%@---------%@",[notifa userInfo],[notifa object],[notifa name]);
-    errorLab.hidden = NO;
+    refreshBtn.hidden = NO;
     [self performSelectorOnMainThread:@selector(hiddenLoadingView) withObject:nil waitUntilDone:NO];
 }
 //状态改变
@@ -561,8 +582,8 @@
 
 - (void)startPlayback{
 //    NSURL *url = [NSURL URLWithString:@"http://119.188.2.50/data2/video04/2013/04/27/00ab3b24-74de-432b-b703-a46820c9cd6f.mp4"];
-    errorLab.hidden = YES;
-    NSURL *url = [NSURL URLWithString:self.url];
+    refreshBtn.hidden = YES;
+    NSURL *url = [NSURL URLWithString:playerURL];
     switch (cbPlayerController.playbackState) {
         case CBPMoviePlaybackStateStopped:
         case CBPMoviePlaybackStateInterrupted:
@@ -1139,9 +1160,16 @@
     [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 
     [self adjustIsShareOrVod];
+    if (self.isLive) {
+        [self refreshURL];
+    }else
+    {
+        playerURL = self.url;
+        [self startPlayback];
+    }
     [self startPlayback];
     _isExitFlag = NO;
-    errorLab.hidden = YES;
+    refreshBtn.hidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated

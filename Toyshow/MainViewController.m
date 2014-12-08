@@ -32,7 +32,6 @@
 //    UIActivityIndicatorView *activiView;
     UILabel *noInternetL,*noDataLoadL;
     NSString *realSign, __block *sign;
-    MBProgressHUD *_loadingView;
     MBProgressHUD *badInternetHub;
     ShareCamereViewController *shareVC;
 }
@@ -328,34 +327,19 @@
 //    [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
 //#if 0
     if (status) {
-        [self isLoadingView];
         NSString *shareID = [dict objectForKey:@"shareid"];
         NSString *uk = [dict objectForKey:@"uk"];
         NSString *liveURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareID,uk];
-        [[AFHTTPRequestOperationManager manager]GET:liveURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSDictionary *dictResponse = (NSDictionary *)responseObject;
-            //            ////NSLog(@"公共摄像头:%@",dictResponse);
-            shareVC.isLive = YES;
-            shareVC.isShare = YES;
-            shareVC.isCollect = NO;
-            shareVC.isWeixinShare = NO;
-            shareVC.shareId = shareID;
-            shareVC.uk = uk;
-            shareVC.deviceId = [dict objectForKey:@"deviceid"];
-            shareVC.playerTitle = [[dictResponse objectForKey:@"description"] stringByAppendingString:@"(分享)"];
-            shareVC.url = [dictResponse objectForKey:@"url"];
-            ////NSLog(@"shareVC.url：%@",shareVC.url);
-//            shareVC.url = @"http://zb.v.qq.com:1863/?progid=3900155972";
-            [_loadingView removeFromSuperview];
-//            [self presentViewController:testVC animated:YES completion:nil];
-//            [self.navigationController pushViewController:testVC animated:YES];
-            [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            ////NSLog(@"error++++++++");
-            [_loadingView removeFromSuperview];
-            [self MBprogressViewHubLoading:@"网络延时"];
-            [badInternetHub hide:YES afterDelay:1];
-        }];
+        shareVC.isLive = YES;
+        shareVC.isShare = YES;
+        shareVC.isCollect = NO;
+        shareVC.isWeixinShare = NO;
+        shareVC.shareId = shareID;
+        shareVC.uk = uk;
+        shareVC.deviceId = [dict objectForKey:@"deviceid"];
+        shareVC.playerTitle = [[dict objectForKey:@"description"] stringByAppendingString:@"(分享)"];
+        shareVC.url = liveURL;
+        [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
     }else
     {
         [self MBprogressViewHubLoading:@"设备不在线"];
@@ -363,17 +347,6 @@
     }
 //#endif
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-- (void)isLoadingView
-{
-    _loadingView = [[MBProgressHUD alloc] initWithView:self.view];
-    _loadingView.delegate = self;
-    _loadingView.labelText = @"loading";
-    _loadingView.detailsLabelText = @"正在加载，请稍后……";
-    _loadingView.square = YES;
-    [_loadingView show:YES];
-    [self.view addSubview:_loadingView];
 }
 
 #define mark - 禁止转屏
@@ -401,21 +374,12 @@
     NSDictionary *dictFromWeixin = (NSDictionary *)[notif userInfo];
     NSString *shareURL = [dictFromWeixin objectForKey:@"weixinInfo"];
 //    NSLog(@"url come from weixin:%@",shareURL);
-    [[AFHTTPRequestOperationManager manager] POST:shareURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSDictionary *dict = (NSDictionary *)responseObject;
-//            ////NSLog(@"公共摄像头url:%@",[dict objectForKey:@"url"]);
-            shareVC.isLive = YES;
-            shareVC.isShare = YES;
-            shareVC.isWeixinShare = YES;
-            shareVC.url = [dict objectForKey:@"url"];
-            shareVC.playerTitle = [dictFromWeixin objectForKey:@"weixinTitle"];
-//        [self presentViewController:shareVC animated:YES completion:nil];
-            [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            ////NSLog(@"error++++++++%@-------%@",[error userInfo],[error localizedDescription]);
-            [self MBprogressViewHubLoading:@"设备已取消分享"];
-            [badInternetHub hide:YES afterDelay:3];
-        }];
+    shareVC.isLive = YES;
+    shareVC.isShare = YES;
+    shareVC.isWeixinShare = YES;
+    shareVC.url = shareURL;
+    shareVC.playerTitle = [dictFromWeixin objectForKey:@"weixinTitle"];
+    [[SliderViewController sharedSliderController].navigationController pushViewController:shareVC animated:YES];
 }
 
 - (void)MBprogressViewHubLoading:(NSString *)labtext
