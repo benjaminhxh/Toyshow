@@ -343,7 +343,6 @@
 
     //判断是被是否在线，在线则可以看直播
     if (stat) {
-        [self isLoadingView];
         NSString *liveUrl = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&access_token=%@&deviceid=%@",self.accessToken,deviceid];
         NSString *share = [cameraDict objectForKey:@"share"];
         liveVC.delegate = self;

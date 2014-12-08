@@ -299,8 +299,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willBackToHomeNotification:) name:kAPPWillResignActivenotif object:nil];
 }
 
+#pragma mark - refreshURL
 - (void)refreshURL
 {
+    refreshBtn.hidden = YES;
     [self isLoadingView];
     [[AFHTTPRequestOperationManager manager] GET:self.url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
@@ -461,7 +463,6 @@
         remainsProgress.text = @"00:00:00";
         slider.value = 0.0;
     }
-    
 }
 - (void)willBackToHomeNotification:(NSNotificationCenter *)notif
 {
@@ -1167,9 +1168,7 @@
         playerURL = self.url;
         [self startPlayback];
     }
-    [self startPlayback];
     _isExitFlag = NO;
-    refreshBtn.hidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
