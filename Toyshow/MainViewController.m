@@ -29,7 +29,6 @@
     MJRefreshFooterView *_footerView;
     NSMutableArray *_fakeData;
     NSArray *downloadArr;
-//    UIActivityIndicatorView *activiView;
     UILabel *noInternetL,*noDataLoadL;
     NSString *realSign, __block *sign;
     MBProgressHUD *badInternetHub;
@@ -66,15 +65,12 @@
     //先拼接再MD5加密
     NSString *string = [NSString stringWithFormat:@"%@%@%@%@",APP_ID,expire,APP_KEY,APP_SecrectKey];
     realSign = [self getMd5_32Bit_String:string];
-//    ////NSLog(@"md5String:%@",realSign);
     //再拼接
     sign = [NSString stringWithFormat:@"%@-%@-%@",APP_ID,APP_KEY,realSign];
-//    ////NSLog(@"sign:%@",sign);
     [self shouldAutorotate];
     UIImageView *imgV=[[UIImageView alloc] initWithFrame:self.view.bounds];
     [imgV setImage:[UIImage imageNamed:@"dabeijing@2x"]];
     [self.view addSubview:imgV];
-//    CGRect rect;
     float backHeight;
     if (iOS7) {
         backHeight = kStatusbarHeight + 5;
@@ -264,8 +260,7 @@
     [[SliderViewController sharedSliderController] leftItemClick];
 }
 
-#pragma mark - Table view data source
-
+#pragma mark - Tableview data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
@@ -349,19 +344,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-#define mark - 禁止转屏
-//强制不允许转屏
-//- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-//    return (toInterfaceOrientation == UIInterfaceOrientationMaskPortrait);
-//}
-//- (NSUInteger)supportedInterfaceOrientations {
-//    return UIInterfaceOrientationMaskPortrait;
-//}
 
-//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//    [activiView stopAnimating];
-//}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -407,6 +390,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#define mark - 禁止转屏
+//强制不允许转屏
 -(NSUInteger)supportedInterfaceOrientations{
     return UIInterfaceOrientationMaskPortrait;
 }
