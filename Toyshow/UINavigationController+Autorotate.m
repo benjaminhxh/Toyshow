@@ -8,7 +8,6 @@
 
 #import "UINavigationController+Autorotate.h"
 
-
 @implementation UINavigationController (Autorotate)
 
 //返回最上层的子Controller的shouldAutorotate

@@ -147,7 +147,7 @@
             notFirstFlag = YES;
             [self MBprogressViewHubLoading:@"网络延时" withMode:4];
             [badInternetHub hide:YES afterDelay:1];
-            [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
+            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
         }];
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
@@ -254,7 +254,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 95;
+    return 96;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

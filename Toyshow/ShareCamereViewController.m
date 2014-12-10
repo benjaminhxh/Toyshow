@@ -854,7 +854,6 @@
     }
 }
 
-
 - (void)hiddenView
 {
     [UIView animateWithDuration:0.3 animations:^{
