@@ -70,32 +70,54 @@
 
 - (void)performActivity
 {
-    WXMediaMessage *message = [WXMediaMessage message];
-    message.title = title;
-    message.description = description;
-    [message setThumbImage:image];
-    if (url) {
-        WXAppExtendObject *extedObj = [WXAppExtendObject object];
-        extedObj.extInfo = [url absoluteString];
-        Byte* pBuffer = (Byte *)malloc(BUFSIZ);
-        memset(pBuffer, 0, BUFSIZ);
-        NSData* data = [NSData dataWithBytes:pBuffer length:BUFSIZ];
-        free(pBuffer);
-        extedObj.fileData = data;
-        message.mediaObject = extedObj;
-    } else if (image) {
-        WXImageObject *imageObject = WXImageObject.object;
-        imageObject.imageData = UIImageJPEGRepresentation(image, 1);
-        message.mediaObject = imageObject;
+    if (scene) {
+        //分享到朋友圈
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+        req.scene = scene;
+        //    req.bText = NO;
+        req.message = WXMediaMessage.message;
+        req.message.title = description;
+        [self setThumbImage:req];
+        if (url) {
+            WXWebpageObject *webObject = WXWebpageObject.object;
+            webObject.webpageUrl = [url absoluteString];
+            req.message.mediaObject = webObject;
+        } else if (image) {
+            WXImageObject *imageObject = WXImageObject.object;
+            imageObject.imageData = UIImageJPEGRepresentation(image, 1);
+            req.message.mediaObject = imageObject;
+        }
+        [WXApi sendReq:req];
+        [self activityDidFinish:YES];
+    }else
+    {
+        //分享到好友
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = title;
+        message.description = description;
+        [message setThumbImage:image];
+        if (url) {
+            WXAppExtendObject *extedObj = [WXAppExtendObject object];
+            extedObj.extInfo = [url absoluteString];
+            Byte* pBuffer = (Byte *)malloc(BUFSIZ);
+            memset(pBuffer, 0, BUFSIZ);
+            NSData* data = [NSData dataWithBytes:pBuffer length:BUFSIZ];
+            free(pBuffer);
+            extedObj.fileData = data;
+            message.mediaObject = extedObj;
+        } else if (image) {
+            WXImageObject *imageObject = WXImageObject.object;
+            imageObject.imageData = UIImageJPEGRepresentation(image, 1);
+            message.mediaObject = imageObject;
+        }
+        
+        SendMessageToWXReq* reqq = [[SendMessageToWXReq alloc] init];
+    //    reqq.bText = NO;
+        reqq.scene = scene;
+        reqq.message = message;
+        [WXApi sendReq:reqq];
+        [self activityDidFinish:YES];
     }
-    
-    SendMessageToWXReq* reqq = [[SendMessageToWXReq alloc] init];
-    reqq.bText = NO;
-    reqq.scene = scene;
-    reqq.message = message;
-    [WXApi sendReq:reqq];
-    [self activityDidFinish:YES];
-
 }
 
 @end

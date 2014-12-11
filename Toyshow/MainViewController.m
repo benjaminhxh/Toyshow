@@ -3,7 +3,7 @@
 //  MainViewController.m
 //  LeftRightSlider
 //
-//  Created by Zhao Yiqi on 13-11-27.
+//  Created by zhxf on 14-3-19.
 //  Copyright (c) 2013年 Zhxf. All rights reserved.
 //分享的摄像头页面
 #define APP_KEY @"ZIAgdlC7Vw7syTjeKG9zS4QP"
@@ -137,17 +137,9 @@
     [reachab startNotifier];
     
     shareVC = [[SliderViewController sharedSliderController].dict objectForKey:kplayerKey];
-    
-//    shareVideoVC = [[ShareCamereViewController alloc] init];
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivesComeFromWeixin:) name:@"shareToWeixinNotif" object:nil];
 }
 
-//- (void)receivesPlayerObject:(NSNotification*)notif
-//{
-//    ////NSLog(@"这是全局播放器对象");
-//   shareVC = [[notif userInfo] objectForKey:kplayerKey];
-//}
 - (void)addheader{
     __unsafe_unretained MainViewController *vc = self;
     __block MJRefreshHeaderView *header;
@@ -235,7 +227,6 @@
     };
     _footerView = footer;
 }
-
 
 - (void)didDismissNoDataload
 {

@@ -2,7 +2,7 @@
 //  LeftViewController.h
 //  LeftRightSlider
 //
-//  Created by Zhao Yiqi on 13-11-27.
+//  Created by zhxf on 14-3-19.
 //  Copyright (c) 2014年 Zhxf. All rights reserved.
 //
 

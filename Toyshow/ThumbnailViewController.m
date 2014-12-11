@@ -354,7 +354,6 @@
 {
     // Return the number of rows in the section.
     if (_fakeData.count) {
-//        ////NSLog(@"tableView.count:%d",_fakeData.count);
         return _fakeData.count;
     }
     return 0;
@@ -375,7 +374,6 @@
         self.thumbTitle.text = self.deviceDesc;
 
         NSArray *arr = [_fakeData objectAtIndex:indexPath.row];
-//        NSLog(@"%d-----indexPath.row:%d",_fakeData.count,indexPath.row);
         //得到开始时间
         NSNumber *stt = [arr objectAtIndex:0];
         int stf,endtf;
