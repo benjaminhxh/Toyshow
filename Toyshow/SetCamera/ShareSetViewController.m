@@ -150,7 +150,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self MBprogressViewHubLoading:@"取消分享失败" withMode:4];
         [shareHub hide:YES afterDelay:1];
-        
     }];
 }
 
@@ -205,7 +204,7 @@
         activity = [NSArray arrayWithObjects:[[WeixinSessionActivity alloc] init],[[WeixinTimelineActivity alloc] init], nil];
 //        activity = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
         NSString *title = [NSString stringWithFormat:@"%@",self.cameraName];
-        NSArray *shareArr = [NSArray arrayWithObjects:title,@"hxh乐现是由北京精彩乐现开发的一款企业级APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，路面情况，看你所看。", [UIImage imageNamed:@"Icon"], shareURL,nil];
+        NSArray *shareArr = [NSArray arrayWithObjects:title,@"joyshow乐现是由北京精彩乐现开发的一款企业级APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，路面情况，看你所看。", [UIImage imageNamed:@"Icon"], shareURL,nil];
         
         UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:shareArr applicationActivities:activity];
         activityView.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypePrint,UIActivityTypeSaveToCameraRoll,UIActivityTypeMail,UIActivityTypeMessage];

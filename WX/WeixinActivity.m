@@ -42,12 +42,9 @@
         if ([activityItem isKindOfClass:[NSURL class]]) {
             url = activityItem;
         }
-//        if ([activityItem isKindOfClass:[NSDictionary class]]) {
-//            dict = activityItem;
-//        }
         if ([activityItem isKindOfClass:[NSString class]]) {
-            if ([activityItem hasPrefix:@"hxh"]) {
-                description = [activityItem substringFromIndex:3];
+            if ([activityItem hasPrefix:@"joyshow"]) {
+                description = [activityItem substringFromIndex:7];
             }else{
                 title = activityItem;
             }
@@ -75,12 +72,18 @@
         SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
         req.scene = scene;
         //    req.bText = NO;
+        //http://www.51joyshow.com/view_share.php?shareid=1ade5ddf8fec8492358a454b34bd5ec6&uk=474433575
         req.message = WXMediaMessage.message;
         req.message.title = description;
         [self setThumbImage:req];
         if (url) {
             WXWebpageObject *webObject = WXWebpageObject.object;
-            webObject.webpageUrl = [url absoluteString];
+            NSString *receiveurl = [url absoluteString];
+            //截取URL的后半截shareid和uk
+            NSArray *arr = [receiveurl componentsSeparatedByString:@"liveplay&"];
+            //拼接joyshow官网直播的URL
+            NSString *urlString = [NSString stringWithFormat:@"http://www.51joyshow.com/view_share.php?%@",[arr lastObject]];
+            webObject.webpageUrl = urlString;
             req.message.mediaObject = webObject;
         } else if (image) {
             WXImageObject *imageObject = WXImageObject.object;
