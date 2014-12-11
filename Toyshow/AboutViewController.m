@@ -158,7 +158,7 @@
 }
 
 - (void)backBtn{
-    [[SliderViewController sharedSliderController]leftItemClick];
+    [[SliderViewController sharedSliderController] leftItemClick];
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=WIFI"]];
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:1001011"]];
 }

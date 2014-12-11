@@ -10,7 +10,6 @@
 		2703E51118D97E8C00E31DF0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2703E50818D97E8C00E31DF0 /* MainViewController.m */; };
 		2703E51418D97E8C00E31DF0 /* LeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2703E50E18D97E8C00E31DF0 /* LeftViewController.m */; };
 		2703E51518D97E8C00E31DF0 /* RightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2703E51018D97E8C00E31DF0 /* RightViewController.m */; };
-		2703E51818D97EA500E31DF0 /* SliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2703E51718D97EA500E31DF0 /* SliderViewController.m */; };
 		270C941818C7333700BE56C8 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 270C941718C7333700BE56C8 /* libiconv.dylib */; };
 		270C941A18C7336900BE56C8 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 270C941918C7336900BE56C8 /* CoreVideo.framework */; };
 		2713684A18BF3659006CF446 /* SiderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2713684918BF3659006CF446 /* SiderCell.m */; };
@@ -33,6 +32,7 @@
 		274662BD18C030DD004C8DD4 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 274662BC18C030DD004C8DD4 /* libsqlite3.dylib */; };
 		274662BF18C030EA004C8DD4 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 274662BE18C030EA004C8DD4 /* libstdc++.dylib */; };
 		274662C118C030F5004C8DD4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 274662C018C030F5004C8DD4 /* libz.dylib */; };
+		274A844D1A399AC200D25A1E /* SliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274A844C1A399AC200D25A1E /* SliderViewController.m */; };
 		274D00A118D6E91C00896C79 /* SiderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 274D00A018D6E91C00896C79 /* SiderCell.xib */; };
 		274D771918E571BF00F352C7 /* ThumbnailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274D771818E571BF00F352C7 /* ThumbnailViewController.m */; };
 		274D771B18E572FA00F352C7 /* thumbCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 274D771A18E572FA00F352C7 /* thumbCell.xib */; };
@@ -368,8 +368,6 @@
 		2703E50E18D97E8C00E31DF0 /* LeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftViewController.m; sourceTree = "<group>"; };
 		2703E50F18D97E8C00E31DF0 /* RightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightViewController.h; sourceTree = "<group>"; };
 		2703E51018D97E8C00E31DF0 /* RightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightViewController.m; sourceTree = "<group>"; };
-		2703E51618D97EA500E31DF0 /* SliderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliderViewController.h; sourceTree = "<group>"; };
-		2703E51718D97EA500E31DF0 /* SliderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SliderViewController.m; sourceTree = "<group>"; };
 		270C941718C7333700BE56C8 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		270C941918C7336900BE56C8 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		2713684818BF3659006CF446 /* SiderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiderCell.h; sourceTree = "<group>"; };
@@ -395,6 +393,8 @@
 		274662BC18C030DD004C8DD4 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		274662BE18C030EA004C8DD4 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		274662C018C030F5004C8DD4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		274A844B1A399AC200D25A1E /* SliderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliderViewController.h; sourceTree = "<group>"; };
+		274A844C1A399AC200D25A1E /* SliderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SliderViewController.m; sourceTree = "<group>"; };
 		274D00A018D6E91C00896C79 /* SiderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SiderCell.xib; sourceTree = "<group>"; };
 		274D771718E571BF00F352C7 /* ThumbnailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbnailViewController.h; sourceTree = "<group>"; };
 		274D771818E571BF00F352C7 /* ThumbnailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbnailViewController.m; sourceTree = "<group>"; };
@@ -1262,8 +1262,8 @@
 				27E5A97A19AB35D0004B5458 /* SetCamera */,
 				27E5A96D19AB34ED004B5458 /* AddCamera */,
 				27BA304519737C6E00F98042 /* VarHeader.h */,
-				2703E51618D97EA500E31DF0 /* SliderViewController.h */,
-				2703E51718D97EA500E31DF0 /* SliderViewController.m */,
+				274A844B1A399AC200D25A1E /* SliderViewController.h */,
+				274A844C1A399AC200D25A1E /* SliderViewController.m */,
 				27DEAAFA1A03624700995E57 /* UINavigationController+Autorotate.h */,
 				27DEAAFB1A03624700995E57 /* UINavigationController+Autorotate.m */,
 				27FFE29318BF287B00AE47FF /* HXHAppDelegate.h */,
@@ -1662,12 +1662,12 @@
 				27E5A99719AB35D0004B5458 /* DeviceControlViewController.m in Sources */,
 				27E5AC1E19AB3ECE004B5458 /* QRCodeGenerator.m in Sources */,
 				2758509518D69A1800CCB075 /* HelpViewController.m in Sources */,
+				274A844D1A399AC200D25A1E /* SliderViewController.m in Sources */,
 				2777607818FB74BD000A5F83 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				27E5A99F19AB35D0004B5458 /* ImageResolutionViewController.m in Sources */,
 				2777607D18FB74BD000A5F83 /* UIProgressView+AFNetworking.m in Sources */,
 				275C477B1A25D3900078EB86 /* BaiduConfig.m in Sources */,
 				27D8CBBF19EFCD6600F88505 /* VideoViewController.m in Sources */,
-				2703E51818D97EA500E31DF0 /* SliderViewController.m in Sources */,
 				27E5A97419AB34ED004B5458 /* AddDeviceViewController.m in Sources */,
 				2703E51518D97E8C00E31DF0 /* RightViewController.m in Sources */,
 				2777607318FB74BD000A5F83 /* AFSecurityPolicy.m in Sources */,

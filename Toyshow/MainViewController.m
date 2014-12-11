@@ -89,7 +89,7 @@
     
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn setTitle:@"分享的摄像头" forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(leftItemClick) forControlEvents:UIControlEventTouchUpInside];
+    [backBtn addTarget:self action:@selector(leftClick) forControlEvents:UIControlEventTouchUpInside];
     [navBar addSubview:backBtn];
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 65, 320, [UIScreen mainScreen].bounds.size.height-65) style:UITableViewStylePlain];
@@ -246,7 +246,7 @@
     [sender endRefreshing];
 }
 
-- (void)leftItemClick
+- (void)leftClick
 {
     [[SliderViewController sharedSliderController] leftItemClick];
 }

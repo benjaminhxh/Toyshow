@@ -78,9 +78,9 @@
         [self setThumbImage:req];
         if (url) {
             WXWebpageObject *webObject = WXWebpageObject.object;
-            NSString *receiveurl = [url absoluteString];
+            NSString *receiveURL = [url absoluteString];
             //截取URL的后半截shareid和uk
-            NSArray *arr = [receiveurl componentsSeparatedByString:@"liveplay&"];
+            NSArray *arr = [receiveURL componentsSeparatedByString:@"liveplay&"];
             //拼接joyshow官网直播的URL
             NSString *urlString = [NSString stringWithFormat:@"http://www.51joyshow.com/view_share.php?%@",[arr lastObject]];
             webObject.webpageUrl = urlString;

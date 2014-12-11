@@ -69,7 +69,7 @@
 - (void)backBtn{
 //    [self dismissViewControllerAnimated:YES completion:^{
 //    }];
-    [[SliderViewController sharedSliderController]leftItemClick];
+    [[SliderViewController sharedSliderController] leftItemClick];
 
 }
 

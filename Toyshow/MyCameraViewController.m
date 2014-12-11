@@ -260,10 +260,6 @@
     //刷新表格
     [sender endRefreshing];
 }
-- (void)leftItemClick
-{
-    [[SliderViewController sharedSliderController] leftItemClick];
-}
 
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

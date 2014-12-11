@@ -2,8 +2,8 @@
 //  SliderViewController.m
 //  LeftRightSlider
 //
-//  Created by zhxf on 14-2-27.
-//  Copyright (c) 2014年 zhxf. All rights reserved.
+//  Created by Zhao Yiqi on 13-11-27.
+//  Copyright (c) 2013年 Zhao Yiqi. All rights reserved.
 //
 
 #import "SliderViewController.h"
@@ -23,6 +23,14 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
     UITapGestureRecognizer *_tapGestureRec;
     UIPanGestureRecognizer *_panGestureRec;
 }
+
+
+
+
+
+
+
+
 
 @end
 
