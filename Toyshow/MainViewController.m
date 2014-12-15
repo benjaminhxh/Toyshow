@@ -104,7 +104,7 @@
     [self addheader];
     [self addFooter];
 
-    noInternetL = [[UILabel alloc] initWithFrame:CGRectMake(0, 65, 320, 44)];
+    noInternetL = [[UILabel alloc] initWithFrame:CGRectMake(0, 65, kWidth, 44)];
     noInternetL.text = @"当前网络不可用，请检查你的网络设置";
     noInternetL.backgroundColor = [UIColor grayColor];
     noInternetL.font = [UIFont systemFontOfSize:14];
@@ -112,7 +112,7 @@
     noInternetL.hidden = YES;
     [self.view addSubview:noInternetL];
     
-    noDataLoadL = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-44, 320, 44)];
+    noDataLoadL = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-44, kWidth, 44)];
     noDataLoadL.text = @"无更多数据加载";
     noDataLoadL.backgroundColor = [UIColor grayColor];
     noDataLoadL.font = [UIFont systemFontOfSize:14];
@@ -203,27 +203,28 @@
     __unsafe_unretained MainViewController *vc = self;
     MJRefreshFooterView *footer = [MJRefreshFooterView footer];
     footer.scrollView = _tableView;
-    footer.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView) {
-    if(_fakeData.count < downloadArr.count)
+    footer.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView)
     {
-        if (_fakeData.count+20 > downloadArr.count) {
-            _fakeData = (NSMutableArray *)downloadArr;
-        }else{
-            for (int i = 0; i < 20; i++) {
-                [_fakeData addObject:[downloadArr objectAtIndex:_fakeData.count]];
+        if(_fakeData.count < downloadArr.count)
+        {
+            if (_fakeData.count+20 > downloadArr.count) {
+                _fakeData = (NSMutableArray *)downloadArr;
+            }else{
+                for (int i = 0; i < 20; i++) {
+                    [_fakeData addObject:[downloadArr objectAtIndex:_fakeData.count]];
+                }
             }
+            // 模拟延迟加载数据，因此2秒后才调用）
+            // 这里的refreshView其实就是footer
+            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+            ////NSLog(@"%@----开始进入刷新状态", refreshView.class);
+            }
+        else
+        {
+            noDataLoadL.hidden = NO;
+            [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(didDismissNoDataload) userInfo:nil repeats:NO];
+            [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
         }
-        // 模拟延迟加载数据，因此2秒后才调用）
-        // 这里的refreshView其实就是footer
-        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
-        ////NSLog(@"%@----开始进入刷新状态", refreshView.class);
-        }
-    else
-    {
-        noDataLoadL.hidden = NO;
-        [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(didDismissNoDataload) userInfo:nil repeats:NO];
-        [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
-    }
     };
     _footerView = footer;
 }

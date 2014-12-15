@@ -314,9 +314,11 @@
         }else
         {
             refreshBtn.hidden = NO;
+            _loadingView.hidden = YES;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         refreshBtn.hidden = NO;
+        _loadingView.hidden = YES;
     }];
 }
 #pragma mark - addclipView
