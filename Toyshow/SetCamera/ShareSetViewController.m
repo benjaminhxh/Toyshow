@@ -204,7 +204,8 @@
         NSString *uk = [dict objectForKey:@"uk"];
         NSString *playURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=liveplay&shareid=%@&uk=%@",shareID,uk];
         NSURL *shareURL = [NSURL URLWithString:playURL];
-//        activity = [NSArray arrayWithObjects:[[WeixinSessionActivity alloc] init],[[WeixinTimelineActivity alloc] init],nil];[[QQReqActivity alloc] init],[[QQZoneActivity alloc] init], nil];
+        activity = [NSArray arrayWithObjects:[[WeixinSessionActivity alloc] init],[[WeixinTimelineActivity alloc] init],nil];
+        //[[QQReqActivity alloc] init],[[QQZoneActivity alloc] init], nil];
 //        activity = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
         NSString *title = [NSString stringWithFormat:@"%@",self.cameraName];
         NSArray *shareArr = [NSArray arrayWithObjects:title,@"joyshow乐现是由北京精彩乐现开发的一款企业级APP，它可以让你身在千里之外都能随时观看家中情况，店铺情况，路面情况，看你所看。", [UIImage imageNamed:@"Icon"], shareURL,nil];
