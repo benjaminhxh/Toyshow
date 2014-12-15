@@ -14,7 +14,7 @@
 {
     self = [super init];
     if (self) {
-        scene = WXSceneTimeline;
+        scene = 1;
     }
     return self;
 }

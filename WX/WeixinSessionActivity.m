@@ -10,6 +10,15 @@
 
 @implementation WeixinSessionActivity
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        scene = 0;
+    }
+    return self;
+}
+
 - (UIImage *)activityImage
 {
     return [UIImage imageNamed:@"icon_session.png"];

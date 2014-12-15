@@ -69,7 +69,7 @@
     
      [UIApplication sharedApplication].idleTimerDisabled = YES;//app在后台不锁屏
     [WXApi registerApp:@"wx70162e2c344d4c79" withDescription:nil];
-    
+//    TencentOAuth *auth = [[TencentOAuth alloc] initWithAppId:@"222222" andDelegate:self];
     return YES;
 }
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -146,14 +146,26 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
-    return  [WXApi handleOpenURL:url delegate:self];
+    if ([WXApi handleOpenURL:url delegate:self]) {
+        return  [WXApi handleOpenURL:url delegate:self];
+    }
+//    }else if ([TencentOAuth HandleOpenURL:url])
+//    {
+//        [TencentOAuth HandleOpenURL:url];
+//    }
+    return YES;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     if ([WXApi handleOpenURL:url delegate:self]) {
         return  [WXApi handleOpenURL:url delegate:self];
-    }else
+    }
+//    else if ([TencentOAuth HandleOpenURL:url])
+//    {
+//        return [TencentOAuth HandleOpenURL:url];
+//    }
+    else
     {
         FrontiaShare *share = [Frontia getShare];
         return [share handleOpenURL:url];
@@ -220,6 +232,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
     //register to receive notifications
     [application registerForRemoteNotifications];
 }
+
 +(HXHAppDelegate*)instance
 {
 	return (HXHAppDelegate *)[[UIApplication sharedApplication] delegate];

@@ -24,14 +24,6 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
     UIPanGestureRecognizer *_panGestureRec;
 }
 
-
-
-
-
-
-
-
-
 @end
 
 @implementation SliderViewController

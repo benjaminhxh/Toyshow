@@ -14,6 +14,7 @@
 #import <Frontia/FrontiaShare.h>
 #import <Frontia/FrontiaShareContent.h>
 #import <Frontia/FrontiaShareDelegate.h>
+
 @interface HXHAppDelegate : UIResponder <UIApplicationDelegate,WXApiDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

@@ -234,17 +234,15 @@
 
 - (BOOL)checkAccessTokenIsExist
 {
-    NSString *userAccessToken = [[NSUserDefaults standardUserDefaults]stringForKey:kUserAccessToken];
-    if (userAccessToken == nil) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kLoginSuccess]) {
+        return YES;
+    }else
         return NO;
-    }
-    return YES;
 }
 
 - (BOOL)accessTokenIsExist
 {
-    NSString *userAccessToken = [[NSUserDefaults standardUserDefaults]stringForKey:kUserAccessToken];
-    if (userAccessToken == nil) {
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:kLoginSuccess]) {
         _loginView = [[UIAlertView alloc] initWithTitle:@"请登陆" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"登录", nil];
         [_loginView show];
         return NO;
@@ -480,9 +478,10 @@
         self.userImageVIew.image = [self scaleToSize:userImage size:self.userImageVIew.frame.size];
         self.userImageVIew.layer.cornerRadius = self.userImageVIew.bounds.size.width/2;
         [[NSUserDefaults standardUserDefaults] setObject:data forKey:kUserHeadImage];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kLoginSuccess];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         //保存登录时间在本地
         [self saveLoginDate];
-        [[NSUserDefaults standardUserDefaults] synchronize];
         loginOrOutL.text = @"退出";
         //保存用户uid
         [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"uid"] forKey:kUserId];
@@ -621,6 +620,7 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserAccessToken];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserHeadImage];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserName];
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:kLoginSuccess];
         [[SliderViewController sharedSliderController] showContentControllerWithModel:@"MainViewController" withDictionary:nil];
     }
 }

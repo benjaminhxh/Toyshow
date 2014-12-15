@@ -475,6 +475,7 @@
         [_headerView beginRefreshing];
     }
 }
+
 - (void)modifySuccess:(NSNotification *)notif
 {
     [self logoutCameraAtindex:0];
@@ -508,4 +509,5 @@
 {
     return UIInterfaceOrientationPortrait;
 }
+
 @end

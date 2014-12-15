@@ -492,7 +492,7 @@
         ////NSLog(@"dict:%@",dict);
         videooffON.on = self.videoRecordIndex;
         _loginoutView.hidden = YES;
-        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
+//        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         videooffON.on = !self.videoRecordIndex;
@@ -527,7 +527,7 @@
         ////NSLog(@"dict:%@",dict);
         stateLightoffON.on = self.lightStatueIndex;
         _loginoutView.hidden = YES;
-        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
+//        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         stateLightoffON.on = !self.lightStatueIndex;
@@ -555,7 +555,7 @@
         ////NSLog(@"dict:%@",dict);
         timeHidden.on = self.timeShowIndex;
         _loginoutView.hidden = YES;
-        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
+//        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         timeHidden.on = !self.timeShowIndex;

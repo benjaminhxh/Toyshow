@@ -59,6 +59,12 @@
     [finishBtn addTarget:self action:@selector(finishBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:finishBtn];
 
+    //右滑回到上一个页面
+    UISwipeGestureRecognizer *recognizer;
+    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(backAction:)];
+    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    [self.view addGestureRecognizer:recognizer];
+    
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
     scrollView.contentSize = CGSizeMake(kWidth, kHeight);
     [self.view addSubview:scrollView];

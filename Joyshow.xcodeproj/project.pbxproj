@@ -19,6 +19,8 @@
 		2718FCB218D6D05E0094583F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2718FCB118D6D05E0094583F /* AudioToolbox.framework */; };
 		2718FCB418D6D06C0094583F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2718FCB318D6D06C0094583F /* Security.framework */; };
 		2718FCB618D6D08F0094583F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2718FCB518D6D08F0094583F /* MobileCoreServices.framework */; };
+		2723975A1A3A99DF00436DAB /* QQZoneActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 272397591A3A99DF00436DAB /* QQZoneActivity.m */; };
+		2723975D1A3A9AB500436DAB /* QQReqActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2723975C1A3A9AB500436DAB /* QQReqActivity.m */; };
 		27269F0519D1563D00975349 /* ShareSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27269F0419D1563D00975349 /* ShareSetViewController.m */; };
 		27269F0919D158D500975349 /* shareSetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27269F0819D158D500975349 /* shareSetCell.xib */; };
 		2732466D18D98B2000F82011 /* MyCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2732466C18D98B2000F82011 /* MyCameraViewController.m */; };
@@ -378,6 +380,10 @@
 		2718FCB118D6D05E0094583F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2718FCB318D6D06C0094583F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2718FCB518D6D08F0094583F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		272397581A3A99DF00436DAB /* QQZoneActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQZoneActivity.h; sourceTree = "<group>"; };
+		272397591A3A99DF00436DAB /* QQZoneActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQZoneActivity.m; sourceTree = "<group>"; };
+		2723975B1A3A9AB500436DAB /* QQReqActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQReqActivity.h; sourceTree = "<group>"; };
+		2723975C1A3A9AB500436DAB /* QQReqActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQReqActivity.m; sourceTree = "<group>"; };
 		27269F0319D1563D00975349 /* ShareSetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareSetViewController.h; sourceTree = "<group>"; };
 		27269F0419D1563D00975349 /* ShareSetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareSetViewController.m; sourceTree = "<group>"; };
 		27269F0819D158D500975349 /* shareSetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = shareSetCell.xib; sourceTree = "<group>"; };
@@ -774,6 +780,10 @@
 				274EBFE219F634E9003A275F /* TencentMessageObject.h */,
 				274EBFE319F634E9003A275F /* TencentOAuth.h */,
 				274EBFE419F634E9003A275F /* TencentOAuthObject.h */,
+				272397581A3A99DF00436DAB /* QQZoneActivity.h */,
+				272397591A3A99DF00436DAB /* QQZoneActivity.m */,
+				2723975B1A3A9AB500436DAB /* QQReqActivity.h */,
+				2723975C1A3A9AB500436DAB /* QQReqActivity.m */,
 				274EBFE519F634E9003A275F /* TencentOpenAPI */,
 				274EBFE619F634E9003A275F /* TencentOpenApi_IOS_Bundle.bundle */,
 				274EBFE719F634E9003A275F /* WeiBoAPI.h */,
@@ -1651,6 +1661,7 @@
 				27E5AC2219AB3ECE004B5458 /* qrinput.c in Sources */,
 				2777607018FB74BD000A5F83 /* AFHTTPRequestOperationManager.m in Sources */,
 				27E5A97819AB34ED004B5458 /* SecurtyStyleViewController.m in Sources */,
+				2723975A1A3A99DF00436DAB /* QQZoneActivity.m in Sources */,
 				27966A0E18E2EB1A0076423C /* MJRefreshBaseView.m in Sources */,
 				2777607218FB74BD000A5F83 /* AFNetworkReachabilityManager.m in Sources */,
 				27F872F8198759F5002DABA3 /* CollectionViewController.m in Sources */,
@@ -1661,6 +1672,7 @@
 				27E5AC2619AB3ECE004B5458 /* rscode.c in Sources */,
 				27E5A99719AB35D0004B5458 /* DeviceControlViewController.m in Sources */,
 				27E5AC1E19AB3ECE004B5458 /* QRCodeGenerator.m in Sources */,
+				2723975D1A3A9AB500436DAB /* QQReqActivity.m in Sources */,
 				2758509518D69A1800CCB075 /* HelpViewController.m in Sources */,
 				274A844D1A399AC200D25A1E /* SliderViewController.m in Sources */,
 				2777607818FB74BD000A5F83 /* AFNetworkActivityIndicatorManager.m in Sources */,

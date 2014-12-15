@@ -27,6 +27,7 @@
 #define kUserRefreshToken        @"userRefreshToken"
 #define kUserHeadImage          @"userHeadImage"
 #define kUserId                 @"userID"
+#define kLoginSuccess           @"LoginSuccess"
 //播放器
 #define kplayerKey              @"playerKey"
 #define kplayerDict             @"playerDict"
