@@ -521,9 +521,13 @@
 //播放完成
 - (void)playerBackDidFinish:(NSNotification *)notif
 {
+    NSLog(@"播放完成");
     if (self.isLive) {
         _loadingView.hidden = YES;
         refreshBtn.hidden = NO;
+    }else
+    {
+        [startBtn setImage:[UIImage imageNamed:@"zanting_anniu@2x"] forState:UIControlStateNormal];
     }
 }
 
