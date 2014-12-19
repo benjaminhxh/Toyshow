@@ -521,7 +521,6 @@
 //播放完成
 - (void)playerBackDidFinish:(NSNotification *)notif
 {
-    NSLog(@"播放完成");
     if (self.isLive) {
         _loadingView.hidden = YES;
         refreshBtn.hidden = NO;
@@ -1180,7 +1179,7 @@
 {
     [self stopPlayback];
 //    [[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
-    foreGrounp.hidden = YES;
+//    foreGrounp.hidden = YES;
     [super viewWillDisappear:YES];
 }
 - (void)dealloc

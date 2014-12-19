@@ -34,7 +34,7 @@
 //#import "BaiduConfig.h"
 #import "BaiduUserSession.h"
 #import "BaiduUserSessionManager.h"
-
+#import "UserInfoViewController.h"
 
 @interface LeftViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,WXApiDelegate,ZBarReaderDelegate,BaiduAuthorizeDelegate,UIActionSheetDelegate>
 {
@@ -101,6 +101,13 @@
     self.userNameL.backgroundColor = [UIColor clearColor];
     self.userNameL.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.userNameL];
+    
+    UIButton *userInfoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    userInfoBtn.frame = CGRectMake(40, 25, 120, 100);
+    userInfoBtn.backgroundColor = [UIColor clearColor];
+    [userInfoBtn addTarget:self action:@selector(userInfoAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:userInfoBtn];
+    
     UITableView *tableV=[[UITableView alloc] initWithFrame:CGRectMake(0, 130, leftWidth, self.view.frame.size.height-130)];
     tableV.backgroundColor=[UIColor clearColor];
     tableV.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -140,6 +147,17 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)userInfoAction
+{
+    if ([self accessTokenIsExist]) {
+        UserInfoViewController *userInfoVC = [[UserInfoViewController alloc] init];
+        [self presentViewController:userInfoVC animated:YES completion:nil];
+    }else
+    {
+        
+    }
 }
 
 #pragma mark - tableViewDelegate
@@ -430,16 +448,6 @@
 - (void)loginDidSuccess
 {
     BaiduUserSession *session = [BaiduUserSessionManager shareUserSessionManager].currentUserSession;
-//    NSLog(@"session.accessToken:%@-----------%@",session.accessToken,session.refreshToken);
-
-//    [self signonButtonClicked];
-    
-//    [baidu refreshUserToken];
-//    [[NSUserDefaults standardUserDefaults] setObject:session.refreshToken forKey:kUserRefreshToken];
-//    [[NSUserDefaults standardUserDefaults] setObject:session.accessToken forKey:kUserAccessToken];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-//    self.accessToken = session.accessToken;
-//    NSLog(@"success_session.accessToken:%@-----------%@",session.accessToken,session.refreshToken);
 //    [self getUserInformation];
     //刷新accessToken
     NSString *refreshTokenURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?&method=addusertoken&refresh_token=%@&access_token=%@",session.accessToken,session.refreshToken];
@@ -451,7 +459,6 @@
         self.accessToken = session.accessToken;
 //        NSLog(@"success_session.accessToken:%@-----------%@",session.accessToken,session.refreshToken);
         [self getUserInformation];
-//
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        NSLog(@"error:%@",error);
     }];

@@ -40,6 +40,7 @@
 		274D771B18E572FA00F352C7 /* thumbCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 274D771A18E572FA00F352C7 /* thumbCell.xib */; };
 		274EBFE919F634E9003A275F /* TencentOpenAPI in Frameworks */ = {isa = PBXBuildFile; fileRef = 274EBFE519F634E9003A275F /* TencentOpenAPI */; };
 		274EBFEA19F634E9003A275F /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 274EBFE619F634E9003A275F /* TencentOpenApi_IOS_Bundle.bundle */; };
+		274F4AAB1A43FEB000A04E2D /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274F4AAA1A43FEB000A04E2D /* UserInfoViewController.m */; };
 		274F50E7195D8AE500114416 /* WeixinActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 274F50E2195D8AE500114416 /* WeixinActivity.m */; };
 		274F50E8195D8AE500114416 /* WeixinTimelineActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 274F50E4195D8AE500114416 /* WeixinTimelineActivity.m */; };
 		274F50E9195D8AE500114416 /* WeixinSessionActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 274F50E6195D8AE500114416 /* WeixinSessionActivity.m */; };
@@ -417,6 +418,8 @@
 		274EBFE619F634E9003A275F /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
 		274EBFE719F634E9003A275F /* WeiBoAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiBoAPI.h; sourceTree = "<group>"; };
 		274EBFE819F634E9003A275F /* WeiyunAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiyunAPI.h; sourceTree = "<group>"; };
+		274F4AA91A43FEB000A04E2D /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
+		274F4AAA1A43FEB000A04E2D /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 		274F50E1195D8AE500114416 /* WeixinActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeixinActivity.h; sourceTree = "<group>"; };
 		274F50E2195D8AE500114416 /* WeixinActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeixinActivity.m; sourceTree = "<group>"; };
 		274F50E3195D8AE500114416 /* WeixinTimelineActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeixinTimelineActivity.h; sourceTree = "<group>"; };
@@ -1306,6 +1309,8 @@
 				2758509418D69A1800CCB075 /* HelpViewController.m */,
 				27F0A43C192C984400D02A79 /* HowToUseViewController.h */,
 				27F0A43D192C984400D02A79 /* HowToUseViewController.m */,
+				274F4AA91A43FEB000A04E2D /* UserInfoViewController.h */,
+				274F4AAA1A43FEB000A04E2D /* UserInfoViewController.m */,
 				27D8CBBA19EFCD6600F88505 /* MVViewController.h */,
 				27D8CBBB19EFCD6600F88505 /* MVViewController.m */,
 				27D8CBBC19EFCD6600F88505 /* VideoViewController.h */,
@@ -1658,6 +1663,7 @@
 				27E5A9A319AB35D0004B5458 /* NightViewController.m in Sources */,
 				27269F0519D1563D00975349 /* ShareSetViewController.m in Sources */,
 				2777607718FB74BD000A5F83 /* AFURLSessionManager.m in Sources */,
+				274F4AAB1A43FEB000A04E2D /* UserInfoViewController.m in Sources */,
 				27E5AC2219AB3ECE004B5458 /* qrinput.c in Sources */,
 				2777607018FB74BD000A5F83 /* AFHTTPRequestOperationManager.m in Sources */,
 				27E5A97819AB34ED004B5458 /* SecurtyStyleViewController.m in Sources */,

@@ -135,10 +135,6 @@
     [[SliderViewController sharedSliderController] leftItemClick];
 }
 
--(void)btnNextClick:(id)sender{
-    //    [[SliderViewController sharedSliderController].navigationController pushViewController:[[ViewController1 alloc] init] animated:YES];
-}
-
 - (void)addheader{
     __unsafe_unretained MyCameraViewController *vc = self;
     
@@ -397,7 +393,6 @@
 #pragma mark - cameraSetDelegate
 - (void)logoutCameraAtindex:(int)index
 {
-//    [self isLoadingView];
     [self reloadMyCameraListView];
 //    [_headerView beginRefreshing];
 }
