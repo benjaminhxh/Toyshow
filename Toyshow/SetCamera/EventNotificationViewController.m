@@ -57,6 +57,7 @@
     
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
     scrollView.contentSize = CGSizeMake(kWidth, kHeight);
+    scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:scrollView];
     
     //右滑回到上一个页面

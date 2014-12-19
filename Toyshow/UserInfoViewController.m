@@ -47,6 +47,7 @@
     
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
     scrollView.contentSize = CGSizeMake(kWidth, kHeight);
+    scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:scrollView];
 
     UILabel *applyInfoL = [[UILabel alloc] initWithFrame:CGRectMake(10, 24, 80, 24)];

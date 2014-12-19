@@ -15,6 +15,7 @@
 #import "DeviceControlViewController.h"
 #import "SensitivityViewController.h"
 #import "AddDeviceViewController.h"
+#import "ManageAuthorViewController.h"
 
 #import "AudioVideoViewController.h"
 #import "NightViewController.h"
@@ -57,10 +58,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
 	// Do any additional setup after loading the view.
-//    UIImageView *background = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-//    background.image = [UIImage imageNamed:backGroundImage];
-//    [self.view addSubview:background];
-//    background.userInteractionEnabled = YES;
     UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 64)];
     topView.image = [UIImage imageNamed:navigationBarImageiOS7];
     topView.userInteractionEnabled = YES;
@@ -132,7 +129,7 @@
     }
     else
     {
-        return 3;
+        return 4;
     }
 }
 
@@ -258,6 +255,15 @@
                 switch (indexPath.row) {
                     case 0:
                     {
+                        //更换网络
+                        cell.textLabel.text = @"管理授权用户";
+                        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    }
+                        break;
+
+                    case 1:
+                    {
                         //修改设备名称
                         cell.textLabel.text = @"修改设备名称";
                         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
@@ -269,7 +275,7 @@
                         [cell addSubview:deviceNameL];
                     }
                         break;
-                    case 1:
+                    case 2:
                     {
                         //更换网络
                         cell.textLabel.text = @"设备更换网络";
@@ -282,7 +288,7 @@
 //                        [cell addSubview:deviceNameL];
                     }
                         break;
-                    case 2:
+                    case 3:
                     {
                         UIButton *loggout = [UIButton buttonWithType:UIButtonTypeCustom];
                         [loggout setTitle:@"注销设备" forState:UIControlStateNormal];
@@ -448,6 +454,14 @@
             switch (indexPath.row) {
                 case 0:
                 {
+                    //管理授权用户
+                    ManageAuthorViewController *manageAuthorVC = [[ManageAuthorViewController alloc] init];
+                    [self.navigationController pushViewController:manageAuthorVC animated:YES];
+                }
+                    break;
+                case 1:
+                {
+                    //修改设备名
                     ModifyViewController *modifyVC = [[ModifyViewController alloc] init];
                     modifyVC.deviceId = self.deviceid;
                     modifyVC.deviceName = self.deviceDesc;
@@ -456,8 +470,9 @@
                     [[SliderViewController sharedSliderController].navigationController pushViewController:modifyVC animated:YES];
                 }
                     break;
-                case 1:
+                case 2:
                 {
+                    //更换网络
                     AddDeviceViewController *exchangeNetVC = [[AddDeviceViewController alloc] init];
                     exchangeNetVC.isAddDevice = NO;
                     [self.navigationController pushViewController:exchangeNetVC animated:YES];

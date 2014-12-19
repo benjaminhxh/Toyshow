@@ -41,6 +41,8 @@
 		274EBFE919F634E9003A275F /* TencentOpenAPI in Frameworks */ = {isa = PBXBuildFile; fileRef = 274EBFE519F634E9003A275F /* TencentOpenAPI */; };
 		274EBFEA19F634E9003A275F /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 274EBFE619F634E9003A275F /* TencentOpenApi_IOS_Bundle.bundle */; };
 		274F4AAB1A43FEB000A04E2D /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274F4AAA1A43FEB000A04E2D /* UserInfoViewController.m */; };
+		274F4AAE1A44148A00A04E2D /* ManageAuthorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274F4AAD1A44148A00A04E2D /* ManageAuthorViewController.m */; };
+		274F4AB11A4417FB00A04E2D /* AddAuthorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274F4AB01A4417FB00A04E2D /* AddAuthorViewController.m */; };
 		274F50E7195D8AE500114416 /* WeixinActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 274F50E2195D8AE500114416 /* WeixinActivity.m */; };
 		274F50E8195D8AE500114416 /* WeixinTimelineActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 274F50E4195D8AE500114416 /* WeixinTimelineActivity.m */; };
 		274F50E9195D8AE500114416 /* WeixinSessionActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 274F50E6195D8AE500114416 /* WeixinSessionActivity.m */; };
@@ -420,6 +422,10 @@
 		274EBFE819F634E9003A275F /* WeiyunAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiyunAPI.h; sourceTree = "<group>"; };
 		274F4AA91A43FEB000A04E2D /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
 		274F4AAA1A43FEB000A04E2D /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
+		274F4AAC1A44148A00A04E2D /* ManageAuthorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageAuthorViewController.h; sourceTree = "<group>"; };
+		274F4AAD1A44148A00A04E2D /* ManageAuthorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageAuthorViewController.m; sourceTree = "<group>"; };
+		274F4AAF1A4417FB00A04E2D /* AddAuthorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAuthorViewController.h; sourceTree = "<group>"; };
+		274F4AB01A4417FB00A04E2D /* AddAuthorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAuthorViewController.m; sourceTree = "<group>"; };
 		274F50E1195D8AE500114416 /* WeixinActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeixinActivity.h; sourceTree = "<group>"; };
 		274F50E2195D8AE500114416 /* WeixinActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeixinActivity.m; sourceTree = "<group>"; };
 		274F50E3195D8AE500114416 /* WeixinTimelineActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeixinTimelineActivity.h; sourceTree = "<group>"; };
@@ -971,6 +977,10 @@
 				27E5A98419AB35D0004B5458 /* DeviceStatueControlViewController.m */,
 				27E5A98119AB35D0004B5458 /* DeviceInfoViewController.h */,
 				27E5A98219AB35D0004B5458 /* DeviceInfoViewController.m */,
+				274F4AAC1A44148A00A04E2D /* ManageAuthorViewController.h */,
+				274F4AAD1A44148A00A04E2D /* ManageAuthorViewController.m */,
+				274F4AAF1A4417FB00A04E2D /* AddAuthorViewController.h */,
+				274F4AB01A4417FB00A04E2D /* AddAuthorViewController.m */,
 				27E5A98919AB35D0004B5458 /* ModifyViewController.h */,
 				27E5A98A19AB35D0004B5458 /* ModifyViewController.m */,
 				27E5A98719AB35D0004B5458 /* ImageResolutionViewController.h */,
@@ -1716,6 +1726,7 @@
 				27E5A93519AB3346004B5458 /* AsyncUdpSocket.m in Sources */,
 				274D771918E571BF00F352C7 /* ThumbnailViewController.m in Sources */,
 				274F50E7195D8AE500114416 /* WeixinActivity.m in Sources */,
+				274F4AB11A4417FB00A04E2D /* AddAuthorViewController.m in Sources */,
 				2777607518FB74BD000A5F83 /* AFURLRequestSerialization.m in Sources */,
 				275C716B18CEC91E00288C83 /* AboutViewController.m in Sources */,
 				275C477C1A25D3900078EB86 /* BaiduError.m in Sources */,
@@ -1724,6 +1735,7 @@
 				2777607618FB74BD000A5F83 /* AFURLResponseSerialization.m in Sources */,
 				275C477F1A25D3900078EB86 /* BaiduUtility.m in Sources */,
 				27E5AC2819AB3ECE004B5458 /* split.c in Sources */,
+				274F4AAE1A44148A00A04E2D /* ManageAuthorViewController.m in Sources */,
 				2777607B18FB74BD000A5F83 /* UIButton+AFNetworking.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

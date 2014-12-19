@@ -67,6 +67,7 @@
     
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
     scrollView.contentSize = CGSizeMake(kWidth, kHeight);
+    scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:scrollView];
     
     NSArray *ipArr = [NSArray arrayWithObjects:@"自动获取",@"手动设置", nil];

@@ -56,7 +56,9 @@
     
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
     scrollView.contentSize = CGSizeMake(kWidth, kHeight);
+    scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:scrollView];
+    
     UILabel *staueL = [[UILabel alloc] initWithFrame:CGRectMake(15, 11, 110, 31)];
     staueL.text = @"设备状态设置";
     [scrollView addSubview:staueL];

@@ -74,7 +74,9 @@
     [topView addSubview:backBtn];
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
     scrollView.contentSize = CGSizeMake(kWidth, kHeight);
+    scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:scrollView];
+    
     if (self.isAddDevice) {
         setHeight = 0;
         [backBtn setTitle:@"配置摄像头" forState:UIControlStateNormal];
