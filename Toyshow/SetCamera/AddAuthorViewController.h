@@ -10,4 +10,6 @@
 
 @interface AddAuthorViewController : UIViewController
 
+@property (nonatomic, copy) NSString *deviceID;
+
 @end

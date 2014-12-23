@@ -19,6 +19,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "Reachability1.h"
 #import <CommonCrypto/CommonDigest.h> //md5加密需要的头文件
+#import "NSString+encodeChinese.h"
 
 @interface MainViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate>
 {
@@ -150,8 +151,6 @@
         // 进入刷新状态就会回调这个Block
         //向服务器发起请求
         NSString *sharelistURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listshare&sign=%@&expire=%@&start=%d&num=100",sign,expire,0];
-//        NSLog(@"shareListUrl:%@",sharelistURL);
-//        NSString *sharelistURL = @"https://pcs.baidu.com/rest/2.0/pcs/device?method=clip&access_token=52.1a03eb7dc5ccc4914247c1ef6b288785.2592000.1417599709.1812238483-2271149&deviceid=154266753377536&st=1415006387&et=1415006747&name=44";
         [[AFHTTPRequestOperationManager manager] GET:sharelistURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
             //2、初始化数据

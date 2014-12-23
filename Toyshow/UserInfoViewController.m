@@ -39,7 +39,7 @@
         backHeight = kStatusbarHeight + 25;
     }
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(5, backHeight, 86, 22);
+    backBtn.frame = CGRectMake(5, backHeight, 90, 22);
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtn) forControlEvents:UIControlEventTouchUpInside];
     [backBtn setTitle:@"用户信息" forState:UIControlStateNormal];

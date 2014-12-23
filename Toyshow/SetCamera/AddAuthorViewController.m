@@ -7,11 +7,13 @@
 //
 
 #import "AddAuthorViewController.h"
+#import "NSString+encodeChinese.h"
 
 @interface AddAuthorViewController ()
 {
     UIScrollView *scrollView;
     UITextField *accountF,*applyCodeF;
+    MBProgressHUD *progresshud;
 }
 @end
 
@@ -101,8 +103,39 @@
     [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
 }
 
+- (void)isloading
+{
+    if (progresshud) {
+        [progresshud show:YES];
+        return;
+    }
+    progresshud = [[MBProgressHUD alloc] initWithFrame:self.view.frame];
+    progresshud.detailsLabelText = @"授权中loading";
+    [self.view addSubview:progresshud];
+    [progresshud show:YES];
+}
 - (void)AuthorizationClick
 {
+    if (accountF.text.length && applyCodeF.text.length) {
+        [self isloading];
+        NSString *name = [accountF.text encodeChinese];
+        NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUserAccessToken];
+        NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=grant&auth_code=5&access_token=%@&uk=%@&deviceid=%@&name=%@",accessToken,applyCodeF.text,self.deviceID,name];
+        [[AFHTTPRequestOperationManager manager] GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            progresshud.hidden = YES;
+            UIAlertView *tipview = [[UIAlertView alloc] initWithTitle:@"授权成功" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil]   ;
+            [tipview show];
+            [self backBtn];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            progresshud.hidden = YES;
+            UIAlertView *tipview = [[UIAlertView alloc] initWithTitle:@"授权失败" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
+            [tipview show];
+        }];
+    }else
+    {
+        UIAlertView *tipV = [[UIAlertView alloc] initWithTitle:@"账号名或申请码不能为空" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
+        [tipV show];
+    }
     
 }
 - (void)didReceiveMemoryWarning {

@@ -456,6 +456,7 @@
                 {
                     //管理授权用户
                     ManageAuthorViewController *manageAuthorVC = [[ManageAuthorViewController alloc] init];
+                    manageAuthorVC.deviceID = self.deviceid;
                     [self.navigationController pushViewController:manageAuthorVC animated:YES];
                 }
                     break;

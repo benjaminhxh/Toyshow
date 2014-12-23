@@ -17,47 +17,46 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zt0-8z-P3e" id="7ba-bG-sFc">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="93"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="95"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" highlightedImage="xuanzhong_tiao.png" translatesAutoresizingMaskIntoConstraints="NO" id="bJu-dv-DG9">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="94"/>
+                        <rect key="frame" x="0.0" y="0.5" width="320" height="94"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="gongnengjiantou.png" translatesAutoresizingMaskIntoConstraints="NO" id="hoL-hE-QK7">
-                        <rect key="frame" x="289" y="36" width="11" height="22"/>
+                        <rect key="frame" x="289" y="37" width="11" height="22"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shipinkuang.png" translatesAutoresizingMaskIntoConstraints="NO" id="tLl-2K-sVC">
-                        <rect key="frame" x="6" y="14" width="105" height="65"/>
+                        <rect key="frame" x="6" y="15" width="105" height="65"/>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="我的摄像头" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yw3-0Q-HmQ">
-                        <rect key="frame" x="121" y="20" width="200" height="30"/>
+                        <rect key="frame" x="121" y="20.5" width="200" height="30"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="设备状态:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXl-AC-ti2">
-                        <rect key="frame" x="121" y="59" width="57" height="15"/>
+                        <rect key="frame" x="121" y="60.5" width="57" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="60J-Jg-2xa">
-                        <rect key="frame" x="180" y="59" width="30" height="14"/>
+                        <rect key="frame" x="180" y="60" width="30" height="14"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i46-JY-S9E">
-                        <rect key="frame" x="5" y="0.0" width="310" height="1"/>
+                        <rect key="frame" x="5" y="94" width="310" height="1"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </view>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bVa-OC-ZFZ">
-                        <rect key="frame" x="5" y="94" width="310" height="1"/>
+                        <rect key="frame" x="5" y="97" width="310" height="1"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </view>
                 </subviews>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="333" y="278"/>
         </tableViewCell>
     </objects>
     <resources>

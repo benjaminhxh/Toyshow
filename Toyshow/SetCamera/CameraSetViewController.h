@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *cellLabelT;
 @property (copy, nonatomic) NSString *deviceDesc;
 @property (copy, nonatomic) NSString *deviceid;
+@property (copy, nonatomic) NSString *uk;
 @property (copy, nonatomic) NSString *access_token;
 @property (assign, nonatomic) int index;
 @property (nonatomic) BOOL isOnline;

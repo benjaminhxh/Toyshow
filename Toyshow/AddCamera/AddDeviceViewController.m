@@ -323,14 +323,12 @@
             return;
         }
         //向Baidu服务器注册设备
-        //    NSData *data = [URLstr dataUsingEncoding:NSUTF8StringEncoding];
         NSString *des = [deviceDetailF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-        //    NSString *descc = [NSString stringWithUTF8String:[desc UTF8String]];
         NSString *strWithUTF8 = [des encodeChinese];
         //    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)des, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
         //https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=123456&access_token=52.88be325d08d983f7403be8438c0c1eed.2592000.1403337720.1812238483-2271149&device_type=1&desc=摄像头描述
         NSString *URLstr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=%lld&access_token=%@&device_type=1&desc=%@",deviceIDint64,self.access_token,strWithUTF8];
-        ////NSLog(@"urlSTR:%@",URLstr);
+        ////NSLog(@"urlSTR:%@",URLstr);               @"￼￼￼￼https://pcs.baidu.com/rest/2.0/pcs/device?method=grant&auth_code=5&access_token=21.6ac6bfe1edeb477d083388d68962c746.2592000.1421567577.474433575-2271149&uk=3696369856&deviceid=5790473783296&name=测试数据"
         //    return ;
         [self isLoadingView];
         

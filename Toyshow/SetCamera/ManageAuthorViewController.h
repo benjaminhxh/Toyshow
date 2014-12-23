@@ -10,4 +10,7 @@
 
 @interface ManageAuthorViewController : UIViewController
 
+@property (nonatomic, copy) NSString *deviceID;
+@property (weak, nonatomic) IBOutlet UILabel *accountName;
+@property (weak, nonatomic) IBOutlet UILabel *authorCode;
 @end
