@@ -10,6 +10,7 @@
 #import "WXApi.h"
 #import "WeixinSessionActivity.h"
 #import "WeixinTimelineActivity.h"
+#import <Frontia/Frontia.h>
 
 @interface UserInfoViewController ()
 {
@@ -98,7 +99,7 @@
     sendBtn.frame = CGRectMake(kWidth/2-60, 300, 120, 40);
     [sendBtn setBackgroundImage:[UIImage imageNamed:@"kaishipeizhi_anniu@2x"] forState:UIControlStateNormal];
     [sendBtn setTitle:@"发送申请信息" forState:UIControlStateNormal];
-    [sendBtn addTarget:self action:@selector(sendInfoTo) forControlEvents:UIControlEventTouchUpInside];
+    [sendBtn addTarget:self action:@selector(sendInfoTo:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:sendBtn];
     
 }
@@ -108,17 +109,48 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)sendInfoTo
+- (void)sendInfoTo:(id)sender
 {
     NSString *accountName = [NSString stringWithFormat:@"账号名:%@",[[NSUserDefaults standardUserDefaults] objectForKey:kUserName]];
     NSString *applyCode = [NSString stringWithFormat:@"申请码:%@",[[NSUserDefaults standardUserDefaults] objectForKey:kUserId]];
-    NSArray *shareArr = [NSArray arrayWithObjects:accountName,applyCode, [UIImage imageNamed:@"Icon"], nil,nil];
+    FrontiaShare *share = [Frontia getShare];
+    
+    [share registerQQAppId:@"1103178501" enableSSO:NO];
+    [share registerWeixinAppId:@"wx70162e2c344d4c79"];
+    
+    //授权取消回调函数
+    FrontiaShareCancelCallback onCancel = ^(){
+        NSLog(@"OnCancel: share is cancelled");
+    };
+    
+    //授权失败回调函数
+    FrontiaShareFailureCallback onFailure = ^(int errorCode, NSString *errorMessage){
+        NSLog(@"OnFailure: %d  %@", errorCode, errorMessage);
+    };
+    
+    //授权成功回调函数
+    FrontiaMultiShareResultCallback onResult = ^(NSDictionary *respones){
+        NSLog(@"================OnResult: %@", [respones description]);
+    };
+    
+    FrontiaShareContent *content=[[FrontiaShareContent alloc] init];
+    content.url = @"taobao://";
+    content.title = [NSString stringWithFormat:@"%@\n%@",accountName,applyCode];
+    content.description = applyCode;
+    content.imageObj = @"http://apps.bdimg.com/developer/static/04171450/developer/images/icon/terminal_adapter.png";
+    
+    NSArray *platforms = @[FRONTIA_SOCIAL_SHARE_PLATFORM_SINAWEIBO,FRONTIA_SOCIAL_SHARE_PLATFORM_WEIXIN_TIMELINE,FRONTIA_SOCIAL_SHARE_PLATFORM_QQ,FRONTIA_SOCIAL_SHARE_PLATFORM_WEIXIN_SESSION,FRONTIA_SOCIAL_SHARE_PLATFORM_QQFRIEND,FRONTIA_SOCIAL_SHARE_PLATFORM_EMAIL,FRONTIA_SOCIAL_SHARE_PLATFORM_SMS];
+    
+    [share showShareMenuWithShareContent:content displayPlatforms:platforms supportedInterfaceOrientations:UIInterfaceOrientationMaskPortrait isStatusBarHidden:NO targetViewForPad:sender cancelListener:onCancel failureListener:onFailure resultListener:onResult];
+    /*
+    NSString *url = @"www.51joyshow.com.cn";
+    NSArray *shareArr = [NSArray arrayWithObjects:accountName,applyCode, [UIImage imageNamed:@"Icon"], url,nil];
     
     NSArray *activity = [NSArray arrayWithObjects:[[WeixinSessionActivity alloc] init],[[WeixinTimelineActivity alloc] init],nil];
     UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:shareArr applicationActivities:activity];
     activityView.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypePrint,UIActivityTypeSaveToCameraRoll,UIActivityTypeMail,UIActivityTypeMessage];
     [self presentViewController:activityView animated:YES completion:nil];
-
+*/
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

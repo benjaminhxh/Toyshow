@@ -815,10 +815,7 @@
 
     }
     NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=%@&access_token=%@&shareid=%@&uk=%@",method,accessToken,self.shareId,self.uk];
-    ////NSLog(@"收藏的URL：%@",url);
     [[AFHTTPRequestOperationManager manager]POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSDictionary *dict = (NSDictionary*)responseObject;
-        ////NSLog(@"收藏的dict:%@",dict);
         if (self.isCollect) {
             [self MBprogressViewHubLoading:@"已取消收藏" withMode:4];
 //            [self showResultAlertView:@"已取消收藏"];

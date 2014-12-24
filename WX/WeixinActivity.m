@@ -126,8 +126,10 @@
             [self activityDidFinish:YES];
         }
             break;
+            /*
         case 2:
         {
+            //分享到QQ
             NSString *receiveURL = [url absoluteString];
             //截取URL的后半截shareid和uk
             NSArray *arr = [receiveURL componentsSeparatedByString:@"liveplay&"];
@@ -145,6 +147,7 @@
             break;
         case 3:
         {
+            //分享到QQ空间
             NSString *receiveURL = [url absoluteString];
             //截取URL的后半截shareid和uk
             NSArray *arr = [receiveURL componentsSeparatedByString:@"liveplay&"];
@@ -156,6 +159,7 @@
             QQApiSendResultCode send = [QQApiInterface SendReqToQZone:req];
         }
             break;
+             */
         default:
             break;
     }

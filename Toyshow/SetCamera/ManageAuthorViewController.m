@@ -171,6 +171,7 @@
     if (cell==nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"ManageAuthor" owner:self options:nil] lastObject];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSDictionary *dict = [_fakeData objectAtIndex:indexPath.row];
     self.authorCode.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"uk"]];
     self.accountName.text = [dict objectForKey:@"name"];

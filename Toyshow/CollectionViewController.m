@@ -24,6 +24,7 @@
     MJRefreshHeaderView *_headview;
     ShareCamereViewController *liveVC;
     BOOL notFirstFlag;
+    NSInteger index;
 }
 @end
 
@@ -119,16 +120,15 @@
     header.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView) {
         // 进入刷新状态就会回调这个Block
         //向服务器发起请求
+//        NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listgrantdevice&access_token=%@",accessToken];
         NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listsubscribe&access_token=%@",accessToken];
         [[AFHTTPRequestOperationManager manager] GET:urlSTR parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             notFirstFlag = YES;
             NSDictionary *dict = (NSDictionary *)responseObject;
-            //            //NSLog(@"收藏的dict:%@",dict);
             //2、初始化数据
             _fakeData = [NSMutableArray array];
             downloadArr = [NSMutableArray array];
             downloadArr = [dict objectForKey:@"device_list"];
-            //            //NSLog(@"downloadArr:%@",downloadArr);
             if (downloadArr.count == 0) {
                 [self MBprogressViewHubLoading:@"无摄像头" withMode:4];
                 [badInternetHub hide:YES afterDelay:1];
@@ -284,6 +284,36 @@
         [badInternetHub hide:YES afterDelay:1];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"取消收藏";
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIAlertView *deleteVodView = [[UIAlertView alloc] initWithTitle:nil message:@"确定要取消收藏该摄像头吗？"
+                                                           delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"取消收藏", nil];
+    [deleteVodView show];
+    index = indexPath.row;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex) {
+        NSString *uk = [[_fakeData objectAtIndex:index] objectForKey:@"uk"];
+        NSString *shareId = [[_fakeData objectAtIndex:index] objectForKey:@"shareid"];
+        NSString *cancelCollecturl = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=unsubscribe&access_token=%@&shareid=%@&uk=%@",accessToken,shareId,uk];
+        [[AFHTTPRequestOperationManager manager] POST:cancelCollecturl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSMutableArray *mutabArr = [[NSMutableArray arrayWithArray:_fakeData] mutableCopy];
+            [mutabArr removeObjectAtIndex:index];
+            _fakeData = mutabArr;
+            [_tableView reloadData];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            //            NSLog(@"errror:%@",error);
+        }];
+    }
 }
 
 - (void)MBprogressViewHubLoading:(NSString *)labtext withMode:(int)mode

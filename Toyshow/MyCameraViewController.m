@@ -6,6 +6,8 @@
 //  Copyright (c) 2014年 zhxf. All rights reserved.
 //
 
+#define kGrant @"mygrant"
+
 #import "MyCameraViewController.h"
 #import "ShareCamereViewController.h"
 #import "MJRefresh.h"
@@ -143,68 +145,74 @@
     header.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView) {
         // 进入刷新状态就会回调这个Block
         //向服务器发起请求
-        NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=list&access_token=%@&device_type=1",self.accessToken];
-        [[AFHTTPRequestOperationManager manager] GET:urlSTR parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //授权的列表
+        NSString *listGrantURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listgrantdevice&access_token=%@",self.accessToken];
+        [[AFHTTPRequestOperationManager manager] GET:listGrantURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             notFirstFlag = YES;
             NSDictionary *dict = (NSDictionary *)responseObject;
             //2、初始化数据
             _fakeData = [NSMutableArray array];
             downloadArr = [NSMutableArray array];
             downloadArr = [dict objectForKey:@"list"];
-            //            ////NSLog(@"downloadArr:%@",downloadArr);
             if (downloadArr.count == 0) {
-                //                UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"无摄像头" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-                //                [noDataView show];
-                [self MBprogressViewHubLoading:@"无摄像头"];
-                [badInternetHub hide:YES afterDelay:1];
             }else
             {
-                if (downloadArr.count>20) {
-                    for (int i = 0; i < 20; i++) {
-                        [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
+                if (downloadArr.count>20)
+                {
+                    for (int i = 0; i < 20; i++)
+                    {
+                        NSMutableDictionary *mutabDict = [[downloadArr objectAtIndex:i] mutableCopy];
+                        [mutabDict setValue:kGrant forKey:kGrant];
+                        [vc->_fakeData addObject:mutabDict];
                     }
                 }else
                 {
-                    vc->_fakeData = (NSMutableArray *)downloadArr;
+                    for (int i = 0; i < downloadArr.count; i++)
+                    {
+                        NSMutableDictionary *mutabDict = [[downloadArr objectAtIndex:i] mutableCopy];
+                        [mutabDict setValue:kGrant forKey:kGrant];
+                        [vc->_fakeData addObject:mutabDict];
+                    }
                 }
             }
-            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+            //我的摄像头
+            NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=list&access_token=%@&device_type=1",self.accessToken];
+            [[AFHTTPRequestOperationManager manager] GET:urlSTR parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                notFirstFlag = YES;
+                NSDictionary *mydict = (NSDictionary *)responseObject;
+                //2、初始化数据
+                NSMutableArray *mydownloadArr = [NSMutableArray array];
+                mydownloadArr = [mydict objectForKey:@"list"];
+                if (mydownloadArr.count == 0) {
+                    [self MBprogressViewHubLoading:@"无摄像头"];
+                    [badInternetHub hide:YES afterDelay:1];
+                }else
+                {
+                    if (mydownloadArr.count>20) {
+                        for (int i = 0; i < 20; i++) {
+                            [vc->_fakeData addObject:[mydownloadArr objectAtIndex:i]];
+                        }
+                    }else
+                    {
+                        for (int i = 0; i < mydownloadArr.count; i++) {
+                            [vc->_fakeData addObject:[mydownloadArr objectAtIndex:i]];
+                        }
+                    }
+                }
+                [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                notFirstFlag = YES;
+                [self MBprogressViewHubLoading:@"网络延时"];
+                [badInternetHub hide:YES afterDelay:1];
+                [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+            }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            //            UIAlertView *noDataView = [[UIAlertView alloc] initWithTitle:@"网络延时" message:nil delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-            //            [noDataView show];
-//            NSLog(@"code%d-----domin:%@------dict:%@",error.code,error.domain,error.userInfo);
-            notFirstFlag = YES;
-            [self MBprogressViewHubLoading:@"网络延时"];
-            [badInternetHub hide:YES afterDelay:1];
-            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+            
         }];
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
         [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationFail];
-        ////NSLog(@"%@----开始进入刷新状态", refreshView.class);
     };
-//    header.endStateChangeBlock = ^(MJRefreshBaseView *refreshView) {
-//        // 刷新完毕就会回调这个Block
-//        ////NSLog(@"%@----刷新完毕", refreshView.class);
-//    };
-//    header.refreshStateChangeBlock = ^(MJRefreshBaseView *refreshView, MJRefreshState state) {
-//        // 控件的刷新状态切换了就会调用这个block
-//        switch (state) {
-//            case MJRefreshStateNormal:
-//                ////NSLog(@"%@----切换到：普通状态", refreshView.class);
-//                break;
-//                
-//            case MJRefreshStatePulling:
-//                ////NSLog(@"%@----切换到：松开即可刷新的状态", refreshView.class);
-//                break;
-//                
-//            case MJRefreshStateRefreshing:
-//                ////NSLog(@"%@----切换到：正在刷新状态", refreshView.class);
-//                break;
-//            default:
-//                break;
-//        }
-//    };
     [header beginRefreshing];
     _headerView = header;
 }
@@ -283,46 +291,51 @@
     static NSString *CellIdentifier = @"Cell";
    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     // Configure the cell...
-        if (nil == cell) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"MyCameraCell" owner:self options:nil] lastObject];
-        }
-            NSDictionary *cameraUserInfoDict = [_fakeData objectAtIndex:indexPath.row];
+    if (nil == cell) {
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"MyCameraCell" owner:self options:nil] lastObject];
+    }
+    NSDictionary *cameraUserInfoDict = [_fakeData objectAtIndex:indexPath.row];
 //            self.cameraId.text = [cameraUserInfoDict objectForKey:@"deviceid"];
-            self.cameraTitle.text = [cameraUserInfoDict objectForKey:@"description"];
-            NSString *status = [cameraUserInfoDict objectForKey:@"status"];
-            int stat = [status intValue];
-            int shareStatue = [[cameraUserInfoDict objectForKey:@"share"] intValue];
-            if (stat) {
-                self.cameraStatus.text = @"在线";
-                self.cameraStatus.textColor = [UIColor blueColor];
-            }else
-            {
-                self.cameraStatus.text = @"离线";
-                self.cameraStatus.textColor = [UIColor grayColor];
-            }
-            switch (shareStatue) {
-                case 0:
-                    self.shareStatue.text = @"";
-                    break;
-                case 1:
-                    self.shareStatue.text = @"公开分享";
-                    break;
-                case 2:
-                    self.shareStatue.text = @"私密分享";
-                    break;
-                default:
-                    break;
-            }
-            NSString *urlImage = [cameraUserInfoDict objectForKey:@"thumbnail"];
-            [self.cameraPic setImageWithURL:[NSURL URLWithString:urlImage]];
-            UIButton *button = [ UIButton buttonWithType:UIButtonTypeCustom ];
-            CGRect frame = CGRectMake( 0.0 , 0.0 , 40 , 34 );
-            button.frame = frame;
-            [button setImage:setBtnImage forState:UIControlStateNormal ];
+    if ([[cameraUserInfoDict allKeys] containsObject:kGrant]) {
+        self.cameraTitle.text = [NSString stringWithFormat:@"(授权)%@",[cameraUserInfoDict objectForKey:@"description"]];
+    }else
+    {
+        self.cameraTitle.text = [cameraUserInfoDict objectForKey:@"description"];
+    }
+    NSString *status = [cameraUserInfoDict objectForKey:@"status"];
+    int stat = [status intValue];
+    int shareStatue = [[cameraUserInfoDict objectForKey:@"share"] intValue];
+    if (stat) {
+        self.cameraStatus.text = @"在线";
+        self.cameraStatus.textColor = [UIColor blueColor];
+    }else
+    {
+        self.cameraStatus.text = @"离线";
+        self.cameraStatus.textColor = [UIColor grayColor];
+    }
+    switch (shareStatue) {
+        case 0:
+            self.shareStatue.text = @"";
+            break;
+        case 1:
+            self.shareStatue.text = @"公开分享";
+            break;
+        case 2:
+            self.shareStatue.text = @"私密分享";
+            break;
+        default:
+            break;
+    }
+    NSString *urlImage = [cameraUserInfoDict objectForKey:@"thumbnail"];
+    [self.cameraPic setImageWithURL:[NSURL URLWithString:urlImage]];
+    UIButton *button = [ UIButton buttonWithType:UIButtonTypeCustom ];
+    CGRect frame = CGRectMake( 0.0 , 0.0 , 40 , 34 );
+    button.frame = frame;
+    [button setImage:setBtnImage forState:UIControlStateNormal ];
 //            button.backgroundColor = [UIColor clearColor ];
-            [button addTarget:self action:@selector(accessoryButtonTappedAction:) forControlEvents:UIControlEventTouchUpInside];
-            cell. accessoryView = button;
-        
+    [button addTarget:self action:@selector(accessoryButtonTappedAction:) forControlEvents:UIControlEventTouchUpInside];
+    cell. accessoryView = button;
+    
     return cell;
 }
 
@@ -411,6 +424,67 @@
     _loadingView.detailsLabelText = @"";
 
     __unsafe_unretained MyCameraViewController *vc = self;
+    NSString *listGrantURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listgrantdevice&access_token=%@",self.accessToken];
+    [[AFHTTPRequestOperationManager manager] GET:listGrantURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        notFirstFlag = YES;
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        //2、初始化数据
+        _fakeData = [NSMutableArray array];
+        downloadArr = [NSMutableArray array];
+        downloadArr = [dict objectForKey:@"list"];
+        if (downloadArr.count == 0) {
+        }else
+        {
+            if (downloadArr.count>20)
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    NSMutableDictionary *mutabDict = [[downloadArr objectAtIndex:i] mutableCopy];
+                    [mutabDict setValue:kGrant forKey:kGrant];
+                    [vc->_fakeData addObject:mutabDict];
+                }
+            }else
+            {
+                for (int i = 0; i < downloadArr.count; i++)
+                {
+                    NSMutableDictionary *mutabDict = [[downloadArr objectAtIndex:i] mutableCopy];
+                    [mutabDict setValue:kGrant forKey:kGrant];
+                    [vc->_fakeData addObject:mutabDict];
+                }
+            }
+        }
+        //我的摄像头
+        NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=list&access_token=%@&device_type=1",self.accessToken];
+        [[AFHTTPRequestOperationManager manager] GET:urlSTR parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [_loadingView hide:YES];
+
+            NSDictionary *mydict = (NSDictionary *)responseObject;
+            //2、初始化数据
+            NSMutableArray *mydownloadArr = [NSMutableArray array];
+            mydownloadArr = [mydict objectForKey:@"list"];
+            if (mydownloadArr.count == 0) {
+            }else
+            {
+                if (mydownloadArr.count>20) {
+                    for (int i = 0; i < 20; i++) {
+                        [vc->_fakeData addObject:[mydownloadArr objectAtIndex:i]];
+                    }
+                }else
+                {
+                    for (int i = 0; i < mydownloadArr.count; i++) {
+                        [vc->_fakeData addObject:[mydownloadArr objectAtIndex:i]];
+                    }
+                }
+            }
+            [_tableView reloadData];//刷新界面
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [_loadingView hide:YES];
+
+        }];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_loadingView hide:YES];
+    }];
+    /*
     //向服务器发起请求
     NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=list&access_token=%@&device_type=1",self.accessToken];
     [[AFHTTPRequestOperationManager manager] GET:urlSTR parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -436,7 +510,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_loadingView hide:YES];
     }];
-    
+    */
 }
 - (void)didReceiveMemoryWarning
 {
