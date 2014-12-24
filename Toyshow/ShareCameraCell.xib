@@ -27,7 +27,7 @@
                         <rect key="frame" x="6" y="14" width="105" height="65"/>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HXl-TR-aNW">
-                        <rect key="frame" x="121" y="20" width="200" height="30"/>
+                        <rect key="frame" x="121" y="20" width="170" height="30"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -39,7 +39,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="gongnengjiantou.png" translatesAutoresizingMaskIntoConstraints="NO" id="Uc2-rb-uAz">
-                        <rect key="frame" x="289" y="36" width="11" height="22"/>
+                        <rect key="frame" x="295" y="36" width="11" height="22"/>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="设备状态:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsm-Gp-ych">
                         <rect key="frame" x="121" y="59" width="57" height="14"/>

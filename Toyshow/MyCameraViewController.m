@@ -360,7 +360,12 @@
         liveVC.url = liveUrl;
         liveVC.accecc_token = self.accessToken;//
         liveVC.deviceId = deviceid;//设备ID
-        liveVC.playerTitle = [[cameraDict objectForKey:@"description"] stringByAppendingString:@"(直播)"];
+        if ([[cameraDict allKeys] containsObject:kGrant]) {
+            liveVC.playerTitle = [[cameraDict objectForKey:@"description"] stringByAppendingString:@"(授权)"];
+        }else
+        {
+            liveVC.playerTitle = [[cameraDict objectForKey:@"description"] stringByAppendingString:@"(直播)"];
+        }
         [[SliderViewController sharedSliderController].navigationController pushViewController:liveVC animated:YES];
     }else
     {
@@ -389,18 +394,24 @@
     }
     int row = [_tableView indexPathForCell:cell].row;
     NSDictionary *dict = [_fakeData objectAtIndex:row];
+    CameraSetViewController *setVC = [[CameraSetViewController alloc] init];
+    setVC.access_token = self.accessToken;
+    setVC.deviceid = [dict objectForKey:@"deviceid"];
+    setVC.deviceDesc = [dict objectForKey:@"description"];
+    setVC.delegate = self;
 
-//   BOOL status = [[dict objectForKey:@"status"] intValue];
-//    if (status) {
-        CameraSetViewController *setVC = [[CameraSetViewController alloc] init];
-        setVC.deviceDesc = [dict objectForKey:@"description"];
-        setVC.access_token = self.accessToken;
-        setVC.deviceid = [dict objectForKey:@"deviceid"];
+    if ([[dict allKeys] containsObject:kGrant]) {
+        //授权的设备设置
+        setVC.isAuthorDevice = YES;
+    }else
+    {
+        //我的摄像头设置
+        setVC.isAuthorDevice = NO;
         setVC.index = row;
         setVC.isOnline = [[dict objectForKey:@"status"] intValue];
         setVC.shareIndex = [[dict objectForKey:@"share"] intValue];
-        setVC.delegate = self;
-        [[SliderViewController sharedSliderController].navigationController pushViewController:setVC animated:YES];
+    }
+    [[SliderViewController sharedSliderController].navigationController pushViewController:setVC animated:YES];
 }
 
 #pragma mark - cameraSetDelegate
@@ -484,33 +495,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_loadingView hide:YES];
     }];
-    /*
-    //向服务器发起请求
-    NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=list&access_token=%@&device_type=1",self.accessToken];
-    [[AFHTTPRequestOperationManager manager] GET:urlSTR parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *dict = (NSDictionary *)responseObject;
-        //2、初始化数据
-        _fakeData = [NSMutableArray array];
-        downloadArr = [NSMutableArray array];
-        downloadArr = [dict objectForKey:@"list"];
-        ////NSLog(@"downloadArr:%@",downloadArr);
-        [_loadingView hide:YES];
-        
-        if (downloadArr.count>20) {
-            for (int i = 0; i < 20; i++) {
-                [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
-            }
-        }else
-        {
-            vc->_fakeData = (NSMutableArray *)downloadArr;
-        }
-        
-        [_tableView reloadData];//刷新界面
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_loadingView hide:YES];
-    }];
-    */
 }
 - (void)didReceiveMemoryWarning
 {

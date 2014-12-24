@@ -80,14 +80,25 @@
     self.controlONOrOFFIndex = 3;
     cameraInfoArr = [NSArray arrayWithObjects:@"音视频设置",@"夜视功能设置",@"事件通知",@"录像控制",@"状态指示灯",@"时间显示",@"设备状态控制",@"设备信息", nil];
     cameraInfoArrLow = [NSArray arrayWithObjects:@"音视频设置",@"事件通知",@"录像控制",@"状态指示灯",@"时间显示",@"设备状态控制",@"设备信息", nil];
-
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kWidth, [UIScreen mainScreen].bounds.size.height-64) style:UITableViewStylePlain];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    [self.view addSubview:_tableView];
-    if (self.isOnline) {
-        [self getDeviceInfo];
+    if (self.isAuthorDevice) {
+        UIButton *dropGrantBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        dropGrantBtn.frame = CGRectMake(kWidth-140, 25-3, 60, 35);
+        [dropGrantBtn setTitle:@"放弃授权" forState:UIControlStateNormal];
+        [dropGrantBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [dropGrantBtn setBackgroundImage:[UIImage imageNamed:@"lishijilu@2x"] forState:UIControlStateNormal];
+        [dropGrantBtn addTarget:self action:@selector(dropGrantClick) forControlEvents:UIControlEventTouchUpInside];
+        [topView addSubview:dropGrantBtn];
+    }else
+    {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kWidth, [UIScreen mainScreen].bounds.size.height-64) style:UITableViewStylePlain];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        [self.view addSubview:_tableView];
+        if (self.isOnline) {
+            [self getDeviceInfo];
+        }
     }
+    
 
     //右滑回到上一个页面
     UISwipeGestureRecognizer *recognizer;
@@ -102,6 +113,22 @@
     [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
 }
 
+//放弃授权
+- (void)dropGrantClick
+{
+    _loginoutView.hidden = NO;
+    NSString *dropGrantURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=dropgrantdevice&access_token=%@&deviceid=%@",self.access_token,self.deviceid];
+    [[AFHTTPRequestOperationManager manager] GET:dropGrantURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(logoutCameraAtindex:)]) {
+            [self.delegate logoutCameraAtindex:100];
+        }
+        [self backBtn:nil];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        _loginoutView.hidden = YES;
+        UIAlertView *failV = [[UIAlertView alloc] initWithTitle:@"放弃授权失败" message:nil delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+        [failV show];
+    }];
+}
 //看录像，进入录像列表
 - (void)didSeeVideoClick
 {

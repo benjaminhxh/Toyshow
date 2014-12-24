@@ -22,6 +22,7 @@
 @property (copy, nonatomic) NSString *access_token;
 @property (assign, nonatomic) int index;
 @property (nonatomic) BOOL isOnline;
+@property (assign, nonatomic) BOOL isAuthorDevice;
 
 @property (nonatomic, assign) int shareIndex;
 @property(nonatomic, assign) NSInteger EnableEventIndex;//事件通知

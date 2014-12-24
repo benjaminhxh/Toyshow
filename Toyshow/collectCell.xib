@@ -24,13 +24,13 @@
                         <rect key="frame" x="0.0" y="0.5" width="320" height="94"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="gongnengjiantou.png" translatesAutoresizingMaskIntoConstraints="NO" id="hoL-hE-QK7">
-                        <rect key="frame" x="289" y="37" width="11" height="22"/>
+                        <rect key="frame" x="295" y="37" width="11" height="22"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shipinkuang.png" translatesAutoresizingMaskIntoConstraints="NO" id="tLl-2K-sVC">
                         <rect key="frame" x="6" y="15" width="105" height="65"/>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="我的摄像头" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yw3-0Q-HmQ">
-                        <rect key="frame" x="121" y="20.5" width="200" height="30"/>
+                        <rect key="frame" x="121" y="20.5" width="170" height="30"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
