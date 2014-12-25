@@ -65,10 +65,12 @@
     accountL.text = @"账号名";
     [scrollView addSubview:accountL];
     
-    UILabel *accountText = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/2, 52, kWidth/2-10, 44)];
+    UITextView *accountText = [[UITextView alloc] initWithFrame:CGRectMake(kWidth/2, 58, kWidth/2-10, 44)];
     accountText.text = [[NSUserDefaults standardUserDefaults] objectForKey:kUserName];
     accountText.textAlignment = NSTextAlignmentRight;
     accountText.textColor = [UIColor grayColor];
+    accountText.font = [UIFont systemFontOfSize:17];
+    accountText.editable = NO;
     [scrollView addSubview:accountText];
     
     UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(10, 100, kWidth-10, 1)];
@@ -79,19 +81,21 @@
     applycodeL.text = @"申请码";
     [scrollView addSubview:applycodeL];
     
-    UILabel *applycodeLText = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/2, 102, kWidth/2-10, 44)];
+    UITextView *applycodeLText = [[UITextView alloc] initWithFrame:CGRectMake(kWidth/2, 108, kWidth/2-10, 44)];
     applycodeLText.text = [[NSUserDefaults standardUserDefaults]objectForKey:kUserId];
     applycodeLText.textColor = [UIColor grayColor];
+    applycodeLText.font = [UIFont systemFontOfSize:17];
     applycodeLText.textAlignment = NSTextAlignmentRight;
+    applycodeLText.editable = NO;
     [scrollView addSubview:applycodeLText];
     
     UIView *line3 = [[UIView alloc] initWithFrame:CGRectMake(0, 150, kWidth, 1)];
     line3.backgroundColor = [UIColor grayColor];
     [scrollView addSubview:line3];
     
-    UILabel *explainL = [[UILabel alloc] initWithFrame:CGRectMake(10, 152, kWidth-20, 48)];
-    explainL.numberOfLines = 2;
-    explainL.text = @"将账号名和申请码发送给好友，待好友同意后可以申请访问好友的摄像头。";
+    UILabel *explainL = [[UILabel alloc] initWithFrame:CGRectMake(10, 152, kWidth-20, 70)];
+    explainL.numberOfLines = 3;
+    explainL.text = @"将账号名和申请码发送给好友，待好友同意后可以申请访问好友的摄像头。授权的摄像头将在我的摄像头列表下。";
     explainL.textColor = [UIColor grayColor];
     [scrollView addSubview:explainL];
     
@@ -135,11 +139,11 @@
     
     FrontiaShareContent *content=[[FrontiaShareContent alloc] init];
     content.url = @"taobao://";
-    content.title = [NSString stringWithFormat:@"%@\n%@",accountName,applyCode];
-    content.description = applyCode;
+    content.title = @"";
+    content.description = [NSString stringWithFormat:@"%@\n%@",accountName,applyCode];
     content.imageObj = @"http://apps.bdimg.com/developer/static/04171450/developer/images/icon/terminal_adapter.png";
     
-    NSArray *platforms = @[FRONTIA_SOCIAL_SHARE_PLATFORM_SINAWEIBO,FRONTIA_SOCIAL_SHARE_PLATFORM_WEIXIN_TIMELINE,FRONTIA_SOCIAL_SHARE_PLATFORM_QQ,FRONTIA_SOCIAL_SHARE_PLATFORM_WEIXIN_SESSION,FRONTIA_SOCIAL_SHARE_PLATFORM_QQFRIEND,FRONTIA_SOCIAL_SHARE_PLATFORM_EMAIL,FRONTIA_SOCIAL_SHARE_PLATFORM_SMS];
+    NSArray *platforms = @[FRONTIA_SOCIAL_SHARE_PLATFORM_WEIXIN_SESSION,FRONTIA_SOCIAL_SHARE_PLATFORM_QQFRIEND,FRONTIA_SOCIAL_SHARE_PLATFORM_EMAIL,FRONTIA_SOCIAL_SHARE_PLATFORM_SMS];
     
     [share showShareMenuWithShareContent:content displayPlatforms:platforms supportedInterfaceOrientations:UIInterfaceOrientationMaskPortrait isStatusBarHidden:NO targetViewForPad:sender cancelListener:onCancel failureListener:onFailure resultListener:onResult];
     /*

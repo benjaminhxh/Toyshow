@@ -488,7 +488,7 @@
         notFirstFlag = YES;
         NSDictionary *dict = (NSDictionary *)responseObject;
         //2、初始化数据
-        _authorCameraFakeData = [NSMutableArray array];
+        [_authorCameraFakeData removeAllObjects];
        NSMutableArray *downloadArr = [NSMutableArray array];
         downloadArr = [dict objectForKey:@"list"];
         if (downloadArr.count == 0) {
@@ -499,7 +499,6 @@
                 for (int i = 0; i < 20; i++)
                 {
                     NSMutableDictionary *mutabDict = [[downloadArr objectAtIndex:i] mutableCopy];
-                    [mutabDict setValue:kGrant forKey:kGrant];
                     [vc->_authorCameraFakeData addObject:mutabDict];
                 }
             }else
@@ -516,7 +515,7 @@
         NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=list&access_token=%@&device_type=1",self.accessToken];
         [[AFHTTPRequestOperationManager manager] GET:urlSTR parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [_loadingView hide:YES];
-
+            [_myCameraFakeData removeAllObjects];
             NSDictionary *mydict = (NSDictionary *)responseObject;
             //2、初始化数据
             mydownloadArr = [NSMutableArray array];
@@ -538,6 +537,8 @@
             [_tableView reloadData];//刷新界面
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [_loadingView hide:YES];
+            [_myCameraFakeData removeAllObjects];
+            [_tableView reloadData];//刷新界面
 
         }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
