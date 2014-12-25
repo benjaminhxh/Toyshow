@@ -94,6 +94,7 @@
             deviceF.enabled = YES;
             deviceF.returnKeyType = UIReturnKeyNext;
             deviceF.placeholder = @"设备MAC地址不区分大小写";
+            deviceF.keyboardType = UIKeyboardTypeNumberPad;
             deviceF.font = [UIFont systemFontOfSize:15];
             deviceF.delegate = self;
         }
