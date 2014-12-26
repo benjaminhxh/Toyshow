@@ -16,8 +16,8 @@
 #import "IPObtainStyleViewController.h"
 #import "NSString+encodeChinese.h"
 
-#define kTestHost @"telnet://towel.blinkenlights.nl"
-#define kTestPort 23
+#define kHost @"192.168.62.1"
+#define kPort 7860
 
 @interface AddDeviceViewController ()<UIAlertViewDelegate,NSURLConnectionDataDelegate,NSURLConnectionDelegate,UITextFieldDelegate,IPObtainStyleViewControllerDelegate,SecurtyStyleViewControllerDelegate,MBProgressHUDDelegate>
 {
@@ -78,6 +78,7 @@
     [self.view addSubview:scrollView];
     
     if (self.isAddDevice) {
+       
         setHeight = 0;
         [backBtn setTitle:@"配置摄像头" forState:UIControlStateNormal];
         UILabel *deviceL = [[UILabel alloc] initWithFrame:CGRectMake(10, 6, 80, 30)];
@@ -94,12 +95,12 @@
             deviceF.enabled = YES;
             deviceF.returnKeyType = UIReturnKeyNext;
             deviceF.placeholder = @"设备MAC地址不区分大小写";
-            deviceF.keyboardType = UIKeyboardTypeNumberPad;
             deviceF.font = [UIFont systemFontOfSize:15];
             deviceF.delegate = self;
         }
         deviceF.allowsEditingTextAttributes = YES;
         deviceF.borderStyle = UITextBorderStyleRoundedRect;
+        deviceF.keyboardType = UIKeyboardTypeNamePhonePad;
         [scrollView addSubview:deviceF];
         
         UILabel *deviceDetail = [[UILabel alloc] initWithFrame:CGRectMake(10, 46, 80, 30)];
@@ -109,6 +110,7 @@
         deviceDetailF = [[UITextField alloc] initWithFrame:CGRectMake(90, 46, kWidth-100, 30)];
         deviceDetailF.borderStyle = UITextBorderStyleRoundedRect;
         deviceDetailF.returnKeyType = UIReturnKeyNext;
+        deviceDetailF.keyboardType = UIKeyboardTypeDefault;
         deviceDetailF.delegate = self;
         deviceDetailF.text = @"我的乐现";
         [scrollView addSubview:deviceDetailF];
@@ -126,11 +128,13 @@
     SSIDF = [[UITextField alloc] initWithFrame:CGRectMake(90, 86-setHeight, kWidth-100, 30)];
     SSIDF.borderStyle = UITextBorderStyleRoundedRect;
     SSIDF.textColor = [UIColor grayColor];
+    SSIDF.placeholder = @"请输入WiFi名";
     SSIDF.text = [self fetchSSIDInfo];
 //    SSIDF.text = @"zhonghexunfei";
 //    SSIDF.delegate = self;
-    SSIDF.enabled = NO;
+//    SSIDF.enabled = NO;
     [scrollView addSubview:SSIDF];
+    
 //    NSLog(@"wifi:%@",[self fetchSSIDInfo]);
 //    if (![self fetchSSIDInfo]) {
 //        NSLog(@"wifi没打开");
@@ -151,8 +155,8 @@
     SSIDPWF = [[UITextField alloc] initWithFrame:CGRectMake(90, 126-setHeight, kWidth-100, 30)];
     SSIDPWF.borderStyle = UITextBorderStyleRoundedRect;
     SSIDPWF.returnKeyType = UIReturnKeyNext;
-//    SSIDPWF.text = @"zhxf0602";
-    SSIDPWF.keyboardType = UIKeyboardTypeASCIICapable;
+    SSIDPWF.placeholder = @"请输入WiFi密码";
+    SSIDPWF.keyboardType = UIKeyboardTypeNamePhonePad;
     SSIDPWF.delegate = self;
     [scrollView addSubview:SSIDPWF];
     
@@ -163,9 +167,9 @@
     SSIDPWFconfirm = [[UITextField alloc] initWithFrame:CGRectMake(90, 166-setHeight, kWidth-100, 30)];
     SSIDPWFconfirm.borderStyle = UITextBorderStyleRoundedRect;
     SSIDPWFconfirm.returnKeyType = UIReturnKeyDone;
-//    SSIDPWFconfirm.text = @"zhxf0602";
+    SSIDPWFconfirm.placeholder = @"请再次输入WiFi密码";
     SSIDPWFconfirm.delegate = self;
-    SSIDPWFconfirm.keyboardType = UIKeyboardTypeASCIICapable;
+    SSIDPWFconfirm.keyboardType = UIKeyboardTypeNamePhonePad;
     [scrollView addSubview:SSIDPWFconfirm];
     
     UILabel  *lineL = [[UILabel alloc] initWithFrame:CGRectMake(2, 201, 320-4, 1)];
@@ -227,7 +231,7 @@
     }
     [startBtn addTarget:self action:@selector(startConfigure) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:startBtn];
-    
+
     //右滑回到上一个页面
     UISwipeGestureRecognizer *recognizer;
     recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(backBtn:)];
@@ -269,12 +273,6 @@
 //开始配置或更换网络
 - (void)startConfigure
 {
-    //判断扫描到的条形码是否符合设备ID
-//    if ([self.deviceID hasPrefix:@"1100"]) {
-//        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备ID不合法" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//        [view show];
-//        return ;
-//    }
     if (self.isAddDevice) {
         //配置设备
         int isLow;
@@ -326,21 +324,12 @@
         //向Baidu服务器注册设备
         NSString *des = [deviceDetailF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
         NSString *strWithUTF8 = [des encodeChinese];
-        //    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)des, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
         //https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=123456&access_token=52.88be325d08d983f7403be8438c0c1eed.2592000.1403337720.1812238483-2271149&device_type=1&desc=摄像头描述
         NSString *URLstr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=register&deviceid=%lld&access_token=%@&device_type=1&desc=%@",deviceIDint64,self.access_token,strWithUTF8];
-        ////NSLog(@"urlSTR:%@",URLstr);               @"￼￼￼￼https://pcs.baidu.com/rest/2.0/pcs/device?method=grant&auth_code=5&access_token=21.6ac6bfe1edeb477d083388d68962c746.2592000.1421567577.474433575-2271149&uk=3696369856&deviceid=5790473783296&name=测试数据"
-        //    return ;
         [self isLoadingView];
         
         [[AFHTTPRequestOperationManager manager] POST:URLstr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            //--------------------向Baidu注册成功，隐藏loginAlterView-------------------------
-            //        [loginAlterView dismissWithClickedButtonIndex:0 animated:YES];
-            
-            //        NSDictionary *dict = (NSDictionary *)responseObject;
-            //        ////NSLog(@"dict:%@",dict);
-            //        NSString *stream_id = [dict objectForKey:@"stream_id"];
-            ////NSLog(@"注册stream_id:%@",stream_id);
+            //--------------------向Baidu注册成功，隐藏loadingView-------------------------
             [_loadingView hide:YES];
             
             [self connectToWifi];
@@ -404,10 +393,6 @@
     [nextAlertview show];
     
 }
-//- (void)loginAlterViewDismiss:(id)sender
-//{
-//
-//}
 
 //32位MD5加密方式
 //- (NSString *)getMd5_32Bit_String:(NSString *)srcString{
@@ -447,11 +432,9 @@
     [self.view setNeedsDisplay];
     //判断WiFi名是否以joyshow开头
     if ([[self fetchSSIDInfo]hasPrefix:@"Joyshow_cam" ]) {
-        [self isLoadingView];
         [self openUDPServer];
-//        if (hexOrAscii.hidden) {
-//            self.wepStyle = @"1";
-//        }
+        [self isLoadingView];
+
         self.security = [securyArr objectAtIndex:securtyIndexPath];
         if (IPIndexPath) {
             self.dhcp    = @"0";
@@ -465,11 +448,10 @@
             self.mask    = @"";
             self.gateway = @"";
         }
-//        const char *str2 = [self.userID UTF8String];
-//        NSString *userName = [NSString stringWithCString:str2 encoding:NSUTF8StringEncoding];
+        SSIDPWF.text = [SSIDPWF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
         NSString *userID = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
-        NSString *dataStr = [NSString stringWithFormat:@"1%@%@%@%@%@%@%@%@2%@%@%@%@%@",self.wifiBssid,SSIDF.text,self.security,self.identifify,SSIDPWF.text,userID,self.access_token,[[NSUserDefaults standardUserDefaults] objectForKey:kUserRefreshToken],self.wepStyle,self.dhcp,self.ipaddr,self.mask,self.gateway];
-        ////NSLog(@"dataStr:%@",dataStr);
+        NSString *dataStr = [NSString stringWithFormat:@"1%@%@%@%@%@%@%@2%@%@%@%@%@",self.wifiBssid,SSIDF.text,self.security,self.identifify,SSIDPWF.text,userID,self.access_token,self.wepStyle,self.dhcp,self.ipaddr,self.mask,self.gateway];
+//        NSLog(@"MD5加密前dataStr:%@",dataStr);
         NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                   @"1",@"opcode",//1为注册
                                   self.wifiBssid,@"bssid",//
@@ -479,31 +461,26 @@
                                   SSIDPWF.text,@"pwd",//WiFi密码
                                   userID,@"userId",//登录的用户名
                                   self.access_token,@"accessToken",//accessToken
-                                  [[NSUserDefaults standardUserDefaults] objectForKey:kUserRefreshToken],@"refreshToken",
+                                //  [[NSUserDefaults standardUserDefaults] objectForKey:kUserRefreshToken],@"refreshToken",
                                   @"2",@"osType",//2为iOS平台
                                   self.wepStyle,@"hexAscii",//16进制或ascll
                                   self.dhcp,@"dhcp",//1为自动
                                   self.ipaddr,@"ipaddr",//ip
                                   self.mask,@"mask",//掩码
-                                  self.mask,@"geteway",//路由器
+                                  self.gateway,@"geteway",//路由器
                                   @"",@"url",//保留URL
                                   @"",@"reserved",nil];//保留参数
-        ////NSLog(@"dataDict:%@",dataDict);
         NSString *md5String = [NSString getMd5_32Bit_String:dataStr];//得到md5加密后的32位字符串
-
-//        NSString *md5String = [self getMd5_32Bit_String:dataStr];//得到md5加密后的32位字符串
-//        ////NSLog(@"md5String:%@",md5String);//0ea7ccca8f7eeefb255e1931cb1409aa
+//        NSLog(@"MD5加密后md5String:%@",md5String);//0ea7ccca8f7eeefb255e1931cb1409aa
         
         NSMutableString *md5exchangeString = [self exchangeString:md5String];//1,6;4,13;21,29;20,25交换
-//        ////NSLog(@"md5exchangeString:%@",md5exchangeString);
         NSInteger length = dataStr.length;//data的长度
         NSString *md5Length = [NSString stringWithFormat:@"%ld",(long)length];
         NSDictionary *headDict = [NSDictionary dictionaryWithObjectsAndKeys:md5Length,@"length",md5exchangeString,@"verify", nil];
         NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:headDict,@"head",dataDict,@"data", nil];
         NSString *sendString = [dict JSONString];
+//        NSLog(@"发送的数据：%@",sendString);
         [self sendMassage:sendString];
-//        configurationTipView = [[UIAlertView alloc] initWithTitle:@"配置摄像头" message:@"正在配置，请稍后……" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-//        [configurationTipView show];
         return;
     }
     if (nextAlertview == alertView ) {
@@ -518,8 +495,14 @@
     self.udpSocket=[[AsyncUdpSocket alloc] initWithDelegate:self];
 	//绑定端口
 	NSError *error = nil;
-	[self.udpSocket bindToPort:7860 error:&error];
-    
+//	BOOL bindFlag =
+    [self.udpSocket bindToPort:kPort error:&error];
+//    if (bindFlag) {
+//        NSLog(@"bind success");
+//    }else
+//    {
+//        NSLog(@"bind fail");
+//    }
     //绑定地址
     //    [self.udpSocket bindToAddress:@"192.168.8.1" port:7860 error:&error];
     
@@ -536,12 +519,13 @@
 //通过UDP,发送消息
 -(void)sendMassage:(NSString *)message
 {
-	NSMutableString *sendString=[NSMutableString stringWithCapacity:100];
-	[sendString appendString:message];
+//	NSMutableString *sendString = [NSMutableString stringWithCapacity:100];
+//	[sendString appendString:message];
+    NSData *sendData = [message dataUsingEncoding:NSUTF8StringEncoding];
 	//开始发送
-	BOOL res = [self.udpSocket sendData:[sendString dataUsingEncoding:NSUTF8StringEncoding]
-								 toHost:@"192.168.62.1"
-								   port:7860
+	BOOL res = [self.udpSocket sendData:sendData
+								 toHost:kHost
+								   port:kPort
 							withTimeout:-1
                                     tag:0];
     
@@ -573,7 +557,6 @@
 										  otherButtonTitles:nil];
 	[alert show];
     [self backBtn:nil];
-//    [configurationTipView dismissWithClickedButtonIndex:0 animated:YES];
 	return YES;
 }
 
@@ -716,7 +699,12 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
     [self.view setNeedsDisplay];
+//    if (self.isAddDevice) {
+//        UIAlertView *tipview = [[UIAlertView alloc] initWithTitle:@"为确保配置摄像头成功，请先用针长按5秒摄像头的reset(复位)按钮" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
+//        [tipview show];
+//    }
 }
 
 //16进制的Mac地址转换为10进制的
@@ -764,6 +752,5 @@ int64_t MacAddr2DecDeviceID(const char* pMacAddr, int iDeviceType)
     
 	return i64RetValue;
 }
-//154266753377536  8c4e07092500  002509074e8c
-//9223372036854775807
+
 @end

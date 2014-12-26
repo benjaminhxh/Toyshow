@@ -699,31 +699,48 @@
     _loginoutView.labelText = @"注销中……";
     _loginoutView.hidden = NO;
     //发通道消息注销
-        NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=drop&deviceid=%@&access_token=%@",self.deviceid,self.access_token];
+    NSDictionary *dropCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                       @"1",@"iDeregisterDevice",nil];//注销
+    NSString *dropCameraDataString = [dropCameraDataDict JSONString];
+    NSString *dropstrWithUTF8 = [dropCameraDataString encodeChinese];
+    //
+    NSString *dropControlURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,dropstrWithUTF8];
+    NSString *dropToServerurl = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=drop&deviceid=%@&access_token=%@",self.deviceid,self.access_token];
+
+    [[AFHTTPRequestOperationManager manager]POST:dropControlURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //服务器注销
-        [[AFHTTPRequestOperationManager manager] POST:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            //        NSDictionary *dict = (NSDictionary *)responseObject;
-            //        NSString *deviceID = [dict objectForKey:@"deviceid"];
-            ////NSLog(@"deviceid:%@",deviceID);
-            if (self.delegate && [self.delegate respondsToSelector:@selector(logoutCameraAtindex:)]) {
-                [self.delegate logoutCameraAtindex:self.index];
-            }
-            _loginoutView.mode = 4;
-            _loginoutView.labelText = @"注销成功";
-            [_loginoutView hide:YES];
-            
-            [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
-            //        [self alertViewShowWithTitle:@"注销成功" andMessage:nil];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            //        NSDictionary *errorDict = [error userInfo];
-            //        NSString *errorMSG = [errorDict objectForKey:@"error_msg"];
-            ////NSLog(@"erroeMSG:%@",errorMSG);
-            _loginoutView.mode = 4;
-            _loginoutView.labelText = @"注销失败";
-            [_loginoutView hide:YES];
-            //        [self alertViewShowWithTitle:@"注销失败" andMessage:errorMSG];
-        }];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        _loginoutView.mode = 4;
+//        _loginoutView.labelText = @"注销失败";
+//        [_loginoutView hide:YES];
+
+    }];
+    sleep(1);
+    //延迟1S去服务器注销
+    [[AFHTTPRequestOperationManager manager] POST:dropToServerurl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //        NSDictionary *dict = (NSDictionary *)responseObject;
+        //        NSString *deviceID = [dict objectForKey:@"deviceid"];
+        ////NSLog(@"deviceid:%@",deviceID);
+        if (self.delegate && [self.delegate respondsToSelector:@selector(logoutCameraAtindex:)]) {
+            [self.delegate logoutCameraAtindex:self.index];
+        }
+        _loginoutView.mode = 4;
+        _loginoutView.labelText = @"注销成功";
+        [_loginoutView hide:YES];
+        
+        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
+        //        [self alertViewShowWithTitle:@"注销成功" andMessage:nil];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        //        NSDictionary *errorDict = [error userInfo];
+        //        NSString *errorMSG = [errorDict objectForKey:@"error_msg"];
+        ////NSLog(@"erroeMSG:%@",errorMSG);
+        _loginoutView.mode = 4;
+        _loginoutView.labelText = @"注销失败";
+        [_loginoutView hide:YES];
+        //        [self alertViewShowWithTitle:@"注销失败" andMessage:errorMSG];
+    }];
+
 }
 
 //判断输入的值是否介于两者之间
