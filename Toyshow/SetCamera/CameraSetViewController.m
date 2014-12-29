@@ -71,8 +71,8 @@
     [topView addSubview:backBtn];
     
     UIButton *seeVideoBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    seeVideoBtn.frame = CGRectMake(kWidth-65, 25-3, 55, 35);
-    [seeVideoBtn setTitle:@"看录像" forState:UIControlStateNormal];
+    seeVideoBtn.frame = CGRectMake(kWidth-75, 25-3, 65, 35);
+    [seeVideoBtn setTitle:@"查看录像" forState:UIControlStateNormal];
     [seeVideoBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [seeVideoBtn setBackgroundImage:[UIImage imageNamed:@"lishijilu@2x"] forState:UIControlStateNormal];
     [seeVideoBtn addTarget:self action:@selector(didSeeVideoClick) forControlEvents:UIControlEventTouchUpInside];
@@ -139,7 +139,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (0 == section) {
-        return 1;
+        return 2;
     }else if (1 == section)
     {
         return count;
@@ -159,7 +159,10 @@
         {
             if (cell==nil) {
                 cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, kWidth, 44)];
-                cell.textLabel.text = @"分享设置";
+                if (indexPath.row) {
+                    cell.textLabel.text = @"查看录像";
+                }else
+                    cell.textLabel.text = @"分享设置";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
         }
@@ -334,12 +337,17 @@
     switch (indexPath.section) {
         case 0:
         {
-            ShareSetViewController *shareSetVC = [[ShareSetViewController alloc] init];
-            shareSetVC.index = self.shareIndex;
-            shareSetVC.deviceId = self.deviceid;
-            shareSetVC.cameraName = self.deviceDesc;
-            shareSetVC.accecc_token = self.access_token;
-            [[SliderViewController sharedSliderController].navigationController pushViewController:shareSetVC animated:YES];
+            if (indexPath.row) {
+                [self didSeeVideoClick];
+            }else
+            {
+                ShareSetViewController *shareSetVC = [[ShareSetViewController alloc] init];
+                shareSetVC.index = self.shareIndex;
+                shareSetVC.deviceId = self.deviceid;
+                shareSetVC.cameraName = self.deviceDesc;
+                shareSetVC.accecc_token = self.access_token;
+                [[SliderViewController sharedSliderController].navigationController pushViewController:shareSetVC animated:YES];
+            }
         }
             break;
         case 1:
@@ -493,7 +501,8 @@
                     //更换网络
                     AddDeviceViewController *exchangeNetVC = [[AddDeviceViewController alloc] init];
                     exchangeNetVC.isAddDevice = NO;
-                    [self.navigationController pushViewController:exchangeNetVC animated:YES];
+//                    [self.navigationController pushViewController:exchangeNetVC animated:YES];
+                    [self presentViewController:exchangeNetVC animated:YES completion:nil];
                 }
                     break;
                 default:
