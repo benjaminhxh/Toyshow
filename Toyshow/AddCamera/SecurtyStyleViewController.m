@@ -53,9 +53,10 @@
     [topView addSubview:backBtn];
     
     UIButton *finishBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    finishBtn.frame = CGRectMake(275, backHeight, 36, 22);
+    finishBtn.frame = CGRectMake(kWidth-75, 22, 65, 35);
     [finishBtn setTitle:@"完成" forState:UIControlStateNormal];
-    [finishBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [finishBtn setBackgroundImage:[UIImage imageNamed:@"lishijilu@2x"] forState:UIControlStateNormal];
+    [finishBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [finishBtn addTarget:self action:@selector(finishBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:finishBtn];
 
@@ -144,6 +145,7 @@
 - (void)backAction:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)finishBtnAction:(id)sender
@@ -156,7 +158,8 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(securtyStyleSelect:withIndex:withpwd:)]) {
         [self.delegate securtyStyleSelect:[securtyStyleArr objectAtIndex:self.selectIndex] withIndex:self.selectIndex withpwd:pwdField.text];
     }
-    [self.navigationController popViewControllerAnimated:YES];
+//    [self.navigationController popViewControllerAnimated:YES];
+    [self backAction:nil];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

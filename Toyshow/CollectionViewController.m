@@ -120,7 +120,6 @@
     header.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView) {
         // 进入刷新状态就会回调这个Block
         //向服务器发起请求
-//        NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listgrantdevice&access_token=%@",accessToken];
         NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listsubscribe&access_token=%@",accessToken];
         [[AFHTTPRequestOperationManager manager] GET:urlSTR parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             notFirstFlag = YES;

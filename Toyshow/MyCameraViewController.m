@@ -155,6 +155,7 @@
             NSMutableArray *downloadArr = [NSMutableArray array];
             downloadArr = [[dict objectForKey:@"list"] mutableCopy];
             if (downloadArr.count == 0) {
+                
             }else
             {
 //                if (downloadArr.count>20)
@@ -478,7 +479,7 @@
 
 - (void)reloadMyCameraListView
 {
-    NSLog(@"reloadMyCameraListView");
+//    NSLog(@"reloadMyCameraListView");
     [self isLoadingView];
     _loadingView.detailsLabelText = @"";
 

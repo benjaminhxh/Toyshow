@@ -301,7 +301,8 @@
     addDeviceVC.access_token = self.accessToken;
     addDeviceVC.isScanFlag = NO;
     addDeviceVC.isAddDevice = YES;
-    [self.navigationController pushViewController:addDeviceVC animated:YES];
+//    [self.navigationController pushViewController:addDeviceVC animated:YES];
+    [self presentViewController:addDeviceVC animated:YES completion:nil];
 }
 
 #pragma mark - ZBar 条形码扫描
@@ -419,7 +420,8 @@
             addDeviceVC.isAddDevice = YES;
 //            addDeviceVC.userID = [[NSUserDefaults standardUserDefaults] stringForKey:kUserName];
 //            scanNum = 0;
-            [self.navigationController pushViewController:addDeviceVC animated:YES];
+//            [self.navigationController pushViewController:addDeviceVC animated:YES];
+            [self presentViewController:addDeviceVC animated:YES completion:nil];
         }else
         {
             //扫描失败3次后提示是否手输

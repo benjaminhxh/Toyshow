@@ -113,6 +113,7 @@
         deviceDetailF.keyboardType = UIKeyboardTypeDefault;
         deviceDetailF.delegate = self;
         deviceDetailF.text = @"我的乐现";
+        deviceDetailF.placeholder = @"请给乐现起个名字吧";
         [scrollView addSubview:deviceDetailF];
     }else
     {
@@ -172,9 +173,10 @@
     SSIDPWFconfirm.keyboardType = UIKeyboardTypeNamePhonePad;
     [scrollView addSubview:SSIDPWFconfirm];
     
-    UILabel  *lineL = [[UILabel alloc] initWithFrame:CGRectMake(2, 201, 320-4, 1)];
+    UIView  *lineL = [[UIView alloc] initWithFrame:CGRectMake(2, 201, kWidth-4, 1)];
     lineL.backgroundColor = [UIColor grayColor];
     [scrollView addSubview:lineL];
+    
     UILabel *securtyStyleLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 211, 145, 24)];
     securtyStyleLab.text = @"高级设置";
     securtyStyleLab.backgroundColor = [UIColor clearColor];
@@ -206,7 +208,17 @@
     [securtyBtn addTarget:self action:@selector(securtySelectAction:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:securtyBtn];
     self.identifify = @"";
-
+    
+    UIView  *lineL2 = [[UIView alloc] initWithFrame:CGRectMake(2, 321, kWidth-4, 1)];
+    lineL2.backgroundColor = [UIColor grayColor];
+    [scrollView addSubview:lineL2];
+    
+    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 323, kWidth-20, 46)];
+    tipLabel.text = @"温馨提示：配置摄像头前请长按5s摄像头的Reset(复位)键。";
+    tipLabel.textColor = [UIColor yellowColor];
+    tipLabel.numberOfLines = 2;
+    [scrollView addSubview:tipLabel];
+    
 //    securyArr = [NSArray arrayWithObjects:@"[WPA2-PSK-TKIP+CCMP]",@"[WPA-PSK-TKIP+CCMP]",@"[WPA2-EAP-TKIP+CCMP]",@"[WPA-EAP-TKIP+CCMP]",@"[WEP]",@"[ESS]", nil];
     securyArr = [NSArray arrayWithObjects:@"[WPA2-PSK-TKIP+CCMP]",@"[WPA2-EAP-TKIP+CCMP]",@"[WEP]",@"[ESS]", nil];
     self.security = @"[WPA2-PSK-TKIP+CCMP]";
@@ -221,7 +233,7 @@
 //    [self.view addSubview:hexOrAscii];
     
     UIButton *startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    startBtn.frame = CGRectMake(80, 356, 160, 40);
+    startBtn.frame = CGRectMake(80, 370, 160, 40);
     [startBtn setBackgroundImage:[UIImage imageNamed:@"kaishipeizhi_anniu@2x"] forState:UIControlStateNormal];
     if (self.isAddDevice) {
         [startBtn setTitle:@"开始配置" forState:UIControlStateNormal];
@@ -245,7 +257,8 @@
 //}
 - (void)backBtn:(id)sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
+//    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 //获取WiFi名称
@@ -602,8 +615,8 @@
     if (IPIndexPath) {
         ipVC.ipParameter = ipParameraDict;
     }
-//    [self presentViewController:ipVC animated:YES completion:nil];
-    [[SliderViewController sharedSliderController].navigationController pushViewController:ipVC animated:YES];
+    [self presentViewController:ipVC animated:YES completion:nil];
+//    [[SliderViewController sharedSliderController].navigationController pushViewController:ipVC animated:YES];
 }
 
 //路由器无线加密方式
@@ -613,7 +626,8 @@
     securtyVC.delegate = self;
     securtyVC.selectIndex = securtyIndexPath;
     securtyVC.pwd = self.identifify;
-    [[SliderViewController sharedSliderController].navigationController pushViewController:securtyVC animated:YES];
+//    [[SliderViewController sharedSliderController].navigationController pushViewController:securtyVC animated:YES];
+    [self presentViewController:securtyVC animated:YES completion:nil];
 }
 #pragma mark - delegate
 //IP模式代理

@@ -715,7 +715,7 @@
 //        [_loginoutView hide:YES];
 
     }];
-    sleep(1);
+    sleep(2);
     //延迟1S去服务器注销
     [[AFHTTPRequestOperationManager manager] POST:dropToServerurl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //        NSDictionary *dict = (NSDictionary *)responseObject;

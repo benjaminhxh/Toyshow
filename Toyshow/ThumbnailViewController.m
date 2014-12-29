@@ -206,10 +206,8 @@
     header.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView) {
         // 进入刷新状态就会回调这个Block
         //向服务器发起请求
-//        NSDate *datenow = [NSDate dateWithTimeIntervalSinceNow:0];//现在时间
-//        long et = (long)[datenow timeIntervalSince1970];
-//        long st = et - 7*24*3600;
-      
+        NSDate *datenow = [NSDate dateWithTimeIntervalSinceNow:0];//现在时间
+        et = (long)[datenow timeIntervalSince1970];
         //请求点播时间
         NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=playlist&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
         [[AFHTTPRequestOperationManager manager] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -648,13 +646,17 @@
     clipFinishBtn.frame = CGRectMake(kWidth-75, 20, 65, 30);
     [clipFinishBtn setTitle:@"完成" forState:UIControlStateNormal];
     [clipFinishBtn setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
-    
-    //    clipFinishBtn.backgroundColor = [UIColor grayColor];
     [clipFinishBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [clipFinishBtn addTarget:self action:@selector(clipFinishBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [foreGrounp addSubview:clipFinishBtn];
     
-    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 62, kWidth-20, 78)];
+    fileName = [[UITextField alloc] initWithFrame:CGRectMake(10, 62, kWidth-20, 24)];
+    fileName.placeholder = @"请输入文件名";
+    fileName.textColor = [UIColor whiteColor];
+    fileName.borderStyle = UITextBorderStyleLine;
+    [foreGrounp addSubview:fileName];
+    
+    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 92, kWidth-20, 78)];
     tipLabel.numberOfLines = 5;
     tipLabel.backgroundColor = [UIColor clearColor];
     tipLabel.font = [UIFont systemFontOfSize:13];
@@ -662,23 +664,17 @@
     [foreGrounp addSubview:tipLabel];
     tipLabel.text = @"1、最多只能剪辑半小时视频\n2、每个账号每个月剪辑时间不能超过10小时\n3、结束时间最晚为当前时刻\n4、并且确保剪辑的时间段内有录像\n5、录像保存在该账号的百度云盘中。";
     
-    startF = [[UIButton alloc] initWithFrame:CGRectMake(10, 145, 125, 30)];
+    startF = [[UIButton alloc] initWithFrame:CGRectMake(10, 175, 125, 30)];
     [startF setTitle:@"起始时间" forState:UIControlStateNormal] ;
     [startF setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
     [startF addTarget:self action:@selector(startTimeSelect) forControlEvents:UIControlEventTouchUpInside];
     [foreGrounp addSubview:startF];
     
-    endT = [[UIButton alloc] initWithFrame:CGRectMake(kWidth-140, 145, 125, 30)];
+    endT = [[UIButton alloc] initWithFrame:CGRectMake(kWidth-140, 175, 125, 30)];
     [endT setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
     [endT setTitle:@"结束时间" forState:UIControlStateNormal] ;
     [endT addTarget:self action:@selector(endTimeSelect) forControlEvents:UIControlEventTouchUpInside];
     [foreGrounp addSubview:endT];
-    
-    fileName = [[UITextField alloc] initWithFrame:CGRectMake(10, 180, kWidth-20, 34)];
-    fileName.placeholder = @"请输入文件名";
-    fileName.textColor = [UIColor whiteColor];
-    fileName.borderStyle = UITextBorderStyleBezel;
-    [foreGrounp addSubview:fileName];
     
     timeView = [[UIView alloc] initWithFrame:CGRectMake(0, kHeight, kWidth, kpickViewHeight)];
     [foreGrounp addSubview:timeView];
