@@ -65,7 +65,7 @@
     [self.view addGestureRecognizer:recognizer];
     
     UILabel *staueL = [[UILabel alloc] initWithFrame:CGRectMake(5, 11, 110, 31)];
-    staueL.text = @"事件通知设置:";
+    staueL.text = @"拍摄场景:";
     [scrollView addSubview:staueL];
     
     NSArray *isenceArr = [NSArray arrayWithObjects:@"自动模式",@"拍摄室内",@"拍摄室外", nil];
@@ -80,7 +80,7 @@
     [scrollView addSubview:lineV];
     
     UILabel *sensityL = [[UILabel alloc] initWithFrame:CGRectMake(5, 101, 110, 31)];
-    sensityL.text = @"检测灵敏度:";
+    sensityL.text = @"滤光模式:";
     [scrollView addSubview:sensityL];
     
     NSArray *filterArr  = [NSArray arrayWithObjects:@"自动模式",@"白天模式",@"夜间模式",nil];

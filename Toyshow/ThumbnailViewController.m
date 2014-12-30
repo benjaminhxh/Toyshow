@@ -636,7 +636,6 @@
     clipCancelBtn.frame = CGRectMake(10, 20, 65, 30);
     [clipCancelBtn setTitle:@"取消" forState:UIControlStateNormal];
     [clipCancelBtn setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
-    
     //    clipCancelBtn.backgroundColor = [UIColor grayColor];
     [clipCancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [clipCancelBtn addTarget:self action:@selector(clipCancelBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -711,6 +710,7 @@
 - (void)clipCancelBtnAction:(id)sender
 {
     foreGrounp.hidden = YES;
+    [self.view endEditing:YES];
 }
 
 //完成剪辑视频

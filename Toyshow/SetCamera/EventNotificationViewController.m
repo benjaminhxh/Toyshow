@@ -11,7 +11,7 @@
 
 @interface EventNotificationViewController ()<MBProgressHUDDelegate>
 {
-    UISwitch *EventNotifSw;
+//    UISwitch *EventNotifSw;
     UISegmentedControl *sensitySeg;
     NSArray *sensityArr;
     MBProgressHUD *_progressView;
@@ -66,26 +66,26 @@
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [self.view addGestureRecognizer:recognizer];
 
-    UILabel *staueL = [[UILabel alloc] initWithFrame:CGRectMake(5, 11, 110, 31)];
-    staueL.text = @"事件通知设置";
-    [scrollView addSubview:staueL];
+//    UILabel *staueL = [[UILabel alloc] initWithFrame:CGRectMake(5, 11, 110, 31)];
+//    staueL.text = @"事件通知设置";
+//    [scrollView addSubview:staueL];
     
-    EventNotifSw = [[UISwitch alloc] initWithFrame:CGRectMake(240, 11, 51, 31)];
-    EventNotifSw.on = self.eventNotifIndex;
-    [EventNotifSw addTarget:self action:@selector(EventNotifOpenOrClose:) forControlEvents:UIControlEventTouchUpInside];
-    [scrollView addSubview:EventNotifSw];
+//    EventNotifSw = [[UISwitch alloc] initWithFrame:CGRectMake(240, 11, 51, 31)];
+//    EventNotifSw.on = self.eventNotifIndex;
+//    [EventNotifSw addTarget:self action:@selector(EventNotifOpenOrClose:) forControlEvents:UIControlEventTouchUpInside];
+//    [scrollView addSubview:EventNotifSw];
     
-    UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(5, 54, kWidth-10, 0.5)];
-    lineV.backgroundColor = [UIColor grayColor];
-    [scrollView addSubview:lineV];
+//    UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(5, 54, kWidth-10, 0.5)];
+//    lineV.backgroundColor = [UIColor grayColor];
+//    [scrollView addSubview:lineV];
     
-    UILabel *sensityL = [[UILabel alloc] initWithFrame:CGRectMake(5, 61, 110, 31)];
+    UILabel *sensityL = [[UILabel alloc] initWithFrame:CGRectMake(5, 21, 110, 31)];
     sensityL.text = @"检测灵敏度:";
     [scrollView addSubview:sensityL];
     
     sensityArr = [NSArray arrayWithObjects:@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",nil];
     sensitySeg = [[UISegmentedControl alloc] initWithItems:sensityArr];
-    sensitySeg.frame = CGRectMake(0, 101, kWidth, 30);
+    sensitySeg.frame = CGRectMake(0, 61, kWidth, 30);
     sensitySeg.selectedSegmentIndex = self.sensityIndex;
     [sensitySeg addTarget:self action:@selector(sensitivityAction:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:sensitySeg];
@@ -105,10 +105,10 @@
     [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
 }
 
-- (void)EventNotifOpenOrClose:(id)sender
-{
-   ////NSLog(@"EventNotifSw:%d",EventNotifSw.on);
-}
+//- (void)EventNotifOpenOrClose:(id)sender
+//{
+//   ////NSLog(@"EventNotifSw:%d",EventNotifSw.on);
+//}
 
 //灵敏度检测
 - (void)sensitivityAction:(id)sender
@@ -121,7 +121,6 @@
 {
     [self isLoadingView];
     NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [NSNumber numberWithInteger:EventNotifSw.on ],@"iEnableEvent",
                           [NSNumber numberWithInteger:sensitySeg.selectedSegmentIndex ],@"iObjDetectLevel", nil];
     NSString *setCameraDataString = [setCameraDataDict JSONString];
     NSString *strWithUTF8 = [setCameraDataString encodeChinese];

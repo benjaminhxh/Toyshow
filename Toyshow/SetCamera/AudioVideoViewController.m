@@ -157,7 +157,6 @@
         [iMainStreamUserOptionSeg addTarget:self action:@selector(iMainStreamUserOptionSegAction:) forControlEvents:UIControlEventValueChanged];
         [scrollView addSubview:iMainStreamUserOptionSeg];
         lineV5.frame = CGRectMake(15, 310, kWidth-30, 0.5);
-
     }
 }
 
@@ -168,13 +167,13 @@
             streamF.text = @"1024";
             break;
         case 1:
-            streamF.text = @"512";
+            streamF.text = @"768";
             break;
         case 2:
-            streamF.text = @"256";
+            streamF.text = @"512";
             break;
         case 3:
-            streamF.text = @"128";
+            streamF.text = @"256";
             break;
         default:
             break;
@@ -195,7 +194,7 @@
 
 - (void)finishAction:(id)sender
 {
-    BOOL flagg = [self isLegalNum:60 to:3600 withNumString:streamF.text];
+    BOOL flagg = [self isLegalNum:60 to:3000 withNumString:streamF.text];
     if (!flagg) {
         return;
     }
@@ -227,7 +226,6 @@
         _progressView.hidden = YES;
         [self alertViewShowWithTitle:@"设置失败" andMessage:nil];
     }];
-
 }
 
 - (void)backAction:(id)sender

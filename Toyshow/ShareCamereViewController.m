@@ -945,12 +945,13 @@
 {
     if (shareHub) {
         shareHub.mode = mode;
-        shareHub.detailsLabelText = labtext;
+        shareHub.labelText = labtext;
         [shareHub show:YES];
         return;
     }
     shareHub = [[MBProgressHUD alloc] initWithView:cbPlayerController.view];
-    shareHub.detailsLabelText = labtext;
+    shareHub.labelText = labtext;
+    shareHub.square = NO;
     [cbPlayerController.view addSubview:shareHub];
     [shareHub show:YES];
 }

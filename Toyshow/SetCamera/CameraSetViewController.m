@@ -70,16 +70,16 @@
     [backBtn addTarget:self action:@selector(backBtn:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backBtn];
     
-    UIButton *seeVideoBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    seeVideoBtn.frame = CGRectMake(kWidth-75, 25-3, 65, 35);
-    [seeVideoBtn setTitle:@"查看录像" forState:UIControlStateNormal];
-    [seeVideoBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [seeVideoBtn setBackgroundImage:[UIImage imageNamed:@"lishijilu@2x"] forState:UIControlStateNormal];
-    [seeVideoBtn addTarget:self action:@selector(didSeeVideoClick) forControlEvents:UIControlEventTouchUpInside];
-    [topView addSubview:seeVideoBtn];
+//    UIButton *seeVideoBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    seeVideoBtn.frame = CGRectMake(kWidth-75, 25-3, 65, 35);
+//    [seeVideoBtn setTitle:@"查看录像" forState:UIControlStateNormal];
+//    [seeVideoBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [seeVideoBtn setBackgroundImage:[UIImage imageNamed:@"lishijilu@2x"] forState:UIControlStateNormal];
+//    [seeVideoBtn addTarget:self action:@selector(didSeeVideoClick) forControlEvents:UIControlEventTouchUpInside];
+//    [topView addSubview:seeVideoBtn];
     self.controlONOrOFFIndex = 3;
-    cameraInfoArr = [NSArray arrayWithObjects:@"音视频设置",@"夜视功能设置",@"事件通知",@"录像控制",@"状态指示灯",@"时间显示",@"设备状态控制",@"设备信息", nil];
-    cameraInfoArrLow = [NSArray arrayWithObjects:@"音视频设置",@"事件通知",@"录像控制",@"状态指示灯",@"时间显示",@"设备状态控制",@"设备信息", nil];
+    cameraInfoArr = [NSArray arrayWithObjects:@"音视频设置",@"夜视功能设置",@"检测灵敏度",@"录像控制",@"状态指示灯",@"时间显示",@"设备信息", nil];
+    cameraInfoArrLow = [NSArray arrayWithObjects:@"音视频设置",@"检测灵敏度",@"录像控制",@"状态指示灯",@"时间显示",@"设备信息", nil];
     if (self.isAuthorDevice) {
         UIButton *dropGrantBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         dropGrantBtn.frame = CGRectMake(kWidth/2-80, kHeight/2, 160, 60);
@@ -387,20 +387,20 @@
                         EventNotificationViewController *eventNotifVC = [[EventNotificationViewController alloc] init];
                         eventNotifVC.access_token = self.access_token;
                         eventNotifVC.deviceid = self.deviceid;
-                        eventNotifVC.eventNotifIndex = [[cameraInfoDict objectForKey:@"iEnableEvent"] integerValue];
+//                        eventNotifVC.eventNotifIndex = [[cameraInfoDict objectForKey:@"iEnableEvent"] integerValue];
                         eventNotifVC.sensityIndex = [[cameraInfoDict objectForKey:@"iObjDetectLevel"] integerValue];
                         [[SliderViewController sharedSliderController].navigationController pushViewController:eventNotifVC animated:YES];
                     }
                         break;
+//                    case 5:
+//                    {
+//                        DeviceStatueControlViewController *statueControlVC = [[DeviceStatueControlViewController alloc] init];
+//                        statueControlVC.access_token = self.access_token;
+//                        statueControlVC.deviceid = self.deviceid;
+//                        [[SliderViewController sharedSliderController].navigationController pushViewController:statueControlVC animated:YES];
+//                    }
+//                        break;
                     case 5:
-                    {
-                        DeviceStatueControlViewController *statueControlVC = [[DeviceStatueControlViewController alloc] init];
-                        statueControlVC.access_token = self.access_token;
-                        statueControlVC.deviceid = self.deviceid;
-                        [[SliderViewController sharedSliderController].navigationController pushViewController:statueControlVC animated:YES];
-                    }
-                        break;
-                    case 6:
                     {
                         DeviceInfoViewController *deviceInfoVC = [[DeviceInfoViewController alloc] init];
                         deviceInfoVC.deviceInfoDict = cameraInfoDict;
@@ -447,20 +447,20 @@
                         EventNotificationViewController *eventNotifVC = [[EventNotificationViewController alloc] init];
                         eventNotifVC.access_token = self.access_token;
                         eventNotifVC.deviceid = self.deviceid;
-                        eventNotifVC.eventNotifIndex = [[cameraInfoDict objectForKey:@"iEnableEvent"] integerValue];
+//                        eventNotifVC.eventNotifIndex = [[cameraInfoDict objectForKey:@"iEnableEvent"] integerValue];
                         eventNotifVC.sensityIndex = [[cameraInfoDict objectForKey:@"iObjDetectLevel"] integerValue];
                         [[SliderViewController sharedSliderController].navigationController pushViewController:eventNotifVC animated:YES];
                     }
                         break;
+//                    case 6:
+//                    {
+//                        DeviceStatueControlViewController *statueControlVC = [[DeviceStatueControlViewController alloc] init];
+//                        statueControlVC.access_token = self.access_token;
+//                        statueControlVC.deviceid = self.deviceid;
+//                        [[SliderViewController sharedSliderController].navigationController pushViewController:statueControlVC animated:YES];
+//                    }
+//                        break;
                     case 6:
-                    {
-                        DeviceStatueControlViewController *statueControlVC = [[DeviceStatueControlViewController alloc] init];
-                        statueControlVC.access_token = self.access_token;
-                        statueControlVC.deviceid = self.deviceid;
-                        [[SliderViewController sharedSliderController].navigationController pushViewController:statueControlVC animated:YES];
-                    }
-                        break;
-                    case 7:
                     {
                         DeviceInfoViewController *deviceInfoVC = [[DeviceInfoViewController alloc] init];
                         deviceInfoVC.deviceInfoDict = cameraInfoDict;
@@ -501,6 +501,7 @@
                     //更换网络
                     AddDeviceViewController *exchangeNetVC = [[AddDeviceViewController alloc] init];
                     exchangeNetVC.isAddDevice = NO;
+                    exchangeNetVC.access_token = self.access_token;
 //                    [self.navigationController pushViewController:exchangeNetVC animated:YES];
                     [self presentViewController:exchangeNetVC animated:YES completion:nil];
                 }
@@ -805,10 +806,10 @@
         //左移48位，得到为0为高端设备，1为低端设备
         islow = (deviceidlong >> 48);
         if (islow) {
-            count = 7;
+            count = cameraInfoArrLow.count;
         }else
         {
-            count = 8;
+            count = cameraInfoArr.count;
         }
         _loginoutView.hidden = YES;
         dispatch_async(dispatch_get_main_queue(), ^{

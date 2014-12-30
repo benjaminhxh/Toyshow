@@ -86,10 +86,9 @@
     [self.view addSubview:navBar];
 
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(5, backHeight, 126, 22);
-    
+    backBtn.frame = CGRectMake(5, backHeight, 120, 22);
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
-    [backBtn setTitle:@"分享的摄像头" forState:UIControlStateNormal];
+    [backBtn setTitle:@"公共摄像头" forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(leftClick) forControlEvents:UIControlEventTouchUpInside];
     [navBar addSubview:backBtn];
     
@@ -159,7 +158,7 @@
             downloadArr = [dict objectForKey:@"device_list"];
             //            ////NSLog(@"downloadArr:%@",downloadArr);
             if (downloadArr.count == 0) {
-                [self MBprogressViewHubLoading:@"无分享的摄像头"];
+                [self MBprogressViewHubLoading:@"无公共摄像头"];
                 [badInternetHub hide:YES afterDelay:1];
             }else
             {

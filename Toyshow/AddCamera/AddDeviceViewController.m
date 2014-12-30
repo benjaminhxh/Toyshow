@@ -380,20 +380,11 @@
             UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"只允许在WiFi环境下配置" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
             [view show];
             return;
-        }
-        else if ([deviceDetailF.text isEqualToString:@""]||[SSIDPWF.text isEqualToString:@""]||[SSIDPWFconfirm.text isEqualToString:@""]) {
-            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备描述或密码不能为空" message:@"设备描述或密码不能为空" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
-            [view show];
-            return ;
         }else if (![SSIDPWF.text isEqualToString:SSIDPWFconfirm.text])
         {
             UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"密码输入不一致" message:@"密码输入不一致" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
             [view show];
             return ;
-        }else if (deviceDetailF.text.length > 12) {
-            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备名称不能超过12个字符" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
-            [view show];
-            return;
         }
         [self connectToWifi];
     }

@@ -11,7 +11,7 @@
 @interface EventNotificationViewController : UIViewController
 
 @property (assign ,nonatomic) NSInteger sensityIndex;
-@property (assign ,nonatomic) NSInteger eventNotifIndex;
+//@property (assign ,nonatomic) NSInteger eventNotifIndex;
 @property (copy ,nonatomic) NSString *access_token;
 @property (copy ,nonatomic) NSString *deviceid;
 
