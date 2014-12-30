@@ -115,6 +115,11 @@
         deviceDetailF.text = @"我的乐现";
         deviceDetailF.placeholder = @"请给乐现起个名字吧";
         [scrollView addSubview:deviceDetailF];
+        UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 323, kWidth-20, 46)];
+        tipLabel.text = @"温馨提示：配置摄像头前请长按5s摄像头的Reset(复位)键。";
+        tipLabel.textColor = [UIColor yellowColor];
+        tipLabel.numberOfLines = 2;
+        [scrollView addSubview:tipLabel];
     }else
     {
         setHeight = 50;
@@ -212,12 +217,6 @@
     UIView  *lineL2 = [[UIView alloc] initWithFrame:CGRectMake(2, 321, kWidth-4, 1)];
     lineL2.backgroundColor = [UIColor grayColor];
     [scrollView addSubview:lineL2];
-    
-    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 323, kWidth-20, 46)];
-    tipLabel.text = @"温馨提示：配置摄像头前请长按5s摄像头的Reset(复位)键。";
-    tipLabel.textColor = [UIColor yellowColor];
-    tipLabel.numberOfLines = 2;
-    [scrollView addSubview:tipLabel];
     
 //    securyArr = [NSArray arrayWithObjects:@"[WPA2-PSK-TKIP+CCMP]",@"[WPA-PSK-TKIP+CCMP]",@"[WPA2-EAP-TKIP+CCMP]",@"[WPA-EAP-TKIP+CCMP]",@"[WEP]",@"[ESS]", nil];
     securyArr = [NSArray arrayWithObjects:@"[WPA2-PSK-TKIP+CCMP]",@"[WPA2-EAP-TKIP+CCMP]",@"[WEP]",@"[ESS]", nil];

@@ -41,10 +41,10 @@
     topView.userInteractionEnabled = YES;
     [self.view addSubview:topView];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(5, 25, 128, 22);
+    backBtn.frame = CGRectMake(5, 25, 118, 22);
     [backBtn setImage:[UIImage imageNamed:backBtnImage] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
-    [backBtn setTitle:@"事件通知设置" forState:UIControlStateNormal];
+    [backBtn setTitle:@"检测灵敏度" forState:UIControlStateNormal];
     [topView addSubview:backBtn];
     
     UIButton *saveBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -79,17 +79,19 @@
 //    lineV.backgroundColor = [UIColor grayColor];
 //    [scrollView addSubview:lineV];
     
-    UILabel *sensityL = [[UILabel alloc] initWithFrame:CGRectMake(5, 21, 110, 31)];
-    sensityL.text = @"检测灵敏度:";
-    [scrollView addSubview:sensityL];
-    
     sensityArr = [NSArray arrayWithObjects:@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",nil];
     sensitySeg = [[UISegmentedControl alloc] initWithItems:sensityArr];
-    sensitySeg.frame = CGRectMake(0, 61, kWidth, 30);
+    sensitySeg.frame = CGRectMake(0, 21, kWidth, 30);
     sensitySeg.selectedSegmentIndex = self.sensityIndex;
     [sensitySeg addTarget:self action:@selector(sensitivityAction:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:sensitySeg];
     
+    UILabel *sensityL = [[UILabel alloc] initWithFrame:CGRectMake(5, 61, kWidth-10, 51)];
+    sensityL.text = @"灵敏度值设置越高，摄像头检测物体移动越灵敏。";
+    sensityL.textColor = [UIColor grayColor];
+    sensityL.numberOfLines = 2;
+    sensityL.backgroundColor = [UIColor clearColor];
+    [scrollView addSubview:sensityL];
 //    UIButton *finishBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    finishBtn.frame = CGRectMake(90, 156, 140, 40);
 //    [finishBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

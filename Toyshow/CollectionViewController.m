@@ -129,7 +129,7 @@
             downloadArr = [NSMutableArray array];
             downloadArr = [dict objectForKey:@"device_list"];
             if (downloadArr.count == 0) {
-                [self MBprogressViewHubLoading:@"无摄像头" withMode:4];
+                [self MBprogressViewHubLoading:@"无收藏摄像头" withMode:4];
                 [badInternetHub hide:YES afterDelay:1];
             }else
             {
@@ -342,7 +342,7 @@
     __unsafe_unretained CollectionViewController *vc = self;
     //向服务器发起请求
     NSString *urlSTR = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=listsubscribe&access_token=%@",accessToken];
-    [self MBprogressViewHubLoading:@"" withMode:0];
+    [self MBprogressViewHubLoading:@"Loading" withMode:0];
     [[AFHTTPRequestOperationManager manager] GET:urlSTR parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
         //NSLog(@"收藏的dict:%@",dict);
@@ -352,7 +352,7 @@
         downloadArr = [dict objectForKey:@"device_list"];
         //NSLog(@"downloadArr:%@",downloadArr);
         if (downloadArr.count == 0) {
-            [self MBprogressViewHubLoading:@"无摄像头" withMode:4];
+            [self MBprogressViewHubLoading:@"无收藏摄像头" withMode:4];
             [badInternetHub hide:YES afterDelay:1];
         }else
         {

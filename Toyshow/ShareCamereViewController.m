@@ -802,7 +802,7 @@
 }
 
 #define mark - SetMethod
-- (void)collectClick    //收藏
+- (void)collectClick    //收藏、取消收藏
 {
 //    NSLog(@"收藏=============");
     NSString *accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:kUserAccessToken];
@@ -820,7 +820,7 @@
     NSString *url = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=%@&access_token=%@&shareid=%@&uk=%@",method,accessToken,self.shareId,self.uk];
     [[AFHTTPRequestOperationManager manager]POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (self.isCollect) {
-            [self MBprogressViewHubLoading:@"已取消收藏" withMode:4];
+            [self MBprogressViewHubLoading:@"已取消" withMode:4];
 //            [self showResultAlertView:@"已取消收藏"];
             self.isCancelCollect = YES;
         }else
@@ -828,7 +828,7 @@
             [self MBprogressViewHubLoading:@"收藏成功" withMode:4];
 //            [self showResultAlertView:@"收藏成功"];
         }
-        [shareHub hide:YES afterDelay:1.5];
+        [shareHub hide:YES afterDelay:1];
 
 //        self.isCollect = !self.isCollect;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -944,14 +944,14 @@
 - (void)MBprogressViewHubLoading:(NSString *)labtext withMode:(int)mode
 {
     if (shareHub) {
-        shareHub.mode = mode;
+//        shareHub.mode = mode;
         shareHub.labelText = labtext;
         [shareHub show:YES];
         return;
     }
     shareHub = [[MBProgressHUD alloc] initWithView:cbPlayerController.view];
     shareHub.labelText = labtext;
-    shareHub.square = NO;
+    shareHub.square = YES;
     [cbPlayerController.view addSubview:shareHub];
     [shareHub show:YES];
 }
