@@ -99,12 +99,12 @@
     explainL.textColor = [UIColor grayColor];
     [scrollView addSubview:explainL];
     
-    UIButton *sendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    sendBtn.frame = CGRectMake(kWidth/2-60, 300, 120, 40);
-    [sendBtn setBackgroundImage:[UIImage imageNamed:@"kaishipeizhi_anniu@2x"] forState:UIControlStateNormal];
-    [sendBtn setTitle:@"发送申请信息" forState:UIControlStateNormal];
-    [sendBtn addTarget:self action:@selector(sendInfoTo:) forControlEvents:UIControlEventTouchUpInside];
-    [scrollView addSubview:sendBtn];
+//    UIButton *sendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    sendBtn.frame = CGRectMake(kWidth/2-60, 300, 120, 40);
+//    [sendBtn setBackgroundImage:[UIImage imageNamed:@"kaishipeizhi_anniu@2x"] forState:UIControlStateNormal];
+//    [sendBtn setTitle:@"发送申请信息" forState:UIControlStateNormal];
+//    [sendBtn addTarget:self action:@selector(sendInfoTo:) forControlEvents:UIControlEventTouchUpInside];
+//    [scrollView addSubview:sendBtn];
     
 }
 

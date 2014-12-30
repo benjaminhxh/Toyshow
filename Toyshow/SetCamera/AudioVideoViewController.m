@@ -13,7 +13,7 @@
 {
     UISwitch *audioSw;
     UITextField *streamF;
-    UISegmentedControl *flipImageSeg,*ntscOrPalSeg,*iMainStreamUserOptionSeg;
+    UISegmentedControl *flipImageSeg,*ntscOrPalSeg,*iMainStreamUserOptionSeg,*imageResolutionSeg,*iStreamFpsSeg;
     MBProgressHUD *_progressView;
 }
 @end
@@ -79,37 +79,36 @@
     lineV.backgroundColor = [UIColor grayColor];
     [scrollView addSubview:lineV];
     
-        UILabel *imageResolutionL = [[UILabel alloc] init];
-        imageResolutionL.text = @"清晰度";
-        [scrollView addSubview:imageResolutionL];
-        
-        UIView *lineV5 = [[UIView alloc] init];
-        lineV5.backgroundColor = [UIColor grayColor];
-        [scrollView addSubview:lineV5];
-        
-        streamF = [[UITextField alloc] initWithFrame:CGRectMake(kWidth/3, 65, 160, 31)];
-        streamF.text = self.streamIndex;
-        streamF.keyboardType = UIKeyboardTypeNumberPad;
-        //    streamF.borderStyle = UITextBorderStyleBezel;
-        streamF.textAlignment = NSTextAlignmentRight;
+    UILabel *iMainStreamL = [[UILabel alloc] init];
+    iMainStreamL.text = @"清晰度";
+    [scrollView addSubview:iMainStreamL];
     
-        NSArray *flipArr = [NSArray arrayWithObjects:@"正常",@"倒置", nil];
-        flipImageSeg = [[UISegmentedControl alloc] initWithItems:flipArr];
-        flipImageSeg.frame = CGRectMake(160, 119, 150, 31);
-        flipImageSeg.selectedSegmentIndex = self.flipImageIndex;
-        
-        NSArray *ntscArr = [NSArray arrayWithObjects:@"NTSC",@"PAL", nil];
-        ntscOrPalSeg = [[UISegmentedControl alloc] initWithItems:ntscArr];
-        ntscOrPalSeg.frame = CGRectMake(160, 172, 150, 31);
-        ntscOrPalSeg.selectedSegmentIndex = self.ntscOrPalIndex-1;
+    UIView *lineV5 = [[UIView alloc] init];
+    lineV5.backgroundColor = [UIColor grayColor];
+    [scrollView addSubview:lineV5];
+
+    NSArray *flipArr = [NSArray arrayWithObjects:@"正常",@"倒置", nil];
+    flipImageSeg = [[UISegmentedControl alloc] initWithItems:flipArr];
+    flipImageSeg.frame = CGRectMake(160, 65, 150, 31);
+    flipImageSeg.selectedSegmentIndex = self.flipImageIndex;
     
+    NSArray *ntscArr = [NSArray arrayWithObjects:@"NTSC",@"PAL", nil];
+    ntscOrPalSeg = [[UISegmentedControl alloc] initWithItems:ntscArr];
+    ntscOrPalSeg.frame = CGRectMake(160, 100, 150, 31);
+    ntscOrPalSeg.selectedSegmentIndex = self.ntscOrPalIndex-1;
+    
+    streamF = [[UITextField alloc] initWithFrame:CGRectMake(kWidth/3, 447, 160, 31)];
+    streamF.text = self.streamIndex;
+    streamF.keyboardType = UIKeyboardTypeNumberPad;
+    //    streamF.borderStyle = UITextBorderStyleBezel;
+    streamF.textAlignment = NSTextAlignmentRight;
     if (self.isLow) {
         //低端设备
-        imageResolutionL.frame = CGRectMake(15, 65, 110, 31);
+        iMainStreamL.frame = CGRectMake(15, 65, 110, 31);
         lineV5.frame = CGRectMake(15, 150, kWidth-30, 0.5);
         
-        NSArray *imageResolutionArr = [NSArray arrayWithObjects:@"720P",@"标清",@"流畅", nil];
-        iMainStreamUserOptionSeg = [[UISegmentedControl alloc] initWithItems:imageResolutionArr];
+        NSArray *iMainStreamUserOptionArr = [NSArray arrayWithObjects:@"720P",@"标清",@"流畅", nil];
+        iMainStreamUserOptionSeg = [[UISegmentedControl alloc] initWithItems:iMainStreamUserOptionArr];
         iMainStreamUserOptionSeg.frame = CGRectMake(5, 100, 310, 41);
         iMainStreamUserOptionSeg.selectedSegmentIndex = self.iMainStreamUserOption-1;
         [iMainStreamUserOptionSeg addTarget:self action:@selector(iMainStreamUserOptionSegAction:) forControlEvents:UIControlEventValueChanged];
@@ -118,45 +117,99 @@
     }else
     {
         //高端设备
-        UILabel *streamL = [[UILabel alloc] initWithFrame:CGRectMake(15, 65, 110, 31)];
-        streamL.text = @"视频码流";
-        [scrollView addSubview:streamL];
-        [scrollView addSubview:streamF];
-        UILabel *streamUnitL = [[UILabel alloc] initWithFrame:CGRectMake(270, 65, 40, 31)];
-        streamUnitL.text = @"kb/s";
-        [scrollView addSubview:streamUnitL];
-        
-        UIView *lineV2 = [[UIView alloc] initWithFrame:CGRectMake(15, 108, kWidth-30, 0.5)];
-        lineV2.backgroundColor = [UIColor grayColor];
-        [scrollView addSubview:lineV2];
-        
-        UILabel *flipImageV = [[UILabel alloc] initWithFrame:CGRectMake(15, 119, 110, 31)];
+        UILabel *flipImageV = [[UILabel alloc] initWithFrame:CGRectMake(15, 65, 110, 31)];
         flipImageV.text = @"画面方向";
         [scrollView addSubview:flipImageV];
 
         [scrollView addSubview:flipImageSeg];
         
-        UIView *lineV3 = [[UIView alloc] initWithFrame:CGRectMake(15, 161, kWidth-30, 0.5)];
+        UIView *lineV3 = [[UIView alloc] initWithFrame:CGRectMake(15, 97, kWidth-30, 0.5)];
         lineV3.backgroundColor = [UIColor grayColor];
         [scrollView addSubview:lineV3];
         
-        UILabel *ntscOrPalL = [[UILabel alloc] initWithFrame:CGRectMake(15, 172, 110, 31)];
+        UILabel *ntscOrPalL = [[UILabel alloc] initWithFrame:CGRectMake(15, 100, 110, 31)];
         ntscOrPalL.text = @"视频制式";
         [scrollView addSubview:ntscOrPalL];
         [scrollView addSubview:ntscOrPalSeg];
         
-        UIView *lineV4 = [[UIView alloc] initWithFrame:CGRectMake(15, 214, kWidth-30, 0.5)];
+        UITextView *ntscTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, 135, kWidth-20, 40)];
+        ntscTextView.textColor = [UIColor grayColor];
+        ntscTextView.editable = NO;
+        ntscTextView.font = [UIFont systemFontOfSize:12];
+        ntscTextView.text = @"NTSC制式常用于日本、美国、加拿大和墨西哥等国家,PAL制式主要用于中国、香港中东地区和欧洲一带";
+        ntscTextView.backgroundColor = [UIColor clearColor];
+        [scrollView addSubview:ntscTextView];
+        
+        UIView *lineV4 = [[UIView alloc] initWithFrame:CGRectMake(15, 176, kWidth-30, 0.5)];
         lineV4.backgroundColor = [UIColor grayColor];
         [scrollView addSubview:lineV4];
         
-        imageResolutionL.frame = CGRectMake(15, 220, 110, 31);
-        NSArray *imageResolutionArr = [NSArray arrayWithObjects:@"1080P",@"720P",@"标清",@"流畅", nil];
-        iMainStreamUserOptionSeg = [[UISegmentedControl alloc] initWithItems:imageResolutionArr];
-        iMainStreamUserOptionSeg.frame = CGRectMake(5, 260, kWidth-10, 41);
+        NSArray *iMainStreamUserOptionArr = [NSArray arrayWithObjects:@"1080P",@"720P",@"标清",@"流畅", nil];
+        iMainStreamL.frame = CGRectMake(15, 180, 110, 31);//清晰度
+        iMainStreamUserOptionSeg = [[UISegmentedControl alloc] initWithItems:iMainStreamUserOptionArr];
+        iMainStreamUserOptionSeg.frame = CGRectMake(10, 215, kWidth-20, 41);
         iMainStreamUserOptionSeg.selectedSegmentIndex = self.iMainStreamUserOption-1;
         [iMainStreamUserOptionSeg addTarget:self action:@selector(iMainStreamUserOptionSegAction:) forControlEvents:UIControlEventValueChanged];
         [scrollView addSubview:iMainStreamUserOptionSeg];
-        lineV5.frame = CGRectMake(15, 310, kWidth-30, 0.5);
+        
+        UITextView *imageResoluTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, 256, kWidth-20, 76)];
+        imageResoluTextView.editable = NO;
+        imageResoluTextView.font = [UIFont systemFontOfSize:12];
+        imageResoluTextView.text = @"1080P建议在10M以上带宽下使用，默认1M上行码流,720P建议在4M以上带宽下使用，默认768k上行码流,标清建议在2M以上带宽下使用，默认512k上行码流，流畅建议在1M以上带宽下使用，默认256k上行码流";
+        imageResoluTextView.textColor = [UIColor grayColor];
+        imageResoluTextView.scrollEnabled = NO;
+        [scrollView addSubview:imageResoluTextView];
+         
+        lineV5.frame = CGRectMake(15, 333, kWidth-30, 0.5);
+        
+        //高级设置
+        UILabel *customerSetL = [[UILabel alloc] initWithFrame:CGRectMake(10, 335, kWidth-20, 31)];
+        customerSetL.text = @"高级设置(建议熟悉音视频设置的用户选择)";
+        customerSetL.backgroundColor = [UIColor grayColor];
+        [scrollView addSubview:customerSetL];
+        UIView *lineV6 = [[UIView alloc] initWithFrame:CGRectMake(10, 370, kWidth-20, 0.5)];
+        [scrollView addSubview:lineV6];
+        
+        //图像分辨率
+        UILabel *imageResolutionLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 371, 90, 31)];
+        imageResolutionLab.text = @"图像分辨率";
+        [scrollView addSubview:imageResolutionLab];
+        NSArray *imageResolutionArr = [NSArray arrayWithObjects:@"1080P",@"720P",@"4CIF",@"CIF", nil];
+        imageResolutionSeg = [[UISegmentedControl alloc] initWithItems:imageResolutionArr];
+        imageResolutionSeg.frame = CGRectMake(10, 405, kWidth-20, 41);
+        imageResolutionSeg.selectedSegmentIndex = self.iMainStreamUserOptionIndex-1;
+        [imageResolutionSeg addTarget:self action:@selector(imageResolutionSegAction:) forControlEvents:UIControlEventValueChanged];
+        [scrollView addSubview:imageResolutionSeg];
+        
+        UIView *lineV7 = [[UIView alloc] initWithFrame:CGRectMake(15, 446, kWidth-30, 0.5)];
+        lineV7.backgroundColor = [UIColor grayColor];
+        [scrollView addSubview:lineV7];
+        
+        //视频码流
+        UILabel *streamL = [[UILabel alloc] initWithFrame:CGRectMake(15, 447, 110, 31)];
+        streamL.text = @"视频码流";
+        [scrollView addSubview:streamL];
+        [scrollView addSubview:streamF];
+        UILabel *streamUnitL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth-50, 447, 40, 31)];
+        streamUnitL.text = @"kb/s";
+        [scrollView addSubview:streamUnitL];
+        
+        UIView *lineV8 = [[UIView alloc] initWithFrame:CGRectMake(15, 478, kWidth-30, 0.5)];
+        lineV8.backgroundColor = [UIColor grayColor];
+        [scrollView addSubview:lineV8];
+        //视频帧率4/8/12/16/20/24/28
+        UILabel *fpsL = [[UILabel alloc] initWithFrame:CGRectMake(15, 480, 120, 31)];
+        fpsL.text = @"视频帧率(帧/秒)";
+        fpsL.backgroundColor = [UIColor clearColor];
+        [scrollView addSubview:fpsL];
+        
+        NSArray *streamFpsArr = [NSArray arrayWithObjects:@"4",@"8",@"12",@"16",@"20",@"24",@"28", nil];
+        iStreamFpsSeg = [[UISegmentedControl alloc] initWithItems:streamFpsArr];
+        iStreamFpsSeg.frame = CGRectMake(10, 511, kWidth-20, 31);
+        [iStreamFpsSeg addTarget:self action:@selector(streamFpsSegAction:) forControlEvents:UIControlEventValueChanged];
+        
+        [scrollView addSubview:iStreamFpsSeg];
+        
     }
 }
 
@@ -179,6 +232,16 @@
             break;
     }
 }
+
+- (void)imageResolutionSegAction:(id)sender
+{
+    
+}
+
+- (void)streamFpsSegAction:(id)sender
+{
+    
+}
 //判断输入的值是否介于两者之间
 - (BOOL)isLegalNum:(int)startNum to:(int)endNum withNumString:(NSString *)numString
 {
@@ -194,7 +257,7 @@
 
 - (void)finishAction:(id)sender
 {
-    BOOL flagg = [self isLegalNum:60 to:3000 withNumString:streamF.text];
+    BOOL flagg = [self isLegalNum:128 to:2000 withNumString:streamF.text];
     if (!flagg) {
         return;
     }

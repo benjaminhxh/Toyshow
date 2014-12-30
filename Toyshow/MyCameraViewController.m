@@ -570,8 +570,8 @@
     NSString *accesstoken = [[SliderViewController sharedSliderController].dict objectForKey:@"accessToken"];
     if (![self.accessToken isEqualToString:accesstoken]) {
         self.accessToken = accesstoken;
-        [self reloadMyCameraListView];
-//        [_headerView beginRefreshing];
+//        [self reloadMyCameraListView];
+        [_headerView beginRefreshing];
         return;
     }
     if (notFirstFlag) {

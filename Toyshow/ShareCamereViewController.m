@@ -237,7 +237,7 @@
         remainsProgress = [[UILabel alloc] initWithFrame:CGRectMake(kWidth-45, 43, 40, 10)];
         //快进快退滑动条
         slider = [[UISlider alloc] initWithFrame:CGRectMake(60, 35, kWidth - 105, 25)];
-        refreshBtn = [[UIButton alloc] initWithFrame:CGRectMake(kWidth/2-90, kHeight/2-20, 180, 40)];
+        refreshBtn = [[UIButton alloc] initWithFrame:CGRectMake(kWidth/2-140, kHeight/2-20, 280, 40)];
 
     }else
     {
@@ -248,7 +248,7 @@
         remainsProgress = [[UILabel alloc] initWithFrame:CGRectMake(kHeight-45, 43, 40, 10)];
         //快进快退滑动条
         slider = [[UISlider alloc] initWithFrame:CGRectMake(60, 35, kHeight - 105, 25)];
-        refreshBtn = [[UIButton alloc] initWithFrame:CGRectMake(kHeight/2-90, kWidth/2-20, 180, 40)];
+        refreshBtn = [[UIButton alloc] initWithFrame:CGRectMake(kHeight/2-140, kWidth/2-20, 280, 40)];
 
     }
     bottomView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
@@ -283,7 +283,7 @@
 //        slider.backgroundColor = [UIColor blueColor];
     [bottomView addSubview:slider];
 
-    [refreshBtn setTitle:@"设备离线或服务器错误" forState:UIControlStateNormal];
+    [refreshBtn setTitle:@"设备离线或服务器错误,点击刷新" forState:UIControlStateNormal];
     refreshBtn.backgroundColor = [UIColor clearColor];
     [refreshBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [refreshBtn addTarget:self action:@selector(refreshURL) forControlEvents:UIControlEventTouchUpInside];
@@ -885,6 +885,7 @@
     _loadingView.detailsLabelText = @"视频加载中，请稍后……";
     _loadingView.square = YES;
     [_loadingView show:YES];
+    _loadingView.color = [UIColor blackColor];
     [cbPlayerController.view addSubview:_loadingView];
 }
 

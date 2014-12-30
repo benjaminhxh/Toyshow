@@ -16,7 +16,9 @@
 @property (nonatomic, assign) NSInteger audioIndex;
 @property (nonatomic, copy) NSString *streamIndex;
 @property (nonatomic, assign) NSInteger flipImageIndex;
-@property (nonatomic, assign) NSInteger ntscOrPalIndex;
-//@property (nonatomic, assign) NSInteger imageResolutionIndex;
-@property (nonatomic, assign) NSInteger iMainStreamUserOption;
+@property (nonatomic, assign) NSInteger ntscOrPalIndex;//视频制式
+@property (nonatomic, assign) NSInteger imageResolutionIndex;//图像分辨率
+@property (nonatomic, assign) NSInteger iMainStreamUserOptionIndex;//清晰度
+@property (nonatomic, assign) NSInteger iStreamFpsIndex;//帧率
+
 @end
