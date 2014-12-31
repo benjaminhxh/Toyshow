@@ -79,8 +79,8 @@
         [view show];
         return;
     }
-    else if (modifyText.text.length > 12) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备名称不能超过12个字符" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
+    else if (modifyText.text.length > 64) {
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备名称不能超过64个字符" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
         [view show];
         return;
     }

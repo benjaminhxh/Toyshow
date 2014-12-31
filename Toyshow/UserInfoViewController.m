@@ -119,8 +119,8 @@
     NSString *applyCode = [NSString stringWithFormat:@"申请码:%@",[[NSUserDefaults standardUserDefaults] objectForKey:kUserId]];
     FrontiaShare *share = [Frontia getShare];
     
-    [share registerQQAppId:@"1103178501" enableSSO:NO];
-    [share registerWeixinAppId:@"wx70162e2c344d4c79"];
+    [share registerQQAppId:QQAPP_ID enableSSO:NO];
+    [share registerWeixinAppId:WXAPP_ID];
     
     //授权取消回调函数
     FrontiaShareCancelCallback onCancel = ^(){

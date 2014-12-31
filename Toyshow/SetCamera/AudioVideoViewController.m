@@ -9,12 +9,15 @@
 #import "AudioVideoViewController.h"
 #import "NSString+encodeChinese.h"
 
-@interface AudioVideoViewController ()<MBProgressHUDDelegate>
+@interface AudioVideoViewController ()<MBProgressHUDDelegate,UITextFieldDelegate>
 {
-    UISwitch *audioSw;
-    UITextField *streamF;
+    UISwitch *audioSw,*customerSetSw;
+    UITextField *streamF,*audioVolF;
     UISegmentedControl *flipImageSeg,*ntscOrPalSeg,*iMainStreamUserOptionSeg,*imageResolutionSeg,*iStreamFpsSeg;
     MBProgressHUD *_progressView;
+    UIScrollView *scrollView;
+    NSArray *streamFpsArr;
+    UIView *customerView;
 }
 @end
 
@@ -61,8 +64,8 @@
     [saveBtn addTarget:self action:@selector(finishAction:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:saveBtn];
     
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
-    scrollView.contentSize = CGSizeMake(kWidth, kHeight);
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
+    scrollView.contentSize = CGSizeMake(kWidth, 700);
     scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:scrollView];
     
@@ -70,7 +73,7 @@
     audioL.text = @"音频输入开关";
     [scrollView addSubview:audioL];
     
-    audioSw = [[UISwitch alloc] initWithFrame:CGRectMake(240, 11, 51, 31)];
+    audioSw = [[UISwitch alloc] initWithFrame:CGRectMake(kWidth-80, 11, 51, 31)];
     audioSw.on = self.audioIndex;
     //    [statueSw addTarget:self action:@selector(openOrClose:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:audioSw];
@@ -78,6 +81,21 @@
     UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(15, 54, kWidth-30, 0.5)];
     lineV.backgroundColor = [UIColor grayColor];
     [scrollView addSubview:lineV];
+    
+    //相机音量
+    UILabel *audioVolL = [[UILabel alloc] initWithFrame:CGRectMake(15, 65, 130, 31)];
+    audioVolL.text = @"相机音量(0--100)";
+    [scrollView addSubview:audioVolL];
+    
+    audioVolF = [[UITextField alloc] initWithFrame:CGRectMake(kWidth-170, 65, 150, 31)];
+    audioVolF.keyboardType = UIKeyboardTypeNumberPad;
+    audioVolF.text = self.iAudioVolIndex;
+    audioVolF.textAlignment = NSTextAlignmentRight;
+    [scrollView addSubview:audioVolF];
+    
+    UIView *lineV2 = [[UIView alloc] initWithFrame:CGRectMake(15, 107, kWidth-30, 0.5)];
+    lineV2.backgroundColor = [UIColor grayColor];
+    [scrollView addSubview:lineV2];
     
     UILabel *iMainStreamL = [[UILabel alloc] init];
     iMainStreamL.text = @"清晰度";
@@ -89,50 +107,45 @@
 
     NSArray *flipArr = [NSArray arrayWithObjects:@"正常",@"倒置", nil];
     flipImageSeg = [[UISegmentedControl alloc] initWithItems:flipArr];
-    flipImageSeg.frame = CGRectMake(160, 65, 150, 31);
+    flipImageSeg.frame = CGRectMake(160, 118, 150, 31);
     flipImageSeg.selectedSegmentIndex = self.flipImageIndex;
     
     NSArray *ntscArr = [NSArray arrayWithObjects:@"NTSC",@"PAL", nil];
     ntscOrPalSeg = [[UISegmentedControl alloc] initWithItems:ntscArr];
-    ntscOrPalSeg.frame = CGRectMake(160, 100, 150, 31);
+    ntscOrPalSeg.frame = CGRectMake(160, 171, 150, 31);
     ntscOrPalSeg.selectedSegmentIndex = self.ntscOrPalIndex-1;
     
-    streamF = [[UITextField alloc] initWithFrame:CGRectMake(kWidth/3, 447, 160, 31)];
-    streamF.text = self.streamIndex;
-    streamF.keyboardType = UIKeyboardTypeNumberPad;
-    //    streamF.borderStyle = UITextBorderStyleBezel;
-    streamF.textAlignment = NSTextAlignmentRight;
     if (self.isLow) {
         //低端设备
-        iMainStreamL.frame = CGRectMake(15, 65, 110, 31);
+        iMainStreamL.frame = CGRectMake(15, 118, 110, 31);
         lineV5.frame = CGRectMake(15, 150, kWidth-30, 0.5);
         
         NSArray *iMainStreamUserOptionArr = [NSArray arrayWithObjects:@"720P",@"标清",@"流畅", nil];
         iMainStreamUserOptionSeg = [[UISegmentedControl alloc] initWithItems:iMainStreamUserOptionArr];
-        iMainStreamUserOptionSeg.frame = CGRectMake(5, 100, 310, 41);
-        iMainStreamUserOptionSeg.selectedSegmentIndex = self.iMainStreamUserOption-1;
+        iMainStreamUserOptionSeg.frame = CGRectMake(5, 153, 310, 41);
+        iMainStreamUserOptionSeg.selectedSegmentIndex = self.iMainStreamUserOptionIndex-1;
         [iMainStreamUserOptionSeg addTarget:self action:@selector(iMainStreamUserOptionSegAction:) forControlEvents:UIControlEventValueChanged];
         [scrollView addSubview:iMainStreamUserOptionSeg];
 
     }else
     {
         //高端设备
-        UILabel *flipImageV = [[UILabel alloc] initWithFrame:CGRectMake(15, 65, 110, 31)];
+        UILabel *flipImageV = [[UILabel alloc] initWithFrame:CGRectMake(15, 118, 110, 31)];
         flipImageV.text = @"画面方向";
         [scrollView addSubview:flipImageV];
 
         [scrollView addSubview:flipImageSeg];
         
-        UIView *lineV3 = [[UIView alloc] initWithFrame:CGRectMake(15, 97, kWidth-30, 0.5)];
+        UIView *lineV3 = [[UIView alloc] initWithFrame:CGRectMake(15, 165, kWidth-30, 0.5)];
         lineV3.backgroundColor = [UIColor grayColor];
         [scrollView addSubview:lineV3];
         
-        UILabel *ntscOrPalL = [[UILabel alloc] initWithFrame:CGRectMake(15, 100, 110, 31)];
+        UILabel *ntscOrPalL = [[UILabel alloc] initWithFrame:CGRectMake(15, 171, 110, 31)];
         ntscOrPalL.text = @"视频制式";
         [scrollView addSubview:ntscOrPalL];
         [scrollView addSubview:ntscOrPalSeg];
         
-        UITextView *ntscTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, 135, kWidth-20, 40)];
+        UITextView *ntscTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, 203, kWidth-20, 40)];
         ntscTextView.textColor = [UIColor grayColor];
         ntscTextView.editable = NO;
         ntscTextView.font = [UIFont systemFontOfSize:12];
@@ -140,19 +153,21 @@
         ntscTextView.backgroundColor = [UIColor clearColor];
         [scrollView addSubview:ntscTextView];
         
-        UIView *lineV4 = [[UIView alloc] initWithFrame:CGRectMake(15, 176, kWidth-30, 0.5)];
+        UIView *lineV4 = [[UIView alloc] initWithFrame:CGRectMake(15, 253, kWidth-30, 0.5)];
         lineV4.backgroundColor = [UIColor grayColor];
         [scrollView addSubview:lineV4];
         
+        //清晰度
         NSArray *iMainStreamUserOptionArr = [NSArray arrayWithObjects:@"1080P",@"720P",@"标清",@"流畅", nil];
-        iMainStreamL.frame = CGRectMake(15, 180, 110, 31);//清晰度
+        iMainStreamL.frame = CGRectMake(15, 263, 110, 31);
         iMainStreamUserOptionSeg = [[UISegmentedControl alloc] initWithItems:iMainStreamUserOptionArr];
-        iMainStreamUserOptionSeg.frame = CGRectMake(10, 215, kWidth-20, 41);
-        iMainStreamUserOptionSeg.selectedSegmentIndex = self.iMainStreamUserOption-1;
+        iMainStreamUserOptionSeg.frame = CGRectMake(10, 304, kWidth-20, 31);
+        iMainStreamUserOptionSeg.selectedSegmentIndex = self.iMainStreamUserOptionIndex-1;
+//        NSLog(@"清晰度：%d",self.iMainStreamUserOptionIndex);
         [iMainStreamUserOptionSeg addTarget:self action:@selector(iMainStreamUserOptionSegAction:) forControlEvents:UIControlEventValueChanged];
         [scrollView addSubview:iMainStreamUserOptionSeg];
         
-        UITextView *imageResoluTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, 256, kWidth-20, 76)];
+        UITextView *imageResoluTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, 335, kWidth-20, 76)];
         imageResoluTextView.editable = NO;
         imageResoluTextView.font = [UIFont systemFontOfSize:12];
         imageResoluTextView.text = @"1080P建议在10M以上带宽下使用，默认1M上行码流,720P建议在4M以上带宽下使用，默认768k上行码流,标清建议在2M以上带宽下使用，默认512k上行码流，流畅建议在1M以上带宽下使用，默认256k上行码流";
@@ -160,90 +175,166 @@
         imageResoluTextView.scrollEnabled = NO;
         [scrollView addSubview:imageResoluTextView];
          
-        lineV5.frame = CGRectMake(15, 333, kWidth-30, 0.5);
+        lineV5.frame = CGRectMake(15, 415, kWidth-30, 0.5);
         
         //高级设置
-        UILabel *customerSetL = [[UILabel alloc] initWithFrame:CGRectMake(10, 335, kWidth-20, 31)];
-        customerSetL.text = @"高级设置(建议熟悉音视频设置的用户选择)";
-        customerSetL.backgroundColor = [UIColor grayColor];
+        UILabel *customerSetL = [[UILabel alloc] initWithFrame:CGRectMake(10, 418, 90, 31)];
+        customerSetL.text = @"高级设置";
+        customerSetL.font = [UIFont systemFontOfSize:19];
+        customerSetL.backgroundColor = [UIColor clearColor];
         [scrollView addSubview:customerSetL];
-        UIView *lineV6 = [[UIView alloc] initWithFrame:CGRectMake(10, 370, kWidth-20, 0.5)];
-        [scrollView addSubview:lineV6];
+        customerSetSw = [[UISwitch alloc] initWithFrame:CGRectMake(kWidth-80, 418, 51, 31)];
+        [customerSetSw addTarget:self action:@selector(customerSetSwitchAction:) forControlEvents:UIControlEventTouchUpInside];
+        [scrollView addSubview:customerSetSw];
         
+        UILabel *customerSetExplainL = [[UILabel alloc] initWithFrame:CGRectMake(10, 450, kWidth-100, 24)];
+        customerSetExplainL.text = @"(建议熟悉音视频设置的用户选择)";
+        customerSetExplainL.font = [UIFont systemFontOfSize:12];
+        customerSetExplainL.textColor = [UIColor grayColor];
+        customerSetExplainL.backgroundColor = [UIColor clearColor];
+        [scrollView addSubview:customerSetExplainL];
+        
+        customerView = [[UIView alloc] initWithFrame:CGRectMake(0, 474, kWidth, 220)];
+        [scrollView addSubview:customerView];
+        if(self.iMainStreamUserOptionIndex>0)
+        {
+            customerView.hidden = YES;
+            customerSetSw.on = NO;
+
+        }else
+        {
+            customerView.hidden = NO;
+            customerSetSw.on = YES;
+        }
+        customerView.backgroundColor = [UIColor whiteColor];
+        
+        UIView *lineV6 = [[UIView alloc] initWithFrame:CGRectMake(10, 1, kWidth-20, 0.5)];
+        lineV6.backgroundColor = [UIColor grayColor];
+        [customerView addSubview:lineV6];
+
         //图像分辨率
-        UILabel *imageResolutionLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 371, 90, 31)];
+        UILabel *imageResolutionLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 90, 31)];
         imageResolutionLab.text = @"图像分辨率";
-        [scrollView addSubview:imageResolutionLab];
+        [customerView addSubview:imageResolutionLab];
         NSArray *imageResolutionArr = [NSArray arrayWithObjects:@"1080P",@"720P",@"4CIF",@"CIF", nil];
         imageResolutionSeg = [[UISegmentedControl alloc] initWithItems:imageResolutionArr];
-        imageResolutionSeg.frame = CGRectMake(10, 405, kWidth-20, 41);
-        imageResolutionSeg.selectedSegmentIndex = self.iMainStreamUserOptionIndex-1;
+        imageResolutionSeg.frame = CGRectMake(10, 36, kWidth-20, 31);
+        imageResolutionSeg.selectedSegmentIndex = self.imageResolutionIndex-1;
         [imageResolutionSeg addTarget:self action:@selector(imageResolutionSegAction:) forControlEvents:UIControlEventValueChanged];
-        [scrollView addSubview:imageResolutionSeg];
+        [customerView addSubview:imageResolutionSeg];
         
-        UIView *lineV7 = [[UIView alloc] initWithFrame:CGRectMake(15, 446, kWidth-30, 0.5)];
+        UIView *lineV7 = [[UIView alloc] initWithFrame:CGRectMake(15, 75, kWidth-30, 0.5)];
         lineV7.backgroundColor = [UIColor grayColor];
-        [scrollView addSubview:lineV7];
+        [customerView addSubview:lineV7];
         
         //视频码流
-        UILabel *streamL = [[UILabel alloc] initWithFrame:CGRectMake(15, 447, 110, 31)];
+        UILabel *streamL = [[UILabel alloc] initWithFrame:CGRectMake(15, 80, 110, 31)];
         streamL.text = @"视频码流";
-        [scrollView addSubview:streamL];
-        [scrollView addSubview:streamF];
-        UILabel *streamUnitL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth-50, 447, 40, 31)];
-        streamUnitL.text = @"kb/s";
-        [scrollView addSubview:streamUnitL];
+        [customerView addSubview:streamL];
         
-        UIView *lineV8 = [[UIView alloc] initWithFrame:CGRectMake(15, 478, kWidth-30, 0.5)];
+        streamF = [[UITextField alloc] initWithFrame:CGRectMake(kWidth/3, 80, 160, 31)];
+        streamF.text = self.streamIndex;
+//        streamF.delegate = self;
+        streamF.keyboardType = UIKeyboardTypeNumberPad;
+        //    streamF.borderStyle = UITextBorderStyleBezel;
+        streamF.textAlignment = NSTextAlignmentRight;
+        [customerView addSubview:streamF];
+        UILabel *streamUnitL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth-50, 80, 40, 31)];
+        streamUnitL.text = @"kb/s";
+        streamUnitL.backgroundColor = [UIColor clearColor];
+        [customerView addSubview:streamUnitL];
+        UILabel *bandExplainL = [[UILabel alloc] initWithFrame:CGRectMake(15, 111, kWidth-20, 24)];
+        bandExplainL.text = @"请根据您的带宽选择合适的码流(128--2000)";
+        bandExplainL.font = [UIFont systemFontOfSize:12];
+        bandExplainL.textColor = [UIColor grayColor];
+        bandExplainL.backgroundColor = [UIColor clearColor];
+        [customerView addSubview:bandExplainL];
+        
+        UIView *lineV8 = [[UIView alloc] initWithFrame:CGRectMake(15, 140, kWidth-30, 0.5)];
         lineV8.backgroundColor = [UIColor grayColor];
-        [scrollView addSubview:lineV8];
+        [customerView addSubview:lineV8];
         //视频帧率4/8/12/16/20/24/28
-        UILabel *fpsL = [[UILabel alloc] initWithFrame:CGRectMake(15, 480, 120, 31)];
+        UILabel *fpsL = [[UILabel alloc] initWithFrame:CGRectMake(15, 146, 120, 31)];
         fpsL.text = @"视频帧率(帧/秒)";
         fpsL.backgroundColor = [UIColor clearColor];
-        [scrollView addSubview:fpsL];
+        [customerView addSubview:fpsL];
         
-        NSArray *streamFpsArr = [NSArray arrayWithObjects:@"4",@"8",@"12",@"16",@"20",@"24",@"28", nil];
+        streamFpsArr = [NSArray arrayWithObjects:@"4",@"8",@"12",@"16",@"20",@"24",@"28", nil];
         iStreamFpsSeg = [[UISegmentedControl alloc] initWithItems:streamFpsArr];
-        iStreamFpsSeg.frame = CGRectMake(10, 511, kWidth-20, 31);
+        iStreamFpsSeg.frame = CGRectMake(10, 185, kWidth-20, 31);
+        iStreamFpsSeg.selectedSegmentIndex = self.iStreamFpsIndex;
         [iStreamFpsSeg addTarget:self action:@selector(streamFpsSegAction:) forControlEvents:UIControlEventValueChanged];
-        
-        [scrollView addSubview:iStreamFpsSeg];
+        [customerView addSubview:iStreamFpsSeg];
         
     }
 }
 
 - (void)iMainStreamUserOptionSegAction:(id)sender
 {
+    customerView.hidden = YES;
+    customerSetSw.on = NO;
     switch (iMainStreamUserOptionSeg.selectedSegmentIndex) {
         case 0:
+        {
+            imageResolutionSeg.selectedSegmentIndex = 0;
             streamF.text = @"1024";
+            iStreamFpsSeg.selectedSegmentIndex = 1;
+        }
             break;
         case 1:
+        {
             streamF.text = @"768";
+            iStreamFpsSeg.selectedSegmentIndex = 2;
+            imageResolutionSeg.selectedSegmentIndex = 1;
+        }
             break;
         case 2:
+        {
             streamF.text = @"512";
+            iStreamFpsSeg.selectedSegmentIndex = 3;
+            imageResolutionSeg.selectedSegmentIndex = 2;
+        }
             break;
         case 3:
+        {
             streamF.text = @"256";
+            iStreamFpsSeg.selectedSegmentIndex = 4;
+            imageResolutionSeg.selectedSegmentIndex = 4;
+        }
             break;
         default:
             break;
     }
 }
 
+//自定义开关
+- (void)customerSetSwitchAction:(id)sender
+{
+    [UIView animateWithDuration:0.15 animations:^{
+        if (customerSetSw.on) {
+            //自定义设置
+            customerView.hidden = NO;
+            iMainStreamUserOptionSeg.selectedSegmentIndex = -1;
+        }else{
+            //关闭自定义设置
+            customerView.hidden = YES;
+        }
+    }];
+    
+}
+
+//图像分辨率
 - (void)imageResolutionSegAction:(id)sender
 {
     
 }
-
+//帧率
 - (void)streamFpsSegAction:(id)sender
 {
     
 }
 //判断输入的值是否介于两者之间
-- (BOOL)isLegalNum:(int)startNum to:(int)endNum withNumString:(NSString *)numString
+- (BOOL)bandStreamIsLegalNum:(int)startNum to:(int)endNum withNumString:(NSString *)numString
 {
     int bandw = [numString intValue];
     if (bandw >= startNum && bandw <= endNum) {
@@ -254,30 +345,69 @@
         return NO;
     }
 }
+- (BOOL)audioVolIsLegalNum:(int)startNum to:(int)endNum withNumString:(NSString *)numString
+{
+    int audioVol = [numString intValue];
+    if (audioVol >= startNum && audioVol <= endNum) {
+        return YES;
+    }else{
+        UIAlertView *errorV = [[UIAlertView alloc] initWithTitle:@"错误" message:[NSString stringWithFormat:@"相机音量值应该设为%d-%d",startNum,endNum] delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
+        [errorV show];
+        return NO;
+    }
+}
 
 - (void)finishAction:(id)sender
 {
-    BOOL flagg = [self isLegalNum:128 to:2000 withNumString:streamF.text];
-    if (!flagg) {
+    BOOL bandflag = [self bandStreamIsLegalNum:128 to:2000 withNumString:streamF.text];
+    BOOL audioflag = [self audioVolIsLegalNum:0 to:100 withNumString:audioVolF.text];
+    if (!bandflag) {
+        return;
+    }
+    else if (!audioflag)
+    {
         return;
     }
     [self.view endEditing:YES];
     [self isLoadingView];
-    
-    NSDictionary *setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                       [NSNumber numberWithInteger:audioSw.on ],@"iEnableAudioIn",
-                                       streamF.text,@"iStreamBitrate",
-                                       [NSNumber numberWithInteger:flipImageSeg.selectedSegmentIndex],@"iFlipImage",
-                                       [NSNumber numberWithInteger:ntscOrPalSeg.selectedSegmentIndex+1],@"iNTSCPAL",
-                                       [NSNumber numberWithInteger:iMainStreamUserOptionSeg.selectedSegmentIndex+1],@"iImageResolution",nil];
-
-//                                       [NSNumber numberWithInteger:iMainStreamUserOptionSeg.selectedSegmentIndex+1],@"iMainStreamUserOption",nil];
+    NSDictionary *setCameraDataDict;
+    if (self.isLow) {
+        setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                             [NSNumber numberWithInteger:audioSw.on ],@"iEnableAudioIn",
+                             audioVolF.text,@"iAudioVol",
+                             [NSNumber numberWithInteger:iMainStreamUserOptionSeg.selectedSegmentIndex+1],@"iMainStreamUserOption",
+                             nil];
+    }else
+    {
+        if (customerSetSw.on) {
+            //自定义设置
+            setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 [NSNumber numberWithInteger:audioSw.on ],@"iEnableAudioIn",
+                                 audioVolF.text,@"iAudioVol",
+                                 [NSNumber numberWithInteger:flipImageSeg.selectedSegmentIndex],@"iFlipImage",
+                                 [NSNumber numberWithInteger:ntscOrPalSeg.selectedSegmentIndex+1],@"iNTSCPAL",
+                                 [NSNumber numberWithInteger:imageResolutionSeg.selectedSegmentIndex+1],@"iImageResolution",
+                                 streamF.text,@"iStreamBitrate",
+                                 [streamFpsArr objectAtIndex:iStreamFpsSeg.selectedSegmentIndex],@"iStreamFps",
+                                 nil];
+        }else
+        {
+            setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                             [NSNumber numberWithInteger:audioSw.on ],@"iEnableAudioIn",
+                             audioVolF.text,@"iAudioVol",
+                             [NSNumber numberWithInteger:flipImageSeg.selectedSegmentIndex],@"iFlipImage",
+                             [NSNumber numberWithInteger:ntscOrPalSeg.selectedSegmentIndex+1],@"iNTSCPAL",
+                             [NSNumber numberWithInteger:iMainStreamUserOptionSeg.selectedSegmentIndex+1],@"iMainStreamUserOption",
+                             [NSNumber numberWithInteger:imageResolutionSeg.selectedSegmentIndex+1],@"iImageResolution",
+                             streamF.text,@"iStreamBitrate",
+                             [streamFpsArr objectAtIndex:iStreamFpsSeg.selectedSegmentIndex],@"iStreamFps",
+                             nil];
+        }
+    }
+//    NSLog(@"setCamera:%@",setCameraDataDict);
     NSString *setCameraDataString = [setCameraDataDict JSONString];
     NSString *strWithUTF8 = [setCameraDataString encodeChinese];
-//    NSString *strWithUTF8=(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)setCameraDataString, NULL,  CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
-    //
     NSString *setURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=control&access_token=%@&deviceid=%@&command=%@",self.access_token,self.deviceid,strWithUTF8];
-//    NSDictionary *paramDict = [NSDictionary dictionaryWithObjectsAndKeys:@"control",@"method",self.access_token,@"access_token",self.deviceid,@"deviceid",setCameraDataDict,@"command", nil];
     ////NSLog(@"paramDict:%@",paramDict);
     [[AFHTTPRequestOperationManager manager]POST:setURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        NSDictionary *dict = (NSDictionary*)responseObject;
@@ -301,6 +431,16 @@
     [[SliderViewController sharedSliderController].navigationController popToRootViewControllerAnimated:YES];
 }
 
+- (void)alertViewShowWithTitle:(NSString*)string andMessage:(NSString*)message
+{
+    UIAlertView *setError = [[UIAlertView alloc] initWithTitle:string
+                                                       message:message
+                                                      delegate:nil
+                                             cancelButtonTitle:@"好"
+                                             otherButtonTitles:nil, nil];
+    [setError show];
+}
+
 - (void)isLoadingView
 {
     if (_progressView == nil) {
@@ -317,14 +457,33 @@
     [_progressView show:YES];
 }
 
-- (void)alertViewShowWithTitle:(NSString*)string andMessage:(NSString*)message
+#pragma mark - textFieldDelegate
+- (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    UIAlertView *setError = [[UIAlertView alloc] initWithTitle:string
-                                                       message:message
-                                                      delegate:nil
-                                             cancelButtonTitle:@"好"
-                                             otherButtonTitles:nil, nil];
-    [setError show];
+    [self animateTextField:streamF up:YES];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [self animateTextField:streamF up:NO];
+}
+//视图上移的方法
+- (void)animateTextField: (UITextField *) textField up: (BOOL) up
+{
+    //设置视图上移的距离，单位像素
+    const int movementDistance = 180; // tweak as needed
+    //三目运算，判定是否需要上移视图或者不变
+    int movement = (up ? -movementDistance : movementDistance);
+    //设置动画的名字
+    [UIView beginAnimations: @"Animation" context: nil];
+    //设置动画的开始移动位置
+    [UIView setAnimationBeginsFromCurrentState: YES];
+    //设置动画的间隔时间
+    [UIView setAnimationDuration: 0.20];
+    //设置视图移动的位移
+    scrollView.frame = CGRectOffset(scrollView.frame, 0, movement);
+    //设置动画结束
+    [UIView commitAnimations];
 }
 
 -(NSUInteger)supportedInterfaceOrientations{
@@ -349,6 +508,6 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self.view endEditing:YES];
+    [scrollView endEditing:YES];
 }
 @end

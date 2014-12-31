@@ -362,12 +362,8 @@
                         avideoVC.deviceid = self.deviceid;
                         avideoVC.audioIndex = [[cameraInfoDict objectForKey:@"iEnableAudioIn"] integerValue];
                         avideoVC.streamIndex = [cameraInfoDict objectForKey:@"iStreamBitrate"];
-                        avideoVC.flipImageIndex = [[cameraInfoDict objectForKey:@"iFlipImage"] integerValue];
-                        avideoVC.ntscOrPalIndex = [[cameraInfoDict objectForKey:@"iNTSCPAL"] integerValue];
-//                        avideoVC.iMainStreamUserOption = [[cameraInfoDict objectForKey:@"iMainStreamUserOption"] integerValue];
-                        avideoVC.iMainStreamUserOption = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
-
-                        ////NSLog(@"分辨率：%@",[cameraInfoDict objectForKey:@"iImageResolution"]);
+                        avideoVC.iAudioVolIndex = [cameraInfoDict objectForKey:@"iAudioVol"];
+                        avideoVC.iMainStreamUserOptionIndex = [[cameraInfoDict objectForKey:@"iMainStreamUserOption"] integerValue];
                         avideoVC.isLow = islow;
                         [[SliderViewController sharedSliderController].navigationController pushViewController:avideoVC animated:YES];
                     }
@@ -422,11 +418,12 @@
                         avideoVC.deviceid = self.deviceid;
                         avideoVC.audioIndex = [[cameraInfoDict objectForKey:@"iEnableAudioIn"] integerValue];
                         avideoVC.streamIndex = [cameraInfoDict objectForKey:@"iStreamBitrate"];
+                        avideoVC.iAudioVolIndex = [cameraInfoDict objectForKey:@"iAudioVol"];
                         avideoVC.flipImageIndex = [[cameraInfoDict objectForKey:@"iFlipImage"] integerValue];
                         avideoVC.ntscOrPalIndex = [[cameraInfoDict objectForKey:@"iNTSCPAL"] integerValue];
-//                        avideoVC.imageResolutionIndex = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
-//                        avideoVC.iMainStreamUserOption = [[cameraInfoDict objectForKey:@"iMainStreamUserOption"] integerValue];
-                        avideoVC.iMainStreamUserOption = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
+                        avideoVC.iStreamFpsIndex = [[cameraInfoDict objectForKey:@"iStreamFps"] integerValue]/4-1;
+                        avideoVC.iMainStreamUserOptionIndex = [[cameraInfoDict objectForKey:@"iMainStreamUserOption"] integerValue];
+                        avideoVC.imageResolutionIndex = [[cameraInfoDict objectForKey:@"iImageResolution"] integerValue];
 
                         avideoVC.isLow = islow;
                         [[SliderViewController sharedSliderController].navigationController pushViewController:avideoVC animated:YES];

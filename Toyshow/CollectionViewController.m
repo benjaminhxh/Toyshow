@@ -129,7 +129,7 @@
             downloadArr = [NSMutableArray array];
             downloadArr = [dict objectForKey:@"device_list"];
             if (downloadArr.count == 0) {
-                [self MBprogressViewHubLoading:@"无收藏摄像头" withMode:4];
+                [self MBprogressViewHubLoading:@"无摄像头" withMode:4];
                 [badInternetHub hide:YES afterDelay:1];
             }else
             {
@@ -352,7 +352,7 @@
         downloadArr = [dict objectForKey:@"device_list"];
         //NSLog(@"downloadArr:%@",downloadArr);
         if (downloadArr.count == 0) {
-            [self MBprogressViewHubLoading:@"无收藏摄像头" withMode:4];
+            [self MBprogressViewHubLoading:@"无摄像头" withMode:4];
             [badInternetHub hide:YES afterDelay:1];
         }else
         {

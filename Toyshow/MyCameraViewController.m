@@ -368,10 +368,15 @@
     }
     
     UIButton *button = [ UIButton buttonWithType:UIButtonTypeCustom ];
-    CGRect frame = CGRectMake( 0.0 , 0.0 , 40 , 34 );
+    CGRect frame;
+    if (iphone5) {
+      frame = CGRectMake( 0 , 0 , 60 , 60 );
+    }else{
+        frame = CGRectMake(0, 0, 40, 30);
+    }
     button.frame = frame;
     [button setImage:setBtnImage forState:UIControlStateNormal ];
-//            button.backgroundColor = [UIColor clearColor ];
+//            button.backgroundColor = [UIColor redColor ];
     [button addTarget:self action:@selector(accessoryButtonTappedAction:) forControlEvents:UIControlEventTouchUpInside];
     cell.accessoryView = button;
     

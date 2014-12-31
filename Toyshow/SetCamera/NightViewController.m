@@ -70,7 +70,7 @@
     
     NSArray *isenceArr = [NSArray arrayWithObjects:@"自动模式",@"拍摄室内",@"拍摄室外", nil];
     isenceSeg = [[UISegmentedControl alloc] initWithItems:isenceArr];
-    isenceSeg.frame = CGRectMake(0, 51, kWidth, 30);
+    isenceSeg.frame = CGRectMake(5, 51, kWidth-10, 31);
     isenceSeg.selectedSegmentIndex = self.filterIndex;
     [isenceSeg addTarget:self action:@selector(isenceAction:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:isenceSeg];
@@ -85,7 +85,7 @@
     
     NSArray *filterArr  = [NSArray arrayWithObjects:@"自动模式",@"白天模式",@"夜间模式",nil];
     filterSeg = [[UISegmentedControl alloc] initWithItems:filterArr];
-    filterSeg.frame = CGRectMake(0, 141, kWidth, 30);
+    filterSeg.frame = CGRectMake(5, 141, kWidth-10, 31);
     filterSeg.selectedSegmentIndex = self.filterIndex;
     [filterSeg addTarget:self action:@selector(filterAction:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:filterSeg];

@@ -147,6 +147,8 @@
         self.index = 0;
         [_tableview reloadData];
         [self backToRootVC];
+        [self alertViewShowWithTitle:@"设置成功" andMessage:nil];
+
 //        dispatch_async(dispatch_get_main_queue(), ^{
 //            [self.view setNeedsDisplay];
 //        });
@@ -173,6 +175,8 @@
         self.index = 1;
         [_tableview reloadData];
         [self backToRootVC];
+        [self alertViewShowWithTitle:@"设置成功" andMessage:nil];
+
         //{“shareid”:SHARE_ID, “uk”:UK, “request_id”:12345678}
         /*
          {
@@ -186,6 +190,8 @@
         ////NSLog(@"error:%@",[error userInfo]);
         [self MBprogressViewHubLoading:@"分享失败" withMode:4];
         [shareHub hide:YES afterDelay:1];
+//        [self alertViewShowWithTitle:@"设置成功" andMessage:nil];
+
         //        self.shareStaue = 0;
     }];
 }
@@ -231,6 +237,16 @@
     shareHub.detailsLabelText = labtext;
     [self.view addSubview:shareHub];
     [shareHub show:YES];
+}
+
+- (void)alertViewShowWithTitle:(NSString*)string andMessage:(NSString*)message
+{
+    UIAlertView *setError = [[UIAlertView alloc] initWithTitle:string
+                                                       message:message
+                                                      delegate:nil
+                                             cancelButtonTitle:@"好"
+                                             otherButtonTitles:nil, nil];
+    [setError show];
 }
 
 -(NSUInteger)supportedInterfaceOrientations{

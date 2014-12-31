@@ -184,10 +184,9 @@
     [self.view addSubview:topView];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     if (iphone5) {
-        backBtn.frame = CGRectMake(2, 2, 50, 40);
+        backBtn.frame = CGRectMake(0, 0, 50, 40);
     }else
-    backBtn.frame = CGRectMake(5, 5, 40, 30);
-//    backBtn.frame = CGRectMake(10, [UIApplication sharedApplication].statusBarFrame.size.height+5, 12, 22);
+    backBtn.frame = CGRectMake(0, 0, 40, 30);
     [backBtn setImage:[UIImage imageNamed:@"fanhui_jiantou@2x"] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtn:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backBtn];

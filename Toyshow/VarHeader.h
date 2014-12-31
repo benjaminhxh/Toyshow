@@ -13,7 +13,9 @@
 #define msAK                    @"ZIAgdlC7Vw7syTjeKG9zS4QP"
 #define msSK                    @"pavlqfU4mzYQ1dH0NG3b7LyXNBy5SYk6"
 #define APP_KEY @"ZIAgdlC7Vw7syTjeKG9zS4QP"
-#define APP_ID @"2271149"
+#define APP_ID  @"2271149"
+#define WXAPP_ID @"wxd867b3590b97057c"
+#define QQAPP_ID @"1103178501"
 
 #define backGroundImage         @"beijing@2x"
 #define navigationBarImageiOS7  @"bantou_dida@2x"

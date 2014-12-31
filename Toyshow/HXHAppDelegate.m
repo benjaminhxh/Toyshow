@@ -68,7 +68,7 @@
 //    [statTracker startWithReportId:REPORT_ID];//设置您在mtj网站上添加的app的appkey
     
      [UIApplication sharedApplication].idleTimerDisabled = YES;//app在后台不锁屏
-    [WXApi registerApp:@"wx70162e2c344d4c79" withDescription:nil];
+    [WXApi registerApp:WXAPP_ID withDescription:nil];
 //    TencentOAuth *auth = [[TencentOAuth alloc] initWithAppId:@"222222" andDelegate:self];
     return YES;
 }
