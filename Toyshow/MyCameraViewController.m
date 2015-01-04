@@ -203,8 +203,12 @@
                 [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 notFirstFlag = YES;
-                [self MBprogressViewHubLoading:@"网络延时"];
-                [badInternetHub hide:YES afterDelay:1];
+                if (vc->_myCameraFakeData.count) {
+                    
+                }else
+                {
+                    [self MBprogressViewHubLoading:@"网络延时"];
+                    [badInternetHub hide:YES afterDelay:1];}
                 [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -578,8 +582,7 @@
 //        [self reloadMyCameraListView];
         [_headerView beginRefreshing];
         return;
-    }
-    if (notFirstFlag) {
+    }else if (notFirstFlag) {
         [_headerView beginRefreshing];
     }
 }
