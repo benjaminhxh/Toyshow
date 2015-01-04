@@ -139,7 +139,6 @@
 
 - (void)addheader{
     __unsafe_unretained MyCameraViewController *vc = self;
-    
     MJRefreshHeaderView *header = [MJRefreshHeaderView header];
     header.scrollView = _tableView;
     header.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView) {
@@ -202,8 +201,8 @@
                 }
                 [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                notFirstFlag = YES;
-                if (vc->_myCameraFakeData.count) {
+//                notFirstFlag = YES;
+                if (vc->_authorCameraFakeData.count) {
                     
                 }else
                 {
@@ -212,7 +211,7 @@
                 [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
+            notFirstFlag = YES;
         }];
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
@@ -584,6 +583,7 @@
         return;
     }else if (notFirstFlag) {
         [_headerView beginRefreshing];
+        return;
     }
 }
 
