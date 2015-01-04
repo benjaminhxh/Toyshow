@@ -98,9 +98,9 @@
     ////NSLog(@"URLstr:%@",URLstr);
 
     [[AFHTTPRequestOperationManager manager]GET:URLstr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *dict = (NSDictionary *)responseObject;
-        NSString *desc = [dict objectForKey:@"description"];
-        if ([desc isEqualToString:des]) {
+//        NSDictionary *dict = (NSDictionary *)responseObject;
+//        NSString *desc = [dict objectForKey:@"description"];
+//        if ([desc isEqualToString:des]) {
             UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"设备修改成功" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
             [view show];
 //            [self backBtn];
@@ -113,7 +113,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"modifySuccess" object:nil];
             [[SliderViewController sharedSliderController].navigationController popToRootViewControllerAnimated:YES];
 
-        }
+//        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        [_loadingView hide:YES];
         [self MBprogressViewHubLoading:@"设备修改失败" withMode:4];
