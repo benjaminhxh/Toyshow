@@ -736,7 +736,7 @@
         [_loginoutView hide:YES];
         
         [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:YES];
-        //        [self alertViewShowWithTitle:@"注销成功" andMessage:nil];
+        [self alertViewShowWithTitle:@"注销成功" andMessage:nil];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         //        NSDictionary *errorDict = [error userInfo];
@@ -745,7 +745,7 @@
         _loginoutView.mode = 4;
         _loginoutView.labelText = @"注销失败";
         [_loginoutView hide:YES];
-        //        [self alertViewShowWithTitle:@"注销失败" andMessage:errorMSG];
+        [self alertViewShowWithTitle:@"注销失败" andMessage:nil];
     }];
 
 }

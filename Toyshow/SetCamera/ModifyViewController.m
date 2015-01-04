@@ -57,7 +57,7 @@
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [self.view addGestureRecognizer:recognizer];
     
-    modifyText = [[UITextField alloc] initWithFrame:CGRectMake(40, 20, 240, 40)];
+    modifyText = [[UITextField alloc] initWithFrame:CGRectMake(20, 20, kWidth-40, 40)];
     modifyText.borderStyle = UITextBorderStyleRoundedRect;
     modifyText.delegate = self;
     modifyText.text = self.deviceName;

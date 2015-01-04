@@ -276,9 +276,9 @@
     switch (iMainStreamUserOptionSeg.selectedSegmentIndex) {
         case 0:
         {
-            imageResolutionSeg.selectedSegmentIndex = 0;
             streamF.text = @"1024";
             iStreamFpsSeg.selectedSegmentIndex = 1;
+            imageResolutionSeg.selectedSegmentIndex = 0;
         }
             break;
         case 1:
@@ -299,7 +299,7 @@
         {
             streamF.text = @"256";
             iStreamFpsSeg.selectedSegmentIndex = 4;
-            imageResolutionSeg.selectedSegmentIndex = 4;
+            imageResolutionSeg.selectedSegmentIndex = 3;
         }
             break;
         default:
@@ -392,16 +392,30 @@
                                  nil];
         }else
         {
-            setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                             [NSNumber numberWithInteger:audioSw.on ],@"iEnableAudioIn",
-                             audioVolF.text,@"iAudioVol",
-                             [NSNumber numberWithInteger:flipImageSeg.selectedSegmentIndex],@"iFlipImage",
-                             [NSNumber numberWithInteger:ntscOrPalSeg.selectedSegmentIndex+1],@"iNTSCPAL",
-                             [NSNumber numberWithInteger:iMainStreamUserOptionSeg.selectedSegmentIndex+1],@"iMainStreamUserOption",
-                             [NSNumber numberWithInteger:imageResolutionSeg.selectedSegmentIndex+1],@"iImageResolution",
-                             streamF.text,@"iStreamBitrate",
-                             [streamFpsArr objectAtIndex:iStreamFpsSeg.selectedSegmentIndex],@"iStreamFps",
-                             nil];
+            if (imageResolutionSeg.selectedSegmentIndex==3) {
+                setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     [NSNumber numberWithInteger:audioSw.on ],@"iEnableAudioIn",
+                                     audioVolF.text,@"iAudioVol",
+                                     [NSNumber numberWithInteger:flipImageSeg.selectedSegmentIndex],@"iFlipImage",
+                                     [NSNumber numberWithInteger:ntscOrPalSeg.selectedSegmentIndex+1],@"iNTSCPAL",
+                                     [NSNumber numberWithInteger:iMainStreamUserOptionSeg.selectedSegmentIndex+1],@"iMainStreamUserOption",
+                                     [NSNumber numberWithInteger:imageResolutionSeg.selectedSegmentIndex+2],@"iImageResolution",
+                                     streamF.text,@"iStreamBitrate",
+                                     [streamFpsArr objectAtIndex:iStreamFpsSeg.selectedSegmentIndex],@"iStreamFps",
+                                     nil];
+            }else{
+                setCameraDataDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     [NSNumber numberWithInteger:audioSw.on ],@"iEnableAudioIn",
+                                     audioVolF.text,@"iAudioVol",
+                                     [NSNumber numberWithInteger:flipImageSeg.selectedSegmentIndex],@"iFlipImage",
+                                     [NSNumber numberWithInteger:ntscOrPalSeg.selectedSegmentIndex+1],@"iNTSCPAL",
+                                     [NSNumber numberWithInteger:iMainStreamUserOptionSeg.selectedSegmentIndex+1],@"iMainStreamUserOption",
+                                     [NSNumber numberWithInteger:imageResolutionSeg.selectedSegmentIndex+1],@"iImageResolution",
+                                     streamF.text,@"iStreamBitrate",
+                                     [streamFpsArr objectAtIndex:iStreamFpsSeg.selectedSegmentIndex],@"iStreamFps",
+                                     nil];
+  
+            }
         }
     }
 //    NSLog(@"setCamera:%@",setCameraDataDict);
