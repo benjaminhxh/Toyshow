@@ -315,7 +315,7 @@
     }
 }
 
-//自定义开关
+//高级设置开关
 - (void)customerSetSwitchAction:(id)sender
 {
     [UIView animateWithDuration:0.15 animations:^{
@@ -326,9 +326,9 @@
         }else{
             //关闭自定义设置
             customerView.hidden = YES;
+            iMainStreamUserOptionSeg.selectedSegmentIndex = self.iMainStreamUserOptionIndex-1;
         }
     }];
-    
 }
 
 //图像分辨率
