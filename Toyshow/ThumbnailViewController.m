@@ -40,7 +40,7 @@
     BOOL isStart;
     NSDate *startDate,*endDate;
     UITextField *fileName;
-
+    BOOL isSelectTime;
 }
 @end
 
@@ -206,8 +206,13 @@
     header.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView) {
         // 进入刷新状态就会回调这个Block
         //向服务器发起请求
-        NSDate *datenow = [NSDate dateWithTimeIntervalSinceNow:0];//现在时间
-        et = (long)[datenow timeIntervalSince1970];
+        if (isSelectTime) {
+            
+        }else
+        {
+            NSDate *datenow = [NSDate dateWithTimeIntervalSinceNow:0];//现在时间
+            et = (long)[datenow timeIntervalSince1970];
+        }
         //请求点播时间
         NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=playlist&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
         [[AFHTTPRequestOperationManager manager] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -220,7 +225,7 @@
 //            NSLog(@"时间段downloadArr.count=====%d",downloadArr.count);
             
             if (downloadArr.count == 0) {
-                [self MBprogressViewHubLoading:@"无录像"];
+                [self MBprogressViewHubLoading:@"没有录像"];
                 [badInternetHub hide:YES afterDelay:1];
             }else
             {
@@ -520,6 +525,7 @@
 
 - (void)OKBtnDatePickSelectAction:(id)sender
 {
+    isSelectTime = YES;
     [UIView animateWithDuration:0.3 animations:^{
         dateView.frame = CGRectMake(0, kHeight, kWidth, 202);
     }];
@@ -555,7 +561,7 @@
         downloadArr = [NSMutableArray array];
         downloadArr = [dict objectForKey:@"results"];
         if (downloadArr.count == 0) {
-            [self MBprogressViewHubLoading:@"无录像"];
+            [self MBprogressViewHubLoading:@"没有录像"];
             [badInternetHub hide:YES afterDelay:1];
         }else
         {

@@ -215,7 +215,7 @@
         }];
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
-//        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationFail];
+        [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationFail];
     };
     [header beginRefreshing];
     _headerView = header;
@@ -581,7 +581,8 @@
 //        [self reloadMyCameraListView];
         [_headerView beginRefreshing];
         return;
-    }else if (notFirstFlag) {
+    }
+    else if (notFirstFlag) {
         [_headerView beginRefreshing];
         return;
     }

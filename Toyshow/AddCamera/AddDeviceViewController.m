@@ -244,6 +244,9 @@
     [startBtn addTarget:self action:@selector(startConfigure) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:startBtn];
 
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenKeybord)];
+    [scrollView addGestureRecognizer:tap];
+
     //右滑回到上一个页面
     UISwipeGestureRecognizer *recognizer;
     recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(backBtn:)];
@@ -251,6 +254,10 @@
     [self.view addGestureRecognizer:recognizer];
 }
 
+- (void)hiddenKeybord
+{
+    [[UIApplication sharedApplication].keyWindow endEditing:YES];
+}
 //- (void)obtainWifiAction
 //{
 //    SSIDF.text = [self fetchSSIDInfo];
