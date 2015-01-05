@@ -52,11 +52,24 @@
     [backBtn addTarget:self action:@selector(backBtn:) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:backBtn];
     
-    shareStyleArr = [NSArray arrayWithObjects:@"关闭分享",@"公共分享",@"私密分享", nil];
-    _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kWidth, 132) style:UITableViewStylePlain];
+    UIScrollView *scrollV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
+    scrollV.contentSize = CGSizeMake(kWidth, kHeight);
+    [self.view addSubview:scrollV];
+    
+    shareStyleArr = [NSArray arrayWithObjects:@"关闭分享",@"公开分享",@"私密分享", nil];
+    _tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 132) style:UITableViewStylePlain];
     _tableview.delegate = self;
     _tableview.dataSource = self;
-    [self.view addSubview:_tableview];
+    _tableview.scrollEnabled = NO;
+    [scrollV addSubview:_tableview];
+    
+    UITextView *descriptionView = [[UITextView alloc] initWithFrame:CGRectMake(10, 145, kWidth-20, kHeight-145)];
+    descriptionView.text = @"1.公开分享该摄像头将会被分享到公共摄像头频道，所有人都可观看摄像头的内容!请确认自愿公开分享，视频内容无个人隐私泄露，并保证分享内容健康不触犯法律。如发现视频内容违反国家有关法律法规及被网友举报，该摄像头将在审核后被自动关闭分享。\n\n2.私密分享该摄像头将会以加密连接的形式分享给好友。获得连接的好友可以观看摄像头内容!请自我确认分享摄像头内容无个人隐私泄露，并保证分享内容健康不触犯法律。如发现视频内容违反国家有关法律法规及被网友举报，该摄像头将在审核后被自动关闭分享。\n\n3.关闭分享后，您的好友将不能观看您的摄像头视频!";
+    descriptionView.editable = NO;
+    descriptionView.textColor = [UIColor grayColor];
+    descriptionView.font = [UIFont systemFontOfSize:15];
+    descriptionView.scrollEnabled = NO;
+    [scrollV addSubview:descriptionView];
     
     //右滑回到上一个页面
     UISwipeGestureRecognizer *recognizer;

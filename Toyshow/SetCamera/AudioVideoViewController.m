@@ -65,7 +65,7 @@
     [topView addSubview:saveBtn];
     
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
-    scrollView.contentSize = CGSizeMake(kWidth, 700);
+    scrollView.contentSize = CGSizeMake(kWidth, 800);
     scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:scrollView];
     
@@ -149,6 +149,7 @@
         ntscTextView.textColor = [UIColor grayColor];
         ntscTextView.editable = NO;
         ntscTextView.font = [UIFont systemFontOfSize:12];
+        ntscTextView.scrollEnabled = NO;
         ntscTextView.text = @"NTSC制式常用于日本、美国、加拿大和墨西哥等国家,PAL制式主要用于中国、香港中东地区和欧洲一带";
         ntscTextView.backgroundColor = [UIColor clearColor];
         [scrollView addSubview:ntscTextView];
@@ -266,7 +267,14 @@
         [iStreamFpsSeg addTarget:self action:@selector(streamFpsSegAction:) forControlEvents:UIControlEventValueChanged];
         [customerView addSubview:iStreamFpsSeg];
         
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenKeybord)];
+        [scrollView addGestureRecognizer:tap];
     }
+}
+
+- (void)hiddenKeybord
+{
+    [[UIApplication sharedApplication].keyWindow endEditing:YES];
 }
 
 - (void)iMainStreamUserOptionSegAction:(id)sender

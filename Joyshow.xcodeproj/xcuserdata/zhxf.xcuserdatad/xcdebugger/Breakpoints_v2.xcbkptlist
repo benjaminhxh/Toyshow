@@ -2810,11 +2810,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/SetCamera/ShareSetViewController.m"
-            timestampString = "439972897.77307"
+            timestampString = "442122770.829915"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "-backBtn:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3430,11 +3430,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/SetCamera/AudioVideoViewController.m"
-            timestampString = "442034225.867711"
+            timestampString = "442057764.016793"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "488"
-            endingLineNumber = "488"
+            startingLineNumber = "496"
+            endingLineNumber = "496"
             landmarkName = "-animateTextField:up:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3462,11 +3462,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/SetCamera/AudioVideoViewController.m"
-            timestampString = "442032311.889392"
+            timestampString = "442057764.016793"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "365"
-            endingLineNumber = "365"
+            startingLineNumber = "373"
+            endingLineNumber = "373"
             landmarkName = "-finishAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3478,11 +3478,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/SetCamera/AudioVideoViewController.m"
-            timestampString = "442032311.889392"
+            timestampString = "442057764.016793"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "385"
-            endingLineNumber = "385"
+            startingLineNumber = "393"
+            endingLineNumber = "393"
             landmarkName = "-finishAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3494,11 +3494,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/SetCamera/AudioVideoViewController.m"
-            timestampString = "442034098.605226"
+            timestampString = "442057764.016793"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "395"
-            endingLineNumber = "395"
+            startingLineNumber = "403"
+            endingLineNumber = "403"
             landmarkName = "-finishAction:"
             landmarkType = "5">
          </BreakpointContent>
