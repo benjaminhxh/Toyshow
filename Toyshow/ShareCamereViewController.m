@@ -437,11 +437,11 @@
                 self.isCancelCollect = NO;
                 //已经登录
                 if (self.isCollect) {
-                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelwei@2x"] forState:UIControlStateNormal];
-                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelzhong@2x"] forState:UIControlStateHighlighted];
+                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelwei"] forState:UIControlStateNormal];
+                    [collectionBtn setImage:[UIImage imageNamed:@"collect_cancelzhong"] forState:UIControlStateHighlighted];
                 }else{
-                    [collectionBtn setImage:[UIImage imageNamed:@"collect_wei@2x"] forState:UIControlStateNormal];
-                    [collectionBtn setImage:[UIImage imageNamed:@"collect_zhong@2x"] forState:UIControlStateHighlighted];
+                    [collectionBtn setImage:[UIImage imageNamed:@"collect_wei"] forState:UIControlStateNormal];
+                    [collectionBtn setImage:[UIImage imageNamed:@"collect_zhong"] forState:UIControlStateHighlighted];
                 }
                 if (self.isWeixinShare) {
                     collectionBtn.hidden = YES;

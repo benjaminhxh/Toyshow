@@ -36,7 +36,7 @@
 @property(nonatomic, assign) NSInteger ntscOrpalIndex;//NTSC/PAL
 @property(nonatomic, assign) NSInteger imageResolutionIndex;//分辨率
 @property(nonatomic, assign) NSInteger iMainStreamUserOption;//清晰度
-@property(nonatomic, assign) NSInteger controlONOrOFFIndex;//设备控制（睡眠、唤醒、关闭）
+//@property(nonatomic, assign) NSInteger controlONOrOFFIndex;//设备控制（睡眠、唤醒、关闭）
 @property(nonatomic, assign) NSInteger sensitivityIndex;//检测灵敏度
 @property(nonatomic, assign) NSInteger timeShowIndex;//时间是否显示
 

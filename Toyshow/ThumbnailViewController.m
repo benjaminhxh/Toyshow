@@ -525,16 +525,17 @@
 
 - (void)OKBtnDatePickSelectAction:(id)sender
 {
-    isSelectTime = YES;
     [UIView animateWithDuration:0.3 animations:^{
         dateView.frame = CGRectMake(0, kHeight, kWidth, 202);
     }];
     st = [[timeIntArr objectAtIndex:pickRow] longValue];
     if (pickRow==0) {
+        isSelectTime = NO;
 //        ////NSLog(@"起始时间：%@------%@",[timeIntArr objectAtIndex:pickRow],[timeIntArr objectAtIndex:7]);
         et = [[timeIntArr objectAtIndex:7] longValue];
     }else
     {
+        isSelectTime = YES;
 //        ////NSLog(@"起始时间：%@------%@",[timeIntArr objectAtIndex:pickRow],[timeIntArr objectAtIndex:pickRow-1]);
         et = [[timeIntArr objectAtIndex:pickRow-1] longValue];
     }
@@ -667,8 +668,7 @@
     tipLabel.font = [UIFont systemFontOfSize:13];
     tipLabel.textColor = [UIColor whiteColor];
     [foreGrounp addSubview:tipLabel];
-    tipLabel.text = @"1、最多只能剪辑半小时视频\n2、每个账号每个月剪辑时间不能超过10小时\n3、结束时间最晚为当前时刻\n4、并且确保剪辑的时间段内有录像\n5、录像保存在该账号的百度云盘中。";
-    
+    tipLabel.text = @"1、每次最多只能剪辑半小时视频\n2、结束时间最晚为当前时刻\n3、并且确保剪辑的时间段内有录像\n4、录像保存在该账号的百度云盘中。";
     startF = [[UIButton alloc] initWithFrame:CGRectMake(10, 175, 125, 30)];
     [startF setTitle:@"起始时间" forState:UIControlStateNormal] ;
     [startF setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];

@@ -77,7 +77,7 @@
     [seeVideoBtn setBackgroundImage:[UIImage imageNamed:@"lishijilu@2x"] forState:UIControlStateNormal];
     [seeVideoBtn addTarget:self action:@selector(didSeeVideoClick) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:seeVideoBtn];
-    self.controlONOrOFFIndex = 3;
+//    self.controlONOrOFFIndex = 3;
     cameraInfoArr = [NSArray arrayWithObjects:@"音视频设置",@"夜视功能设置",@"检测灵敏度",@"录像控制",@"状态指示灯",@"时间显示",@"设备信息", nil];
     cameraInfoArrLow = [NSArray arrayWithObjects:@"音视频设置",@"检测灵敏度",@"录像控制",@"状态指示灯",@"时间显示",@"设备信息", nil];
     if (self.isAuthorDevice) {
@@ -634,7 +634,7 @@
 - (void)deviceControlMode:(NSString *)deviceMode withIndex:(NSInteger)index
 {
     cameraControlL.text = deviceMode;
-    self.controlONOrOFFIndex = index;
+//    self.controlONOrOFFIndex = index;
 }
 
 - (void)SensitivityleWithIndex:(NSInteger)index
