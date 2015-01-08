@@ -62,6 +62,7 @@
     _tabView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64) style:UITableViewStylePlain];
     _tabView.delegate = self;
     _tabView.dataSource = self;
+    _tabView.tableFooterView = [[UIView alloc] init];
 //    _tabView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tabView];
 }

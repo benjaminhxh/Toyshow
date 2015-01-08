@@ -387,9 +387,15 @@
             UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"只允许在WiFi环境下配置" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
             [view show];
             return;
-        }else if (![SSIDPWF.text isEqualToString:SSIDPWFconfirm.text])
+        }else if (SSIDPWF.text.length == 0)
         {
-            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"密码输入不一致" message:@"密码输入不一致" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
+            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"密码不能为空" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
+            [view show];
+            return;
+        }
+        else if (![SSIDPWF.text isEqualToString:SSIDPWFconfirm.text])
+        {
+            UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"密码输入不一致" message:nil delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
             [view show];
             return ;
         }
