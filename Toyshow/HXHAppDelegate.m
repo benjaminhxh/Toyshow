@@ -24,15 +24,15 @@
         ShowImageViewController *firstVC = [[ShowImageViewController alloc] init];
         self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:firstVC];
     }else{
-    [SliderViewController sharedSliderController].LeftVC=[[LeftViewController alloc] init];
-    [SliderViewController sharedSliderController].RightVC=[[RightViewController alloc] init];
-    [SliderViewController sharedSliderController].RightSContentOffset=260;
-    [SliderViewController sharedSliderController].RightSContentScale=0.6;
-    [SliderViewController sharedSliderController].RightSOpenDuration=0.8;
-    [SliderViewController sharedSliderController].RightSCloseDuration=0.8;
-    [SliderViewController sharedSliderController].RightSJudgeOffset=160;
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isFirst"];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[SliderViewController sharedSliderController]];
+        [SliderViewController sharedSliderController].LeftVC=[[LeftViewController alloc] init];
+        [SliderViewController sharedSliderController].RightVC=[[RightViewController alloc] init];
+        [SliderViewController sharedSliderController].RightSContentOffset=260;
+        [SliderViewController sharedSliderController].RightSContentScale=0.6;
+        [SliderViewController sharedSliderController].RightSOpenDuration=0.8;
+        [SliderViewController sharedSliderController].RightSCloseDuration=0.8;
+        [SliderViewController sharedSliderController].RightSJudgeOffset=160;
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isFirst"];
+        self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[SliderViewController sharedSliderController]];
     }
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

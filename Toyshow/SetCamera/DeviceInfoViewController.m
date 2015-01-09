@@ -49,6 +49,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
+    _tableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:_tableView];
 
     //右滑回到上一个页面

@@ -36,66 +36,36 @@
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = YES;
     self.view.backgroundColor = [UIColor whiteColor];
-
-	// Do any additional setup after loading the view.
-//    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    backBtn.frame = CGRectMake(5, 20, 40, 20);
-//    [backBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-//    [backBtn setTitle:@"返回" forState:UIControlStateNormal];
-//    [backBtn addTarget:self action:@selector(backBtn:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:backBtn];
-    backgroundView = [[UIView alloc] initWithFrame:self.view.frame];
-    backgroundView.backgroundColor = [UIColor grayColor];
-    [self.view addSubview:backgroundView];
-    
     if (iphone5) {
-        UIImage *image1 = [UIImage imageNamed:@"laorenxiaohai4.0@2x"];
-        UIImage *image2 = [UIImage imageNamed:@"qunaer4.0@2x"];
-        UIImage *image3 = [UIImage imageNamed:@"fenshen4.0@2x"];
-        UIImage *image4 = [UIImage imageNamed:@"beijing1080@2x"];
+        UIImage *image1 = [UIImage imageNamed:@"laorenxiaohai4.0@2x.png"];
+        UIImage *image2 = [UIImage imageNamed:@"qunaer4.0@2x.png"];
+        UIImage *image3 = [UIImage imageNamed:@"fenshen4.0@2x.png"];
+        UIImage *image4 = [UIImage imageNamed:@"beijing1080@2x.png"];
         _imageArray = [NSArray arrayWithObjects:image1,image2,image3,image4, nil];
     }else
     {
-        UIImage *image1 = [UIImage imageNamed:@"laorenxiaohai@2x"];
-        UIImage *image2 = [UIImage imageNamed:@"qunaer@2x"];
-        UIImage *image3 = [UIImage imageNamed:@"fenshen@2x"];
-        UIImage *image4 = [UIImage imageNamed:@"beijing720@2x"];
+        UIImage *image1 = [UIImage imageNamed:@"laorenxiaohai@2x.png"];
+        UIImage *image2 = [UIImage imageNamed:@"qunaer@2x.png"];
+        UIImage *image3 = [UIImage imageNamed:@"fenshen@2x.png"];
+        UIImage *image4 = [UIImage imageNamed:@"beijing720@2x.png"];
         _imageArray = [NSArray arrayWithObjects:image1,image2,image3,image4, nil];
     }
-    //右滑回到上一个页面
-//    UISwipeGestureRecognizer *recognizer;
-//    recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(backBtn:)];
-//    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-//    [self.view addGestureRecognizer:recognizer];
-    
-//    BOOL isFirst = [[NSUserDefaults standardUserDefaults] boolForKey:@"isFirst"];
-//    if (isFirst) {
-        icaView = [[iCarousel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-        icaView.delegate = self;
-        icaView.dataSource = self;
+    icaView = [[iCarousel alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight)];
+    icaView.delegate = self;
+    icaView.dataSource = self;
 //        icaView.bounces = YES;
-    //设置类型
-        icaView.type = iCarouselTypeRotary;
-        icaView.pagingEnabled = YES;
-        [backgroundView addSubview:icaView];
-        //        [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"firstLanuch"];
-//        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isFirst"];
-        //进去看看
-//        UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//        nextBtn.frame = CGRectMake(240, 20, 60, 20);
-//        [nextBtn setTitle:@"进去看看" forState:UIControlStateNormal];
-//        [nextBtn addTarget:self action:@selector(nextMainView) forControlEvents:UIControlEventTouchUpInside];
-//        [icaView addSubview:nextBtn];
-//    }
+//设置类型
+    icaView.type = iCarouselTypeRotary;
+    icaView.pagingEnabled = YES;
+    [self.view addSubview:icaView];
 }
 
-- (void)backBtn:(id)sender
-{
-    [self.navigationController popViewControllerAnimated:YES];
+//- (void)backBtn:(id)sender
+//{
+//    [self.navigationController popViewControllerAnimated:YES];
 //    [[SliderViewController sharedSliderController] leftItemClick];
 //    [self dismissViewControllerAnimated:YES completion:nil];
-    
-}
+//}
 
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel{
     if (_imageArray.count) {
@@ -131,13 +101,13 @@
 //        [loginBtn addTarget:self action:@selector(loginClick) forControlEvents:UIControlEventTouchUpInside];
 //        [view addSubview:loginBtn];
         
-//        UIButton *buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        buyBtn.frame = CGRectMake(20, 340, 80, 40);
-//        [buyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        //        [buyBtn setTitle:@"购买链接" forState:UIControlStateNormal];
-//        [buyBtn setImage:[UIImage imageNamed:@"goumai_anniu@2x"] forState:UIControlStateNormal];
-//        [buyBtn addTarget:self action:@selector(buyClick) forControlEvents:UIControlEventTouchUpInside];
-//        [view addSubview:buyBtn];
+        UIButton *buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        buyBtn.frame = CGRectMake(20, 340, 80, 40);
+        [buyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [buyBtn setTitle:@"购买链接" forState:UIControlStateNormal];
+        [buyBtn setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
+        [buyBtn addTarget:self action:@selector(buyClick) forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:buyBtn];
     }
     return view;
 }
@@ -153,7 +123,6 @@
     [self showTabBarController];
     
 //    icaView.hidden = YES;
-//    backgroundView.hidden = YES;
 }
 
 //- (void)loginClick
@@ -169,11 +138,11 @@
 {
     ////NSLog(@"购买链接");
     NSURL *url = [NSURL URLWithString:@"http://www.51joyshow.com.cn"];
-    [[UIApplication sharedApplication]canOpenURL:url];
+//    [[UIApplication sharedApplication] canOpenURL:url];
 
 //    NSURL *url = [NSURL URLWithString:@"openApp.jdMobile://"];
 //    if ([[UIApplication sharedApplication]canOpenURL:url]) {
-//        [[UIApplication sharedApplication]openURL:url];
+        [[UIApplication sharedApplication]openURL:url];
 //    }else
 //    {
 //        ////NSLog(@"没安装客户端");
@@ -186,7 +155,7 @@
 - (void)showTabBarController
 {
     
-    //记住已经不是第一次启动了
+    //已经不是第一次启动了
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setBool:YES forKey:@"first"];
     [userDefaults synchronize];
@@ -206,7 +175,6 @@
 //        [left loginBaidu];
 //    }
    
-    
     delegate.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[SliderViewController sharedSliderController]];
     delegate.window.backgroundColor = [UIColor whiteColor];
     //显示状态栏

@@ -145,12 +145,12 @@
         [scrollView addSubview:ntscOrPalL];
         [scrollView addSubview:ntscOrPalSeg];
         
-        UITextView *ntscTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, 203, kWidth-20, 40)];
+        UITextView *ntscTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, 203, kWidth-20, 48)];
         ntscTextView.textColor = [UIColor grayColor];
         ntscTextView.editable = NO;
         ntscTextView.font = [UIFont systemFontOfSize:12];
         ntscTextView.scrollEnabled = NO;
-        ntscTextView.text = @"NTSC制式常用于日本、美国、加拿大和墨西哥等国家,PAL制式主要用于中国、香港中东地区和欧洲一带";
+        ntscTextView.text = @"NTSC制式常用于日本、美国、加拿大和墨西哥等国,PAL制式主要用于中国、中东地区和欧洲一带";
         ntscTextView.backgroundColor = [UIColor clearColor];
         [scrollView addSubview:ntscTextView];
         

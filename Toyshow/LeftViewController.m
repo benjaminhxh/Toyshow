@@ -110,7 +110,7 @@
     
     UITableView *tableV=[[UITableView alloc] initWithFrame:CGRectMake(0, 130, leftWidth, self.view.frame.size.height-130)];
     tableV.backgroundColor=[UIColor clearColor];
-    tableV.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tableV.tableFooterView = [[UIView alloc] init];
     tableV.delegate=self;
     tableV.dataSource=self;
     //不显示垂直滑动线

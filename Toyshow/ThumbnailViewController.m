@@ -89,7 +89,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.backgroundColor = [UIColor clearColor];
-    _tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    _tableView.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:_tableView];
     
     NSDate *datenow = [NSDate dateWithTimeIntervalSinceNow:0];//现在时间
@@ -215,6 +215,7 @@
         }
         //请求点播时间
         NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=playlist&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
+//        NSLog(@"录像列表url:%@",urlStr);
         [[AFHTTPRequestOperationManager manager] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
             //            ////NSLog(@"dict:%@",dict);
@@ -274,9 +275,13 @@
             }
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            NSDictionary *errorDict = [error userInfo];
-            ////NSLog(@"errorDict:%@",errorDict);
-            [self MBprogressViewHubLoading:@"网络延时"];
+            if ([error code]==-1011) {
+                [self MBprogressViewHubLoading:@"没有录像"];
+            }
+            else
+            {
+                [self MBprogressViewHubLoading:@"网络延时"];
+            }
             [badInternetHub hide:YES afterDelay:1];
             [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
             
