@@ -48,24 +48,12 @@
     return self;
 }
 
-//32位MD5加密方式
-- (NSString *)getMd5_32Bit_String:(NSString *)srcString{
-    const char *cStr = [srcString UTF8String];
-    unsigned char digest[CC_MD5_DIGEST_LENGTH *2];
-//    ////NSLog(@"CC_MD5_DIGEST_LENGTH:%d",CC_MD5_DIGEST_LENGTH);
-    CC_MD5( cStr, strlen(cStr), digest );
-    NSMutableString *result = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
-    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
-        [result appendFormat:@"%02x", digest[i]];
-    return result;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     //先拼接再MD5加密
     NSString *string = [NSString stringWithFormat:@"%@%@%@%@",APP_ID,expire,APP_KEY,APP_SecrectKey];
-    realSign = [self getMd5_32Bit_String:string];
+    realSign = [NSString getMd5_32Bit_String:string];
     //再拼接
     sign = [NSString stringWithFormat:@"%@-%@-%@",APP_ID,APP_KEY,realSign];
     [self shouldAutorotate];

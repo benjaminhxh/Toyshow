@@ -14,6 +14,7 @@
 #import "MJRefreshHeaderView.h"
 #import "UIImageView+AFNetworking.h"
 #import "NSString+encodeChinese.h"
+#import "NSString+timeFormat.h"
 
 @interface ThumbnailViewController ()<UITableViewDataSource,UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
 {
@@ -396,6 +397,7 @@
         NSString *endTime = [[self dateFormatterMMddHHmm] stringFromDate:endfTime];
         //显示起始时间
         self.thumbDeadlines.text = [NSString stringWithFormat:@"%@-—%@",startT,[endTime substringFromIndex:5]];
+        self.totalTime.text = [NSString convertHourMinuteSecondWith:endtf-stf withSeparate:@":"];
         if (indexPath.row<downloadImageArr.count) {
             NSString *imageurlstr = [downloadImageArr objectAtIndex:indexPath.row];
             [self.thumbPic setImageWithURL:[NSURL URLWithString:imageurlstr]];
@@ -482,6 +484,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex) {
+        //删除某一段录像
         NSString *deleteURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=dropvideo&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
         [[AFHTTPRequestOperationManager manager] POST:deleteURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"response:%@",responseObject);

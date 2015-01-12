@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *thumbPic;
 @property (weak, nonatomic) IBOutlet UILabel *thumbTitle;
 @property (weak, nonatomic) IBOutlet UILabel *thumbDeadlines;
+@property (weak, nonatomic) IBOutlet UILabel *totalTime;
 @property (weak, nonatomic) NSString *deviceDesc;
 @property (copy, nonatomic) NSString *deviceID;
 @property (copy, nonatomic) NSString *accessToken;

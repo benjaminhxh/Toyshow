@@ -51,6 +51,7 @@
 		2758509018D6999000CCB075 /* ShareCameraCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2758508E18D6999000CCB075 /* ShareCameraCell.xib */; };
 		2758509518D69A1800CCB075 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2758509418D69A1800CCB075 /* HelpViewController.m */; };
 		275A57C41A637E5400BA3DDB /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275A57C31A637E5400BA3DDB /* PlayerViewController.m */; };
+		275A57CA1A63A69C00BA3DDB /* NSString+timeFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 275A57C91A63A69C00BA3DDB /* NSString+timeFormat.m */; };
 		275C47781A25D3900078EB86 /* Baidu.m in Sources */ = {isa = PBXBuildFile; fileRef = 275C47671A25D3900078EB86 /* Baidu.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		275C47791A25D3900078EB86 /* BaiduAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 275C47691A25D3900078EB86 /* BaiduAPIRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		275C477A1A25D3900078EB86 /* BaiduAuthorizeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275C476B1A25D3900078EB86 /* BaiduAuthorizeViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -440,6 +441,8 @@
 		2758509418D69A1800CCB075 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
 		275A57C21A637E5400BA3DDB /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
 		275A57C31A637E5400BA3DDB /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewController.m; sourceTree = "<group>"; };
+		275A57C81A63A69C00BA3DDB /* NSString+timeFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+timeFormat.h"; sourceTree = "<group>"; };
+		275A57C91A63A69C00BA3DDB /* NSString+timeFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+timeFormat.m"; sourceTree = "<group>"; };
 		275C47661A25D3900078EB86 /* Baidu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baidu.h; sourceTree = "<group>"; };
 		275C47671A25D3900078EB86 /* Baidu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baidu.m; sourceTree = "<group>"; };
 		275C47681A25D3900078EB86 /* BaiduAPIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduAPIRequest.h; sourceTree = "<group>"; };
@@ -832,6 +835,8 @@
 			children = (
 				2762FFAD19EBD26600E773AB /* NSString+encodeChinese.h */,
 				2762FFAE19EBD26600E773AB /* NSString+encodeChinese.m */,
+				275A57C81A63A69C00BA3DDB /* NSString+timeFormat.h */,
+				275A57C91A63A69C00BA3DDB /* NSString+timeFormat.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -1685,6 +1690,7 @@
 				27F872F8198759F5002DABA3 /* CollectionViewController.m in Sources */,
 				2703E51418D97E8C00E31DF0 /* LeftViewController.m in Sources */,
 				275C47781A25D3900078EB86 /* Baidu.m in Sources */,
+				275A57CA1A63A69C00BA3DDB /* NSString+timeFormat.m in Sources */,
 				27E5A8EC19AB32F8004B5458 /* MBProgressHUD.m in Sources */,
 				2777606F18FB74BD000A5F83 /* AFHTTPRequestOperation.m in Sources */,
 				27E5AC2619AB3ECE004B5458 /* rscode.c in Sources */,
