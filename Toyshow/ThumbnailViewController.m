@@ -538,7 +538,7 @@
         dateView.frame = CGRectMake(0, kHeight, kWidth, 202);
     }];
     st = [[timeIntArr objectAtIndex:pickRow] longValue];
-    if (pickRow==0) {
+    if (0 == pickRow) {
         isSelectTime = NO;
 //        ////NSLog(@"起始时间：%@------%@",[timeIntArr objectAtIndex:pickRow],[timeIntArr objectAtIndex:7]);
         et = [[timeIntArr objectAtIndex:7] longValue];

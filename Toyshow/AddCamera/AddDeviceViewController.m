@@ -469,7 +469,7 @@
         SSIDPWF.text = [SSIDPWF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
         NSString *userID = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
         NSString *dataStr = [NSString stringWithFormat:@"1%@%@%@%@%@%@%@2%@%@%@%@%@",self.wifiBssid,SSIDF.text,self.security,self.identifify,SSIDPWF.text,userID,self.access_token,self.wepStyle,self.dhcp,self.ipaddr,self.mask,self.gateway];
-//        NSLog(@"MD5加密前dataStr:%@",dataStr);
+        NSLog(@"MD5加密前dataStr:%@",dataStr);
         NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                   @"1",@"opcode",//1为注册
                                   self.wifiBssid,@"bssid",//
@@ -489,7 +489,7 @@
                                   @"",@"url",//保留URL
                                   @"",@"reserved",nil];//保留参数
         NSString *md5String = [NSString getMd5_32Bit_String:dataStr];//得到md5加密后的32位字符串
-//        NSLog(@"MD5加密后md5String:%@",md5String);//0ea7ccca8f7eeefb255e1931cb1409aa
+        NSLog(@"MD5加密后md5String:%@",md5String);//0ea7ccca8f7eeefb255e1931cb1409aa
         
         NSMutableString *md5exchangeString = [self exchangeString:md5String];//1,6;4,13;21,29;20,25交换
         NSInteger length = dataStr.length;//data的长度
@@ -497,7 +497,7 @@
         NSDictionary *headDict = [NSDictionary dictionaryWithObjectsAndKeys:md5Length,@"length",md5exchangeString,@"verify", nil];
         NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:headDict,@"head",dataDict,@"data", nil];
         NSString *sendString = [dict JSONString];
-//        NSLog(@"发送的数据：%@",sendString);
+        NSLog(@"发送的数据：%@",sendString);
         [self sendMassage:sendString];
         [self backBtn:nil];
         return;
