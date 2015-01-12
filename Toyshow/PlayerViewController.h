@@ -1,5 +1,5 @@
 //
-//  ShareCamereViewController.h
+//  PlayerViewController.h
 //  Toyshow
 //
 //  Created by zhxf on 14-3-24.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@class ShareCamereViewController;
-@protocol  ShareCamereViewControllerDelegate<NSObject>
+@class PlayerViewController;
+@protocol  PlayerViewControllerDelegate<NSObject>
 
 - (void)playerViewBack:(NSString *)str;
 
@@ -17,7 +17,7 @@
 
 @end
 
-@interface ShareCamereViewController : UIViewController<UIScrollViewDelegate>
+@interface PlayerViewController : UIViewController<UIScrollViewDelegate>
 
 @property (strong, nonatomic) UIScrollView *scrollv;
 @property (strong, nonatomic) UIImageView *imagev;
@@ -39,5 +39,5 @@
 @property (nonatomic,copy) NSString *shareId;
 @property (nonatomic,copy) NSString *uk;
 
-@property (nonatomic,assign) id <ShareCamereViewControllerDelegate> delegate;
+@property (nonatomic,assign) id <PlayerViewControllerDelegate> delegate;
 @end

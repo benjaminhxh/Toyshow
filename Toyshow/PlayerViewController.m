@@ -1,5 +1,5 @@
 //
-//  ShareCamereViewController.m
+//  PlayerViewController.m
 //  Toyshow
 //
 //  Created by zhxf on 14-3-24.
@@ -8,7 +8,7 @@
 //摄像头直播
 #define kpickViewHeight 202
 
-#import "ShareCamereViewController.h"
+#import "PlayerViewController.h"
 #import "CyberPlayerController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <QuartzCore/QuartzCore.h>
@@ -18,7 +18,7 @@
 #import "WeixinTimelineActivity.h"
 #import "NSString+encodeChinese.h"
 
-@interface ShareCamereViewController ()<MBProgressHUDDelegate,UIAlertViewDelegate,UIActionSheetDelegate>
+@interface PlayerViewController ()<MBProgressHUDDelegate,UIAlertViewDelegate,UIActionSheetDelegate>
 {
 //    UIView *cbdPlayerView;
     CyberPlayerController *cbPlayerController;
@@ -48,7 +48,7 @@
 }
 @end
 
-@implementation ShareCamereViewController
+@implementation PlayerViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

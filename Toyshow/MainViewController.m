@@ -13,7 +13,7 @@
 #define start 100
 
 #import "MainViewController.h"
-#import "ShareCamereViewController.h"
+#import "PlayerViewController.h"
 #import "MJRefreshHeaderView.h"
 #import "MJRefreshFooterView.h"
 #import "UIImageView+AFNetworking.h"
@@ -33,7 +33,7 @@
     UILabel *noInternetL,*noDataLoadL;
     NSString *realSign, __block *sign;
     MBProgressHUD *badInternetHub;
-    ShareCamereViewController *shareVC;
+    PlayerViewController *shareVC;
 }
 @end
 

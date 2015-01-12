@@ -27,7 +27,7 @@
 #import "WeixinSessionActivity.h"
 #import "WeixinTimelineActivity.h"
 #import "UIImageView+AFNetworking.h"
-#import "ShareCamereViewController.h"
+#import "PlayerViewController.h"
 #import "Baidu.h"
 #import "BaiduAuthorizeViewController.h"
 //#import "BaiduAPIRequest.h"
@@ -47,7 +47,7 @@
     BOOL _reloading;
     NSArray *activity;
     UIAlertView *_loginView,*scanFailView;
-    ShareCamereViewController *_playVC;
+    PlayerViewController *_playVC;
     NSDictionary *_playDict;
     ZBarReaderViewController *reader;
 //    Baidu *baidu;
@@ -117,7 +117,7 @@
     tableV.showsVerticalScrollIndicator = NO;
     [self.view addSubview:tableV];
     //创建播放器对象
-    _playVC = [[ShareCamereViewController alloc] init];
+    _playVC = [[PlayerViewController alloc] init];
     _playDict = [NSDictionary dictionaryWithObjectsAndKeys:_playVC,kplayerKey, nil];
     [SliderViewController sharedSliderController].dict = _playDict;
     [[NSNotificationCenter defaultCenter] postNotificationName:kplayerObj object:nil userInfo:_playDict];

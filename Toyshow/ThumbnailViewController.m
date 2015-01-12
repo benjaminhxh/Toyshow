@@ -9,7 +9,7 @@
 
 //点播缩略图
 #import "ThumbnailViewController.h"
-#import "ShareCamereViewController.h"
+#import "PlayerViewController.h"
 #import "MJRefreshFooterView.h"
 #import "MJRefreshHeaderView.h"
 #import "UIImageView+AFNetworking.h"
@@ -30,7 +30,7 @@
     NSInteger pickRow;
     NSString *downloadImageURL;
     MBProgressHUD *badInternetHub;
-    ShareCamereViewController *vodVC;
+    PlayerViewController *vodVC;
     NSInteger index;
     
     UIView *foreGrounp;

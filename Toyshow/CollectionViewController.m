@@ -11,10 +11,10 @@
 #import "MJRefreshHeaderView.h"
 #import "Reachability1.h"
 #import "UIImageView+AFNetworking.h"
-#import "ShareCamereViewController.h"
+#import "PlayerViewController.h"
 #import "NSString+encodeChinese.h"
 
-@interface CollectionViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate,ShareCamereViewControllerDelegate>
+@interface CollectionViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate,PlayerViewControllerDelegate>
 {
     UITableView *_tableView;
     UILabel *noInternetL,*noDataLoadL;
@@ -22,7 +22,7 @@
     NSMutableArray *_fakeData,*downloadArr;
     NSString *accessToken;
     MJRefreshHeaderView *_headview;
-    ShareCamereViewController *liveVC;
+    PlayerViewController *liveVC;
     BOOL notFirstFlag;
     NSInteger index;
 }

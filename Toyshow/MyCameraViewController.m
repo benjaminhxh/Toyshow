@@ -9,14 +9,14 @@
 #define kGrant @"mygrant"
 
 #import "MyCameraViewController.h"
-#import "ShareCamereViewController.h"
+#import "PlayerViewController.h"
 #import "MJRefresh.h"
 #import "CameraSetViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import "Reachability1.h"
 #import "ThumbnailViewController.h"
 
-@interface MyCameraViewController ()<UITableViewDelegate,UITableViewDataSource,MJRefreshBaseViewDelegate,MBProgressHUDDelegate,CameraSetViewControllerDelegate,ShareCamereViewControllerDelegate>
+@interface MyCameraViewController ()<UITableViewDelegate,UITableViewDataSource,MJRefreshBaseViewDelegate,MBProgressHUDDelegate,CameraSetViewControllerDelegate,PlayerViewControllerDelegate>
 {
     BOOL _reloading;
     UITableView *_tableView;
@@ -26,7 +26,7 @@
     NSMutableArray *mydownloadArr;
     MBProgressHUD *_loadingView,*badInternetHub;
     UILabel *noDataLoadL,*noInternetL;
-    ShareCamereViewController *liveVC;
+    PlayerViewController *liveVC;
     BOOL notFirstFlag;
     UIImage *setBtnImage;
 }

@@ -50,6 +50,7 @@
 		275577AA1A5D36900020FD7F /* collect_cancelzhong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 275577A91A5D36900020FD7F /* collect_cancelzhong@2x.png */; };
 		2758509018D6999000CCB075 /* ShareCameraCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2758508E18D6999000CCB075 /* ShareCameraCell.xib */; };
 		2758509518D69A1800CCB075 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2758509418D69A1800CCB075 /* HelpViewController.m */; };
+		275A57C41A637E5400BA3DDB /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275A57C31A637E5400BA3DDB /* PlayerViewController.m */; };
 		275C47781A25D3900078EB86 /* Baidu.m in Sources */ = {isa = PBXBuildFile; fileRef = 275C47671A25D3900078EB86 /* Baidu.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		275C47791A25D3900078EB86 /* BaiduAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 275C47691A25D3900078EB86 /* BaiduAPIRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		275C477A1A25D3900078EB86 /* BaiduAuthorizeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275C476B1A25D3900078EB86 /* BaiduAuthorizeViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -94,7 +95,6 @@
 		27889DD4198A270200FC2688 /* collectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27889DD3198A270200FC2688 /* collectCell.xib */; };
 		2792B1F71A0249CB00B549A3 /* clip_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2792B1F51A0249CB00B549A3 /* clip_on@2x.png */; };
 		2792B1F81A0249CB00B549A3 /* clip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2792B1F61A0249CB00B549A3 /* clip@2x.png */; };
-		2794B6E618E05F09008DCF83 /* ShareCamereViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2794B6E518E05F09008DCF83 /* ShareCamereViewController.m */; };
 		27966A0D18E2EB1A0076423C /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 27966A0318E2EB1A0076423C /* MJRefresh.bundle */; };
 		27966A0E18E2EB1A0076423C /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27966A0618E2EB1A0076423C /* MJRefreshBaseView.m */; };
 		27966A0F18E2EB1A0076423C /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 27966A0818E2EB1A0076423C /* MJRefreshConst.m */; };
@@ -438,6 +438,8 @@
 		2758508E18D6999000CCB075 /* ShareCameraCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareCameraCell.xib; sourceTree = "<group>"; };
 		2758509318D69A1800CCB075 /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
 		2758509418D69A1800CCB075 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		275A57C21A637E5400BA3DDB /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
+		275A57C31A637E5400BA3DDB /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewController.m; sourceTree = "<group>"; };
 		275C47661A25D3900078EB86 /* Baidu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baidu.h; sourceTree = "<group>"; };
 		275C47671A25D3900078EB86 /* Baidu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baidu.m; sourceTree = "<group>"; };
 		275C47681A25D3900078EB86 /* BaiduAPIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduAPIRequest.h; sourceTree = "<group>"; };
@@ -507,8 +509,6 @@
 		27889DD3198A270200FC2688 /* collectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = collectCell.xib; sourceTree = "<group>"; };
 		2792B1F51A0249CB00B549A3 /* clip_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clip_on@2x.png"; sourceTree = "<group>"; };
 		2792B1F61A0249CB00B549A3 /* clip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clip@2x.png"; sourceTree = "<group>"; };
-		2794B6E418E05F09008DCF83 /* ShareCamereViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareCamereViewController.h; sourceTree = "<group>"; };
-		2794B6E518E05F09008DCF83 /* ShareCamereViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareCamereViewController.m; sourceTree = "<group>"; };
 		27966A0318E2EB1A0076423C /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		27966A0418E2EB1A0076423C /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		27966A0518E2EB1A0076423C /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
@@ -1313,10 +1313,10 @@
 				2713684818BF3659006CF446 /* SiderCell.h */,
 				2713684918BF3659006CF446 /* SiderCell.m */,
 				274D00A018D6E91C00896C79 /* SiderCell.xib */,
+				275A57C21A637E5400BA3DDB /* PlayerViewController.h */,
+				275A57C31A637E5400BA3DDB /* PlayerViewController.m */,
 				2751C12518C417A8006173B3 /* ShowImageViewController.h */,
 				2751C12618C417A9006173B3 /* ShowImageViewController.m */,
-				2794B6E418E05F09008DCF83 /* ShareCamereViewController.h */,
-				2794B6E518E05F09008DCF83 /* ShareCamereViewController.m */,
 				2758509318D69A1800CCB075 /* HelpViewController.h */,
 				2758509418D69A1800CCB075 /* HelpViewController.m */,
 				27F0A43C192C984400D02A79 /* HowToUseViewController.h */,
@@ -1698,6 +1698,7 @@
 				2777607D18FB74BD000A5F83 /* UIProgressView+AFNetworking.m in Sources */,
 				275C477B1A25D3900078EB86 /* BaiduConfig.m in Sources */,
 				27D8CBBF19EFCD6600F88505 /* VideoViewController.m in Sources */,
+				275A57C41A637E5400BA3DDB /* PlayerViewController.m in Sources */,
 				27E5A97419AB34ED004B5458 /* AddDeviceViewController.m in Sources */,
 				2703E51518D97E8C00E31DF0 /* RightViewController.m in Sources */,
 				2777607318FB74BD000A5F83 /* AFSecurityPolicy.m in Sources */,
@@ -1710,7 +1711,6 @@
 				27E5A94D19AB3346004B5458 /* Reachability1.m in Sources */,
 				27FFE29518BF287B00AE47FF /* HXHAppDelegate.m in Sources */,
 				27E5AC2019AB3ECE004B5458 /* qrencode.c in Sources */,
-				2794B6E618E05F09008DCF83 /* ShareCamereViewController.m in Sources */,
 				275C477E1A25D3900078EB86 /* BaiduUserSessionManager.m in Sources */,
 				275C477D1A25D3900078EB86 /* BaiduUserSession.m in Sources */,
 				27E5A97619AB34ED004B5458 /* IPObtainStyleViewController.m in Sources */,

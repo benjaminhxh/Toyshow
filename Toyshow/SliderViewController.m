@@ -366,7 +366,7 @@ typedef NS_ENUM(NSInteger, RMoveDirection) {
 
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-{    
+{
     if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
         return NO;
     }
