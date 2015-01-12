@@ -7,6 +7,7 @@
 //
 
 #import "SliderViewController.h"
+#import "LeftViewController.h"
 
 typedef NS_ENUM(NSInteger, RMoveDirection) {
     RMoveDirectionLeft = 0,

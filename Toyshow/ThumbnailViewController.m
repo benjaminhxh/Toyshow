@@ -212,6 +212,7 @@
         {
             NSDate *datenow = [NSDate dateWithTimeIntervalSinceNow:0];//现在时间
             et = (long)[datenow timeIntervalSince1970];
+            st = et - 7*24*3600;
         }
         //请求点播时间
         NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=playlist&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
@@ -283,7 +284,7 @@
                 [self MBprogressViewHubLoading:@"网络延时"];
             }
             [badInternetHub hide:YES afterDelay:1];
-            [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationSuccess];
+            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
             
         }];
 
@@ -544,6 +545,7 @@
 //        ////NSLog(@"起始时间：%@------%@",[timeIntArr objectAtIndex:pickRow],[timeIntArr objectAtIndex:pickRow-1]);
         et = [[timeIntArr objectAtIndex:pickRow-1] longValue];
     }
+    [_fakeData removeAllObjects];
 //    [self requestDataWithSelectTime];
     [_headerView beginRefreshing];
 }
