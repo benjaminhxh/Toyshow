@@ -485,7 +485,7 @@
                                   self.dhcp,@"dhcp",//1为自动
                                   self.ipaddr,@"ipaddr",//ip
                                   self.mask,@"mask",//掩码
-                                  self.gateway,@"geteway",//路由器
+                                  self.gateway,@"gateway",//路由器
                                   @"",@"url",//保留URL
                                   @"",@"reserved",nil];//保留参数
         NSString *md5String = [NSString getMd5_32Bit_String:dataStr];//得到md5加密后的32位字符串
