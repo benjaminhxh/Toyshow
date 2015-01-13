@@ -66,7 +66,7 @@
     UIButton *modifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     modifyBtn.frame = CGRectMake(90, 90, 140, 40);
     [modifyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [modifyBtn setTitle:@"修改设备名称" forState:UIControlStateNormal];
+    [modifyBtn setTitle:@"保存" forState:UIControlStateNormal];
     [modifyBtn setBackgroundImage:[UIImage imageNamed:@"anniu@2x"] forState:UIControlStateNormal];
     [modifyBtn addTarget:self action:@selector(modifyDevice:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:modifyBtn];
