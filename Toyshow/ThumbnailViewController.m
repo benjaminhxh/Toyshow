@@ -217,19 +217,27 @@
         }
         //请求点播时间
         NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=playlist&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
-//        NSLog(@"录像列表url:%@",urlStr);
+        NSLog(@"录像列表url:%@",urlStr);
+
         [[AFHTTPRequestOperationManager manager] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
-            //            ////NSLog(@"dict:%@",dict);
+//            NSLog(@"dict:%@",dict);
             //2、初始化数据
-            _fakeData = [NSMutableArray array];
+            if (_fakeData) {
+                [_fakeData removeAllObjects];
+            }else
+                _fakeData = [NSMutableArray array];
+            NSLog(@"_fakeData......%d",_fakeData.count);
             downloadArr = [NSMutableArray array];
             downloadArr = [dict objectForKey:@"results"];
-//            NSLog(@"时间段downloadArr.count=====%d",downloadArr.count);
+            NSLog(@"时间段downloadArr.count=====%d",downloadArr.count);
             
             if (downloadArr.count == 0) {
                 [self MBprogressViewHubLoading:@"没有录像"];
+                NSLog(@"没有数据");
                 [badInternetHub hide:YES afterDelay:1];
+                [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+
             }else
             {
                 if (downloadArr.count>20) {
@@ -251,7 +259,7 @@
                 //获取一段时间内的缩略图列表:
                 NSString *imageURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=thumbnail&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
 //                NSLog(@"imageURL:%@",imageURL);
-                [[AFHTTPRequestOperationManager manager]POST:imageURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [[AFHTTPRequestOperationManager manager]GET:imageURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSDictionary *dict = (NSDictionary *)responseObject;
 //                    NSLog(@"视频流的图像：%@",dict);
                     NSArray *imageArr = [NSArray array];
@@ -270,15 +278,24 @@
 //                    NSDictionary *imageURLDict = [imageArr objectAtIndex:0];
 //                    NSLog(@"imageURLDict:%@",imageURLDict);
 //                    downloadImageURL = [imageURLDict objectForKey:@"url"];
+                    [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //                    NSDictionary *errorDict = [error userInfo];
                     ////NSLog(@"errorDict:%@",errorDict);
+                    [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
+
                 }];
             }
-            [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if ([error code]==-1011) {
+                if (_fakeData) {
+                    [_fakeData removeAllObjects];
+                }
+
                 [self MBprogressViewHubLoading:@"没有录像"];
+                NSLog(@"错误 没有录像");
+                [_tableView reloadData];
             }
             else
             {
@@ -291,7 +308,7 @@
 
         // 模拟延迟加载数据，因此2秒后才调用）
         // 这里的refreshView其实就是header
-        [vc performSelector:@selector(doneWithViewWithNoInterNet:) withObject:refreshView afterDelay:KdurationFail];
+//        [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationFail];
         ////NSLog(@"%@----开始进入刷新状态", refreshView.class);
     };
     [header beginRefreshing];
@@ -382,7 +399,7 @@
     if (nil == cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"thumbCell" owner:self options:nil] lastObject];
         self.thumbTitle.text = self.deviceDesc;
-
+        NSLog(@"_fakeData.count:%d",_fakeData.count);
         NSArray *arr = [_fakeData objectAtIndex:indexPath.row];
         //得到开始时间
         NSNumber *stt = [arr objectAtIndex:0];
@@ -538,6 +555,7 @@
         dateView.frame = CGRectMake(0, kHeight, kWidth, 202);
     }];
     st = [[timeIntArr objectAtIndex:pickRow] longValue];
+    NSLog(@"st:%ld",st);
     if (0 == pickRow) {
         isSelectTime = NO;
 //        ////NSLog(@"起始时间：%@------%@",[timeIntArr objectAtIndex:pickRow],[timeIntArr objectAtIndex:7]);
@@ -548,7 +566,7 @@
 //        ////NSLog(@"起始时间：%@------%@",[timeIntArr objectAtIndex:pickRow],[timeIntArr objectAtIndex:pickRow-1]);
         et = [[timeIntArr objectAtIndex:pickRow-1] longValue];
     }
-    [_fakeData removeAllObjects];
+    NSLog(@"_fakeData:%d",_fakeData.count);
 //    [self requestDataWithSelectTime];
     [_headerView beginRefreshing];
 }
