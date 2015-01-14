@@ -196,7 +196,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIAlertView *deleteVodView = [[UIAlertView alloc] initWithTitle:nil message:@"取消授权之后该用户将不能再访问该摄像头"
-                                                           delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"取消授权", nil];
+                                                           delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [deleteVodView show];
     index = indexPath.row;
 }

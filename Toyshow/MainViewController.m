@@ -286,15 +286,7 @@
 //            self.cameraId.text = [dict objectForKey:@"deviceid"];
             NSString *imageURL = [dict objectForKey:@"thumbnail"];
             [self.cameraHead setImageWithURL:[NSURL URLWithString:imageURL]];
-            int status = [[dict objectForKey:@"status"] intValue];
-            if (status) {
-                self.cameraStatus.text = @"在线";
-                self.cameraStatus.textColor = [UIColor blueColor];
-            }else
-            {
-                self.cameraStatus.text = @"离线";
-                self.cameraStatus.textColor = [UIColor grayColor];
-            }
+//            int status = [[dict objectForKey:@"status"] intValue];
 //            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
     return cell;

@@ -217,7 +217,7 @@
         }
         //请求点播时间
         NSString *urlStr = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=playlist&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
-        NSLog(@"录像列表url:%@",urlStr);
+//        NSLog(@"录像列表url:%@",urlStr);
 
         [[AFHTTPRequestOperationManager manager] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
@@ -227,14 +227,14 @@
                 [_fakeData removeAllObjects];
             }else
                 _fakeData = [NSMutableArray array];
-            NSLog(@"_fakeData......%d",_fakeData.count);
+//            NSLog(@"_fakeData......%d",_fakeData.count);
             downloadArr = [NSMutableArray array];
             downloadArr = [dict objectForKey:@"results"];
-            NSLog(@"时间段downloadArr.count=====%d",downloadArr.count);
+//            NSLog(@"时间段downloadArr.count=====%d",downloadArr.count);
             
             if (downloadArr.count == 0) {
                 [self MBprogressViewHubLoading:@"没有录像"];
-                NSLog(@"没有数据");
+//                NSLog(@"没有数据");
                 [badInternetHub hide:YES afterDelay:1];
                 [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
 
@@ -294,7 +294,7 @@
                 }
 
                 [self MBprogressViewHubLoading:@"没有录像"];
-                NSLog(@"错误 没有录像");
+//                NSLog(@"错误 没有录像");
                 [_tableView reloadData];
             }
             else
@@ -399,7 +399,7 @@
     if (nil == cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"thumbCell" owner:self options:nil] lastObject];
         self.thumbTitle.text = self.deviceDesc;
-        NSLog(@"_fakeData.count:%d",_fakeData.count);
+//        NSLog(@"_fakeData.count:%d",_fakeData.count);
         NSArray *arr = [_fakeData objectAtIndex:indexPath.row];
         //得到开始时间
         NSNumber *stt = [arr objectAtIndex:0];
@@ -493,7 +493,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIAlertView *deleteVodView = [[UIAlertView alloc] initWithTitle:nil message:@"录像删除之后将不能恢复"
-                                                           delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"删除", nil];
+                                                           delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [deleteVodView show];
     index = indexPath.row;
 }
@@ -504,7 +504,7 @@
         //删除某一段录像
         NSString *deleteURL = [NSString stringWithFormat:@"https://pcs.baidu.com/rest/2.0/pcs/device?method=dropvideo&access_token=%@&deviceid=%@&st=%ld&et=%ld",self.accessToken,self.deviceID,st,et];
         [[AFHTTPRequestOperationManager manager] POST:deleteURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"response:%@",responseObject);
+//            NSLog(@"response:%@",responseObject);
             [_fakeData removeObjectAtIndex:index];
             [_tableView reloadData];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -555,7 +555,7 @@
         dateView.frame = CGRectMake(0, kHeight, kWidth, 202);
     }];
     st = [[timeIntArr objectAtIndex:pickRow] longValue];
-    NSLog(@"st:%ld",st);
+//    NSLog(@"st:%ld",st);
     if (0 == pickRow) {
         isSelectTime = NO;
 //        ////NSLog(@"起始时间：%@------%@",[timeIntArr objectAtIndex:pickRow],[timeIntArr objectAtIndex:7]);
@@ -566,7 +566,7 @@
 //        ////NSLog(@"起始时间：%@------%@",[timeIntArr objectAtIndex:pickRow],[timeIntArr objectAtIndex:pickRow-1]);
         et = [[timeIntArr objectAtIndex:pickRow-1] longValue];
     }
-    NSLog(@"_fakeData:%d",_fakeData.count);
+//    NSLog(@"_fakeData:%d",_fakeData.count);
 //    [self requestDataWithSelectTime];
     [_headerView beginRefreshing];
 }

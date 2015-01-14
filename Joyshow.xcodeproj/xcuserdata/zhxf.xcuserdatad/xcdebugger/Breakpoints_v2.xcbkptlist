@@ -1526,11 +1526,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MainViewController.m"
-            timestampString = "442907274.613524"
+            timestampString = "442909634.54194"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "298"
-            endingLineNumber = "298"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1620,11 +1620,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MainViewController.m"
-            timestampString = "442907274.613524"
+            timestampString = "442909634.54194"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "362"
-            endingLineNumber = "362"
+            startingLineNumber = "354"
+            endingLineNumber = "354"
             landmarkName = "-MBprogressViewHubLoading:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1780,11 +1780,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MainViewController.m"
-            timestampString = "442907274.613524"
+            timestampString = "442909634.54194"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "410"
-            endingLineNumber = "410">
+            startingLineNumber = "402"
+            endingLineNumber = "402">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1921,22 +1921,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Toyshow/MainViewController.m"
-            timestampString = "442907274.613524"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "293"
-            endingLineNumber = "293"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Toyshow/AddCamera/AddDeviceViewController.m"
             timestampString = "442377189.305325"
             startingColumnNumber = "9223372036854775807"
@@ -2034,11 +2018,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MainViewController.m"
-            timestampString = "442907274.613524"
+            timestampString = "442909634.54194"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "406"
-            endingLineNumber = "406">
+            startingLineNumber = "398"
+            endingLineNumber = "398">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2080,11 +2064,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MainViewController.m"
-            timestampString = "442907274.613524"
+            timestampString = "442909634.54194"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "314"
-            endingLineNumber = "314"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2686,11 +2670,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Toyshow/MainViewController.m"
-            timestampString = "442907274.613524"
+            timestampString = "442909634.54194"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "305"
-            endingLineNumber = "305"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>

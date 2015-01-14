@@ -293,7 +293,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIAlertView *deleteVodView = [[UIAlertView alloc] initWithTitle:nil message:@"确定要取消收藏该摄像头吗？"
-                                                           delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"取消收藏", nil];
+                                                           delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [deleteVodView show];
     index = indexPath.row;
 }
