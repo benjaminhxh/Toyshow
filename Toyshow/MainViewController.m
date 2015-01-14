@@ -29,7 +29,7 @@
     MJRefreshHeaderView *_headview;
     MJRefreshFooterView *_footerView;
     NSMutableArray *_fakeData;
-    NSArray *downloadArr;
+    NSMutableArray *onlineCameraArr;
     UILabel *noInternetL,*noDataLoadL;
     NSString *realSign, __block *sign;
     MBProgressHUD *badInternetHub;
@@ -144,7 +144,7 @@
             NSDictionary *dict = (NSDictionary *)responseObject;
             //2、初始化数据
             _fakeData = [NSMutableArray array];
-            downloadArr = [NSArray array];
+            NSArray *downloadArr = [NSArray array];
             downloadArr = [dict objectForKey:@"device_list"];
             //            ////NSLog(@"downloadArr:%@",downloadArr);
             if (downloadArr.count == 0) {
@@ -152,14 +152,23 @@
                 [badInternetHub hide:YES afterDelay:1];
             }else
             {
-                if (downloadArr.count>20) {
+                //遍历数组，把在线的摄像头加到数组里
+                onlineCameraArr = [NSMutableArray array];
+                for (NSDictionary *camerainfoDict in downloadArr) {
+                    int status = [[camerainfoDict objectForKey:@"status"] integerValue];
+                    if (status) {
+                        [onlineCameraArr addObject:camerainfoDict];
+                    }
+                }
+                if (onlineCameraArr.count>20) {
                     for (int i = 0; i < 20; i++) {
-                        [vc->_fakeData addObject:[downloadArr objectAtIndex:i]];
+                        [vc->_fakeData addObject:[onlineCameraArr objectAtIndex:i]];
                     }
                 }else
                 {
-                    vc->_fakeData = (NSMutableArray *)downloadArr;
+                    vc->_fakeData = (NSMutableArray *)onlineCameraArr;
                 }
+
             }
             [vc performSelector:@selector(doneWithView:) withObject:refreshView afterDelay:KdurationSuccess];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -193,13 +202,13 @@
     footer.scrollView = _tableView;
     footer.beginRefreshingBlock = ^(MJRefreshBaseView *refreshView)
     {
-        if(_fakeData.count < downloadArr.count)
+        if(_fakeData.count < onlineCameraArr.count)
         {
-            if (_fakeData.count+20 > downloadArr.count) {
-                _fakeData = (NSMutableArray *)downloadArr;
+            if (_fakeData.count+20 > onlineCameraArr.count) {
+                _fakeData = (NSMutableArray *)onlineCameraArr;
             }else{
                 for (int i = 0; i < 20; i++) {
-                    [_fakeData addObject:[downloadArr objectAtIndex:_fakeData.count]];
+                    [_fakeData addObject:[onlineCameraArr objectAtIndex:_fakeData.count]];
                 }
             }
             // 模拟延迟加载数据，因此2秒后才调用）
