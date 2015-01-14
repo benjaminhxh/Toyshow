@@ -63,8 +63,28 @@
     _tabView.delegate = self;
     _tabView.dataSource = self;
     _tabView.tableFooterView = [[UIView alloc] init];
-//    _tabView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tabView];
+    
+    UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth/2-50,kHeight-250,100,100)];
+    imageview.image = [UIImage imageNamed:@"120"];
+    [_tabView addSubview:imageview];
+    
+    UILabel *versionL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/2-60, kHeight-140, 120, 24)];
+    versionL.textAlignment = NSTextAlignmentCenter;
+    versionL.text = [NSString stringWithFormat:@"Joyshow %@",[[NSBundle mainBundle].infoDictionary objectForKey:@"CFBundleShortVersionString"]];
+    versionL.textColor = [UIColor grayColor];
+    versionL.backgroundColor = [UIColor clearColor];
+    [_tabView addSubview:versionL];
+    
+    UILabel *policyL = [[UILabel alloc] initWithFrame:CGRectMake(10, kHeight-38-64, kWidth-20, 34)];
+    policyL.text = @"精彩乐现 版权所有\nCopyright © 2013 - 2015 Joyshow.All Rights Reserved.";
+    policyL.numberOfLines = 2;
+    policyL.textAlignment = NSTextAlignmentCenter;
+    policyL.font = [UIFont systemFontOfSize:11];
+    policyL.backgroundColor = [UIColor clearColor];
+    policyL.textColor = [UIColor grayColor];
+    [_tabView addSubview:policyL];
+    
 }
 
 - (void)backBtn{
