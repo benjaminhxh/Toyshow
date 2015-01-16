@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "ViewController1.h"
-@interface MainViewController : UIViewController
+#import "BaseViewController.h"
+@interface MainViewController : BaseViewController
 
 @property (weak, nonatomic) IBOutlet UIImageView *cameraHead;
 @property (weak, nonatomic) IBOutlet UILabel *cameraName;

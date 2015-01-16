@@ -77,30 +77,31 @@
 //    [UIView commitAnimations];
     self.navigationController.navigationBarHidden = YES;
     //设置应用程序的状态栏到指定的方向
-    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
+//    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
     //view旋转
-    [self.view setTransform:CGAffineTransformMakeRotation(M_PI/2)];
+//    [self.view setTransform:CGAffineTransformMakeRotation(M_PI/2)];
     self.view.backgroundColor = [UIColor whiteColor];
     [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     
     self.scrollv = [[UIScrollView alloc] init];
-    self.scrollv.backgroundColor = [UIColor blackColor];
-    if(iOS8){
+    self.scrollv.backgroundColor = [UIColor yellowColor];
+//    if(iOS8){
         self.scrollv.frame = CGRectMake( 0, 0, kWidth, kHeight );
         self.scrollv.contentSize = CGSizeMake(kWidth+20, kHeight+20);
-    }else
-    {
-        self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
-        self.scrollv.contentSize = CGSizeMake(kHeight+20, kWidth+20);
-    }
+//    }
+//    else
+//    {
+//        self.scrollv.frame = CGRectMake( 0, 0, kHeight, kWidth );
+//        self.scrollv.contentSize = CGSizeMake(kHeight+20, kWidth+20);
+//    }
     self.scrollv.delegate = self;
     self.scrollv.showsVerticalScrollIndicator = NO;
-    [self.view addSubview: self.scrollv ];
+//    [self.view addSubview: self.scrollv ];
     self.imagev = [[UIImageView alloc] initWithFrame:self.view.frame];
-//    self.imagev.backgroundColor = [UIColor redColor];
+    self.imagev.backgroundColor = [UIColor grayColor];
     self.imagev.userInteractionEnabled = YES;
-    [self.scrollv addSubview: self.imagev];
-    [self loadScaleImage];
+    [self.view addSubview: self.imagev];
+//    [self loadScaleImage];
 //    cbdPlayerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kHeight, kWidth)];
     //添加百度开发者中心应用对应的APIKey和SecretKey。
     //添加开发者信息
@@ -110,10 +111,21 @@
     //清除残留影像
     cbPlayerController.shouldAutoClearRender = YES;
     //设置视频显示的位置
-    [cbPlayerController.view setFrame: self.imagev.frame];
+    [cbPlayerController.view setFrame: self.view.frame];
+    cbPlayerController.view.backgroundColor = [UIColor greenColor];
+//    if (iphone5) {
+//        cbPlayerController.scalingMode = CBPMovieScalingModeAspect_16_9;
+//    }else
 //    cbPlayerController.scalingMode = CBPMovieScalingModeFill;
     //将视频显示view添加到当前view中
     [self.imagev addSubview:cbPlayerController.view];
+    //全屏
+    UIButton *scaleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    scaleBtn.frame = CGRectMake(kWidth-40, 2*kHeight/3+10, 40, 40);
+    [scaleBtn addTarget:self action:@selector(scalePlayerView) forControlEvents:UIControlEventTouchUpInside];
+//    scaleBtn.backgroundColor = [UIColor blueColor];
+    [scaleBtn setImage:[UIImage imageNamed:@"scale.png"] forState:UIControlStateNormal];
+    [self.imagev addSubview:scaleBtn];
     
     //注册监听，当播放器完成视频的初始化后会发送CyberPlayerLoadDidPreparedNotification通知，
     //此时naturalSize/videoHeight/videoWidth/duration等属性有效。
@@ -159,32 +171,33 @@
     //收藏
     collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 
-    if (iOS8) {
+//    if (iOS8) {
         //顶部条
         topView.frame = CGRectMake(0, 0, kWidth, 44);
         //标题
-        titleL = [[UILabel alloc] initWithFrame:CGRectMake(51, 12, kWidth-51-20-56, 24)];
+        titleL = [[UILabel alloc] initWithFrame:CGRectMake(51, 12, kWidth-102, 24)];
+        titleL.textAlignment = NSTextAlignmentCenter;
         //显示实时时间
-        timeL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/2-20, 5, 40, 15)];
-        collectionBtn.frame = CGRectMake(kHeight, 11, (kWidth-kHeight-23-10)*2, 24);
+        timeL = [[UILabel alloc] initWithFrame:CGRectMake(kWidth/2-20, 0, 40, 15)];
+        collectionBtn.frame = CGRectMake(kWidth-56, 11, 46, 24);
 
-    }else
-    {
-        //顶部条
-        topView.frame = CGRectMake(0, 0, kHeight, 44);
-        //标题
-        titleL = [[UILabel alloc] initWithFrame:CGRectMake(51, 12, kWidth-51-20, 20)];
-        //显示实时时间
-        timeL = [[UILabel alloc] initWithFrame:CGRectMake(kHeight/2-20, 5, 40, 15)];
-        collectionBtn.frame = CGRectMake(kHeight-56, 11, 46, 24);
-
-    }
+//    }else
+//    {
+//        //顶部条
+//        topView.frame = CGRectMake(0, 0, kHeight, 44);
+//        //标题
+//        titleL = [[UILabel alloc] initWithFrame:CGRectMake(51, 12, kWidth-51-20, 20)];
+//        //显示实时时间
+//        timeL = [[UILabel alloc] initWithFrame:CGRectMake(kHeight/2-20, 0, 40, 15)];
+//        collectionBtn.frame = CGRectMake(kHeight-56, 11, 46, 24);
+//
+//    }
     topView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     topView.userInteractionEnabled = YES;
-    [self.view addSubview:topView];
+    [_imagev addSubview:topView];
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     if (iphone5) {
-        backBtn.frame = CGRectMake(0, 0, 50, 40);
+        backBtn.frame = CGRectMake(0, 0, 60, 40);
     }else
     backBtn.frame = CGRectMake(0, 0, 40, 30);
     [backBtn setImage:[UIImage imageNamed:@"fanhui_jiantou@2x"] forState:UIControlStateNormal];
@@ -228,31 +241,32 @@
     //点播(看录像)
     //开始暂停按钮
     startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    if (iOS8) {
+//    if (iOS8) {
         startBtn.frame = CGRectMake(kWidth/2-14, 5, 27, 27);
         //底部条
-        bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kWidth-60, kWidth, 60)];
+        bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kHeight, kWidth, 60)];
         //剩余时长
         remainsProgress = [[UILabel alloc] initWithFrame:CGRectMake(kWidth-45, 43, 40, 10)];
         //快进快退滑动条
         slider = [[UISlider alloc] initWithFrame:CGRectMake(60, 35, kWidth - 105, 25)];
         refreshBtn = [[UIButton alloc] initWithFrame:CGRectMake(kWidth/2-140, kHeight/2-20, 280, 40)];
 
-    }else
-    {
-        startBtn.frame = CGRectMake(kHeight/2-14, 5, 27, 27);
-        //底部条
-        bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kWidth-60, kHeight, 60)];
-        //剩余时长
-        remainsProgress = [[UILabel alloc] initWithFrame:CGRectMake(kHeight-45, 43, 40, 10)];
-        //快进快退滑动条
-        slider = [[UISlider alloc] initWithFrame:CGRectMake(60, 35, kHeight - 105, 25)];
-        refreshBtn = [[UIButton alloc] initWithFrame:CGRectMake(kHeight/2-140, kWidth/2-20, 280, 40)];
-
-    }
+//    }
+//    else
+//    {
+//        startBtn.frame = CGRectMake(kHeight/2-14, 5, 27, 27);
+//        //底部条
+//        bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kWidth-60, kHeight, 60)];
+//        //剩余时长
+//        remainsProgress = [[UILabel alloc] initWithFrame:CGRectMake(kHeight-45, 43, 40, 10)];
+//        //快进快退滑动条
+//        slider = [[UISlider alloc] initWithFrame:CGRectMake(60, 35, kHeight - 105, 25)];
+//        refreshBtn = [[UIButton alloc] initWithFrame:CGRectMake(kHeight/2-140, kWidth/2-20, 280, 40)];
+//
+//    }
     bottomView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
     bottomView.userInteractionEnabled = YES;
-    [self.view addSubview:bottomView];
+    [_imagev addSubview:bottomView];
     //开始暂停按钮
     [startBtn setImage:[UIImage imageNamed:@"bofang_anniu@2x"] forState:UIControlStateNormal];
     [startBtn addTarget:self action:@selector(onClickPlay:) forControlEvents:UIControlEventTouchUpInside];
@@ -299,8 +313,31 @@
 //    [tapGest requireGestureRecognizerToFail:doubleTap];
     //进入home后台的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willBackToHomeNotification:) name:kAPPWillResignActivenotif object:nil];
+    //横竖屏的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(TransFormWindow:) name:UIDeviceOrientationDidChangeNotification object:nil];
+
 }
 
+//全屏
+- (void)scalePlayerView
+{
+    [[UIApplication sharedApplication] setStatusBarHidden:TRUE];
+    [UIView animateWithDuration:0.5 animations:^{
+        _imagev.transform = CGAffineTransformMakeRotation(M_PI *0.5);
+        _imagev.frame = CGRectMake(0, 0, kWidth, kHeight);
+        _scrollv.frame = CGRectMake(0, 0, kWidth, kHeight);
+        titleL.frame = CGRectMake(51, 12, kHeight-102, 24);
+        collectionBtn.frame = CGRectMake(kHeight-56, 11, 46, 24);
+        timeL.frame = CGRectMake(kHeight/2-20, 0, 40, 15);
+        topView.frame = CGRectMake(0, 0, kHeight, 44);
+        bottomView.frame = CGRectMake(0, kWidth-60, kHeight, 60);
+        refreshBtn.frame = CGRectMake(kHeight/2-140, kWidth/2-20, 280, 40);
+        remainsProgress.frame = CGRectMake(kHeight-45, 43, 40, 10);
+        startBtn.frame = CGRectMake(kHeight/2-14, 5, 27, 27);
+        slider.frame = CGRectMake(60, 35, kHeight-105, 25);
+        [cbPlayerController.view setFrame: CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, kHeight, kWidth)];
+    }];
+}
 #pragma mark - refreshURL
 - (void)refreshURL
 {
@@ -417,6 +454,68 @@
     [timeView addSubview:datePick];
     //11187977700/3600/24/365=44.86
 }
+
+- (void)TransFormWindow:(NSNotification *)notification
+{
+    UIDevice *devie = notification.object;
+    if (devie.orientation == UIDeviceOrientationLandscapeLeft) {
+        //        [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+        [UIView animateWithDuration:0.5 animations:^{
+            _imagev.transform = CGAffineTransformMakeRotation(M_PI *0.5);
+            _imagev.frame = CGRectMake(0, 0, kWidth, kHeight);
+            _scrollv.frame = CGRectMake(0, 0, kWidth, kHeight);
+            titleL.frame = CGRectMake(51, 12, kHeight-102, 24);
+            collectionBtn.frame = CGRectMake(kHeight-56, 11, 46, 24);
+            timeL.frame = CGRectMake(kHeight/2-20, 0, 40, 15);
+            topView.frame = CGRectMake(0, 0, kHeight, 44);
+            bottomView.frame = CGRectMake(0, kWidth-60, kHeight, 60);
+            refreshBtn.frame = CGRectMake(kHeight/2-140, kWidth/2-20, 280, 40);
+            remainsProgress.frame = CGRectMake(kHeight-45, 43, 40, 10);
+            startBtn.frame = CGRectMake(kHeight/2-14, 5, 27, 27);
+            slider.frame = CGRectMake(60, 35, kHeight-105, 25);
+            [cbPlayerController.view setFrame: CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, kHeight, kWidth)];
+        }];
+    }
+    else if (devie.orientation == UIDeviceOrientationLandscapeRight) {
+        //        [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+        [UIView animateWithDuration:0.5 animations:^{
+            _imagev.transform = CGAffineTransformMakeRotation(M_PI *1.5);
+            _imagev.frame = CGRectMake(0, 0, kWidth, kHeight);
+            _scrollv.frame = CGRectMake(0, 0, kWidth, kHeight);
+            titleL.frame = CGRectMake(51, 12, kHeight-102, 24);
+            collectionBtn.frame = CGRectMake(kHeight-56, 11, 46, 24);
+            timeL.frame = CGRectMake(kHeight/2-20, 0, 40, 15);
+            topView.frame = CGRectMake(0, 0, kHeight, 44);
+            bottomView.frame = CGRectMake(0, kWidth-60, kHeight, 60);
+            refreshBtn.frame = CGRectMake(kHeight/2-140, kWidth/2-20, 280, 40);
+            remainsProgress.frame = CGRectMake(kHeight-45, 43, 40, 10);
+            startBtn.frame = CGRectMake(kHeight/2-14, 5, 27, 27);
+            slider.frame = CGRectMake(60, 35, kHeight - 105, 25);
+            [cbPlayerController.view setFrame: CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, kHeight, kWidth)];
+        }];
+    }
+    else if (devie.orientation == UIDeviceOrientationPortrait) {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+        [UIView animateWithDuration:0.5 animations:^{
+            _imagev.transform = CGAffineTransformIdentity;
+            _imagev.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, kWidth, kHeight);
+            _scrollv.frame = CGRectMake(0, 0, kWidth, kHeight);
+            titleL.frame = CGRectMake(51, 12, kWidth-102, 24);
+            collectionBtn.frame = CGRectMake(kWidth-56, 11, 46, 24);
+            timeL.frame = CGRectMake(kWidth/2-20, 0, 40, 15);
+            topView.frame = CGRectMake(0, 0, kWidth, 44);
+            bottomView.frame = CGRectMake(0, kHeight, kWidth, 60);
+            refreshBtn.frame = CGRectMake(kWidth/2-140, kHeight/2-20, 280, 40);
+            remainsProgress.frame = CGRectMake(kWidth-45, 43, 40, 10);
+            startBtn.frame = CGRectMake(kWidth/2-14, 5, 27, 27);
+            slider.frame = CGRectMake(60, 35, kWidth - 105, 25);
+            [cbPlayerController.view setFrame: CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, kWidth, kHeight)];
+        }];
+    }
+}
+
 #pragma mark - adjustIsShare
 - (void)adjustIsShareOrVod
 {
@@ -713,26 +812,47 @@
 //返回
 - (void)backBtn:(id)sender
 {
-    [self stopPlayback];
-    if ([localTimer isValid]) {
-        [localTimer invalidate];
-    }
-    localTimer = nil;
-    if (![self.request_id isEqualToString:@""]) {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(playerViewBack:)]) {
-            [self.delegate playerViewBack:@"hello"];
+    if (UIDeviceOrientationPortrait==[UIDevice currentDevice].orientation) {
+        [self stopPlayback];
+        if ([localTimer isValid]) {
+            [localTimer invalidate];
         }
-    }else if (self.isCancelCollect){
-        if (self.delegate && [self.delegate respondsToSelector:@selector(cancelCameraCollection)]) {
-            [self.delegate cancelCameraCollection];
+        localTimer = nil;
+        if (![self.request_id isEqualToString:@""]) {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(playerViewBack:)]) {
+                [self.delegate playerViewBack:@"hello"];
+            }
+        }else if (self.isCancelCollect){
+            if (self.delegate && [self.delegate respondsToSelector:@selector(cancelCameraCollection)]) {
+                [self.delegate cancelCameraCollection];
+            }
+        }else
+        {
         }
+        //状态栏旋转
+        //    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
+        [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:NO];
+        //    [self dismissViewControllerAnimated:NO completion:nil];
+
     }else
     {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+        [UIView animateWithDuration:0.5 animations:^{
+            _imagev.transform = CGAffineTransformIdentity;
+            _imagev.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, kWidth, kHeight);
+            _scrollv.frame = CGRectMake(0, 0, kWidth, kHeight);
+            titleL.frame = CGRectMake(51, 12, kWidth-102, 24);
+            collectionBtn.frame = CGRectMake(kWidth-56, 11, 46, 24);
+            timeL.frame = CGRectMake(kWidth/2-20, 0, 40, 15);
+            topView.frame = CGRectMake(0, 0, kWidth, 44);
+            bottomView.frame = CGRectMake(0, kHeight, kWidth, 60);
+            refreshBtn.frame = CGRectMake(kWidth/2-140, kHeight/2-20, 280, 40);
+            remainsProgress.frame = CGRectMake(kWidth-45, 43, 40, 10);
+            startBtn.frame = CGRectMake(kWidth/2-14, 5, 27, 27);
+            slider.frame = CGRectMake(60, 35, kWidth - 105, 25);
+            [cbPlayerController.view setFrame: CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, kWidth, kHeight)];
+        }];
     }
-    //状态栏旋转
-    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
-    [[SliderViewController sharedSliderController].navigationController popViewControllerAnimated:NO];
-//    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 //弹出或隐藏设置按钮
@@ -741,32 +861,43 @@
     [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 
     if (topViewHidden) {
+        //隐藏设置按钮
         if (_timer3 && [_timer3 isValid]) {
             [_timer3 invalidate];
         }
         _timer3 = nil;
         [UIView animateWithDuration:0.15 animations:^{
-            if (iOS8) {
-                topView.frame = CGRectMake(0, -44, kWidth, 44);
-                bottomView.frame = CGRectMake(0, kHeight+60, kWidth, 60);
-            }else
+//            if (iOS8) {
+//                topView.frame = CGRectMake(0, -44, kWidth, 44);
+//                bottomView.frame = CGRectMake(0, kHeight+kWidth+60, kWidth, 60);
+//            }else
             {
                 topView.frame = CGRectMake(0, -44, kHeight, 44);
-                bottomView.frame = CGRectMake(0, kWidth+60, kHeight, 60);
+                bottomView.frame = CGRectMake(0, kHeight+kWidth+60, kHeight, 60);
             }
             volumView.hidden = YES;
         }];
     }else{
+        //弹出设置按钮
         [UIView animateWithDuration:0.15 animations:^{
-            if (iOS8) {
-                topView.frame = CGRectMake(0, 0, kWidth, 44);
-                bottomView.frame = CGRectMake(0, kHeight-60, kWidth, 60);
-            }else
-            {
+//            if (iOS8) {
+//                topView.frame = CGRectMake(0, 0, kWidth, 44);
+//                if(UIDeviceOrientationPortrait == [UIDevice currentDevice].orientation)
+//                {
+//                    bottomView.frame = CGRectMake(0, kWidth, kWidth, 60);
+//                }else
+//                {
+//                    bottomView.frame = CGRectMake(0, kHeight-60, kWidth, 60);
+//                }
+//            }else
                 topView.frame = CGRectMake(0, 0, kHeight, 44);
-                bottomView.frame = CGRectMake(0, kWidth-60, kHeight, 60);
-            }
-            
+                if(UIDeviceOrientationPortrait == [UIDevice currentDevice].orientation)
+                {
+                    bottomView.frame = CGRectMake(0, kHeight-60, kWidth, 60);
+                }else
+                {
+                    bottomView.frame = CGRectMake(0, kWidth-60, kHeight, 60);
+                }
         }];
         _timer3=[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(didTimer) userInfo:nil repeats:NO];
     }
@@ -779,10 +910,10 @@
 {
     [UIView transitionWithView:bottomView duration:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         if (iOS8) {
-            bottomView.frame = CGRectMake(0, kHeight+44, kWidth, 44);
+            bottomView.frame = CGRectMake(0, kHeight+kWidth+44, kWidth, 44);
 
         }else
-        bottomView.frame = CGRectMake(0, kWidth+44, kHeight, 44);
+        bottomView.frame = CGRectMake(0, kHeight+kWidth+44, kHeight, 44);
     } completion:^(BOOL finished) {
 
     }];
@@ -861,13 +992,13 @@
 - (void)hiddenView
 {
     [UIView animateWithDuration:0.3 animations:^{
-        if (iOS8) {
-            topView.frame = CGRectMake(0, -44, kWidth, 44);
-            bottomView.frame = CGRectMake(0, kHeight+44, kWidth, 44);
-        }else
+//        if (iOS8) {
+//            topView.frame = CGRectMake(0, -44, kWidth, 44);
+//            bottomView.frame = CGRectMake(0, kHeight+kWidth+44, kWidth, 44);
+//        }else
         {
             topView.frame = CGRectMake(0, -44, kHeight, 44);
-            bottomView.frame = CGRectMake(0, kWidth+44, kHeight, 44);
+            bottomView.frame = CGRectMake(0, kHeight+kWidth+44, kHeight, 44);
         }
     }];
 }
@@ -1160,12 +1291,12 @@
 {
     [super viewWillAppear:YES];
     //设置应用程序的状态栏到指定的方向
-    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
+//    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
     //view旋转
-    [self.view setTransform:CGAffineTransformMakeRotation(M_PI/2)];
-    [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-
+//    [self.view setTransform:CGAffineTransformMakeRotation(M_PI/2)];
+//    [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     [self adjustIsShareOrVod];
+
     if (self.isLive) {
         [self refreshURL];
     }else
@@ -1176,6 +1307,59 @@
     _isExitFlag = NO;
 }
 
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//    [super viewDidAppear:YES];
+//    if (UIDeviceOrientationPortrait == [UIDevice currentDevice].orientation) {
+//        [[UIApplication sharedApplication] setStatusBarHidden:false];
+//        [UIView animateWithDuration:0.5 animations:^{
+//            _imagev.frame = CGRectMake(0, 0, kWidth, kHeight);
+//            _scrollv.frame = CGRectMake(0, 0, kWidth, kHeight);
+//            titleL.frame = CGRectMake(51, 12, kWidth-102, 24);
+//            collectionBtn.frame = CGRectMake(kWidth-56, 11, 46, 24);
+//            timeL.frame = CGRectMake(kWidth/2-20, 0, 40, 15);
+//            topView.frame = CGRectMake(0, 0, kWidth, 44);
+//            bottomView.frame = CGRectMake(0, kHeight-60, kWidth, 60);
+//            refreshBtn.frame = CGRectMake(kWidth/2-140, kHeight/2-20, 280, 40);
+//            remainsProgress.frame = CGRectMake(kWidth-45, 43, 40, 10);
+//            startBtn.frame = CGRectMake(kWidth/2-14, 5, 27, 27);
+//            slider.frame = CGRectMake(60, 35, kWidth - 105, 25);
+//            
+//        }];
+//    }else
+//    {
+//        //        [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight];
+//        [[UIApplication sharedApplication] setStatusBarHidden:TRUE];
+//        [UIView animateWithDuration:0.5 animations:^{
+//            if (iOS8) {
+//                _imagev.frame = CGRectMake(0, 0, kWidth, kHeight);
+//                _scrollv.frame = CGRectMake(0, 0, kWidth, kHeight);
+//                titleL.frame = CGRectMake(51, 12, kWidth-102, 24);
+//                collectionBtn.frame = CGRectMake(kWidth-56, 11, 46, 24);
+//                timeL.frame = CGRectMake(kWidth/2-20, 0, 40, 15);
+//                topView.frame = CGRectMake(0, 0, kWidth, 44);
+//                bottomView.frame = CGRectMake(0, kWidth-60, kWidth, 60);
+//                refreshBtn.frame = CGRectMake(kWidth/2-140, kHeight/2-20, 280, 40);
+//                remainsProgress.frame = CGRectMake(kWidth-45, 43, 40, 10);
+//                startBtn.frame = CGRectMake(kWidth/2-14, 5, 27, 27);
+//                slider.frame = CGRectMake(60, 35, kWidth - 105, 25);
+//            }else
+//            {
+//                _imagev.frame = CGRectMake(0, 0, kHeight, kWidth);
+//                _scrollv.frame = CGRectMake(0, 0, kHeight, kWidth);
+//                titleL.frame = CGRectMake(51, 12, kHeight-102, 24);
+//                collectionBtn.frame = CGRectMake(kHeight-56, 11, 46, 24);
+//                timeL.frame = CGRectMake(kHeight/2-20, 0, 40, 15);
+//                topView.frame = CGRectMake(0, 0, kHeight, 44);
+//                bottomView.frame = CGRectMake(0, kHeight-60, kHeight, 60);
+//                refreshBtn.frame = CGRectMake(kHeight/2-140, kWidth/2-20, 280, 40);
+//                remainsProgress.frame = CGRectMake(kHeight-45, 43, 40, 10);
+//                startBtn.frame = CGRectMake(kHeight/2-14, 5, 27, 27);
+//                slider.frame = CGRectMake(60, 35, kHeight - 105, 25);
+//            }
+//        }];
+//    }
+//}
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self stopPlayback];
@@ -1189,6 +1373,10 @@
 //    [super dealloc];
 }
 
+-(NSUInteger)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 - (BOOL)shouldAutorotate
 {
     return NO;
@@ -1196,12 +1384,7 @@
 
 -(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
-    return UIInterfaceOrientationLandscapeRight;
-}
-
--(NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskLandscapeRight;
+    return UIInterfaceOrientationPortrait;
 }
 
 //iOS7隐藏状态栏

@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SliderViewController : UIViewController
+#import "BaseViewController.h"
 
-@property(nonatomic,strong)UIViewController *LeftVC;
-@property(nonatomic,strong)UIViewController *RightVC;
-@property(nonatomic,strong)UIViewController *MainVC;
+@interface SliderViewController : BaseViewController
+
+@property(nonatomic,strong)BaseViewController *LeftVC;
+@property(nonatomic,strong)BaseViewController *RightVC;
+@property(nonatomic,strong)BaseViewController *MainVC;
+
 @property(nonatomic,strong)NSDictionary *dict;
 
 @property(nonatomic,assign)float LeftSContentOffset;

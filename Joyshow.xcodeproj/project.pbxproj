@@ -101,10 +101,12 @@
 		27966A0F18E2EB1A0076423C /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 27966A0818E2EB1A0076423C /* MJRefreshConst.m */; };
 		27966A1018E2EB1A0076423C /* MJRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27966A0A18E2EB1A0076423C /* MJRefreshFooterView.m */; };
 		27966A1118E2EB1A0076423C /* MJRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27966A0C18E2EB1A0076423C /* MJRefreshHeaderView.m */; };
+		27A26B961A6922B500786E43 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A26B931A6922B500786E43 /* BaseViewController.m */; };
+		27A26B971A6922B500786E43 /* RootNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A26B951A6922B500786E43 /* RootNavViewController.m */; };
+		27A26B991A6922E200786E43 /* scale.png in Resources */ = {isa = PBXBuildFile; fileRef = 27A26B981A6922E200786E43 /* scale.png */; };
 		27B370D71A1DCC8F005E19EF /* howtouse.html in Resources */ = {isa = PBXBuildFile; fileRef = 27B370D61A1DCC8F005E19EF /* howtouse.html */; };
 		27D8CBBE19EFCD6600F88505 /* MVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D8CBBB19EFCD6600F88505 /* MVViewController.m */; };
 		27D8CBBF19EFCD6600F88505 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D8CBBD19EFCD6600F88505 /* VideoViewController.m */; };
-		27DEAAFC1A03624700995E57 /* UINavigationController+Autorotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DEAAFB1A03624700995E57 /* UINavigationController+Autorotate.m */; };
 		27E5A8EC19AB32F8004B5458 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E5A8EB19AB32F8004B5458 /* MBProgressHUD.m */; };
 		27E5A8ED19AB32F8004B5458 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E5A8EB19AB32F8004B5458 /* MBProgressHUD.m */; };
 		27E5A93519AB3346004B5458 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E5A8F019AB3346004B5458 /* AsyncUdpSocket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -522,14 +524,17 @@
 		27966A0A18E2EB1A0076423C /* MJRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshFooterView.m; sourceTree = "<group>"; };
 		27966A0B18E2EB1A0076423C /* MJRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshHeaderView.h; sourceTree = "<group>"; };
 		27966A0C18E2EB1A0076423C /* MJRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshHeaderView.m; sourceTree = "<group>"; };
+		27A26B921A6922B500786E43 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		27A26B931A6922B500786E43 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		27A26B941A6922B500786E43 /* RootNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootNavViewController.h; sourceTree = "<group>"; };
+		27A26B951A6922B500786E43 /* RootNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootNavViewController.m; sourceTree = "<group>"; };
+		27A26B981A6922E200786E43 /* scale.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scale.png; sourceTree = "<group>"; };
 		27B370D61A1DCC8F005E19EF /* howtouse.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = howtouse.html; sourceTree = "<group>"; };
 		27BA304519737C6E00F98042 /* VarHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VarHeader.h; sourceTree = "<group>"; };
 		27D8CBBA19EFCD6600F88505 /* MVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVViewController.h; sourceTree = "<group>"; };
 		27D8CBBB19EFCD6600F88505 /* MVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVViewController.m; sourceTree = "<group>"; };
 		27D8CBBC19EFCD6600F88505 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
 		27D8CBBD19EFCD6600F88505 /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
-		27DEAAFA1A03624700995E57 /* UINavigationController+Autorotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Autorotate.h"; sourceTree = "<group>"; };
-		27DEAAFB1A03624700995E57 /* UINavigationController+Autorotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Autorotate.m"; sourceTree = "<group>"; };
 		27E5A8EA19AB32F8004B5458 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		27E5A8EB19AB32F8004B5458 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		27E5A8EF19AB3346004B5458 /* AsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncUdpSocket.h; sourceTree = "<group>"; };
@@ -1016,6 +1021,7 @@
 		27E5AABF19AB39C0004B5458 /* imageResource */ = {
 			isa = PBXGroup;
 			children = (
+				27A26B981A6922E200786E43 /* scale.png */,
 				2792B1F51A0249CB00B549A3 /* clip_on@2x.png */,
 				2792B1F61A0249CB00B549A3 /* clip@2x.png */,
 				27F5A7A419E639E0004E2549 /* fenxiang@2x.png */,
@@ -1292,10 +1298,12 @@
 				27E5A97A19AB35D0004B5458 /* SetCamera */,
 				27E5A96D19AB34ED004B5458 /* AddCamera */,
 				27BA304519737C6E00F98042 /* VarHeader.h */,
+				27A26B921A6922B500786E43 /* BaseViewController.h */,
+				27A26B931A6922B500786E43 /* BaseViewController.m */,
+				27A26B941A6922B500786E43 /* RootNavViewController.h */,
+				27A26B951A6922B500786E43 /* RootNavViewController.m */,
 				274A844B1A399AC200D25A1E /* SliderViewController.h */,
 				274A844C1A399AC200D25A1E /* SliderViewController.m */,
-				27DEAAFA1A03624700995E57 /* UINavigationController+Autorotate.h */,
-				27DEAAFB1A03624700995E57 /* UINavigationController+Autorotate.m */,
 				27FFE29318BF287B00AE47FF /* HXHAppDelegate.h */,
 				27FFE29418BF287B00AE47FF /* HXHAppDelegate.m */,
 				2703E50718D97E8C00E31DF0 /* MainViewController.h */,
@@ -1519,6 +1527,7 @@
 				27E5AC3219AB3ECE004B5458 /* zbar-help.html in Resources */,
 				27E5ABAE19AB39C0004B5458 /* tuichudenglu@2x.png in Resources */,
 				27FFE29718BF287B00AE47FF /* Images.xcassets in Resources */,
+				27A26B991A6922E200786E43 /* scale.png in Resources */,
 				2792B1F81A0249CB00B549A3 /* clip@2x.png in Resources */,
 				27E5AB9A19AB39C0004B5458 /* shejingtou@2x.png in Resources */,
 				27E5AB3819AB39C0004B5458 /* cehuajiantou@2x.png in Resources */,
@@ -1663,7 +1672,6 @@
 				2777607418FB74BD000A5F83 /* AFURLConnectionOperation.m in Sources */,
 				274F50E9195D8AE500114416 /* WeixinSessionActivity.m in Sources */,
 				275C47791A25D3900078EB86 /* BaiduAPIRequest.m in Sources */,
-				27DEAAFC1A03624700995E57 /* UINavigationController+Autorotate.m in Sources */,
 				27E5AC1C19AB3ECE004B5458 /* mask.c in Sources */,
 				27E5A9A919AB35D0004B5458 /* SensitivityViewController.m in Sources */,
 				2762FFAF19EBD26600E773AB /* NSString+encodeChinese.m in Sources */,
@@ -1675,6 +1683,7 @@
 				27E5A9A519AB35D0004B5458 /* NtscOrpalViewController.m in Sources */,
 				27966A1118E2EB1A0076423C /* MJRefreshHeaderView.m in Sources */,
 				2777607A18FB74BD000A5F83 /* UIAlertView+AFNetworking.m in Sources */,
+				27A26B961A6922B500786E43 /* BaseViewController.m in Sources */,
 				27E5A99B19AB35D0004B5458 /* DeviceStatueControlViewController.m in Sources */,
 				27D8CBBE19EFCD6600F88505 /* MVViewController.m in Sources */,
 				27E5A9A319AB35D0004B5458 /* NightViewController.m in Sources */,
@@ -1685,6 +1694,7 @@
 				2777607018FB74BD000A5F83 /* AFHTTPRequestOperationManager.m in Sources */,
 				27E5A97819AB34ED004B5458 /* SecurtyStyleViewController.m in Sources */,
 				2723975A1A3A99DF00436DAB /* QQZoneActivity.m in Sources */,
+				27A26B971A6922B500786E43 /* RootNavViewController.m in Sources */,
 				27966A0E18E2EB1A0076423C /* MJRefreshBaseView.m in Sources */,
 				2777607218FB74BD000A5F83 /* AFNetworkReachabilityManager.m in Sources */,
 				27F872F8198759F5002DABA3 /* CollectionViewController.m in Sources */,

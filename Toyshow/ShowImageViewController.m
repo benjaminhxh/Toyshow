@@ -10,6 +10,7 @@
 #import "iCarousel.h"
 #import "HXHAppDelegate.h"
 #import "MainViewController.h"
+#import "RootNavViewController.h"
 
 @interface ShowImageViewController ()<iCarouselDataSource,iCarouselDelegate,UIScrollViewDelegate>
 {
@@ -175,7 +176,7 @@
 //        [left loginBaidu];
 //    }
    
-    delegate.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[SliderViewController sharedSliderController]];
+    delegate.window.rootViewController = [[RootNavViewController alloc] initWithRootViewController:[SliderViewController sharedSliderController]];
     delegate.window.backgroundColor = [UIColor whiteColor];
     //显示状态栏
     [[UIApplication sharedApplication] setStatusBarHidden:NO];

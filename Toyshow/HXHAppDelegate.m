@@ -8,6 +8,7 @@
 
 #import "HXHAppDelegate.h"
 #import "ShowImageViewController.h"
+#import "RootNavViewController.h"
 
 #define REPORT_ID @"2271149"
 #define APP_SecrectKey @"pavlqfU4mzYQ1dH0NG3b7LyXNBy5SYk6"
@@ -32,7 +33,7 @@
         [SliderViewController sharedSliderController].RightSCloseDuration=0.8;
         [SliderViewController sharedSliderController].RightSJudgeOffset=160;
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isFirst"];
-        self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[SliderViewController sharedSliderController]];
+        self.window.rootViewController = [[RootNavViewController alloc] initWithRootViewController:[SliderViewController sharedSliderController]];
     }
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
